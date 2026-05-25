@@ -125,69 +125,24 @@ nav a:hover {
     text-transform: lowercase;
 }
 
-/* BOTTOM SHAPES */
+/* BOTTOM RIGHT HERO ART */
 
 .shapes {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: flex-end;
-    gap: 0;
+    right: 24px;
+    bottom: 12px;
     z-index: 3;
+    pointer-events: none;
+    line-height: 0;
 }
 
-.shape-left {
-    width: 180px;
-    height: 180px;
+.hero-decor {
+    display: block;
+    width: clamp(340px, 34vw, 580px);
+    height: auto;
+    max-height: min(42vh, 320px);
     object-fit: contain;
-    margin-right: -10px;
-    margin-bottom: 18px;
-}
-
-.shape-right {
-    width: 290px;
-    height: 140px;
-    object-fit: contain;
-}
-
-/* PLACEHOLDER ONLY */
-
-.placeholder1 {
-    width: 180px;
-    height: 180px;
-    background: #000;
-    clip-path: polygon(50% 0%,
-            60% 40%,
-            100% 50%,
-            60% 60%,
-            50% 100%,
-            40% 60%,
-            0% 50%,
-            40% 40%);
-}
-
-.placeholder2 {
-    width: 290px;
-    height: 140px;
-    background: #000;
-    border-top-left-radius: 90px;
-    border-bottom-left-radius: 90px;
-}
-
-.shape-left {
-    width: 270px;
-    height: 270px;
-    object-fit: contain;
-    margin-right: -8px;
-    margin-bottom: -10px;
-}
-
-.shape-right {
-    width: 280px;
-    height: 280px;
-    object-fit: contain;
-    margin-right: -8px;
+    object-position: bottom right;
 }
 
 .container2 {
