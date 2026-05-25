@@ -2701,17 +2701,25 @@ body.is-loading > *:not(#site-loader) {
 
 .loader-marquee-track {
     display: flex;
-    gap: 28px;
     width: max-content;
+    animation: loader-marquee 16s linear infinite;
+    will-change: transform;
+}
+
+.loader-marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-shrink: 0;
+    padding-right: 28px;
     font-family: 'Anton', sans-serif;
     font-size: clamp(18px, 4vw, 28px);
     text-transform: uppercase;
     color: #000;
     white-space: nowrap;
-    animation: loader-marquee 12s linear infinite;
 }
 
-.loader-marquee-track span:nth-child(even) {
+.loader-marquee-content span:nth-child(even) {
     opacity: 0.45;
 }
 
