@@ -325,19 +325,6 @@ function playHeroIntro() {
             )
         })
 
-        gsap.utils.toArray(".hero > .edge-badge").forEach((el, i) => {
-            gsap.fromTo(
-                el,
-                { scale: 0, opacity: 0 },
-                {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.85,
-                    ease: "back.out(2)",
-                    delay: 1.1 + i * 0.12
-                }
-            )
-        })
     }
 }
 
@@ -607,44 +594,6 @@ fromIfExists(".experience-title p",{
     }
 })
 
-gsap.utils.toArray(".title-badges--capabilities .edge-badge").forEach((el, i) => {
-    gsap.fromTo(
-        el,
-        { scale: 0, opacity: 0 },
-        {
-            scale: 1,
-            opacity: 1,
-            duration: 0.9,
-            delay: 0.35 + i * 0.1,
-            ease: "back.out(2)",
-            scrollTrigger: {
-                trigger: ".experience-title",
-                start: "top 88%",
-                once: true
-            }
-        }
-    )
-})
-
-gsap.utils.toArray(".title-badges--prints .edge-badge").forEach((el, i) => {
-    gsap.fromTo(
-        el,
-        { scale: 0, opacity: 0 },
-        {
-            scale: 1,
-            opacity: 1,
-            duration: 0.85,
-            delay: i * 0.1,
-            ease: "back.out(2)",
-            scrollTrigger: {
-                trigger: ".container2 .heading",
-                start: "top 88%",
-                once: true
-            }
-        }
-    )
-})
-
 fromIfExists(".stat-item",{
     y:100,
     opacity:0,
@@ -750,22 +699,6 @@ function initFloatingDecor() {
         ease: "sine.inOut"
     })
 
-    gsap.utils.toArray(".tag").forEach((el, i) => {
-        startFloat(el, {
-            y: -12,
-            rotation: i % 2 ? 8 : -8,
-            duration: 2.1 + i * 0.2,
-            ease: "sine.inOut"
-        }, 0.3 + i * 0.15)
-    })
-
-    gsap.utils.toArray(".edge-badge").forEach((el, i) => {
-        startFloat(el, {
-            y: -8,
-            duration: 2.2 + i * 0.15,
-            ease: "sine.inOut"
-        }, 0.2 + i * 0.1)
-    })
 }
 
 /* =========================

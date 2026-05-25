@@ -82,109 +82,6 @@ body {
     display: block;
 }
 
-/* =========================
-   HERO PILLS
-========================= */
-
-.edge-badge {
-    position: absolute;
-
-    width: 170px;
-    height: 74px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #FFFD46;
-
-    border: 4px solid #5A002E;
-
-    border-radius: 100px;
-
-    font-family: 'Hagrid Trial', sans-serif;
-
-    font-size: 24px;
-    font-weight: 700;
-    text-transform: uppercase;
-
-    color: #5A002E;
-
-    z-index: 30;
-
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.12);
-
-    transition: 0.35s ease;
-}
-
-/* TOP PILL */
-
-.edge-badge--hero-susi {
-    top: 14px;
-    left: 730px;
-
-    transform: rotate(13deg);
-}
-
-/* CENTER PILL */
-
-.edge-badge--hero-labs-tr {
-    top: 505px;
-    left: 930px;
-
-    transform: rotate(11deg);
-}
-
-/* BOTTOM LEFT PILL */
-
-.edge-badge--hero-labs-bl {
-    bottom: 70px;
-    left: 110px;
-
-    transform: rotate(14deg);
-}
-
-.hero > .edge-badge {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* HOVER */
-
-.edge-badge:hover {
-    scale: 1.06;
-}
-
-@media (max-width: 1199px) {
-    .edge-badge--hero-susi {
-        top: 12px;
-        left: 58vw;
-        transform: rotate(13deg);
-    }
-
-    .edge-badge--hero-labs-tr {
-        top: 44%;
-        left: 68vw;
-        transform: rotate(11deg);
-    }
-
-    .edge-badge--hero-labs-bl {
-        bottom: 48px;
-        left: 6vw;
-        transform: rotate(14deg);
-    }
-}
-
-/* SECTION HEADING PILLS */
-
-.title-badges {
-    position: relative;
-    display: block;
-    width: fit-content;
-    max-width: none;
-}
-
 /* NAV */
 
 nav {
@@ -323,31 +220,6 @@ nav a:hover {
     margin-top: 20px;
     margin-left: -25px;
     overflow: visible;
-}
-
-.title-badges--prints {
-    display: block;
-}
-
-.edge-badge--prints-top {
-    left: 100%;
-    top: 0.06em;
-    margin-left: 14px;
-    transform: rotate(-11deg);
-}
-
-.edge-badge--prints-mid {
-    left: 100%;
-    top: 0.1em;
-    margin-left: 14px;
-    transform: rotate(7deg);
-}
-
-.edge-badge--prints-bot {
-    right: 100%;
-    top: 0.35em;
-    margin-right: 14px;
-    transform: rotate(-9deg);
 }
 
 .heading h1 {
@@ -701,31 +573,6 @@ nav a:hover {
 
 .experience-title {
     overflow: visible;
-}
-
-.title-badges--capabilities {
-    display: block;
-}
-
-.edge-badge--cap-tr {
-    left: 100%;
-    top: 0.05em;
-    margin-left: 14px;
-    transform: rotate(-13deg);
-}
-
-.edge-badge--cap-bl {
-    right: 100%;
-    top: 0.55em;
-    margin-right: 14px;
-    transform: rotate(11deg);
-}
-
-.edge-badge--cap-br {
-    left: 72%;
-    top: 100%;
-    margin-top: 10px;
-    transform: rotate(-8deg);
 }
 
 .experience-title h1 {
@@ -1155,57 +1002,6 @@ height:720px;
 
 position:relative;
 z-index:5;
-}
-
-/* BUTTONS */
-
-.tag{
-position:absolute;
-width:185px;
-height:72px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#FFFD46;
-border:4px solid #5A002E;
-color:#5A002E;
-border-radius:100px;
-font-family:'Hagrid Trial', sans-serif;
-font-size:22px;
-font-weight:700;
-cursor:pointer;
-z-index:20;
-transition:0.3s ease;
-line-height:1;
-text-align:center;
-}
-/* HOVER */
-
-.tag:hover{
-scale:1.05;
-}
-
-/* POSITIONS */
-
-.funny{
-left:-55px;
-top:215px;
-
-transform:rotate(-10deg);
-}
-
-.empathetic{
-right:-10px;
-top:-18px;
-
-transform:rotate(4deg);
-}
-
-.kindest{
-right:55px;
-bottom:-18px;
-
-transform:rotate(-7deg);
 }
 
 .container9{
@@ -1822,36 +1618,6 @@ nav a {
         margin-left: 0;
     }
 
-    .hero > .edge-badge {
-        width: 130px;
-        height: 56px;
-        font-size: 16px;
-    }
-
-    .edge-badge--hero-susi {
-        top: 8px;
-        left: 54vw;
-    }
-
-    .edge-badge--hero-labs-tr {
-        top: 42%;
-        left: 62vw;
-    }
-
-    .edge-badge--hero-labs-bl {
-        bottom: 32px;
-        left: 4vw;
-    }
-
-    .title-badges .edge-badge {
-        height: 44px;
-        width: auto;
-        min-width: 100px;
-        padding: 0 18px;
-        font-size: 13px;
-        border-width: 3px;
-    }
-
 nav {
     position: fixed;
     top: 0;
@@ -2120,27 +1886,6 @@ RESPONSIVE — MOBILE
 ========================= */
 
 @media (max-width: 768px) {
-.edge-badge {
-    height: 38px;
-    min-width: 88px;
-    padding: 0 14px;
-    font-size: 11px;
-    border-width: 3px;
-}
-
-    .hero > .edge-badge {
-        display: none;
-    }
-
-.edge-badge--prints-top,
-.edge-badge--prints-mid {
-    margin-left: 10px;
-}
-
-.edge-badge--prints-bot {
-    margin-right: 10px;
-}
-
 .container {
     min-height: auto;
     padding: 52px 20px 24px;
@@ -2171,36 +1916,6 @@ RESPONSIVE — MOBILE
     .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
-    }
-
-    .hero > .edge-badge {
-        width: 130px;
-        height: 56px;
-        font-size: 16px;
-    }
-
-    .edge-badge--hero-susi {
-        top: 8px;
-        left: 54vw;
-    }
-
-    .edge-badge--hero-labs-tr {
-        top: 42%;
-        left: 62vw;
-    }
-
-    .edge-badge--hero-labs-bl {
-        bottom: 32px;
-        left: 4vw;
-    }
-
-    .title-badges .edge-badge {
-        height: 44px;
-        width: auto;
-        min-width: 100px;
-        padding: 0 18px;
-        font-size: 13px;
-        border-width: 3px;
     }
 
 nav {
@@ -2514,28 +2229,6 @@ nav a {
 .main-card {
     width: 100%;
     height: 420px;
-}
-
-.tag {
-    width: 130px;
-    height: 52px;
-    font-size: 14px;
-    border-width: 3px;
-}
-
-.funny {
-    left: -8px;
-    top: 140px;
-}
-
-.empathetic {
-    right: -4px;
-    top: -8px;
-}
-
-.kindest {
-    right: 8px;
-    bottom: -8px;
 }
 
 .container9 {
