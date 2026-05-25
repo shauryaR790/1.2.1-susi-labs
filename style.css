@@ -48,6 +48,7 @@
         top: -12px;
         z-index: 1;
         overflow: visible;
+        display: block;
     }
 
     .upper {
@@ -70,18 +71,22 @@
         text-transform: uppercase;
     }
 
-    .title-badges--hero-lower h1 {
+    .hero h1:last-child {
         margin-top: 15px;
         margin-left: -6px;
+    }
+
+    .hero h1 {
+        display: block;
     }
 
     /* YELLOW EDGE PILLS — beside headings, never over text */
 
     .title-badges {
         position: relative;
-        display: inline-block;
+        display: block;
         width: fit-content;
-        max-width: 100%;
+        max-width: none;
     }
 
     .edge-badge {
@@ -159,7 +164,8 @@
         top: 126px;
         right: 130px;
         width: 450px;
-        z-index: 5;
+        max-width: 38vw;
+        z-index: 6;
     }
 
     .info p {
@@ -639,7 +645,7 @@
     }
 
     .title-badges--capabilities {
-        display: inline-block;
+        display: block;
     }
 
     .edge-badge--cap-tr {
@@ -1587,6 +1593,18 @@
    RESPONSIVE — TABLET
 ========================= */
 
+@media (max-width: 1400px) {
+    .hero > .edge-badge {
+        display: none !important;
+    }
+
+    .info {
+        top: 110px;
+        right: 72px;
+        width: min(400px, 36vw);
+    }
+}
+
 @media (max-width: 1200px) {
     nav {
         right: 30px;
@@ -1741,9 +1759,13 @@
         line-height: 0.85;
     }
 
-    .title-badges--hero-lower h1 {
+    .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
+    }
+
+    .hero > .edge-badge {
+        display: none !important;
     }
 
     .edge-badge {
@@ -1753,10 +1775,6 @@
         font-size: 13px;
         border-width: 3px;
     }
-
-    .edge-badge--hero-susi { right: -1.55em; top: 0.1em; }
-    .edge-badge--hero-labs-tr { right: -1.65em; }
-    .edge-badge--hero-labs-bl { left: -1.7em; }
     .edge-badge--prints-top { right: -1.75em; }
     .edge-badge--prints-mid { right: -1.85em; }
     .edge-badge--prints-bot { left: -1.7em; }
@@ -2063,9 +2081,13 @@
         line-height: 0.85;
     }
 
-    .title-badges--hero-lower h1 {
+    .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
+    }
+
+    .hero > .edge-badge {
+        display: none !important;
     }
 
     .edge-badge {
@@ -2075,10 +2097,6 @@
         font-size: 13px;
         border-width: 3px;
     }
-
-    .edge-badge--hero-susi { right: -1.55em; top: 0.1em; }
-    .edge-badge--hero-labs-tr { right: -1.65em; }
-    .edge-badge--hero-labs-bl { left: -1.7em; }
     .edge-badge--prints-top { right: -1.75em; }
     .edge-badge--prints-mid { right: -1.85em; }
     .edge-badge--prints-bot { left: -1.7em; }
