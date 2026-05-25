@@ -182,12 +182,17 @@ function initSiteLoader(onComplete) {
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
     intro
-        .from(scope.querySelectorAll(".loader-tag"), { y: 24, opacity: 0, duration: 0.55 })
+        .from(scope.querySelectorAll(".loader-tag"), { y: 24, opacity: 0, duration: 0.45 })
+        .from(
+            scope.querySelectorAll(".loader-juggler"),
+            { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.7)" },
+            "-=0.05"
+        )
         .from(scope.querySelectorAll(".loader-word--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
         .from(scope.querySelectorAll(".loader-word--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
-        .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.35")
-        .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.3")
-        .from(scope.querySelectorAll(".loader-juggler"), { scale: 0.6, opacity: 0, duration: 0.55, ease: "back.out(1.6)" }, "-=0.2")
+        .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.3")
+        .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.35")
+        .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
 
     if (!prefersReducedMotion) {
         initLoaderPikachu(scope)
