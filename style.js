@@ -276,9 +276,11 @@ function initSiteLoader(onComplete) {
 ========================= */
 
 function initHeroSpidey() {
+    const spidey = document.querySelector(".hero-spidey")
     const rider = document.querySelector(".hero-spidey-rider")
     const hero = document.querySelector(".container")
-    if (!rider || !hero || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
+    const page2 = document.querySelector(".container2")
+    if (!spidey || !rider || !hero || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
 
     const img = rider.querySelector(".hero-spidey-img")
 
@@ -288,7 +290,8 @@ function initHeroSpidey() {
         return Math.max(heroH - imgH + 120, 280)
     }
 
-    gsap.set(rider, { transformOrigin: "50% 0%" })
+    gsap.set(spidey, { opacity: 1, visibility: "visible" })
+    gsap.set(rider, { y: -48, rotation: -5, opacity: 1, transformOrigin: "50% 0%" })
 
     gsap.timeline({
         scrollTrigger: {
@@ -298,11 +301,16 @@ function initHeroSpidey() {
             scrub: 0.85,
             invalidateOnRefresh: true
         }
-    }).fromTo(
-        rider,
-        { y: -48, opacity: 0, rotation: -5 },
-        { y: dropDistance, opacity: 1, rotation: 8, ease: "none" }
-    )
+    }).to(rider, { y: dropDistance, rotation: 8, ease: "none" })
+
+    if (page2) {
+        ScrollTrigger.create({
+            trigger: page2,
+            start: "top 92%",
+            onEnter: () => gsap.set(spidey, { opacity: 0, visibility: "hidden" }),
+            onLeaveBack: () => gsap.set(spidey, { opacity: 1, visibility: "visible" })
+        })
+    }
 }
 
 function playHeroIntro() {
