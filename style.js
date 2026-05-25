@@ -309,20 +309,21 @@ function playHeroIntro() {
     })
 
     if (!isMobile) {
-        const heroDecor = document.querySelector(".hero-decor")
-        if (heroDecor) {
+        ;[".shape-left", ".shape-right"].forEach((sel, i) => {
+            const el = document.querySelector(sel)
+            if (!el) return
             gsap.fromTo(
-                heroDecor,
+                el,
                 { y: 300, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
                     duration: 1.4,
                     ease: "power4.out",
-                    delay: 1
+                    delay: 1 + i * 0.1
                 }
             )
-        }
+        })
 
     }
 }
