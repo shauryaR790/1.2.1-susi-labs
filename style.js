@@ -309,6 +309,11 @@ function afterLoaderComplete() {
         initFloatingDecor()
         ScrollTrigger.refresh()
     })
+    gsap.delayedCall(0.5, () => {
+        if (typeof window.initSiteDecor === "function") {
+            window.initSiteDecor()
+        }
+    })
 }
 
 initSiteLoader(afterLoaderComplete)

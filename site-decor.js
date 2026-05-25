@@ -2,6 +2,8 @@
    FUNKY SITE DECOR — Pokémon + wizard vibes
 ========================= */
 
+const decorReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
 const SNITCH_SVG = `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <circle cx="32" cy="32" r="14" fill="#FFFD46" stroke="#000" stroke-width="3"/>
   <path d="M8 28 Q2 32 8 36" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"/>
@@ -22,6 +24,7 @@ const SITE_DECOR_ITEMS = [
         class: "decor--hero-tl",
         size: 88,
         rotate: -8,
+        immediate: true,
         float: { y: -20, rotation: 10, duration: 2.6 },
         pokemon: "images/decor-gengar.gif"
     },
@@ -72,12 +75,76 @@ const SITE_DECOR_ITEMS = [
         rotate: -18,
         float: { y: -12, rotation: 5, duration: 2.2 },
         svg: GLASSES_SVG
-    },
+    }
 ]
+
+function decorStartFloat(el, vars, delay = 0) {
+    if (!el || decorReducedMotion) return
+
+    gsap.killTweensOf(el)
+
+    gsap.delayedCall(delay, () => {
+        gsap.to(el, {
+            ...vars,
+            repeat: -1,
+            yoyo: true,
+            force3D: true,
+            transformOrigin: "50% 50%"
+        })
+    })
+}
+
+function revealDecorPiece(el, item, index, useScroll) {
+    gsap.set(el, { opacity: 0, scale: 0.4, rotation: (item.rotate || 0) - 30 })
+
+    const revealVars = {
+        opacity: 1,
+        scale: 1,
+        rotation: item.rotate || 0,
+        duration: 1,
+        ease: "back.out(1.8)",
+        delay: index * 0.06
+    }
+
+    if (useScroll) {
+        gsap.to(el, {
+            ...revealVars,
+            scrollTrigger: {
+                trigger: el.parentElement,
+                start: "top 92%",
+                once: true
+            }
+        })
+    } else {
+        gsap.to(el, revealVars)
+    }
+
+    if (item.float.rotation === 360) {
+        gsap.to(el, {
+            rotation: (item.rotate || 0) + 360,
+            duration: item.float.duration,
+            repeat: -1,
+            ease: "none"
+        })
+        gsap.to(el, {
+            y: item.float.y,
+            duration: item.float.duration * 0.35,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        })
+    } else {
+        decorStartFloat(el, item.float, index * 0.15)
+    }
+}
 
 function createDecorPiece(item, index) {
     const parent = document.querySelector(item.parent)
     if (!parent) return null
+
+    if (getComputedStyle(parent).position === "static") {
+        parent.style.position = "relative"
+    }
 
     const el = document.createElement("div")
     el.className = `site-decor-piece ${item.class}`
@@ -103,54 +170,20 @@ function createDecorPiece(item, index) {
 }
 
 function initSiteDecor() {
-    if (typeof gsap === "undefined" || prefersReducedMotion) return
+    if (typeof gsap === "undefined" || decorReducedMotion) return
 
-    const mobile = window.matchMedia("(max-width: 992px)").matches
-    const items = mobile ? SITE_DECOR_ITEMS.slice(0, 4) : SITE_DECOR_ITEMS
+    const narrow = window.matchMedia("(max-width: 992px)").matches
+    const items = narrow ? SITE_DECOR_ITEMS.slice(0, 5) : SITE_DECOR_ITEMS
 
     const pieces = items
         .map((item, index) => createDecorPiece(item, index))
         .filter(Boolean)
 
     pieces.forEach(({ el, item, index }) => {
-        gsap.set(el, { opacity: 0, scale: 0.4, rotation: (item.rotate || 0) - 30 })
-
-        gsap.to(el, {
-            opacity: 1,
-            scale: 1,
-            rotation: item.rotate || 0,
-            duration: 1,
-            ease: "back.out(1.8)",
-            scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top 88%",
-                once: true
-            },
-            delay: index * 0.08
-        })
-
-        if (item.float.rotation === 360) {
-            gsap.to(el, {
-                rotation: (item.rotate || 0) + 360,
-                duration: item.float.duration,
-                repeat: -1,
-                ease: "none"
-            })
-            gsap.to(el, {
-                y: item.float.y,
-                duration: item.float.duration * 0.35,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            })
-        } else {
-            startFloat(el, item.float, index * 0.2)
-        }
+        revealDecorPiece(el, item, index, !item.immediate)
     })
 
     requestAnimationFrame(() => ScrollTrigger.refresh())
 }
 
-window.addEventListener("load", () => {
-    setTimeout(initSiteDecor, 600)
-})
+window.initSiteDecor = initSiteDecor
