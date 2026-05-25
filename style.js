@@ -109,8 +109,24 @@ function initLoaderPikachu(scope) {
     })
 }
 
+function initLoaderSquad(scope) {
+    const mons = scope?.querySelectorAll(".loader-mon")
+    if (!mons?.length || prefersReducedMotion || typeof gsap === "undefined") return
+
+    gsap.from(mons, {
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.08,
+        ease: "back.out(1.5)",
+        delay: 0.15,
+        clearProps: "opacity"
+    })
+}
+
 function finishSiteLoader(loader, onComplete) {
     const inner = loader?.querySelector(".loader-inner")
+    const squad = loader?.querySelector(".loader-squad")
     const marquee = loader?.querySelector(".loader-marquee")
     const panelTop = loader?.querySelector(".loader-panel--top")
     const panelBottom = loader?.querySelector(".loader-panel--bottom")
@@ -132,6 +148,11 @@ function finishSiteLoader(loader, onComplete) {
             duration: prefersReducedMotion ? 0.3 : 0.45,
             ease: "power2.in"
         })
+        .to(
+            squad,
+            { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" },
+            "-=0.4"
+        )
         .to(
             marquee,
             { y: 40, opacity: 0, duration: 0.35, ease: "power2.in" },
@@ -197,6 +218,7 @@ function initSiteLoader(onComplete) {
         .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
 
     if (!prefersReducedMotion) {
+        initLoaderSquad(scope)
         initLoaderPikachu(scope)
     }
 
@@ -305,34 +327,8 @@ function playHeroIntro() {
     }
 }
 
-function initSiteDecor() {
-    if (prefersReducedMotion || typeof gsap === "undefined") return
-
-    gsap.utils.toArray(".funky-sticker").forEach((el, i) => {
-        startFloat(el, {
-            y: -14,
-            rotation: i % 2 ? 12 : -12,
-            duration: 2 + i * 0.2,
-            ease: "sine.inOut"
-        }, i * 0.15)
-    })
-
-    gsap.utils.toArray(".site-decor-piece").forEach((el, i) => {
-        if (el.classList.contains("decor--order")) {
-            gsap.to(el, {
-                rotation: 360,
-                duration: 5,
-                repeat: -1,
-                ease: "none",
-                transformOrigin: "50% 50%"
-            })
-        }
-    })
-}
-
 function afterLoaderComplete() {
     playHeroIntro()
-    initSiteDecor()
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()
         ScrollTrigger.refresh()
@@ -340,11 +336,6 @@ function afterLoaderComplete() {
 }
 
 initSiteLoader(afterLoaderComplete)
-
-window.addEventListener("load", () => {
-    document.body.classList.add("site-ready")
-    setTimeout(initSiteDecor, 100)
-})
 /* =========================
    NAV HOVER
 ========================= */
