@@ -87,9 +87,27 @@
         visibility: visible;
     }
 
+    .hero-spidey-web-line {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 6px;
+        margin-left: -3px;
+        height: 100%;
+        background: #ffffff;
+        border-radius: 4px;
+        box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.12),
+            2px 2px 0 rgba(0, 0, 0, 0.06);
+        transform-origin: top center;
+        transform: scaleY(0);
+        z-index: 0;
+    }
+
     .hero-spidey-rider {
         position: relative;
         top: 0;
+        z-index: 1;
         transform-origin: 50% 0%;
         will-change: transform;
     }

@@ -280,35 +280,46 @@ let heroSpideyInit = false
 function initHeroSpidey() {
     const spidey = document.querySelector(".hero-spidey")
     const rider = document.querySelector(".hero-spidey-rider")
+    const webLine = document.querySelector(".hero-spidey-web-line")
     const hero = document.querySelector(".container")
-    if (!spidey || !rider || !hero || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
+    if (!spidey || !rider || !webLine || !hero || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
     if (heroSpideyInit) return
     heroSpideyInit = true
 
     const img = rider.querySelector(".hero-spidey-img")
-    const dropDistance = () => Math.max(window.innerHeight - (img?.offsetHeight || 120) - 40, 260)
+
+    const dropDistance = () => {
+        const imgH = img?.offsetHeight || 120
+        return Math.max(hero.offsetHeight - imgH - 60, 200)
+    }
 
     gsap.set(spidey, { opacity: 1, visibility: "visible", autoAlpha: 1 })
     gsap.set(rider, { y: 0, rotation: 0, transformOrigin: "50% 0%" })
-
-    gsap.to(rider, {
-        y: dropDistance,
-        rotation: 8,
-        ease: "none",
-        scrollTrigger: {
-            id: "hero-spidey-scroll",
-            trigger: hero,
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.5,
-            pin: spidey,
-            pinSpacing: false,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onLeave: () => gsap.set(spidey, { autoAlpha: 0 }),
-            onEnterBack: () => gsap.set(spidey, { autoAlpha: 1 })
-        }
+    gsap.set(webLine, {
+        height: dropDistance,
+        scaleY: 0,
+        transformOrigin: "top center"
     })
+
+    const scrollConfig = {
+        id: "hero-spidey-scroll",
+        trigger: hero,
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.5,
+        pin: spidey,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: () => gsap.set(webLine, { height: dropDistance() }),
+        onLeave: () => gsap.set(spidey, { autoAlpha: 0 }),
+        onEnterBack: () => gsap.set(spidey, { autoAlpha: 1 })
+    }
+
+    gsap
+        .timeline({ scrollTrigger: scrollConfig })
+        .to(webLine, { scaleY: 1, ease: "none" }, 0)
+        .to(rider, { y: dropDistance, rotation: 8, ease: "none" }, 0)
 }
 
 function playHeroIntro() {
