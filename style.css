@@ -69,7 +69,7 @@ body {
     font-weight: 400;
     line-height: 0.84;
     letter-spacing: -24px;
-    color: #CC5500;
+    color: #FF7F00;
     text-transform: uppercase;
 }
 
@@ -2619,7 +2619,7 @@ color: #000000;
 font-size: clamp(80px, 20vw, 140px);
 letter-spacing: -0.06em;
 margin-left: -0.04em;
-color: #CC5500;
+color: #FF7F00;
 }
 
 .loader-track {
