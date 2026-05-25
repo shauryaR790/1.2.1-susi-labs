@@ -159,6 +159,7 @@ function initSiteLoader(onComplete) {
     if (!loader || typeof gsap === "undefined") {
         loader?.remove()
         document.body.classList.remove("is-loading")
+        document.body.classList.add("site-ready")
         onComplete()
         return
     }
