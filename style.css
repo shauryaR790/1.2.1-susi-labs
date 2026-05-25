@@ -89,7 +89,7 @@
 
     nav a {
         text-decoration: none;
-        color: #C7F06F;
+        color: #CC5500;
         font-size: 34px;
         letter-spacing: -1px;
         text-transform: uppercase;
@@ -291,7 +291,7 @@
         font-size: 36px;
         line-height: 1;
         /* letter-spacing:-2px; */
-        color: #670038;
+        color: #000000;
     }
 
     /* RIGHT GRID */
