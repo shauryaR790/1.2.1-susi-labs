@@ -467,15 +467,6 @@ function initFloatingDecor() {
         ease: "sine.inOut"
     })
 
-    gsap.utils.toArray(".shape-left, .shape-right").forEach((el, i) => {
-        startFloat(el, {
-            y: -16,
-            rotation: i % 2 ? 6 : -6,
-            duration: 2.8,
-            ease: "sine.inOut"
-        }, 2.4)
-    })
-
     gsap.utils.toArray(".tag").forEach((el, i) => {
         startFloat(el, {
             y: -12,

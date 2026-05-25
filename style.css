@@ -94,28 +94,14 @@
         text-transform: uppercase;
     }
 
-    /* BOTTOM-RIGHT: copy + hero shapes (desktop) */
-
-    .hero-corner {
-        position: absolute;
-        right: 40px;
-        bottom: 28px;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: flex-end;
-        justify-content: flex-start;
-        gap: 24px;
-        max-width: min(560px, 42vw);
-        z-index: 6;
-    }
+    /* RIGHT TEXT */
 
     .info {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 100%;
-        max-width: none;
-        z-index: 1;
+        position: absolute;
+        top: 126px;
+        right: 130px;
+        width: 450px;
+        z-index: 5;
     }
 
     .info p {
@@ -124,25 +110,24 @@
         letter-spacing: -1.5px;
         color: #000;
         text-transform: lowercase;
-        text-align: right;
     }
 
+    /* BOTTOM SHAPES */
+
     .shapes {
-        position: relative;
-        right: auto;
-        bottom: auto;
+        position: absolute;
+        right: 0;
+        bottom: 0;
         display: flex;
         align-items: flex-end;
-        flex-shrink: 0;
         gap: 0;
-        z-index: 2;
+        z-index: 3;
     }
 
     .shape-left {
         width: 180px;
         height: 180px;
         object-fit: contain;
-        display: block;
         margin-right: -10px;
         margin-bottom: 18px;
     }
@@ -151,7 +136,6 @@
         width: 290px;
         height: 140px;
         object-fit: contain;
-        display: block;
     }
 
     /* PLACEHOLDER ONLY */
@@ -1469,10 +1453,9 @@
         font-size: 24px;
     }
 
-    .hero-corner {
-        right: 28px;
-        bottom: 24px;
-        max-width: min(480px, 44vw);
+    .info {
+        right: 40px;
+        width: 360px;
     }
 
     .info p {
@@ -1638,27 +1621,18 @@
         font-size: 15px;
     }
 
-    .hero-corner {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        flex-direction: column;
-        order: 2;
-        width: 100%;
-        max-width: none;
-        align-items: flex-start;
-        gap: 0;
-    }
-
     .info {
+        position: relative;
+        top: auto;
+        right: auto;
         width: 100%;
         max-width: 560px;
         padding-top: 12px;
+        order: 2;
     }
 
     .info p {
         font-size: 20px;
-        text-align: left;
     }
 
     .shapes {
@@ -1946,27 +1920,20 @@
         letter-spacing: 0;
     }
 
-    .hero-corner {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        flex-direction: column;
-        order: 2;
-        width: 100%;
-        align-items: flex-start;
-        gap: 0;
-    }
-
     .info {
+        position: relative;
+        top: auto;
+        right: auto;
         width: 100%;
+        max-width: none;
         padding-top: 12px;
+        order: 2;
     }
 
     .info p {
         font-size: 17px;
         line-height: 1.15;
         letter-spacing: -0.5px;
-        text-align: left;
     }
 
     .shapes {
