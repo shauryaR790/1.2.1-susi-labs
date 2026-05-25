@@ -4,51 +4,99 @@
 
 gsap.registerPlugin(ScrollTrigger)
 
+ScrollTrigger.config({
+    limitCallbacks: true,
+    ignoreMobileResize: true
+})
+
+/* Skip GSAP calls when targets/triggers are missing (no console warnings) */
+function fromIfExists(target, vars = {}) {
+    const elements = gsap.utils.toArray(target)
+    if (!elements.length) return null
+
+    const trigger = vars.scrollTrigger?.trigger
+    if (trigger && !document.querySelector(trigger)) return null
+
+    return fromIfExists(elements, vars)
+}
+
 /* =========================
    LENIS SMOOTH SCROLL
 ========================= */
 
 const isMobile = window.matchMedia("(max-width: 768px)").matches
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
 
 let lenis
+let lenisRafId = null
 
-if (!isMobile) {
-    lenis = new Lenis({
-        duration:1.2,
-        smoothWheel:true,
-        easing:(t)=>1 - Math.pow(1 - t, 4)
-    })
-
-    lenis.on("scroll", ScrollTrigger.update)
-
-    gsap.ticker.add((time)=>{
-        lenis.raf(time * 1000)
-    })
-} else {
+function bindNativeScroll() {
     window.addEventListener("scroll", ScrollTrigger.update, { passive: true })
 }
 
-gsap.ticker.lagSmoothing(0)
+function startLenisRaf() {
+    const raf = (time) => {
+        lenis.raf(time)
+        lenisRafId = requestAnimationFrame(raf)
+    }
+    lenisRafId = requestAnimationFrame(raf)
+}
+
+function initSmoothScroll() {
+    if (isMobile || prefersReducedMotion) {
+        bindNativeScroll()
+        return
+    }
+
+    lenis = new Lenis({
+        autoRaf: false,
+        lerp: isMac ? 0.12 : 0.1,
+        smoothWheel: true,
+        wheelMultiplier: isMac ? 0.85 : 1,
+        touchMultiplier: 1,
+        syncTouch: false
+    })
+
+    lenis.on("scroll", ScrollTrigger.update)
+    startLenisRaf()
+
+    requestAnimationFrame(() => ScrollTrigger.refresh())
+}
+
+initSmoothScroll()
 
 let resizeTimer
 
 window.addEventListener("resize", () => {
     clearTimeout(resizeTimer)
-    resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 200)
+    resizeTimer = setTimeout(() => {
+        lenis?.resize?.()
+        ScrollTrigger.refresh()
+    }, 200)
+})
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && lenisRafId) {
+        cancelAnimationFrame(lenisRafId)
+        lenisRafId = null
+    } else if (lenis && !lenisRafId) {
+        startLenisRaf()
+    }
 })
 
 /* =========================
    HERO SECTION
 ========================= */
 
-gsap.from(".upper",{
+fromIfExists(".upper",{
     y: isMobile ? 0 : -400,
     opacity: isMobile ? 0 : 1,
     duration: isMobile ? 0.8 : 1.4,
     ease:"power4.out"
 })
 
-gsap.from(".lower",{
+fromIfExists(".lower",{
     y: isMobile ? 0 : 500,
     opacity: isMobile ? 0 : 1,
     duration: isMobile ? 0.8 : 1.4,
@@ -56,7 +104,7 @@ gsap.from(".lower",{
     delay:0.08
 })
 
-gsap.from("nav a",{
+fromIfExists("nav a",{
     y: isMobile ? -20 : -80,
     opacity:0,
     stagger:0.12,
@@ -65,7 +113,7 @@ gsap.from("nav a",{
     delay: isMobile ? 0.3 : 0.8
 })
 
-gsap.from(".info p",{
+fromIfExists(".info p",{
     opacity:0,
     y:80,
     duration:1.2,
@@ -73,7 +121,7 @@ gsap.from(".info p",{
     delay:0.95
 })
 
-gsap.from(".shape-left",{
+fromIfExists(".shape-left",{
     y:300,
     opacity:0,
     duration:1.4,
@@ -81,7 +129,7 @@ gsap.from(".shape-left",{
     delay:1
 })
 
-gsap.from(".shape-right",{
+fromIfExists(".shape-right",{
     y:300,
     opacity:0,
     duration:1.4,
@@ -121,7 +169,7 @@ document.querySelectorAll("nav a").forEach((link)=>{
    SECOND PAGE
 ========================= */
 
-gsap.from(".heading h1",{
+fromIfExists(".heading h1",{
     y:220,
     opacity:0,
     stagger:0.08,
@@ -129,44 +177,48 @@ gsap.from(".heading h1",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container2",
-        start:"top 70%"
+        start:"top 70%",
+        once: true
     }
 })
 
-gsap.from(".badge",{
+fromIfExists(".badge",{
     scale:0.7,
     opacity:0,
     duration:1.2,
     ease:"expo.out",
     scrollTrigger:{
         trigger:".badge",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".description p",{
+fromIfExists(".description p",{
     x:-220,
     opacity:0,
     duration:1.4,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".description",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".img1",{
+fromIfExists(".img1",{
     y:180,
     opacity:0,
     duration:1.3,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".img1",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".img2",{
+fromIfExists(".img2",{
     y:180,
     opacity:0,
     duration:1.3,
@@ -174,11 +226,12 @@ gsap.from(".img2",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".img2",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".img3",{
+fromIfExists(".img3",{
     y:180,
     opacity:0,
     duration:1.3,
@@ -186,11 +239,12 @@ gsap.from(".img3",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".img3",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".img4",{
+fromIfExists(".img4",{
     y:180,
     opacity:0,
     duration:1.3,
@@ -198,7 +252,8 @@ gsap.from(".img4",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".img4",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
@@ -206,18 +261,19 @@ gsap.from(".img4",{
    PRODUCTS SECTION
 ========================= */
 
-gsap.from(".product-heading h1",{
+fromIfExists(".product-heading h1",{
     y:180,
     opacity:0,
     duration:1.3,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container3",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".products-grid .product-img",{
+fromIfExists(".products-grid .product-img",{
     y:120,
     opacity:0,
     stagger:0.12,
@@ -225,76 +281,67 @@ gsap.from(".products-grid .product-img",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".products-grid",
-        start:"top 82%"
+        start:"top 82%",
+        once: true
     }
 })
 
-gsap.from(".bottom-title h1",{
+fromIfExists(".bottom-title h1",{
     x:-220,
     opacity:0,
     duration:1.2,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".bottom-title",
-        start:"top 90%"
+        start:"top 90%",
+        once: true
     }
 })
 
 /* =========================
-   PRODUCT IMAGE HOVER
+   PRODUCT IMAGE HOVER (fallback when tilt off)
 ========================= */
 
-document.querySelectorAll(".product-img").forEach((img)=>{
-
-    img.addEventListener("mouseenter",()=>{
-
-        gsap.to(img,{
-            scale:1.03,
-            duration:0.4,
-            ease:"power2.out"
+if (isMobile || prefersReducedMotion || !window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".product-img").forEach((img) => {
+        img.addEventListener("mouseenter", () => {
+            gsap.to(img, { scale: 1.03, duration: 0.4, ease: "power2.out" })
         })
-
-    })
-
-    img.addEventListener("mouseleave",()=>{
-
-        gsap.to(img,{
-            scale:1,
-            duration:0.4,
-            ease:"power2.out"
+        img.addEventListener("mouseleave", () => {
+            gsap.to(img, { scale: 1, duration: 0.4, ease: "power2.out" })
         })
-
     })
-
-})
+}
 
 /* =========================
    EXPERIENCE SECTION
 ========================= */
 
-gsap.from(".experience-img",{
+fromIfExists(".experience-img",{
     x:-180,
     opacity:0,
     duration:1.4,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container4",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".experience-title h1",{
+fromIfExists(".experience-title h1",{
     x:180,
     opacity:0,
     duration:1.2,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".experience-title",
-        start:"top 82%"
+        start:"top 82%",
+        once: true
     }
 })
 
-gsap.from(".experience-title p",{
+fromIfExists(".experience-title p",{
     x:120,
     opacity:0,
     duration:1.2,
@@ -302,11 +349,12 @@ gsap.from(".experience-title p",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".experience-title",
-        start:"top 82%"
+        start:"top 82%",
+        once: true
     }
 })
 
-gsap.from(".stat-item",{
+fromIfExists(".stat-item",{
     y:100,
     opacity:0,
     stagger:0.15,
@@ -314,126 +362,28 @@ gsap.from(".stat-item",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".stats",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
-})
-
-/* =========================
-   GRID GALLERY SECTION
-========================= */
-
-gsap.from(".grid1",{
-    x:-180,
-    opacity:0,
-    duration:1.2,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".container5",
-        start:"top 75%"
-    }
-})
-
-gsap.from(".grid2",{
-    y:-180,
-    opacity:0,
-    duration:1.2,
-    delay:0.08,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".container5",
-        start:"top 75%"
-    }
-})
-
-gsap.from(".grid3",{
-    x:180,
-    opacity:0,
-    duration:1.2,
-    delay:0.15,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".container5",
-        start:"top 75%"
-    }
-})
-
-gsap.from(".grid4",{
-    y:180,
-    opacity:0,
-    duration:1.2,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".bottom-grid",
-        start:"top 82%"
-    }
-})
-
-gsap.from(".grid5",{
-    y:180,
-    opacity:0,
-    duration:1.2,
-    delay:0.08,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".bottom-grid",
-        start:"top 82%"
-    }
-})
-
-gsap.from(".grid6",{
-    y:180,
-    opacity:0,
-    duration:1.2,
-    delay:0.15,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".bottom-grid",
-        start:"top 82%"
-    }
-})
-
-/* HOVER */
-
-document.querySelectorAll(".grid-img").forEach((img)=>{
-
-    img.addEventListener("mouseenter",()=>{
-
-        gsap.to(img,{
-            scale:1.03,
-            duration:0.45,
-            ease:"power2.out"
-        })
-
-    })
-
-    img.addEventListener("mouseleave",()=>{
-
-        gsap.to(img,{
-            scale:1,
-            duration:0.45,
-            ease:"power2.out"
-        })
-
-    })
-
 })
 
 /* =========================
    ELEVATE SECTION
 ========================= */
 
-gsap.from(".elevate-content h1",{
+fromIfExists(".elevate-content h1",{
     y:-220,
     opacity:0,
     duration:1.4,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container6",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".elevate-content h2",{
+fromIfExists(".elevate-content h2",{
     y:120,
     opacity:0,
     duration:1.2,
@@ -441,11 +391,12 @@ gsap.from(".elevate-content h2",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container6",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".elevate-content p",{
+fromIfExists(".elevate-content p",{
     opacity:0,
     y:60,
     duration:1.2,
@@ -453,11 +404,12 @@ gsap.from(".elevate-content p",{
     ease:"power3.out",
     scrollTrigger:{
         trigger:".container6",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".elevate-content button",{
+fromIfExists(".elevate-content button",{
     scale:0.7,
     opacity:0,
     duration:1.1,
@@ -465,26 +417,96 @@ gsap.from(".elevate-content button",{
     ease:"expo.out",
     scrollTrigger:{
         trigger:".container6",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
+})
+
+/* =========================
+   DECORATIVE FLOATING MOTION
+========================= */
+
+function startFloat(el, vars, delay = 0) {
+    if (!el || prefersReducedMotion) return
+
+    gsap.killTweensOf(el)
+
+    gsap.delayedCall(delay, () => {
+        gsap.to(el, {
+            ...vars,
+            repeat: -1,
+            yoyo: true,
+            force3D: true,
+            transformOrigin: "50% 50%"
+        })
+    })
+}
+
+function initFloatingDecor() {
+    if (prefersReducedMotion) return
+
+    startFloat(document.querySelector(".spiral-top"), {
+        y: -24,
+        rotation: 12,
+        duration: 2.4,
+        ease: "sine.inOut"
+    })
+
+    startFloat(document.querySelector(".star-shape"), {
+        y: -18,
+        rotation: -14,
+        duration: 2,
+        ease: "sine.inOut"
+    })
+
+    startFloat(document.querySelector(".badge"), {
+        y: -14,
+        rotation: 5,
+        duration: 2.6,
+        ease: "sine.inOut"
+    })
+
+    gsap.utils.toArray(".shape-left, .shape-right").forEach((el, i) => {
+        startFloat(el, {
+            y: -16,
+            rotation: i % 2 ? 6 : -6,
+            duration: 2.8,
+            ease: "sine.inOut"
+        }, 2.4)
+    })
+
+    gsap.utils.toArray(".tag").forEach((el, i) => {
+        startFloat(el, {
+            y: -12,
+            rotation: i % 2 ? 8 : -8,
+            duration: 2.1 + i * 0.2,
+            ease: "sine.inOut"
+        }, 0.3 + i * 0.15)
+    })
+}
+
+window.addEventListener("load", () => {
+    initFloatingDecor()
+    ScrollTrigger.refresh()
 })
 
 /* =========================
    CONTACT SECTION
 ========================= */
 
-gsap.from(".contact-heading h1",{
+fromIfExists(".contact-heading h1",{
     x:-180,
     opacity:0,
     duration:1.3,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".container9",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".question-btn",{
+fromIfExists(".question-btn",{
     scale:0,
     rotate:-120,
     opacity:0,
@@ -493,11 +515,12 @@ gsap.from(".question-btn",{
     ease:"expo.out",
     scrollTrigger:{
         trigger:".container9",
-        start:"top 75%"
+        start:"top 75%",
+        once: true
     }
 })
 
-gsap.from(".contact-text",{
+fromIfExists(".contact-text",{
     y:80,
     opacity:0,
     duration:1.2,
@@ -505,23 +528,25 @@ gsap.from(".contact-text",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".contact-text",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".social-section",{
+fromIfExists(".social-icons",{
     y:80,
     opacity:0,
     duration:1.2,
     delay:0.2,
     ease:"power4.out",
     scrollTrigger:{
-        trigger:".social-section",
-        start:"top 90%"
+        trigger:".social-icons",
+        start:"top 90%",
+        once: true
     }
 })
 
-gsap.from(".email-section",{
+fromIfExists(".email-section",{
     y:80,
     opacity:0,
     duration:1.2,
@@ -529,18 +554,20 @@ gsap.from(".email-section",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".email-section",
-        start:"top 90%"
+        start:"top 90%",
+        once: true
     }
 })
 
-gsap.from(".contact-form-box",{
+fromIfExists(".contact-form-box",{
     x:220,
     opacity:0,
     duration:1.5,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".contact-form-box",
-        start:"top 80%"
+        start:"top 80%",
+        once: true
     }
 })
 
@@ -548,18 +575,19 @@ gsap.from(".contact-form-box",{
    FOOTER
 ========================= */
 
-gsap.from(".footer-brand h1",{
+fromIfExists(".footer-brand h1",{
     y:180,
     opacity:0,
     duration:1.4,
     ease:"power4.out",
     scrollTrigger:{
         trigger:".footer",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".footer-brand p",{
+fromIfExists(".footer-brand p",{
     y:60,
     opacity:0,
     duration:1.2,
@@ -567,11 +595,12 @@ gsap.from(".footer-brand p",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".footer",
-        start:"top 85%"
+        start:"top 85%",
+        once: true
     }
 })
 
-gsap.from(".footer-links a",{
+fromIfExists(".footer-links a",{
     x:-80,
     opacity:0,
     stagger:0.08,
@@ -579,11 +608,12 @@ gsap.from(".footer-links a",{
     ease:"power3.out",
     scrollTrigger:{
         trigger:".footer-links",
-        start:"top 90%"
+        start:"top 90%",
+        once: true
     }
 })
 
-gsap.from(".footer-icon",{
+fromIfExists(".footer-icon",{
     scale:0,
     opacity:0,
     stagger:0.1,
@@ -591,11 +621,12 @@ gsap.from(".footer-icon",{
     ease:"expo.out",
     scrollTrigger:{
         trigger:".footer-social",
-        start:"top 90%"
+        start:"top 90%",
+        once: true
     }
 })
 
-gsap.from(".footer-btn",{
+fromIfExists(".footer-btn",{
     y:80,
     opacity:0,
     duration:1,
@@ -603,17 +634,53 @@ gsap.from(".footer-btn",{
     ease:"power4.out",
     scrollTrigger:{
         trigger:".footer-btn",
-        start:"top 92%"
+        start:"top 92%",
+        once: true
     }
 })
 
-gsap.from(".footer-bottom",{
+fromIfExists(".footer-bottom",{
     opacity:0,
     y:40,
     duration:1,
     ease:"power3.out",
     scrollTrigger:{
         trigger:".footer-bottom",
-        start:"top 95%"
+        start:"top 95%",
+        once: true
     }
+})
+
+/* =========================
+   VANILLA TILT
+========================= */
+
+function initVanillaTilt() {
+    if (typeof VanillaTilt === "undefined") return
+    if (isMobile || prefersReducedMotion) return
+    if (!window.matchMedia("(hover: hover)").matches) return
+
+    document.querySelectorAll(".product-img").forEach((img) => {
+        if (img.closest(".tilt-wrap")) return
+
+        const wrap = document.createElement("div")
+        wrap.className = "tilt-wrap"
+        img.parentNode.insertBefore(wrap, img)
+        wrap.appendChild(img)
+    })
+
+    const tiltElements = document.querySelectorAll(".tilt-wrap, .main-card, .side-card")
+    if (!tiltElements.length) return
+
+    VanillaTilt.init(tiltElements, {
+        max: 12,
+        speed: 500,
+        glare: true,
+        "max-glare": 0.25,
+        scale: 1.03
+    })
+}
+
+window.addEventListener("load", () => {
+    setTimeout(initVanillaTilt, 400)
 })
