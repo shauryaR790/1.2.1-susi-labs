@@ -103,11 +103,12 @@
     }
 
     .hero-spidey-rider {
-        position: relative;
+        position: absolute;
         top: 0;
+        left: 50%;
         z-index: 1;
-        transform-origin: 50% 0%;
-        will-change: transform;
+        transform: translateX(-50%);
+        will-change: top;
     }
 
     .hero-spidey-img {
@@ -118,6 +119,8 @@
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.2));
+        transform: none;
+        rotate: 0deg;
     }
 
     /* NAV */

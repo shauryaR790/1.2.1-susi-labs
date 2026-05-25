@@ -293,8 +293,8 @@ function initHeroSpidey() {
         return Math.max(hero.offsetHeight - imgH - 60, 200)
     }
 
-    gsap.set(spidey, { opacity: 1, visibility: "visible", autoAlpha: 1 })
-    gsap.set(rider, { y: 0, rotation: 0, transformOrigin: "50% 0%" })
+    gsap.set(spidey, { opacity: 1, visibility: "visible", autoAlpha: 1, rotation: 0 })
+    gsap.set(rider, { top: 0, clearProps: "transform" })
     gsap.set(webLine, {
         height: dropDistance,
         scaleY: 0,
@@ -308,10 +308,15 @@ function initHeroSpidey() {
         end: "bottom top",
         scrub: 0.5,
         pin: spidey,
+        pinType: "fixed",
         pinSpacing: false,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onRefresh: () => gsap.set(webLine, { height: dropDistance() }),
+        onRefresh: () => {
+            gsap.set(webLine, { height: dropDistance() })
+            gsap.set(rider, { top: 0, rotation: 0 })
+            gsap.set(spidey, { rotation: 0 })
+        },
         onLeave: () => gsap.set(spidey, { autoAlpha: 0 }),
         onEnterBack: () => gsap.set(spidey, { autoAlpha: 1 })
     }
@@ -319,7 +324,7 @@ function initHeroSpidey() {
     gsap
         .timeline({ scrollTrigger: scrollConfig })
         .to(webLine, { scaleY: 1, ease: "none" }, 0)
-        .to(rider, { y: dropDistance, rotation: 90, ease: "none" }, 0)
+        .to(rider, { top: dropDistance, ease: "none" }, 0)
 }
 
 function playHeroIntro() {
