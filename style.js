@@ -325,6 +325,16 @@ function playHeroIntro() {
             )
         })
 
+        gsap.utils.toArray(".hero-badges .edge-badge").forEach((el, i) => {
+            gsap.from(el, {
+                scale: 0,
+                opacity: 0,
+                rotation: i % 2 ? 22 : -22,
+                duration: 0.85,
+                ease: "back.out(2)",
+                delay: 1.1 + i * 0.12
+            })
+        })
     }
 }
 
@@ -594,33 +604,43 @@ fromIfExists(".experience-title p",{
     }
 })
 
-fromIfExists(".title-badges--capabilities .edge-badge",{
-    scale:0,
-    opacity:0,
-    rotation: (i) => (i % 2 ? 18 : -18),
-    stagger:0.1,
-    duration:0.9,
-    delay:0.35,
-    ease:"back.out(2)",
-    scrollTrigger:{
-        trigger:".experience-title",
-        start:"top 82%",
-        once: true
-    }
+gsap.utils.toArray(".title-badges--capabilities .edge-badge").forEach((el, i) => {
+    gsap.fromTo(
+        el,
+        { scale: 0, opacity: 0, rotation: i % 2 ? 18 : -18 },
+        {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: 0.9,
+            delay: 0.35 + i * 0.1,
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: ".experience-title",
+                start: "top 88%",
+                once: true
+            }
+        }
+    )
 })
 
-fromIfExists(".title-badges--prints .edge-badge",{
-    scale:0,
-    opacity:0,
-    rotation: (i) => (i % 2 ? 16 : -16),
-    stagger:0.1,
-    duration:0.85,
-    ease:"back.out(2)",
-    scrollTrigger:{
-        trigger:".container2 .heading",
-        start:"top 80%",
-        once: true
-    }
+gsap.utils.toArray(".title-badges--prints .edge-badge").forEach((el, i) => {
+    gsap.fromTo(
+        el,
+        { scale: 0, opacity: 0, rotation: i % 2 ? 16 : -16 },
+        {
+            scale: 1,
+            opacity: 1,
+            duration: 0.85,
+            delay: i * 0.1,
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: ".container2 .heading",
+                start: "top 88%",
+                once: true
+            }
+        }
+    )
 })
 
 fromIfExists(".stat-item",{

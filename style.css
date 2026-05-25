@@ -80,6 +80,35 @@
         display: block;
     }
 
+    .hero-badges {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 4;
+    }
+
+    .hero-badges .edge-badge {
+        z-index: 4;
+    }
+
+    .edge-badge--hero-susi {
+        top: 0.12em;
+        left: min(54vw, 780px);
+        transform: rotate(-14deg);
+    }
+
+    .edge-badge--hero-labs-tr {
+        top: 46%;
+        left: min(58vw, 840px);
+        transform: rotate(9deg);
+    }
+
+    .edge-badge--hero-labs-bl {
+        top: 74%;
+        left: clamp(12px, 2vw, 48px);
+        transform: rotate(12deg);
+    }
+
     /* YELLOW EDGE PILLS — beside headings, never over text */
 
     .title-badges {
@@ -229,6 +258,7 @@
         align-items: flex-start;
         position: relative;
         background: #FFF3EF;
+        overflow: visible;
         /* margin-top: 30px; */
         /* padding-bottom: 60px; */
     }
@@ -242,6 +272,7 @@
         padding-left: 28px;
         padding-top: 34px;
         position: relative;
+        overflow: visible;
     }
 
     .heading {
@@ -256,20 +287,23 @@
     }
 
     .edge-badge--prints-top {
-        top: -0.12em;
-        right: -2.4em;
+        left: 100%;
+        top: -6px;
+        margin-left: 22px;
         transform: rotate(-11deg);
     }
 
     .edge-badge--prints-mid {
-        top: 0.08em;
-        right: -2.55em;
+        left: 100%;
+        top: 6px;
+        margin-left: 26px;
         transform: rotate(7deg);
     }
 
     .edge-badge--prints-bot {
-        left: -2.35em;
-        bottom: -0.08em;
+        right: 100%;
+        bottom: 4px;
+        margin-right: 22px;
         transform: rotate(-9deg);
     }
 
@@ -595,6 +629,7 @@
         justify-content: space-between;
 
         padding: 80px 55px 40px 55px;
+        overflow: visible;
     }
 
     /* LEFT */
@@ -616,6 +651,7 @@
     .experience-right {
         width: 52%;
         padding-top: 10px;
+        overflow: visible;
     }
 
     /* TITLE */
@@ -629,20 +665,23 @@
     }
 
     .edge-badge--cap-tr {
-        top: -0.35em;
-        right: -2.15em;
+        left: 100%;
+        top: -10px;
+        margin-left: 18px;
         transform: rotate(-13deg);
     }
 
     .edge-badge--cap-bl {
-        left: -2.5em;
-        bottom: 0.05em;
+        right: 100%;
+        bottom: 6px;
+        margin-right: 20px;
         transform: rotate(11deg);
     }
 
     .edge-badge--cap-br {
-        right: -0.35em;
-        bottom: -2.35em;
+        left: 48%;
+        top: 100%;
+        margin-top: 14px;
         transform: rotate(-8deg);
     }
 
@@ -1579,6 +1618,14 @@
         right: 72px;
         width: min(400px, 36vw);
     }
+
+    .edge-badge--hero-susi {
+        left: min(48vw, 580px);
+    }
+
+    .edge-badge--hero-labs-tr {
+        left: min(52vw, 640px);
+    }
 }
 
 @media (max-width: 1200px) {
@@ -1747,13 +1794,6 @@
         font-size: 13px;
         border-width: 3px;
     }
-    .edge-badge--prints-top { right: -1.75em; }
-    .edge-badge--prints-mid { right: -1.85em; }
-    .edge-badge--prints-bot { left: -1.7em; }
-    .edge-badge--cap-tr { right: -1.6em; }
-    .edge-badge--cap-bl { left: -1.75em; }
-    .edge-badge--cap-br { bottom: -1.85em; }
-
     nav {
         position: fixed;
         top: 0;
@@ -2023,7 +2063,24 @@
 
 @media (max-width: 768px) {
     .edge-badge {
-        display: none !important;
+        height: 38px;
+        min-width: 88px;
+        padding: 0 14px;
+        font-size: 11px;
+        border-width: 3px;
+    }
+
+    .hero-badges {
+        display: none;
+    }
+
+    .edge-badge--prints-top,
+    .edge-badge--prints-mid {
+        margin-left: 10px;
+    }
+
+    .edge-badge--prints-bot {
+        margin-right: 10px;
     }
 
     .container {
@@ -2065,13 +2122,6 @@
         font-size: 13px;
         border-width: 3px;
     }
-    .edge-badge--prints-top { right: -1.75em; }
-    .edge-badge--prints-mid { right: -1.85em; }
-    .edge-badge--prints-bot { left: -1.7em; }
-    .edge-badge--cap-tr { right: -1.6em; }
-    .edge-badge--cap-bl { left: -1.75em; }
-    .edge-badge--cap-br { bottom: -1.85em; }
-
     nav {
         position: fixed;
         top: 0;
