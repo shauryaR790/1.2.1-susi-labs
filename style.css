@@ -81,10 +81,10 @@
     .hero-spidey {
         position: absolute;
         top: 0;
-        left: clamp(480px, 52vw, 760px);
+        left: clamp(460px, 50vw, 740px);
         z-index: 4;
-        width: clamp(110px, 11vw, 180px);
-        height: min(72vh, 620px);
+        width: clamp(130px, 13vw, 200px);
+        height: min(42vh, 280px);
         pointer-events: none;
     }
 
@@ -102,10 +102,12 @@
 
     .hero-spidey-img {
         display: block;
-        width: clamp(110px, 11vw, 180px);
+        width: clamp(130px, 13vw, 200px);
         height: auto;
         object-fit: contain;
-        filter: drop-shadow(4px 6px 0 rgba(0, 0, 0, 0.2));
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.25));
     }
 
     /* NAV */

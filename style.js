@@ -290,13 +290,13 @@ function initHeroSpidey() {
     })
 
     gsap.to(swing, {
-        rotation: 12,
-        duration: 3.2,
+        rotation: 6,
+        duration: 4,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
         delay: 2.1,
-        transformOrigin: "top center"
+        transformOrigin: "50% 0%"
     })
 }
 
