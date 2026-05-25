@@ -129,8 +129,8 @@ nav a:hover {
 
 .shapes {
     position: absolute;
-    right: 24px;
-    bottom: 12px;
+    right: 16px;
+    bottom: -48px;
     z-index: 3;
     pointer-events: none;
     line-height: 0;
@@ -143,6 +143,7 @@ nav a:hover {
     max-height: min(55vh, 480px);
     object-fit: contain;
     object-position: bottom right;
+    transform: translateY(64px);
 }
 
 .container2 {
