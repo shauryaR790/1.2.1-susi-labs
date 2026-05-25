@@ -74,55 +74,6 @@
         margin-left: -6px;
     }
 
-    /* HANGING SPIDEY — beside SUSI LABS logo */
-
-    .hero-spidey {
-        position: absolute;
-        top: 0;
-        left: calc(100% + 16px);
-        z-index: 10;
-        pointer-events: none;
-        overflow: visible;
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .hero-spidey-web-line {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 6px;
-        margin-left: -3px;
-        height: 100%;
-        background: #C8C8C8;
-        border-radius: 4px;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
-        transform-origin: top center;
-        transform: scaleY(0);
-        z-index: 0;
-    }
-
-    .hero-spidey-rider {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        z-index: 1;
-        transform: translateX(-50%);
-        will-change: top;
-    }
-
-    .hero-spidey-img {
-        display: block;
-        width: clamp(110px, 11vw, 155px);
-        height: auto;
-        object-fit: contain;
-        image-rendering: pixelated;
-        image-rendering: crisp-edges;
-        filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.2));
-        transform: none;
-        rotate: 0deg;
-    }
-
     /* NAV */
 
     nav {
@@ -1725,8 +1676,7 @@
         font-size: 20px;
     }
 
-    .shapes,
-    .hero-spidey {
+    .shapes {
         display: none !important;
         height: 0;
         margin: 0;
@@ -2029,8 +1979,7 @@
         letter-spacing: -0.5px;
     }
 
-    .shapes,
-    .hero-spidey {
+    .shapes {
         display: none !important;
         height: 0;
         margin: 0;
