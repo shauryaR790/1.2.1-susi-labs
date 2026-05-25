@@ -275,65 +275,43 @@ function initSiteLoader(onComplete) {
    HERO SECTION
 ========================= */
 
-function getHeroSpideyLeft() {
-    const hero = document.querySelector(".hero")
-    const container = document.querySelector(".container")
-    if (!hero || !container) return 520
-    return container.offsetLeft + hero.offsetLeft + hero.offsetWidth + 12
-}
-
-function updateHeroSpideyAnchor() {
-    const spidey = document.querySelector(".hero-spidey")
-    if (!spidey) return
-    spidey.style.left = `${getHeroSpideyLeft()}px`
-}
+let heroSpideyInit = false
 
 function initHeroSpidey() {
     const spidey = document.querySelector(".hero-spidey")
     const rider = document.querySelector(".hero-spidey-rider")
     const hero = document.querySelector(".container")
-    const page2 = document.querySelector(".container2")
     if (!spidey || !rider || !hero || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
+    if (heroSpideyInit) return
+    heroSpideyInit = true
 
     const img = rider.querySelector(".hero-spidey-img")
+    const dropDistance = () => Math.max(window.innerHeight - (img?.offsetHeight || 120) - 40, 260)
 
-    const dropDistance = () => {
-        const imgH = img?.offsetHeight || 140
-        return Math.max(window.innerHeight - imgH - 48, 320)
-    }
+    gsap.set(spidey, { opacity: 1, visibility: "visible", autoAlpha: 1 })
+    gsap.set(rider, { y: 0, rotation: 0, transformOrigin: "50% 0%" })
 
-    updateHeroSpideyAnchor()
-
-    gsap.set(spidey, { opacity: 1, visibility: "visible", display: "block" })
-    gsap.set(rider, { y: 16, rotation: -6, opacity: 1, transformOrigin: "50% 0%" })
-
-    gsap.timeline({
+    gsap.to(rider, {
+        y: dropDistance,
+        rotation: 8,
+        ease: "none",
         scrollTrigger: {
+            id: "hero-spidey-scroll",
             trigger: hero,
             start: "top top",
             end: "bottom top",
-            scrub: 0.6,
+            scrub: 0.5,
+            pin: spidey,
+            pinSpacing: false,
+            anticipatePin: 1,
             invalidateOnRefresh: true,
-            onRefresh: updateHeroSpideyAnchor
+            onLeave: () => gsap.set(spidey, { autoAlpha: 0 }),
+            onEnterBack: () => gsap.set(spidey, { autoAlpha: 1 })
         }
-    }).to(rider, { y: dropDistance, rotation: 10, ease: "none" })
-
-    if (page2) {
-        ScrollTrigger.create({
-            trigger: page2,
-            start: "top bottom",
-            onEnter: () => gsap.set(spidey, { opacity: 0, visibility: "hidden", display: "none" }),
-            onLeaveBack: () => gsap.set(spidey, { opacity: 1, visibility: "visible", display: "block" })
-        })
-    }
-
-    window.addEventListener("resize", updateHeroSpideyAnchor)
-    ScrollTrigger.addEventListener("refreshInit", updateHeroSpideyAnchor)
+    })
 }
 
 function playHeroIntro() {
-    initHeroSpidey()
-
     fromIfExists(".upper", {
         y: isMobile ? 0 : -400,
         opacity: isMobile ? 0 : 1,
@@ -387,6 +365,10 @@ function playHeroIntro() {
 
 function afterLoaderComplete() {
     playHeroIntro()
+    requestAnimationFrame(() => {
+        initHeroSpidey()
+        ScrollTrigger.refresh()
+    })
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()
         ScrollTrigger.refresh()
