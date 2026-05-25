@@ -303,16 +303,71 @@ function playHeroIntro() {
     }
 }
 
+function initSiteDecor() {
+    const pieces = gsap.utils.toArray(".site-decor-piece")
+    if (!pieces.length || typeof gsap === "undefined") return
+
+    pieces.forEach((el, i) => {
+        const img = el.querySelector("img")
+        const isSnitch = el.classList.contains("decor--order")
+
+        gsap.fromTo(
+            el,
+            { opacity: 0, scale: 0.3, y: 30 },
+            {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.9,
+                ease: "back.out(1.7)",
+                delay: 0.15 + i * 0.12
+            }
+        )
+
+        if (prefersReducedMotion) return
+
+        if (isSnitch) {
+            gsap.to(el, {
+                rotation: 360,
+                duration: 5,
+                repeat: -1,
+                ease: "none",
+                transformOrigin: "50% 50%"
+            })
+            gsap.to(el, {
+                y: -20,
+                duration: 1.8,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            })
+            return
+        }
+
+        startFloat(el, {
+            y: img ? -18 : -12,
+            rotation: i % 2 ? 10 : -10,
+            duration: 2.2 + i * 0.15,
+            ease: "sine.inOut"
+        }, 0.8 + i * 0.1)
+
+        if (img) {
+            startFloat(img, {
+                y: -8,
+                rotation: i % 2 ? -6 : 6,
+                duration: 1.8,
+                ease: "sine.inOut"
+            }, 1 + i * 0.1)
+        }
+    })
+}
+
 function afterLoaderComplete() {
     playHeroIntro()
+    initSiteDecor()
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()
         ScrollTrigger.refresh()
-    })
-    gsap.delayedCall(0.5, () => {
-        if (typeof window.initSiteDecor === "function") {
-            window.initSiteDecor()
-        }
     })
 }
 
