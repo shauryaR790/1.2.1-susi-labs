@@ -138,9 +138,9 @@ nav a:hover {
 
 .hero-decor {
     display: block;
-    width: clamp(340px, 34vw, 580px);
+    width: clamp(420px, 44vw, 780px);
     height: auto;
-    max-height: min(42vh, 320px);
+    max-height: min(55vh, 480px);
     object-fit: contain;
     object-position: bottom right;
 }
@@ -2315,10 +2315,9 @@ nav a {
     letter-spacing: -7px;
 }
 
-.shape-left,
-.shape-right {
-    width: 100px;
-    height: 100px;
+.hero-decor {
+    width: clamp(280px, 72vw, 420px);
+    max-height: 280px;
 }
 
 .right1 {
