@@ -315,7 +315,7 @@ function playHeroIntro() {
                 heroDecor,
                 { y: 300, opacity: 0 },
                 {
-                    y: 64,
+                    y: 0,
                     opacity: 1,
                     duration: 1.4,
                     ease: "power4.out",
