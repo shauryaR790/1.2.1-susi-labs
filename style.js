@@ -344,16 +344,23 @@ fromIfExists(".heading h1",{
     }
 })
 
-fromIfExists(".badge",{
-    scale:0.7,
-    opacity:0,
-    duration:1.2,
-    ease:"expo.out",
-    scrollTrigger:{
-        trigger:".badge",
-        start:"top 85%",
-        once: true
-    }
+gsap.utils.toArray(".badge").forEach((badge) => {
+    gsap.fromTo(
+        badge,
+        { scale: 0.75, opacity: 0 },
+        {
+            scale: 1,
+            opacity: 1,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+                trigger: badge,
+                start: "top 92%",
+                once: true,
+                invalidateOnRefresh: true
+            }
+        }
+    )
 })
 
 fromIfExists(".description p",{
@@ -621,11 +628,13 @@ function initFloatingDecor() {
         ease: "sine.inOut"
     })
 
-    startFloat(document.querySelector(".badge"), {
-        y: -14,
-        rotation: 5,
-        duration: 2.6,
-        ease: "sine.inOut"
+    gsap.utils.toArray(".badge").forEach((badge) => {
+        startFloat(badge, {
+            y: -18,
+            rotation: 8,
+            duration: 2.4,
+            ease: "sine.inOut"
+        }, 0.6)
     })
 
     gsap.utils.toArray(".tag").forEach((el, i) => {

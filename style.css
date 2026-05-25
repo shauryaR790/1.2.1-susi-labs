@@ -213,26 +213,33 @@
         color: #000;
     }
 
-    /* CIRCLE */
+    /* CIRCLE BADGE */
 
     .badge {
-        width: 320px;
-        height: 130px;
-        border: 2px solid #000;
+        width: 168px;
+        height: 168px;
+        border: 3px solid #000;
         border-radius: 50%;
-        margin-top: 58px;
-
+        margin-top: 48px;
+        margin-left: 8px;
+        background: #FFF3EF;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 3;
+        will-change: transform;
+        transform-origin: center center;
     }
 
     .badge p {
-        font-size: 40px;
-        line-height: 0.9;
+        font-size: 28px;
+        line-height: 0.95;
         text-align: center;
-        letter-spacing: -2px;
+        letter-spacing: -1.5px;
         text-transform: lowercase;
+        color: #000;
     }
 
     /* BOTTOM TEXT */
@@ -1661,13 +1668,14 @@
     }
 
     .badge {
-        width: 260px;
-        height: 110px;
-        margin-top: 28px;
+        width: 140px;
+        height: 140px;
+        margin-top: 24px;
+        margin-left: 0;
     }
 
     .badge p {
-        font-size: 30px;
+        font-size: 24px;
     }
 
     .description {
@@ -1964,13 +1972,14 @@
     }
 
     .badge {
-        width: min(100%, 260px);
-        height: 100px;
-        margin-top: 20px;
+        width: 128px;
+        height: 128px;
+        margin-top: 18px;
+        margin-left: 0;
     }
 
     .badge p {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .description {
