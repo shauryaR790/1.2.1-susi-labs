@@ -329,7 +329,6 @@ function playHeroIntro() {
             gsap.from(el, {
                 scale: 0,
                 opacity: 0,
-                rotation: i % 2 ? 22 : -22,
                 duration: 0.85,
                 ease: "back.out(2)",
                 delay: 1.1 + i * 0.12
