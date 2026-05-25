@@ -76,6 +76,37 @@
         margin-left: -6px;
     }
 
+    /* HANGING SPIDEY (desktop hero) */
+
+    .hero-spidey {
+        position: absolute;
+        top: 0;
+        left: clamp(520px, 54vw, 780px);
+        z-index: 4;
+        width: clamp(100px, 10vw, 150px);
+        height: min(58vh, 480px);
+        pointer-events: none;
+    }
+
+    .hero-spidey-pivot {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero-spidey-swing {
+        transform-origin: top center;
+        will-change: transform;
+    }
+
+    .hero-spidey-img {
+        display: block;
+        width: clamp(96px, 9.5vw, 150px);
+        height: auto;
+        filter: drop-shadow(4px 6px 0 rgba(0, 0, 0, 0.18));
+    }
+
     /* NAV */
 
     nav {
@@ -1678,7 +1709,8 @@
         font-size: 20px;
     }
 
-    .shapes {
+    .shapes,
+    .hero-spidey {
         display: none !important;
         height: 0;
         margin: 0;
@@ -1981,7 +2013,8 @@
         letter-spacing: -0.5px;
     }
 
-    .shapes {
+    .shapes,
+    .hero-spidey {
         display: none !important;
         height: 0;
         margin: 0;

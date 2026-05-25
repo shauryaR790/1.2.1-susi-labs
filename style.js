@@ -275,7 +275,34 @@ function initSiteLoader(onComplete) {
    HERO SECTION
 ========================= */
 
+function initHeroSpidey() {
+    const swing = document.querySelector(".hero-spidey-swing")
+    if (!swing || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
+
+    gsap.set(swing, { transformOrigin: "50% 0%" })
+
+    gsap.from(swing, {
+        rotation: -28,
+        opacity: 0,
+        duration: 1.15,
+        ease: "back.out(1.8)",
+        delay: 1.05
+    })
+
+    gsap.to(swing, {
+        rotation: 12,
+        duration: 3.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 2.1,
+        transformOrigin: "top center"
+    })
+}
+
 function playHeroIntro() {
+    initHeroSpidey()
+
     fromIfExists(".upper", {
         y: isMobile ? 0 : -400,
         opacity: isMobile ? 0 : 1,
