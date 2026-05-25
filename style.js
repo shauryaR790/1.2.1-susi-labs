@@ -101,13 +101,13 @@ function initLoaderJuggle(scope) {
     if (!juggler || prefersReducedMotion) return
 
     const balls = gsap.utils.toArray(juggler.querySelectorAll(".juggle-ball"))
-    const monster = juggler.querySelector(".loader-monster")
+    const pikachu = juggler.querySelector(".loader-pikachu")
     const cycle = 0.85
     const stagger = cycle / 3
     const peaks = [
-        { x: -26, y: -44 },
-        { x: 0, y: -50 },
-        { x: 26, y: -44 }
+        { x: -34, y: -52 },
+        { x: 0, y: -58 },
+        { x: 34, y: -52 }
     ]
 
     gsap.set(balls, { x: 0, y: 0, scale: 1, transformOrigin: "50% 50%" })
@@ -126,7 +126,7 @@ function initLoaderJuggle(scope) {
             })
             .to(ball, {
                 x: hand.x * 0.55,
-                y: -8,
+                y: -10,
                 scale: 0.95,
                 duration: cycle * 0.28,
                 ease: "power1.inOut"
@@ -140,22 +140,15 @@ function initLoaderJuggle(scope) {
             })
     })
 
-    gsap.to(monster, {
-        y: -6,
-        duration: cycle * 0.42,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-    })
-
-    gsap.to(juggler, {
-        rotation: 2,
-        transformOrigin: "50% 80%",
-        duration: cycle * 0.85,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-    })
+    if (pikachu) {
+        gsap.to(pikachu, {
+            y: -5,
+            duration: cycle * 0.42,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        })
+    }
 }
 
 function finishSiteLoader(loader, onComplete) {

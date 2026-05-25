@@ -2693,29 +2693,35 @@ body.is-loading > *:not(#site-loader) {
 
 .loader-juggler {
     position: relative;
-    width: 140px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
     margin-top: 4px;
 }
 
-.loader-monster {
+.loader-pikachu {
     display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }
 
 .juggle-ball {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 3px solid #000;
-    top: 8px;
+    top: 6px;
     left: 50%;
-    margin-left: -9px;
+    margin-left: -10px;
     z-index: 2;
     will-change: transform;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
 }
 
 .juggle-ball--1 {

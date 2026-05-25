@@ -52,25 +52,14 @@
             <p class="loader-percent"><span>0</span>%</p>
 
             <div class="loader-juggler" aria-hidden="true">
-                <svg class="loader-monster" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg">
-                    <g class="monster-ears">
-                        <path d="M38 42 L28 8 L52 34 Z" fill="#FFFD46" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
-                        <path d="M102 42 L112 8 L88 34 Z" fill="#FFFD46" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
-                        <path d="M32 18 L38 36 L24 28 Z" fill="#000"/>
-                        <path d="M108 18 L102 36 L116 28 Z" fill="#000"/>
-                    </g>
-                    <ellipse cx="70" cy="78" rx="38" ry="36" fill="#FFFD46" stroke="#000" stroke-width="3"/>
-                    <circle cx="52" cy="82" r="9" fill="#EF7CC2" stroke="#000" stroke-width="2"/>
-                    <circle cx="88" cy="82" r="9" fill="#EF7CC2" stroke="#000" stroke-width="2"/>
-                    <ellipse cx="54" cy="72" rx="5" ry="8" fill="#000"/>
-                    <ellipse cx="86" cy="72" rx="5" ry="8" fill="#000"/>
-                    <circle cx="56" cy="68" r="2" fill="#fff"/>
-                    <circle cx="88" cy="68" r="2" fill="#fff"/>
-                    <path d="M58 92 Q70 100 82 92" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-                    <path class="monster-arm monster-arm--l" d="M38 88 Q18 72 22 52" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round"/>
-                    <path class="monster-arm monster-arm--r" d="M102 88 Q122 72 118 52" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round"/>
-                    <polygon points="66 108 70 118 74 108" fill="#C7F06F" stroke="#000" stroke-width="2"/>
-                </svg>
+                <img
+                    class="loader-pikachu"
+                    src="images/pikachu-animated.gif"
+                    width="160"
+                    height="160"
+                    alt=""
+                    decoding="async"
+                    onerror="this.onerror=null;this.src='images/pikachu-official.png';">
                 <span class="juggle-ball juggle-ball--1"></span>
                 <span class="juggle-ball juggle-ball--2"></span>
                 <span class="juggle-ball juggle-ball--3"></span>
@@ -723,7 +712,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<script src="style.js?v=12"></script>
+<script src="style.js?v=13"></script>
 </body>
 
 </html>
