@@ -303,11 +303,19 @@ function initHeroSpidey() {
 function playHeroIntro() {
     initHeroSpidey()
 
-    fromIfExists(".hero-logo", {
-        y: isMobile ? 40 : 120,
-        opacity: 0,
+    fromIfExists(".upper", {
+        y: isMobile ? 0 : -400,
+        opacity: isMobile ? 0 : 1,
         duration: isMobile ? 0.8 : 1.4,
         ease: "power4.out"
+    })
+
+    fromIfExists(".lower", {
+        y: isMobile ? 0 : 500,
+        opacity: isMobile ? 0 : 1,
+        duration: isMobile ? 0.8 : 1.4,
+        ease: "power4.out",
+        delay: 0.08
     })
 
     fromIfExists("nav a", {

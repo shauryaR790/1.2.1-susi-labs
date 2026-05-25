@@ -45,18 +45,33 @@
     .hero {
         position: absolute;
         left: -6px;
-        top: 50%;
-        transform: translateY(-50%);
+        top: -12px;
         z-index: 1;
     }
 
-    .hero-logo {
-        display: block;
-        height: 560px;
-        width: auto;
-        max-width: min(92vw, 900px);
-        object-fit: contain;
-        object-position: left top;
+    .upper {
+        font-family: 'Anton', sans-serif;
+        font-size: 450px;
+        font-weight: 400;
+        line-height: 0.84;
+        letter-spacing: -24px;
+        color: #000000;
+        text-transform: uppercase;
+    }
+
+    .lower {
+        font-family: 'Anton', sans-serif;
+        font-size: 490px;
+        font-weight: 400;
+        line-height: 0.84;
+        letter-spacing: -24px;
+        color: #CC5500;
+        text-transform: uppercase;
+    }
+
+    .hero h1:last-child {
+        margin-top: 15px;
+        margin-left: -6px;
     }
 
     /* HANGING SPIDEY — beside SUSI LABS logo */
@@ -1516,8 +1531,14 @@
         font-size: 22px;
     }
 
-    .hero-logo {
-        height: 400px;
+    .upper {
+        font-size: 320px;
+        letter-spacing: -16px;
+    }
+
+    .lower {
+        font-size: 350px;
+        letter-spacing: -16px;
     }
 
     .heading h1 {
@@ -1633,9 +1654,21 @@
         line-height: 0.85;
     }
 
-    .hero-logo {
-        height: clamp(200px, 58vw, 220px);
-        max-width: 100%;
+    .upper {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
+        line-height: 0.85;
+    }
+
+    .lower {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
+        line-height: 0.85;
+    }
+
+    .hero h1:last-child {
+        margin-top: 4px;
+        margin-left: 0;
     }
 
     nav {
