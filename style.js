@@ -121,22 +121,23 @@ fromIfExists(".info p",{
     delay:0.95
 })
 
-fromIfExists(".shape-left",{
-    y:300,
-    opacity:0,
-    duration:1.4,
-    ease:"power4.out",
-    delay:1
-})
-
-fromIfExists(".shape-right",{
-    y:300,
-    opacity:0,
-    duration:1.4,
-    ease:"power4.out",
-    delay:1.1
-})
-
+if (!isMobile) {
+    ;[".shape-left", ".shape-right"].forEach((sel, i) => {
+        const el = document.querySelector(sel)
+        if (!el) return
+        gsap.fromTo(
+            el,
+            { y: 300, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.4,
+                ease: "power4.out",
+                delay: 1 + i * 0.1
+            }
+        )
+    })
+}
 /* =========================
    NAV HOVER
 ========================= */
@@ -683,4 +684,12 @@ function initVanillaTilt() {
 
 window.addEventListener("load", () => {
     setTimeout(initVanillaTilt, 400)
+})
+
+window.addEventListener("load", () => {
+    // Wait slightly longer for the intro animations to clear 
+    setTimeout(() => {
+        initFloatingDecor()
+        ScrollTrigger.refresh()
+    }, 500) 
 })
