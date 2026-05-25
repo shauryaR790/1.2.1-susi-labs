@@ -325,7 +325,7 @@ function playHeroIntro() {
             )
         })
 
-        gsap.utils.toArray(".hero-line .edge-badge").forEach((el, i) => {
+        gsap.utils.toArray(".hero > .edge-badge").forEach((el, i) => {
             gsap.from(el, {
                 scale: 0,
                 opacity: 0,
