@@ -86,58 +86,219 @@ document.addEventListener("visibilitychange", () => {
 })
 
 /* =========================
+   SITE LOADER
+========================= */
+
+const LOADER_STATUSES = [
+    "initializing print farm",
+    "loading materials",
+    "calibrating layers",
+    "preparing build plate"
+]
+
+function finishSiteLoader(loader, onComplete) {
+    const inner = loader?.querySelector(".loader-inner")
+    const marquee = loader?.querySelector(".loader-marquee")
+    const panelTop = loader?.querySelector(".loader-panel--top")
+    const panelBottom = loader?.querySelector(".loader-panel--bottom")
+
+    const exit = gsap.timeline({
+        onComplete() {
+            loader?.remove()
+            document.body.classList.remove("is-loading")
+            onComplete()
+            ScrollTrigger.refresh()
+        }
+    })
+
+    exit
+        .to(inner, {
+            scale: 1.06,
+            opacity: 0,
+            duration: prefersReducedMotion ? 0.3 : 0.45,
+            ease: "power2.in"
+        })
+        .to(
+            marquee,
+            { y: 40, opacity: 0, duration: 0.35, ease: "power2.in" },
+            "-=0.35"
+        )
+        .to(
+            panelTop,
+            { yPercent: 0, duration: prefersReducedMotion ? 0.45 : 0.75, ease: "power4.inOut" },
+            "-=0.1"
+        )
+        .to(
+            panelBottom,
+            { yPercent: 0, duration: prefersReducedMotion ? 0.45 : 0.75, ease: "power4.inOut" },
+            "-=0.75"
+        )
+        .to(
+            loader,
+            { opacity: 0, duration: 0.2, ease: "power1.in" },
+            "-=0.15"
+        )
+}
+
+function initSiteLoader(onComplete) {
+    const loader = document.getElementById("site-loader")
+    if (!loader || typeof gsap === "undefined") {
+        loader?.remove()
+        document.body.classList.remove("is-loading")
+        onComplete()
+        return
+    }
+
+    document.body.classList.add("is-loading")
+
+    const scope = loader
+    const bar = loader.querySelector(".loader-bar")
+    const percentEl = loader.querySelector(".loader-percent span")
+    const statusEl = loader.querySelector(".loader-status")
+    const progress = { val: 0 }
+    let pageLoaded = document.readyState === "complete"
+    let minTimeDone = false
+    let exiting = false
+
+    gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
+    gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
+
+    const minDuration = prefersReducedMotion ? 1.1 : 2.85
+    const progressDuration = prefersReducedMotion ? 0.9 : 2.8
+
+    const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
+
+    intro
+        .from(scope.querySelectorAll(".loader-tag"), { y: 24, opacity: 0, duration: 0.55 })
+        .from(scope.querySelectorAll(".loader-word--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
+        .from(scope.querySelectorAll(".loader-word--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
+        .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.35")
+        .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.3")
+        .from(scope.querySelectorAll(".loader-dot"), { scale: 0, opacity: 0, stagger: 0.1, duration: 0.4 }, "-=0.25")
+
+    if (!prefersReducedMotion) {
+        gsap.to(scope.querySelector(".loader-orbit"), {
+            rotation: 360,
+            duration: 6,
+            repeat: -1,
+            ease: "none"
+        })
+    }
+
+    const progressTween = gsap.to(progress, {
+        val: 100,
+        duration: progressDuration,
+        ease: "power2.inOut",
+        onUpdate() {
+            const n = Math.round(progress.val)
+            if (percentEl) percentEl.textContent = String(n)
+            if (bar) bar.style.width = `${n}%`
+            if (statusEl) {
+                const idx = Math.min(
+                    LOADER_STATUSES.length - 1,
+                    Math.floor((progress.val / 100) * LOADER_STATUSES.length)
+                )
+                statusEl.textContent = LOADER_STATUSES[idx]
+            }
+        }
+    })
+
+    function markLoaded() {
+        pageLoaded = true
+        tryExit()
+    }
+
+    function tryExit() {
+        if (exiting || !pageLoaded || !minTimeDone) return
+        exiting = true
+        progressTween.progress(1)
+        finishSiteLoader(loader, onComplete)
+    }
+
+    if (document.readyState === "complete") {
+        pageLoaded = true
+    } else {
+        window.addEventListener("load", markLoaded, { once: true })
+    }
+
+    window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+            pageLoaded = true
+            tryExit()
+        }
+    })
+
+    gsap.delayedCall(minDuration, () => {
+        minTimeDone = true
+        tryExit()
+    })
+}
+
+/* =========================
    HERO SECTION
 ========================= */
 
-fromIfExists(".upper",{
-    y: isMobile ? 0 : -400,
-    opacity: isMobile ? 0 : 1,
-    duration: isMobile ? 0.8 : 1.4,
-    ease:"power4.out"
-})
+function playHeroIntro() {
+    fromIfExists(".upper", {
+        y: isMobile ? 0 : -400,
+        opacity: isMobile ? 0 : 1,
+        duration: isMobile ? 0.8 : 1.4,
+        ease: "power4.out"
+    })
 
-fromIfExists(".lower",{
-    y: isMobile ? 0 : 500,
-    opacity: isMobile ? 0 : 1,
-    duration: isMobile ? 0.8 : 1.4,
-    ease:"power4.out",
-    delay:0.08
-})
+    fromIfExists(".lower", {
+        y: isMobile ? 0 : 500,
+        opacity: isMobile ? 0 : 1,
+        duration: isMobile ? 0.8 : 1.4,
+        ease: "power4.out",
+        delay: 0.08
+    })
 
-fromIfExists("nav a",{
-    y: isMobile ? -20 : -80,
-    opacity:0,
-    stagger:0.12,
-    duration: isMobile ? 0.8 : 1,
-    ease:"power3.out",
-    delay: isMobile ? 0.3 : 0.8
-})
+    fromIfExists("nav a", {
+        y: isMobile ? -20 : -80,
+        opacity: 0,
+        stagger: 0.12,
+        duration: isMobile ? 0.8 : 1,
+        ease: "power3.out",
+        delay: isMobile ? 0.3 : 0.8
+    })
 
-fromIfExists(".info p",{
-    opacity:0,
-    y:80,
-    duration:1.2,
-    ease:"power3.out",
-    delay:0.95
-})
+    fromIfExists(".info p", {
+        opacity: 0,
+        y: 80,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.95
+    })
 
-if (!isMobile) {
-    ;[".shape-left", ".shape-right"].forEach((sel, i) => {
-        const el = document.querySelector(sel)
-        if (!el) return
-        gsap.fromTo(
-            el,
-            { y: 300, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.4,
-                ease: "power4.out",
-                delay: 1 + i * 0.1
-            }
-        )
+    if (!isMobile) {
+        ;[".shape-left", ".shape-right"].forEach((sel, i) => {
+            const el = document.querySelector(sel)
+            if (!el) return
+            gsap.fromTo(
+                el,
+                { y: 300, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.4,
+                    ease: "power4.out",
+                    delay: 1 + i * 0.1
+                }
+            )
+        })
+    }
+}
+
+function afterLoaderComplete() {
+    playHeroIntro()
+    gsap.delayedCall(1.4, () => {
+        initFloatingDecor()
+        ScrollTrigger.refresh()
     })
 }
+
+initSiteLoader(afterLoaderComplete)
 /* =========================
    NAV HOVER
 ========================= */
@@ -477,11 +638,6 @@ function initFloatingDecor() {
     })
 }
 
-window.addEventListener("load", () => {
-    initFloatingDecor()
-    ScrollTrigger.refresh()
-})
-
 /* =========================
    CONTACT SECTION
 ========================= */
@@ -592,19 +748,6 @@ fromIfExists(".footer-brand p",{
     }
 })
 
-fromIfExists(".footer-links a",{
-    x:-80,
-    opacity:0,
-    stagger:0.08,
-    duration:1,
-    ease:"power3.out",
-    scrollTrigger:{
-        trigger:".footer-links",
-        start:"top 90%",
-        once: true
-    }
-})
-
 fromIfExists(".footer-icon",{
     scale:0,
     opacity:0,
@@ -675,12 +818,4 @@ function initVanillaTilt() {
 
 window.addEventListener("load", () => {
     setTimeout(initVanillaTilt, 400)
-})
-
-window.addEventListener("load", () => {
-    // Wait slightly longer for the intro animations to clear 
-    setTimeout(() => {
-        initFloatingDecor()
-        ScrollTrigger.refresh()
-    }, 500) 
 })

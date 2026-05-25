@@ -14,11 +14,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css">
     <link rel="stylesheet" href="style.css">
-
+    <style>
+        body.is-loading { overflow: hidden; height: 100vh; }
+        body.is-loading > *:not(#site-loader) { visibility: hidden; }
+        #site-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFF3EF;
+        }
+    </style>
 
 </head>
 
-<body>
+<body class="is-loading">
+
+    <div id="site-loader" class="site-loader" role="status" aria-live="polite" aria-busy="true" aria-label="Loading SUSI LABS">
+        <div class="loader-panel loader-panel--top" aria-hidden="true"></div>
+        <div class="loader-panel loader-panel--bottom" aria-hidden="true"></div>
+
+        <div class="loader-inner">
+            <p class="loader-tag">custom 3d printing</p>
+
+            <div class="loader-logo">
+                <span class="loader-word loader-word--a">SUSI</span>
+                <span class="loader-word loader-word--b">LABS</span>
+            </div>
+
+            <div class="loader-track" aria-hidden="true">
+                <div class="loader-bar"></div>
+            </div>
+
+            <p class="loader-status">initializing print farm</p>
+            <p class="loader-percent"><span>0</span>%</p>
+
+            <div class="loader-orbit" aria-hidden="true">
+                <span class="loader-dot"></span>
+                <span class="loader-dot"></span>
+                <span class="loader-dot"></span>
+            </div>
+        </div>
+
+        <div class="loader-marquee" aria-hidden="true">
+            <div class="loader-marquee-track">
+                <span>loading layers</span>
+                <span>•</span>
+                <span>warming extruders</span>
+                <span>•</span>
+                <span>syncing print farm</span>
+                <span>•</span>
+                <span>loading layers</span>
+                <span>•</span>
+                <span>warming extruders</span>
+                <span>•</span>
+                <span>syncing print farm</span>
+                <span>•</span>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
 
@@ -636,7 +692,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<script src="style.js?v=6"></script>
+<script src="style.js?v=8"></script>
 </body>
 
 </html>
