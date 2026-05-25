@@ -218,11 +218,11 @@
     .badge {
         width: 168px;
         height: 168px;
-        border: 3px solid #000;
+        border: 6px solid #000;
         border-radius: 50%;
         margin-top: 48px;
         margin-left: 8px;
-        background: #FFF3EF;
+        background: #FFFD46;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -231,15 +231,38 @@
         z-index: 3;
         will-change: transform;
         transform-origin: center center;
+        box-shadow: 4px 4px 0 #000;
     }
 
     .badge p {
-        font-size: 28px;
-        line-height: 0.95;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        margin: 0;
         text-align: center;
-        letter-spacing: -1.5px;
         text-transform: lowercase;
-        color: #000;
+    }
+
+    .badge-line {
+        display: block;
+        font-family: 'Anton', sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: -1px;
+        -webkit-text-stroke: 1px currentColor;
+        paint-order: stroke fill;
+    }
+
+    .badge-line--top {
+        color: #670038;
+    }
+
+    .badge-line--bottom {
+        color: #EF7CC2;
+        -webkit-text-stroke-color: #7E1753;
     }
 
     /* BOTTOM TEXT */
@@ -1670,12 +1693,13 @@
     .badge {
         width: 140px;
         height: 140px;
+        border-width: 5px;
         margin-top: 24px;
         margin-left: 0;
     }
 
-    .badge p {
-        font-size: 24px;
+    .badge-line {
+        font-size: 25px;
     }
 
     .description {
