@@ -275,6 +275,19 @@ function initSiteLoader(onComplete) {
    HERO SECTION
 ========================= */
 
+function getHeroSpideyLeft() {
+    const hero = document.querySelector(".hero")
+    const container = document.querySelector(".container")
+    if (!hero || !container) return 520
+    return container.offsetLeft + hero.offsetLeft + hero.offsetWidth + 12
+}
+
+function updateHeroSpideyAnchor() {
+    const spidey = document.querySelector(".hero-spidey")
+    if (!spidey) return
+    spidey.style.left = `${getHeroSpideyLeft()}px`
+}
+
 function initHeroSpidey() {
     const spidey = document.querySelector(".hero-spidey")
     const rider = document.querySelector(".hero-spidey-rider")
@@ -285,32 +298,37 @@ function initHeroSpidey() {
     const img = rider.querySelector(".hero-spidey-img")
 
     const dropDistance = () => {
-        const heroH = hero.offsetHeight
         const imgH = img?.offsetHeight || 140
-        return Math.max(heroH - imgH + 120, 280)
+        return Math.max(window.innerHeight - imgH - 48, 320)
     }
 
-    gsap.set(spidey, { opacity: 1, visibility: "visible" })
-    gsap.set(rider, { y: -48, rotation: -5, opacity: 1, transformOrigin: "50% 0%" })
+    updateHeroSpideyAnchor()
+
+    gsap.set(spidey, { opacity: 1, visibility: "visible", display: "block" })
+    gsap.set(rider, { y: 16, rotation: -6, opacity: 1, transformOrigin: "50% 0%" })
 
     gsap.timeline({
         scrollTrigger: {
             trigger: hero,
             start: "top top",
             end: "bottom top",
-            scrub: 0.85,
-            invalidateOnRefresh: true
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+            onRefresh: updateHeroSpideyAnchor
         }
-    }).to(rider, { y: dropDistance, rotation: 8, ease: "none" })
+    }).to(rider, { y: dropDistance, rotation: 10, ease: "none" })
 
     if (page2) {
         ScrollTrigger.create({
             trigger: page2,
-            start: "top 92%",
-            onEnter: () => gsap.set(spidey, { opacity: 0, visibility: "hidden" }),
-            onLeaveBack: () => gsap.set(spidey, { opacity: 1, visibility: "visible" })
+            start: "top bottom",
+            onEnter: () => gsap.set(spidey, { opacity: 0, visibility: "hidden", display: "none" }),
+            onLeaveBack: () => gsap.set(spidey, { opacity: 1, visibility: "visible", display: "block" })
         })
     }
+
+    window.addEventListener("resize", updateHeroSpideyAnchor)
+    ScrollTrigger.addEventListener("refreshInit", updateHeroSpideyAnchor)
 }
 
 function playHeroIntro() {

@@ -77,12 +77,14 @@
     /* HANGING SPIDEY — beside SUSI LABS logo */
 
     .hero-spidey {
-        position: absolute;
-        top: -32px;
-        left: calc(100% + 12px);
-        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 6;
         pointer-events: none;
         overflow: visible;
+        opacity: 1;
+        visibility: visible;
     }
 
     .hero-spidey-rider {
