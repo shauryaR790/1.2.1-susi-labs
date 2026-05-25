@@ -49,31 +49,15 @@
         z-index: 1;
     }
 
-    .upper {
-        font-family: 'Anton', sans-serif;
-        font-size: 450px;
-        font-weight: 400;
-        line-height: 0.84;
-        letter-spacing: -24px;
-        color: #000000;
-        text-transform: uppercase;
-    }
+    /* Hero title — same footprint as former SUSI + LABS type (450px + 490px @ 0.84 lh) */
 
-    .lower {
-        font-family: 'Anton', sans-serif;
-        font-size: 490px;
-        font-weight: 400;
-        line-height: 0.84;
-        letter-spacing: -24px;
-        color: #CC5500;
-        text-transform: uppercase;
-    }
-
-    /* SECOND LINE */
-
-    .hero h1:last-child {
-        margin-top: 15px;
-        margin-left: -6px;
+    .hero-logo {
+        display: block;
+        height: 804px;
+        width: auto;
+        max-width: min(96vw, 1280px);
+        object-fit: contain;
+        object-position: left top;
     }
 
     /* HANGING SPIDEY — beside SUSI LABS logo */
@@ -1533,14 +1517,8 @@
         font-size: 22px;
     }
 
-    .upper {
-        font-size: 320px;
-        letter-spacing: -16px;
-    }
-
-    .lower {
-        font-size: 350px;
-        letter-spacing: -16px;
+    .hero-logo {
+        height: 572px;
     }
 
     .heading h1 {
@@ -1656,21 +1634,9 @@
         line-height: 0.85;
     }
 
-    .upper {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
-        line-height: 0.85;
-    }
-
-    .lower {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
-        line-height: 0.85;
-    }
-
-    .hero h1:last-child {
-        margin-top: 4px;
-        margin-left: 0;
+    .hero-logo {
+        height: clamp(268px, 78vw, 306px);
+        max-width: 100%;
     }
 
     nav {
@@ -1957,21 +1923,9 @@
         line-height: 0.85;
     }
 
-    .upper {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
-        line-height: 0.85;
-    }
-
-    .lower {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
-        line-height: 0.85;
-    }
-
-    .hero h1:last-child {
-        margin-top: 4px;
-        margin-left: 0;
+    .hero-logo {
+        height: clamp(268px, 78vw, 306px);
+        max-width: 100%;
     }
 
     nav {
@@ -2429,14 +2383,8 @@
         font-size: 11px;
     }
 
-    .upper {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
-    }
-
-    .lower {
-        font-size: clamp(120px, 46vw, 180px);
-        letter-spacing: -7px;
+    .hero-logo {
+        height: clamp(240px, 72vw, 280px);
     }
 
     .shape-left,
