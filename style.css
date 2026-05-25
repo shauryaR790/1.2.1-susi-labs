@@ -113,26 +113,6 @@
         box-shadow: 2px 3px 0 rgba(90, 0, 46, 0.12);
     }
 
-    /* Hero — SUSI / LABS */
-
-    .edge-badge--hero-susi {
-        top: 0.14em;
-        right: -2.05em;
-        transform: rotate(-14deg);
-    }
-
-    .edge-badge--hero-labs-tr {
-        top: -0.06em;
-        right: -2.35em;
-        transform: rotate(9deg);
-    }
-
-    .edge-badge--hero-labs-bl {
-        left: -2.45em;
-        bottom: 0.1em;
-        transform: rotate(12deg);
-    }
-
     /* NAV */
 
     nav {
@@ -1594,10 +1574,6 @@
 ========================= */
 
 @media (max-width: 1400px) {
-    .hero > .edge-badge {
-        display: none !important;
-    }
-
     .info {
         top: 110px;
         right: 72px;
@@ -1762,10 +1738,6 @@
     .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
-    }
-
-    .hero > .edge-badge {
-        display: none !important;
     }
 
     .edge-badge {
@@ -2084,10 +2056,6 @@
     .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
-    }
-
-    .hero > .edge-badge {
-        display: none !important;
     }
 
     .edge-badge {

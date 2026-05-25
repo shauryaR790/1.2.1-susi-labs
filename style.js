@@ -325,16 +325,6 @@ function playHeroIntro() {
             )
         })
 
-        gsap.utils.toArray(".hero .edge-badge").forEach((el, i) => {
-            gsap.from(el, {
-                scale: 0,
-                opacity: 0,
-                rotation: i % 2 ? 24 : -24,
-                duration: 0.85,
-                ease: "back.out(2)",
-                delay: 1.05 + i * 0.12
-            })
-        })
     }
 }
 
