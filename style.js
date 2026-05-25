@@ -324,6 +324,17 @@ function playHeroIntro() {
                 }
             )
         })
+
+        gsap.utils.toArray(".hero .edge-badge").forEach((el, i) => {
+            gsap.from(el, {
+                scale: 0,
+                opacity: 0,
+                rotation: i % 2 ? 24 : -24,
+                duration: 0.85,
+                ease: "back.out(2)",
+                delay: 1.05 + i * 0.12
+            })
+        })
     }
 }
 
@@ -593,6 +604,35 @@ fromIfExists(".experience-title p",{
     }
 })
 
+fromIfExists(".title-badges--capabilities .edge-badge",{
+    scale:0,
+    opacity:0,
+    rotation: (i) => (i % 2 ? 18 : -18),
+    stagger:0.1,
+    duration:0.9,
+    delay:0.35,
+    ease:"back.out(2)",
+    scrollTrigger:{
+        trigger:".experience-title",
+        start:"top 82%",
+        once: true
+    }
+})
+
+fromIfExists(".title-badges--prints .edge-badge",{
+    scale:0,
+    opacity:0,
+    rotation: (i) => (i % 2 ? 16 : -16),
+    stagger:0.1,
+    duration:0.85,
+    ease:"back.out(2)",
+    scrollTrigger:{
+        trigger:".container2 .heading",
+        start:"top 80%",
+        once: true
+    }
+})
+
 fromIfExists(".stat-item",{
     y:100,
     opacity:0,
@@ -705,6 +745,14 @@ function initFloatingDecor() {
             duration: 2.1 + i * 0.2,
             ease: "sine.inOut"
         }, 0.3 + i * 0.15)
+    })
+
+    gsap.utils.toArray(".edge-badge").forEach((el, i) => {
+        startFloat(el, {
+            y: -8,
+            duration: 2.2 + i * 0.15,
+            ease: "sine.inOut"
+        }, 0.2 + i * 0.1)
     })
 }
 
