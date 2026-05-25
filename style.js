@@ -17,7 +17,7 @@ function fromIfExists(target, vars = {}) {
     const trigger = vars.scrollTrigger?.trigger
     if (trigger && !document.querySelector(trigger)) return null
 
-    return fromIfExists(elements, vars)
+    return gsap.from(elements, vars)
 }
 
 /* =========================
