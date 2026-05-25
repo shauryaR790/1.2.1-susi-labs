@@ -145,10 +145,35 @@ body {
     transform: rotate(14deg);
 }
 
+.hero > .edge-badge {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* HOVER */
 
 .edge-badge:hover {
     scale: 1.06;
+}
+
+@media (max-width: 1199px) {
+    .edge-badge--hero-susi {
+        top: 12px;
+        left: 58vw;
+        transform: rotate(13deg);
+    }
+
+    .edge-badge--hero-labs-tr {
+        top: 44%;
+        left: 68vw;
+        transform: rotate(11deg);
+    }
+
+    .edge-badge--hero-labs-bl {
+        bottom: 48px;
+        left: 6vw;
+        transform: rotate(14deg);
+    }
 }
 
 /* SECTION HEADING PILLS */
@@ -1798,16 +1823,35 @@ nav a {
     }
 
     .hero > .edge-badge {
-        display: none;
+        width: 130px;
+        height: 56px;
+        font-size: 16px;
     }
 
-    .edge-badge {
-    height: 44px;
-    min-width: 100px;
-    padding: 0 18px;
-    font-size: 13px;
-    border-width: 3px;
-}
+    .edge-badge--hero-susi {
+        top: 8px;
+        left: 54vw;
+    }
+
+    .edge-badge--hero-labs-tr {
+        top: 42%;
+        left: 62vw;
+    }
+
+    .edge-badge--hero-labs-bl {
+        bottom: 32px;
+        left: 4vw;
+    }
+
+    .title-badges .edge-badge {
+        height: 44px;
+        width: auto;
+        min-width: 100px;
+        padding: 0 18px;
+        font-size: 13px;
+        border-width: 3px;
+    }
+
 nav {
     position: fixed;
     top: 0;
@@ -2084,9 +2128,9 @@ RESPONSIVE — MOBILE
     border-width: 3px;
 }
 
-.hero-line .edge-badge {
-    display: none;
-}
+    .hero > .edge-badge {
+        display: none;
+    }
 
 .edge-badge--prints-top,
 .edge-badge--prints-mid {
@@ -2130,16 +2174,35 @@ RESPONSIVE — MOBILE
     }
 
     .hero > .edge-badge {
-        display: none;
+        width: 130px;
+        height: 56px;
+        font-size: 16px;
     }
 
-    .edge-badge {
-    height: 44px;
-    min-width: 100px;
-    padding: 0 18px;
-    font-size: 13px;
-    border-width: 3px;
-}
+    .edge-badge--hero-susi {
+        top: 8px;
+        left: 54vw;
+    }
+
+    .edge-badge--hero-labs-tr {
+        top: 42%;
+        left: 62vw;
+    }
+
+    .edge-badge--hero-labs-bl {
+        bottom: 32px;
+        left: 4vw;
+    }
+
+    .title-badges .edge-badge {
+        height: 44px;
+        width: auto;
+        min-width: 100px;
+        padding: 0 18px;
+        font-size: 13px;
+        border-width: 3px;
+    }
+
 nav {
     position: fixed;
     top: 0;

@@ -326,13 +326,17 @@ function playHeroIntro() {
         })
 
         gsap.utils.toArray(".hero > .edge-badge").forEach((el, i) => {
-            gsap.from(el, {
-                scale: 0,
-                opacity: 0,
-                duration: 0.85,
-                ease: "back.out(2)",
-                delay: 1.1 + i * 0.12
-            })
+            gsap.fromTo(
+                el,
+                { scale: 0, opacity: 0 },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.85,
+                    ease: "back.out(2)",
+                    delay: 1.1 + i * 0.12
+                }
+            )
         })
     }
 }
