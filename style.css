@@ -2710,32 +2710,6 @@ body.is-loading > *:not(#site-loader) {
     pointer-events: none;
 }
 
-.juggle-ball {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 3px solid #000;
-    top: 6px;
-    left: 50%;
-    margin-left: -10px;
-    z-index: 2;
-    will-change: transform;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-}
-
-.juggle-ball--1 {
-    background: #FFFD46;
-}
-
-.juggle-ball--2 {
-    background: #EF7CC2;
-}
-
-.juggle-ball--3 {
-    background: #C7F06F;
-}
-
 .loader-marquee {
     position: absolute;
     left: 0;
@@ -2787,7 +2761,4 @@ body.is-loading > *:not(#site-loader) {
         animation: none;
     }
 
-    .loader-juggler .juggle-ball {
-        animation: none;
-    }
 }

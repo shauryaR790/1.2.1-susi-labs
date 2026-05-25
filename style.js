@@ -96,59 +96,17 @@ const LOADER_STATUSES = [
     "preparing build plate"
 ]
 
-function initLoaderJuggle(scope) {
-    const juggler = scope?.querySelector(".loader-juggler")
-    if (!juggler || prefersReducedMotion) return
+function initLoaderPikachu(scope) {
+    const pikachu = scope?.querySelector(".loader-pikachu")
+    if (!pikachu || prefersReducedMotion) return
 
-    const balls = gsap.utils.toArray(juggler.querySelectorAll(".juggle-ball"))
-    const pikachu = juggler.querySelector(".loader-pikachu")
-    const cycle = 0.85
-    const stagger = cycle / 3
-    const peaks = [
-        { x: -34, y: -52 },
-        { x: 0, y: -58 },
-        { x: 34, y: -52 }
-    ]
-
-    gsap.set(balls, { x: 0, y: 0, scale: 1, transformOrigin: "50% 50%" })
-
-    balls.forEach((ball, i) => {
-        const peak = peaks[i]
-        const hand = peaks[(i + 1) % 3]
-
-        gsap.timeline({ repeat: -1, delay: i * stagger })
-            .to(ball, {
-                x: peak.x,
-                y: peak.y,
-                scale: 1.15,
-                duration: cycle * 0.42,
-                ease: "power2.out"
-            })
-            .to(ball, {
-                x: hand.x * 0.55,
-                y: -10,
-                scale: 0.95,
-                duration: cycle * 0.28,
-                ease: "power1.inOut"
-            })
-            .to(ball, {
-                x: 0,
-                y: 0,
-                scale: 1,
-                duration: cycle * 0.3,
-                ease: "power2.in"
-            })
+    gsap.to(pikachu, {
+        y: -6,
+        duration: 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
     })
-
-    if (pikachu) {
-        gsap.to(pikachu, {
-            y: -5,
-            duration: cycle * 0.42,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        })
-    }
 }
 
 function finishSiteLoader(loader, onComplete) {
@@ -232,7 +190,7 @@ function initSiteLoader(onComplete) {
         .from(scope.querySelectorAll(".loader-juggler"), { scale: 0.6, opacity: 0, duration: 0.55, ease: "back.out(1.6)" }, "-=0.2")
 
     if (!prefersReducedMotion) {
-        initLoaderJuggle(scope)
+        initLoaderPikachu(scope)
     }
 
     const progressTween = gsap.to(progress, {
