@@ -45,7 +45,8 @@
     .hero {
         position: absolute;
         left: -6px;
-        top: -12px;
+        top: 50%;
+        transform: translateY(-50%);
         z-index: 1;
     }
 
@@ -1922,7 +1923,7 @@
     }
 
     .hero-logo {
-        height: clamp(268px, 78vw, 306px);
+        height: clamp(200px, 58vw, 220px);
         max-width: 100%;
     }
 
@@ -2382,7 +2383,7 @@
     }
 
     .hero-logo {
-        height: clamp(240px, 72vw, 280px);
+        height: clamp(180px, 52vw, 200px);
     }
 
     .shape-left,
