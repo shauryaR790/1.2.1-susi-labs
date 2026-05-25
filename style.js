@@ -217,14 +217,14 @@ gsap.from(".product-heading h1",{
     }
 })
 
-gsap.from(".products-grid:not(.products-grid-clone) .product-img",{
+gsap.from(".products-grid .product-img",{
     y:120,
     opacity:0,
     stagger:0.12,
     duration:1.2,
     ease:"power4.out",
     scrollTrigger:{
-        trigger:".products-carousel",
+        trigger:".products-grid",
         start:"top 82%"
     }
 })
@@ -267,55 +267,6 @@ document.querySelectorAll(".product-img").forEach((img)=>{
     })
 
 })
-
-/* =========================
-   MOBILE PRODUCT CAROUSEL
-========================= */
-
-function initProductCarousel() {
-    const carousel = document.querySelector(".products-carousel")
-    const track = carousel?.querySelector(".products-track")
-    const grid = carousel?.querySelector(".products-grid:not(.products-grid-clone)")
-
-    if (!carousel || !track || !grid) return
-
-    const mobileQuery = window.matchMedia("(max-width: 768px)")
-
-    const updateCarousel = () => {
-        track.querySelectorAll(".products-grid-clone").forEach((clone) => clone.remove())
-        track.style.removeProperty("--marquee-duration")
-        track.style.removeProperty("--marquee-distance")
-        carousel.classList.remove("is-carousel")
-
-        if (!mobileQuery.matches) return
-
-        const clone = grid.cloneNode(true)
-        clone.classList.add("products-grid-clone")
-        clone.setAttribute("aria-hidden", "true")
-        track.appendChild(clone)
-
-        carousel.classList.add("is-carousel")
-
-        const loopWidth = grid.offsetWidth + 16
-        const speed = 55
-
-        track.style.setProperty("--marquee-distance", `-${loopWidth}px`)
-        track.style.setProperty("--marquee-duration", `${loopWidth / speed}s`)
-    }
-
-    const scheduleUpdate = () => {
-        clearTimeout(initProductCarousel._timer)
-        initProductCarousel._timer = setTimeout(updateCarousel, 200)
-    }
-
-    updateCarousel()
-
-    mobileQuery.addEventListener("change", updateCarousel)
-    window.addEventListener("resize", scheduleUpdate)
-    window.addEventListener("load", updateCarousel)
-}
-
-initProductCarousel()
 
 /* =========================
    EXPERIENCE SECTION
