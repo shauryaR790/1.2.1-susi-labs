@@ -2762,3 +2762,120 @@ body.is-loading > *:not(#site-loader) {
     }
 
 }
+
+/* =========================
+   FUNKY SITE DECOR
+========================= */
+
+.container,
+.container2,
+.container3,
+.container4,
+.container6,
+.container7-main,
+.container8,
+.container9,
+footer {
+    overflow: visible;
+}
+
+.site-decor-piece {
+    position: absolute;
+    width: var(--decor-size, 80px);
+    height: var(--decor-size, 80px);
+    z-index: 6;
+    pointer-events: none;
+    transform: rotate(var(--decor-rotate, 0deg));
+    filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.2));
+}
+
+.site-decor-piece img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+}
+
+.site-decor-piece svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+}
+
+/* hero */
+.decor--hero-tl {
+    top: 140px;
+    left: 2%;
+}
+
+/* about */
+.decor--c2-r {
+    top: 18%;
+    right: -12px;
+}
+
+/* products */
+.decor--c3-l {
+    top: 42%;
+    left: -8px;
+}
+
+/* experience */
+.decor--c4-tr {
+    top: 8%;
+    right: 4%;
+}
+
+/* team cards */
+.decor--c8-t {
+    top: -20px;
+    right: 8%;
+}
+
+/* how to order */
+.decor--c7-snitch {
+    top: 12%;
+    right: 6%;
+}
+
+/* contact */
+.decor--c9-glasses {
+    bottom: 18%;
+    right: 6%;
+}
+
+@media (max-width: 992px) {
+    .site-decor-piece {
+        --decor-size: 64px !important;
+        opacity: 0.92;
+    }
+
+    .decor--hero-tl {
+        top: 100px;
+        left: 4%;
+    }
+
+    .decor--c2-r {
+        top: 8%;
+        right: 2%;
+    }
+
+    .decor--c3-l {
+        top: 28%;
+        left: 2%;
+    }
+
+    .decor--c4-tr {
+        top: 4%;
+        right: 2%;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-decor-piece {
+        display: none;
+    }
+}
