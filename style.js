@@ -381,24 +381,56 @@ fromIfExists(".heading h1",{
     }
 })
 
-gsap.utils.toArray(".badge").forEach((badge) => {
-    gsap.fromTo(
-        badge,
-        { scale: 0.75, opacity: 0 },
-        {
-            scale: 1,
-            opacity: 1,
-            duration: 1.2,
-            ease: "expo.out",
-            scrollTrigger: {
-                trigger: badge,
-                start: "top 92%",
-                once: true,
-                invalidateOnRefresh: true
-            }
+function initPrintFarmBadge() {
+    const badge = document.querySelector(".container2 .badge")
+    if (!badge || typeof gsap === "undefined" || prefersReducedMotion) return
+
+    const lines = badge.querySelectorAll(".badge-line")
+    gsap.set(badge, { transformOrigin: "50% 50%" })
+    gsap.set(lines, { opacity: 0, y: 14 })
+
+    const reveal = gsap.timeline({
+        paused: true,
+        onComplete() {
+            startFloat(badge, {
+                y: -16,
+                rotation: 10,
+                duration: 2.5,
+                ease: "sine.inOut"
+            })
         }
-    )
-})
+    })
+
+    reveal
+        .from(badge, {
+            scale: 0,
+            rotation: -220,
+            opacity: 0,
+            duration: 1.15,
+            ease: "back.out(2.4)"
+        })
+        .to(
+            lines,
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.55,
+                stagger: 0.14,
+                ease: "power2.out"
+            },
+            "-=0.42"
+        )
+
+    ScrollTrigger.create({
+        trigger: badge,
+        start: "top 82%",
+        once: true,
+        invalidateOnRefresh: true,
+        onEnter: () => reveal.play()
+    })
+}
+
+initPrintFarmBadge()
 
 fromIfExists(".description p",{
     x:-220,
@@ -663,15 +695,6 @@ function initFloatingDecor() {
         rotation: -14,
         duration: 2,
         ease: "sine.inOut"
-    })
-
-    gsap.utils.toArray(".badge").forEach((badge) => {
-        startFloat(badge, {
-            y: -18,
-            rotation: 8,
-            duration: 2.4,
-            ease: "sine.inOut"
-        }, 0.6)
     })
 
     gsap.utils.toArray(".tag").forEach((el, i) => {
