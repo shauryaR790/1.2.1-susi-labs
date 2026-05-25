@@ -80,15 +80,17 @@
 
     .hero-spidey {
         position: absolute;
-        top: 8px;
-        left: calc(100% + 16px);
+        top: -32px;
+        left: calc(100% + 12px);
         z-index: 2;
         pointer-events: none;
         overflow: visible;
     }
 
     .hero-spidey-rider {
-        transform-origin: top center;
+        position: relative;
+        top: 0;
+        transform-origin: 50% 0%;
         will-change: transform;
     }
 

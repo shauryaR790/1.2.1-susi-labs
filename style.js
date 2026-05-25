@@ -279,26 +279,25 @@ function initHeroSpidey() {
     const rider = document.querySelector(".hero-spidey-rider")
     if (!rider || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
 
-    const img = rider.querySelector(".hero-spidey-img")
-    const imgH = () => img?.offsetHeight || 140
-    const hangY = () => 120
-    const exitY = () => window.innerHeight - 40
+    gsap.set(rider, { y: 0, rotation: 0, transformOrigin: "50% 0%" })
 
-    gsap.set(rider, { y: () => -imgH() - 60, rotation: 0, transformOrigin: "50% 0%" })
+    gsap.from(rider, {
+        y: -48,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power2.out",
+        delay: 1.1
+    })
 
-    const drop = gsap.timeline({ delay: 1.15, repeat: -1, repeatDelay: 2.2 })
-
-    drop
-        .to(rider, { y: hangY, duration: 1.8, ease: "power2.inOut" })
-        .to(rider, {
-            rotation: 8,
-            duration: 0.75,
-            ease: "sine.inOut",
-            yoyo: true,
-            repeat: 4
-        })
-        .to(rider, { y: exitY, rotation: -4, duration: 2.4, ease: "power1.in" })
-        .set(rider, { y: () => -imgH() - 60, rotation: 0 })
+    gsap.to(rider, {
+        rotation: 6,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1.8,
+        transformOrigin: "50% 0%"
+    })
 }
 
 function playHeroIntro() {
