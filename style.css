@@ -121,7 +121,7 @@ nav a:hover {
     font-size: 28px;
     line-height: 1.02;
     letter-spacing: -1.5px;
-    color: #000000;
+    color: #D4D4D4;
     text-transform: lowercase;
 }
 
@@ -1582,7 +1582,7 @@ nav {
     flex-wrap: wrap;
     gap: 16px 24px;
     padding: 14px 20px;
-    background: rgba(255, 243, 239, 0.92);
+    background: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 100;
@@ -1590,6 +1590,7 @@ nav {
 
 nav a {
     font-size: 15px;
+    color: #FFFFFF;
 }
 
 .info {
@@ -1882,7 +1883,7 @@ nav {
     flex-wrap: wrap;
     gap: 14px 20px;
     padding: 14px 16px;
-    background: rgba(255, 243, 239, 0.92);
+    background: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 100;
@@ -2505,7 +2506,7 @@ z-index: 99999;
 display: flex;
 align-items: center;
 justify-content: center;
-background: #FFF3EF;
+background: #000000;
 overflow: hidden;
 }
 
@@ -2546,7 +2547,7 @@ font-family: 'Anton', sans-serif;
 font-size: clamp(14px, 2.5vw, 18px);
 letter-spacing: 0.28em;
 text-transform: uppercase;
-color: #670038;
+color: rgba(255, 255, 255, 0.55);
 margin-bottom: 18px;
 }
 
@@ -2566,7 +2567,7 @@ text-transform: uppercase;
 .loader-word--a {
 font-size: clamp(72px, 18vw, 128px);
 letter-spacing: -0.06em;
-color: #000000;
+color: #FFFFFF;
 }
 
 .loader-word--b {
@@ -2579,7 +2580,7 @@ color: #FF7F00;
 .loader-track {
 width: 100%;
 height: 6px;
-background: rgba(0, 0, 0, 0.12);
+background: rgba(255, 255, 255, 0.18);
 border-radius: 100px;
 overflow: hidden;
 margin-bottom: 16px;
@@ -2588,7 +2589,7 @@ margin-bottom: 16px;
 .loader-bar {
 width: 0%;
 height: 100%;
-background: linear-gradient(90deg, #670038, #EF7CC2);
+background: linear-gradient(90deg, #FF7F00, #FFB347);
 border-radius: inherit;
 transform-origin: left center;
 }
@@ -2598,7 +2599,7 @@ font-family: Arial, Helvetica, sans-serif;
 font-size: 13px;
 letter-spacing: 0.06em;
 text-transform: lowercase;
-color: #000;
+color: rgba(255, 255, 255, 0.65);
 margin-bottom: 6px;
 }
 
@@ -2606,7 +2607,7 @@ margin-bottom: 6px;
 font-family: 'Anton', sans-serif;
 font-size: clamp(40px, 10vw, 64px);
 line-height: 1;
-color: #670038;
+color: #FFFFFF;
 margin-bottom: 28px;
 }
 
