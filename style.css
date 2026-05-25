@@ -216,7 +216,7 @@
         justify-content: space-between;
         align-items: flex-start;
         position: relative;
-        background: #ffffff;
+        background: #FFF3EF;
         /* margin-top: 30px; */
         /* padding-bottom: 60px; */
     }
@@ -1955,9 +1955,21 @@
         line-height: 0.85;
     }
 
-    .hero-logo {
-        height: clamp(200px, 58vw, 220px);
-        max-width: 100%;
+    .upper {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
+        line-height: 0.85;
+    }
+
+    .lower {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
+        line-height: 0.85;
+    }
+
+    .hero h1:last-child {
+        margin-top: 4px;
+        margin-left: 0;
     }
 
     nav {
@@ -2415,8 +2427,14 @@
         font-size: 11px;
     }
 
-    .hero-logo {
-        height: clamp(180px, 52vw, 200px);
+    .upper {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
+    }
+
+    .lower {
+        font-size: clamp(120px, 46vw, 180px);
+        letter-spacing: -7px;
     }
 
     .shape-left,
