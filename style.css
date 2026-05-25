@@ -76,43 +76,25 @@
         margin-left: -6px;
     }
 
-    /* HANGING SPIDEY (desktop hero) */
+    /* HANGING SPIDEY — beside SUSI LABS logo */
 
     .hero-spidey {
         position: absolute;
-        top: 0;
-        left: clamp(500px, 53vw, 720px);
-        z-index: 4;
-        width: clamp(72px, 7vw, 100px);
-        height: 100vh;
+        top: 8px;
+        left: calc(100% + 16px);
+        z-index: 2;
         pointer-events: none;
         overflow: visible;
     }
 
-    .hero-spidey-web {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 2px;
-        height: 100%;
-        margin-left: -1px;
-        background: linear-gradient(to bottom, transparent 0%, #1a1a1a 8%, #1a1a1a 100%);
-        opacity: 0.35;
-        transform-origin: top center;
-    }
-
     .hero-spidey-rider {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
         transform-origin: top center;
         will-change: transform;
     }
 
     .hero-spidey-img {
         display: block;
-        width: clamp(72px, 7vw, 96px);
+        width: clamp(110px, 11vw, 155px);
         height: auto;
         object-fit: contain;
         image-rendering: pixelated;

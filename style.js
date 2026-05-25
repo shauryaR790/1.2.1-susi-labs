@@ -276,33 +276,29 @@ function initSiteLoader(onComplete) {
 ========================= */
 
 function initHeroSpidey() {
-    const root = document.querySelector(".hero-spidey")
     const rider = document.querySelector(".hero-spidey-rider")
-    const web = document.querySelector(".hero-spidey-web")
-    if (!root || !rider || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
+    if (!rider || prefersReducedMotion || isMobile || typeof gsap === "undefined") return
 
     const img = rider.querySelector(".hero-spidey-img")
-    const hangY = () => Math.min(window.innerHeight * 0.42, 520)
-    const exitY = () => window.innerHeight + (img?.offsetHeight || 96)
+    const imgH = () => img?.offsetHeight || 140
+    const hangY = () => 120
+    const exitY = () => window.innerHeight - 40
 
-    gsap.set(rider, { y: () => -(img?.offsetHeight || 96) - 40, rotation: 0, transformOrigin: "50% 0%" })
-    gsap.set(web, { scaleY: 0, transformOrigin: "top center" })
+    gsap.set(rider, { y: () => -imgH() - 60, rotation: 0, transformOrigin: "50% 0%" })
 
-    const drop = gsap.timeline({ delay: 1.15, repeat: -1, repeatDelay: 2 })
+    const drop = gsap.timeline({ delay: 1.15, repeat: -1, repeatDelay: 2.2 })
 
     drop
-        .to(web, { scaleY: 1, duration: 0.25, ease: "power2.out" })
-        .to(rider, { y: hangY, duration: 2.1, ease: "power2.inOut" }, "<")
+        .to(rider, { y: hangY, duration: 1.8, ease: "power2.inOut" })
         .to(rider, {
-            rotation: 9,
-            duration: 0.85,
+            rotation: 8,
+            duration: 0.75,
             ease: "sine.inOut",
             yoyo: true,
-            repeat: 5
+            repeat: 4
         })
-        .to(rider, { y: exitY, rotation: -5, duration: 2, ease: "power1.in" })
-        .set(rider, { y: () => -(img?.offsetHeight || 96) - 40, rotation: 0 })
-        .set(web, { scaleY: 0 })
+        .to(rider, { y: exitY, rotation: -4, duration: 2.4, ease: "power1.in" })
+        .set(rider, { y: () => -imgH() - 60, rotation: 0 })
 }
 
 function playHeroIntro() {
