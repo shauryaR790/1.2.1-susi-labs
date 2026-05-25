@@ -1998,12 +1998,14 @@
     .badge {
         width: 128px;
         height: 128px;
+        border-width: 5px;
         margin-top: 18px;
         margin-left: 0;
+        box-shadow: 3px 3px 0 #000;
     }
 
-    .badge p {
-        font-size: 20px;
+    .badge-line {
+        font-size: 21px;
     }
 
     .description {
@@ -2689,35 +2691,43 @@ body.is-loading > *:not(#site-loader) {
     margin-bottom: 28px;
 }
 
-.loader-orbit {
+.loader-juggler {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 140px;
+    height: 130px;
+    margin-top: 4px;
 }
 
-.loader-dot {
+.loader-monster {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.juggle-ball {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background: #000;
-    top: 50%;
-    left: 50%;
-    margin: -7px 0 0 -7px;
-}
-
-.loader-dot:nth-child(1) {
-    transform: rotate(0deg) translateY(-30px);
-}
-
-.loader-dot:nth-child(2) {
-    transform: rotate(120deg) translateY(-30px);
-    background: #FFFD46;
     border: 3px solid #000;
+    top: 8px;
+    left: 50%;
+    margin-left: -9px;
+    z-index: 2;
+    will-change: transform;
 }
 
-.loader-dot:nth-child(3) {
-    transform: rotate(240deg) translateY(-30px);
+.juggle-ball--1 {
+    background: #FFFD46;
+}
+
+.juggle-ball--2 {
+    background: #EF7CC2;
+}
+
+.juggle-ball--3 {
+    background: #C7F06F;
 }
 
 .loader-marquee {
@@ -2771,7 +2781,7 @@ body.is-loading > *:not(#site-loader) {
         animation: none;
     }
 
-    .loader-orbit {
+    .loader-juggler .juggle-ball {
         animation: none;
     }
 }
