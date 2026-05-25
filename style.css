@@ -49,13 +49,11 @@
         z-index: 1;
     }
 
-    /* Hero title — same footprint as former SUSI + LABS type (450px + 490px @ 0.84 lh) */
-
     .hero-logo {
         display: block;
-        height: 804px;
+        height: 560px;
         width: auto;
-        max-width: min(96vw, 1280px);
+        max-width: min(92vw, 900px);
         object-fit: contain;
         object-position: left top;
     }
@@ -1518,7 +1516,7 @@
     }
 
     .hero-logo {
-        height: 572px;
+        height: 400px;
     }
 
     .heading h1 {
@@ -1635,7 +1633,7 @@
     }
 
     .hero-logo {
-        height: clamp(268px, 78vw, 306px);
+        height: clamp(200px, 58vw, 220px);
         max-width: 100%;
     }
 
