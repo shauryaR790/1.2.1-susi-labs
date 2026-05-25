@@ -290,7 +290,15 @@ function initHeroSpidey() {
 
     const dropDistance = () => {
         const imgH = img?.offsetHeight || 120
-        return Math.max(hero.offsetHeight - imgH - 60, 200)
+        const shapes = document.querySelector(".container .shapes")
+        const gap = 32
+
+        if (shapes) {
+            const stopAt = shapes.offsetTop - hero.offsetTop - spidey.offsetTop - imgH - gap
+            return Math.max(stopAt, 140)
+        }
+
+        return Math.max(hero.offsetHeight * 0.55 - imgH, 180)
     }
 
     gsap.set(spidey, { opacity: 1, visibility: "visible", autoAlpha: 1, rotation: 0 })
