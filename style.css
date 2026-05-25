@@ -190,7 +190,7 @@
         justify-content: space-between;
         align-items: flex-start;
         position: relative;
-        background: #670038;
+        background: #ffffff;
         /* margin-top: 30px; */
         /* padding-bottom: 60px; */
     }
@@ -219,9 +219,9 @@
         text-transform: lowercase;
     }
 
-    .container2 .heading h1 {
-        color: #ffffff;
-        font-weight: 700;
+    .heading h1:first-child,
+    .heading h1:last-child {
+        color: #000000;
     }
 
     /* CIRCLE BADGE */
