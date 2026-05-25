@@ -325,7 +325,7 @@ function playHeroIntro() {
             )
         })
 
-        gsap.utils.toArray(".hero-badges .edge-badge").forEach((el, i) => {
+        gsap.utils.toArray(".hero-line .edge-badge").forEach((el, i) => {
             gsap.from(el, {
                 scale: 0,
                 opacity: 0,
@@ -606,11 +606,10 @@ fromIfExists(".experience-title p",{
 gsap.utils.toArray(".title-badges--capabilities .edge-badge").forEach((el, i) => {
     gsap.fromTo(
         el,
-        { scale: 0, opacity: 0, rotation: i % 2 ? 18 : -18 },
+        { scale: 0, opacity: 0 },
         {
             scale: 1,
             opacity: 1,
-            rotation: 0,
             duration: 0.9,
             delay: 0.35 + i * 0.1,
             ease: "back.out(2)",
@@ -626,7 +625,7 @@ gsap.utils.toArray(".title-badges--capabilities .edge-badge").forEach((el, i) =>
 gsap.utils.toArray(".title-badges--prints .edge-badge").forEach((el, i) => {
     gsap.fromTo(
         el,
-        { scale: 0, opacity: 0, rotation: i % 2 ? 16 : -16 },
+        { scale: 0, opacity: 0 },
         {
             scale: 1,
             opacity: 1,

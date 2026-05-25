@@ -35,6 +35,8 @@
         min-height: 100vh;
         position: relative;
         background: #FFF3EF;
+        overflow: visible;
+        padding-top: 8px;
         /* margin-bottom:220px; */
     }
 
@@ -45,7 +47,7 @@
     .hero {
         position: absolute;
         left: -6px;
-        top: -12px;
+        top: 0;
         z-index: 1;
         overflow: visible;
         display: block;
@@ -71,41 +73,47 @@
         text-transform: uppercase;
     }
 
-    .hero h1:last-child {
+    .hero-line {
+        position: relative;
+        display: block;
+        width: fit-content;
+        overflow: visible;
+    }
+
+    .hero-line--labs {
         margin-top: 15px;
         margin-left: -6px;
     }
 
-    .hero h1 {
+    .hero-line h1 {
         display: block;
     }
 
-    .hero-badges {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 4;
+    .hero-line .edge-badge {
+        z-index: 5;
     }
 
-    .hero-badges .edge-badge {
-        z-index: 4;
-    }
+    /* Tucked to letter edges — right/left of each line, not on glyphs */
 
     .edge-badge--hero-susi {
-        top: 0.12em;
-        left: min(54vw, 780px);
+        left: 100%;
+        top: 0.18em;
+        margin-left: 14px;
         transform: rotate(-14deg);
     }
 
     .edge-badge--hero-labs-tr {
-        top: 46%;
-        left: min(58vw, 840px);
+        left: 100%;
+        top: 0.12em;
+        margin-left: 16px;
         transform: rotate(9deg);
     }
 
     .edge-badge--hero-labs-bl {
-        top: 74%;
-        left: clamp(12px, 2vw, 48px);
+        right: 100%;
+        top: 0.42em;
+        left: auto;
+        margin-right: 14px;
         transform: rotate(12deg);
     }
 
@@ -288,22 +296,22 @@
 
     .edge-badge--prints-top {
         left: 100%;
-        top: -6px;
-        margin-left: 22px;
+        top: 0.06em;
+        margin-left: 14px;
         transform: rotate(-11deg);
     }
 
     .edge-badge--prints-mid {
         left: 100%;
-        top: 6px;
-        margin-left: 26px;
+        top: 0.1em;
+        margin-left: 14px;
         transform: rotate(7deg);
     }
 
     .edge-badge--prints-bot {
         right: 100%;
-        bottom: 4px;
-        margin-right: 22px;
+        top: 0.35em;
+        margin-right: 14px;
         transform: rotate(-9deg);
     }
 
@@ -666,22 +674,22 @@
 
     .edge-badge--cap-tr {
         left: 100%;
-        top: -10px;
-        margin-left: 18px;
+        top: 0.05em;
+        margin-left: 14px;
         transform: rotate(-13deg);
     }
 
     .edge-badge--cap-bl {
         right: 100%;
-        bottom: 6px;
-        margin-right: 20px;
+        top: 0.55em;
+        margin-right: 14px;
         transform: rotate(11deg);
     }
 
     .edge-badge--cap-br {
-        left: 48%;
+        left: 72%;
         top: 100%;
-        margin-top: 14px;
+        margin-top: 10px;
         transform: rotate(-8deg);
     }
 
