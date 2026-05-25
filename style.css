@@ -55,7 +55,7 @@
         font-weight: 400;
         line-height: 0.84;
         letter-spacing: -24px;
-        color: #670038;
+        color: #000000;
         text-transform: uppercase;
     }
 
@@ -65,7 +65,7 @@
         font-weight: 400;
         line-height: 0.84;
         letter-spacing: -24px;
-        color: #EF7CC2;
+        color: #CC5500;
         text-transform: uppercase;
     }
 
@@ -190,7 +190,7 @@
         justify-content: space-between;
         align-items: flex-start;
         position: relative;
-        background: #C7F06F;
+        background: #FFEBE6;
         /* margin-top: 30px; */
         /* padding-bottom: 60px; */
     }
@@ -2664,14 +2664,14 @@ body.is-loading > *:not(#site-loader) {
 .loader-word--a {
     font-size: clamp(72px, 18vw, 128px);
     letter-spacing: -0.06em;
-    color: #670038;
+    color: #000000;
 }
 
 .loader-word--b {
     font-size: clamp(80px, 20vw, 140px);
     letter-spacing: -0.06em;
     margin-left: -0.04em;
-    color: #EF7CC2;
+    color: #CC5500;
 }
 
 .loader-track {
