@@ -294,7 +294,9 @@ function initHeroSpidey() {
         const gap = 32
 
         if (shapes) {
-            const stopAt = shapes.offsetTop - hero.offsetTop - spidey.offsetTop - imgH - gap
+            const spideyTop = spidey.getBoundingClientRect().top
+            const shapesTop = shapes.getBoundingClientRect().top
+            const stopAt = shapesTop - spideyTop - imgH - gap
             return Math.max(stopAt, 140)
         }
 
