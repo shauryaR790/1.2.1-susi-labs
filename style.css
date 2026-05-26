@@ -34,11 +34,12 @@ body {
     --hero-ticker-bar: 40px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
     width: 100%;
-    min-height: 100vh;
+    height: 100svh;
+    max-height: 100svh;
+    min-height: 100svh;
     position: relative;
     background: #FFF3EF;
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: hidden;
     padding-top: 0;
     /* margin-bottom:220px; */
 }
@@ -46,6 +47,10 @@ body {
 /* HERO TOP TICKER */
 
 .hero-ticker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     height: var(--hero-ticker-bar);
     overflow: hidden;
@@ -53,16 +58,14 @@ body {
     border-bottom: 3px solid #C7F06F;
     padding: 0;
     z-index: 20;
-    position: relative;
     display: flex;
     align-items: center;
-    flex-shrink: 0;
 }
 
 .hero-ticker-track {
     display: flex;
     width: max-content;
-    min-width: 200%;
+    flex-shrink: 0;
     animation: heroTickerScroll 32s linear infinite;
     will-change: transform;
     transform: translate3d(0, 0, 0);
@@ -126,7 +129,7 @@ body {
 
 .upper {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(280px, 32vw, 360px);
+    font-size: clamp(200px, 26vh, 360px);
     font-weight: 400;
     line-height: 0.84;
     letter-spacing: -18px;
@@ -136,7 +139,7 @@ body {
 
 .lower {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(300px, 34vw, 390px);
+    font-size: clamp(220px, 28vh, 390px);
     font-weight: 400;
     line-height: 0.84;
     letter-spacing: -18px;
@@ -206,6 +209,8 @@ nav a:hover {
     align-items: flex-end;
     gap: 0;
     z-index: 3;
+    max-height: calc(100svh - var(--hero-ticker-h));
+    pointer-events: none;
 }
 
 .shape-left {
@@ -1622,16 +1627,22 @@ nav a {
 .container {
     --hero-ticker-bar: 36px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
-    min-height: 100vh;
-    padding: 0 24px 28px;
+    height: 100svh;
+    max-height: 100svh;
+    min-height: 100svh;
+    padding: 0 24px 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .hero-ticker {
-    order: 0;
-    margin: 0 -24px;
-    width: calc(100% + 48px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
 }
 
 .hero-ticker-item {
@@ -1937,16 +1948,22 @@ RESPONSIVE — MOBILE
 .container {
     --hero-ticker-bar: 34px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
-    min-height: 100vh;
-    padding: 0 20px 24px;
+    height: 100svh;
+    max-height: 100svh;
+    min-height: 100svh;
+    padding: 0 20px 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .hero-ticker {
-    order: 0;
-    margin: 0 -20px;
-    width: calc(100% + 40px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
 }
 
 .hero-ticker-item {
