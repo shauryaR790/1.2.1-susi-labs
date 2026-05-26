@@ -44,77 +44,6 @@ body {
     /* margin-bottom:220px; */
 }
 
-/* HERO TOP TICKER */
-
-.hero-ticker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: var(--hero-ticker-bar);
-    overflow: hidden;
-    background: #FFFD46;
-    border-bottom: 3px solid #C7F06F;
-    padding: 0;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-}
-
-.hero-ticker-track {
-    display: flex;
-    width: max-content;
-    flex-shrink: 0;
-    animation: heroTickerScroll 32s linear infinite;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-}
-
-.hero-ticker-content {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    flex-shrink: 0;
-    padding-right: 36px;
-}
-
-.hero-ticker-item {
-    font-family: 'Anton', sans-serif;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: var(--hero-ticker-bar);
-    letter-spacing: -0.5px;
-    color: #4E0029;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.hero-ticker-dot {
-    width: 12px;
-    height: 12px;
-    background: #F7A5D3;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-@keyframes heroTickerScroll {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    100% {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-ticker-track {
-        animation: none;
-    }
-}
-
 /* BIG LEFT TYPO */
 
 .hero {
@@ -1636,18 +1565,8 @@ nav a {
     overflow: hidden;
 }
 
-.hero-ticker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin: 0;
-}
-
-.hero-ticker-item {
+.print-marquee--hero .print-marquee-item {
     font-size: 22px;
-    line-height: var(--hero-ticker-bar);
 }
 
 .hero {
@@ -1957,16 +1876,7 @@ RESPONSIVE — MOBILE
     overflow: hidden;
 }
 
-.hero-ticker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin: 0;
-}
-
-.hero-ticker-item {
+.print-marquee--hero .print-marquee-item {
     font-size: 20px;
 }
 
@@ -2549,6 +2459,41 @@ PRODUCTS PAGE MARQUEE
 
 .products-page {
 background: #C7F06F;
+}
+
+/* Hero top ticker — compact print-marquee */
+
+.print-marquee--hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 0;
+    height: var(--hero-ticker-bar);
+    border-bottom: 3px solid #C7F06F;
+    display: flex;
+    align-items: center;
+}
+
+.print-marquee--hero .print-marquee-track {
+    animation: printMarqueeLTR 24s linear infinite;
+}
+
+.print-marquee--hero .print-marquee-content {
+    gap: clamp(32px, 5vw, 52px);
+    padding-right: clamp(32px, 5vw, 52px);
+}
+
+.print-marquee--hero .print-marquee-item {
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.print-marquee--hero .print-marquee-dot {
+    width: 12px;
+    height: 12px;
 }
 
 .print-marquee {
