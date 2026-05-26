@@ -31,12 +31,13 @@ body {
 }
 
 .container {
-    --hero-ticker-h: 48px;
+    --hero-ticker-bar: 40px;
+    --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
     width: 100%;
     min-height: 100vh;
     position: relative;
     background: #FFF3EF;
-    overflow: visible;
+    overflow: hidden;
     padding-top: 0;
     /* margin-bottom:220px; */
 }
@@ -45,34 +46,41 @@ body {
 
 .hero-ticker {
     width: 100%;
+    height: var(--hero-ticker-bar);
     overflow: hidden;
     background: #FFFD46;
     border-bottom: 3px solid #C7F06F;
-    padding: 8px 0;
+    padding: 0;
     z-index: 20;
     position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .hero-ticker-track {
     display: flex;
     width: max-content;
-    animation: heroTickerScroll 20s linear infinite;
+    min-width: 200%;
+    animation: heroTickerScroll 32s linear infinite;
     will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .hero-ticker-content {
     display: flex;
     align-items: center;
-    gap: clamp(22px, 4vw, 44px);
+    gap: 36px;
     flex-shrink: 0;
-    padding-right: clamp(22px, 4vw, 44px);
+    padding-right: 36px;
 }
 
 .hero-ticker-item {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(20px, 2.4vw, 30px);
+    font-size: 28px;
     font-weight: 400;
-    line-height: 1;
+    line-height: var(--hero-ticker-bar);
     letter-spacing: -0.5px;
     color: #4E0029;
     text-transform: uppercase;
@@ -80,20 +88,20 @@ body {
 }
 
 .hero-ticker-dot {
-    width: clamp(10px, 1.2vw, 14px);
-    height: clamp(10px, 1.2vw, 14px);
+    width: 12px;
+    height: 12px;
     background: #F7A5D3;
     border-radius: 50%;
     flex-shrink: 0;
 }
 
 @keyframes heroTickerScroll {
-    from {
-        transform: translateX(-50%);
+    0% {
+        transform: translate3d(0, 0, 0);
     }
 
-    to {
-        transform: translateX(0);
+    100% {
+        transform: translate3d(-50%, 0, 0);
     }
 }
 
@@ -108,7 +116,8 @@ body {
 .hero {
     position: absolute;
     left: -6px;
-    top: calc(var(--hero-ticker-h) + 6px);
+    bottom: 0;
+    top: auto;
     z-index: 1;
     overflow: visible;
     display: block;
@@ -1610,8 +1619,9 @@ nav a {
 
 @media (max-width: 992px) {
 .container {
-    --hero-ticker-h: 42px;
-    min-height: auto;
+    --hero-ticker-bar: 36px;
+    --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
+    min-height: 100vh;
     padding: 0 24px 28px;
     display: flex;
     flex-direction: column;
@@ -1623,11 +1633,18 @@ nav a {
     width: calc(100% + 48px);
 }
 
+.hero-ticker-item {
+    font-size: 22px;
+    line-height: var(--hero-ticker-bar);
+}
+
 .hero {
     position: relative;
     left: 0;
-    top: 0;
+    bottom: auto;
+    top: auto;
     order: 1;
+    margin-top: auto;
     line-height: 0.85;
 }
 
