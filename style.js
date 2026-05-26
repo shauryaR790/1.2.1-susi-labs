@@ -557,7 +557,7 @@ if (isMobile || prefersReducedMotion || !window.matchMedia("(hover: hover)").mat
    EXPERIENCE SECTION
 ========================= */
 
-fromIfExists(".experience-img",{
+fromIfExists(".experience-video",{
     x:-180,
     opacity:0,
     duration:1.4,
@@ -697,6 +697,15 @@ function initFloatingDecor() {
         rotation: -14,
         duration: 2,
         ease: "sine.inOut"
+    })
+
+    gsap.utils.toArray(".tag").forEach((el, i) => {
+        startFloat(el, {
+            y: -12,
+            rotation: i % 2 ? 8 : -8,
+            duration: 2.1 + i * 0.2,
+            ease: "sine.inOut"
+        }, 0.3 + i * 0.15)
     })
 
 }
