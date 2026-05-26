@@ -31,23 +31,84 @@ body {
 }
 
 .container {
+    --hero-ticker-h: 48px;
     width: 100%;
     min-height: 100vh;
     position: relative;
     background: #FFF3EF;
     overflow: visible;
-    padding-top: 8px;
+    padding-top: 0;
     /* margin-bottom:220px; */
 }
 
-/* BIG LEFT TYPO */
+/* HERO TOP TICKER */
+
+.hero-ticker {
+    width: 100%;
+    overflow: hidden;
+    background: #FFFD46;
+    border-bottom: 3px solid #C7F06F;
+    padding: 8px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.hero-ticker-track {
+    display: flex;
+    width: max-content;
+    animation: heroTickerScroll 20s linear infinite;
+    will-change: transform;
+}
+
+.hero-ticker-content {
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 4vw, 44px);
+    flex-shrink: 0;
+    padding-right: clamp(22px, 4vw, 44px);
+}
+
+.hero-ticker-item {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    color: #4E0029;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hero-ticker-dot {
+    width: clamp(10px, 1.2vw, 14px);
+    height: clamp(10px, 1.2vw, 14px);
+    background: #F7A5D3;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+@keyframes heroTickerScroll {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-ticker-track {
+        animation: none;
+    }
+}
 
 /* BIG LEFT TYPO */
 
 .hero {
     position: absolute;
     left: -6px;
-    top: 0;
+    top: calc(var(--hero-ticker-h) + 6px);
     z-index: 1;
     overflow: visible;
     display: block;
@@ -55,20 +116,20 @@ body {
 
 .upper {
     font-family: 'Anton', sans-serif;
-    font-size: 450px;
+    font-size: clamp(280px, 32vw, 360px);
     font-weight: 400;
     line-height: 0.84;
-    letter-spacing: -24px;
+    letter-spacing: -18px;
     color: #000000;
     text-transform: uppercase;
 }
 
 .lower {
     font-family: 'Anton', sans-serif;
-    font-size: 490px;
+    font-size: clamp(300px, 34vw, 390px);
     font-weight: 400;
     line-height: 0.84;
-    letter-spacing: -24px;
+    letter-spacing: -18px;
     color: #FF7F00;
     text-transform: uppercase;
 }
@@ -86,7 +147,7 @@ body {
 
 nav {
     position: absolute;
-    top: 18px;
+    top: calc(var(--hero-ticker-h) + 14px);
     right: 62px;
     display: flex;
     gap: 58px;
@@ -110,7 +171,7 @@ nav a:hover {
 
 .info {
     position: absolute;
-    top: 126px;
+    top: calc(var(--hero-ticker-h) + 88px);
     right: 130px;
     width: 450px;
     max-width: 38vw;
@@ -1415,7 +1476,7 @@ RESPONSIVE — TABLET
 
 @media (max-width: 1400px) {
     .info {
-        top: 110px;
+        top: calc(var(--hero-ticker-h) + 72px);
         right: 72px;
         width: min(400px, 36vw);
     }
@@ -1441,13 +1502,13 @@ nav a {
 }
 
 .upper {
-    font-size: 320px;
-    letter-spacing: -16px;
+    font-size: 260px;
+    letter-spacing: -14px;
 }
 
 .lower {
-    font-size: 350px;
-    letter-spacing: -16px;
+    font-size: 280px;
+    letter-spacing: -14px;
 }
 
 .heading h1 {
@@ -1549,10 +1610,17 @@ nav a {
 
 @media (max-width: 992px) {
 .container {
+    --hero-ticker-h: 42px;
     min-height: auto;
-    padding: 56px 24px 28px;
+    padding: 0 24px 28px;
     display: flex;
     flex-direction: column;
+}
+
+.hero-ticker {
+    order: 0;
+    margin: 0 -24px;
+    width: calc(100% + 48px);
 }
 
 .hero {
@@ -1582,13 +1650,13 @@ nav a {
 
 nav {
     position: fixed;
-    top: 0;
+    top: var(--hero-ticker-h);
     left: 0;
     right: 0;
     justify-content: center;
     flex-wrap: wrap;
     gap: 16px 24px;
-    padding: 14px 20px;
+    padding: 12px 20px;
     background: rgba(255, 243, 239, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -1849,10 +1917,18 @@ RESPONSIVE — MOBILE
 
 @media (max-width: 768px) {
 .container {
+    --hero-ticker-h: 40px;
     min-height: auto;
-    padding: 52px 20px 24px;
+    padding: 0 20px 24px;
     display: flex;
     flex-direction: column;
+}
+
+.hero-ticker {
+    order: 0;
+    margin: 0 -20px;
+    width: calc(100% + 40px);
+    padding: 7px 0;
 }
 
 .hero {
@@ -1882,13 +1958,13 @@ RESPONSIVE — MOBILE
 
 nav {
     position: fixed;
-    top: 0;
+    top: var(--hero-ticker-h);
     left: 0;
     right: 0;
     justify-content: center;
     flex-wrap: wrap;
     gap: 14px 20px;
-    padding: 14px 16px;
+    padding: 12px 16px;
     background: rgba(255, 243, 239, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
