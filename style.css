@@ -28,11 +28,14 @@ body::-webkit-scrollbar {
 html,
 body {
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    --hero-ticker-bar: 40px;
+    --hero-ticker-bar: 44px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
+    margin-top: 0;
     width: 100%;
     height: 100svh;
     max-height: 100svh;
@@ -58,20 +61,20 @@ body {
 
 .upper {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(200px, 26vh, 360px);
+    font-size: clamp(280px, 42svh, 540px);
     font-weight: 400;
-    line-height: 0.84;
-    letter-spacing: -18px;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
     color: #000000;
     text-transform: uppercase;
 }
 
 .lower {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(220px, 28vh, 390px);
+    font-size: clamp(300px, 44svh, 580px);
     font-weight: 400;
-    line-height: 0.84;
-    letter-spacing: -18px;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
     color: #FF7F00;
     text-transform: uppercase;
 }
@@ -89,7 +92,7 @@ body {
 
 nav {
     position: absolute;
-    top: calc(var(--hero-ticker-h) + 14px);
+    top: calc(var(--hero-ticker-h) + 32px);
     right: 62px;
     display: flex;
     gap: 58px;
@@ -113,7 +116,7 @@ nav a:hover {
 
 .info {
     position: absolute;
-    top: calc(var(--hero-ticker-h) + 88px);
+    top: calc(var(--hero-ticker-h) + 118px);
     right: 130px;
     width: 450px;
     max-width: 38vw;
@@ -1420,7 +1423,7 @@ RESPONSIVE — TABLET
 
 @media (max-width: 1400px) {
     .info {
-        top: calc(var(--hero-ticker-h) + 72px);
+        top: calc(var(--hero-ticker-h) + 92px);
         right: 72px;
         width: min(400px, 36vw);
     }
@@ -1443,16 +1446,6 @@ nav a {
 
 .info p {
     font-size: 22px;
-}
-
-.upper {
-    font-size: 260px;
-    letter-spacing: -14px;
-}
-
-.lower {
-    font-size: 280px;
-    letter-spacing: -14px;
 }
 
 .heading h1 {
@@ -1554,7 +1547,7 @@ nav a {
 
 @media (max-width: 992px) {
 .container {
-    --hero-ticker-bar: 36px;
+    --hero-ticker-bar: 44px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
     height: 100svh;
     max-height: 100svh;
@@ -1565,8 +1558,13 @@ nav a {
     overflow: hidden;
 }
 
-.print-marquee--hero .print-marquee-item {
-    font-size: 22px;
+.print-marquee.print-marquee--hero .print-marquee-item {
+    font-size: 30px;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-dot {
+    width: 12px;
+    height: 12px;
 }
 
 .hero {
@@ -1580,14 +1578,14 @@ nav a {
 }
 
 .upper {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
     line-height: 0.85;
 }
 
 .lower {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
     line-height: 0.85;
 }
 
@@ -1865,7 +1863,7 @@ RESPONSIVE — MOBILE
 
 @media (max-width: 768px) {
 .container {
-    --hero-ticker-bar: 34px;
+    --hero-ticker-bar: 40px;
     --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
     height: 100svh;
     max-height: 100svh;
@@ -1876,8 +1874,13 @@ RESPONSIVE — MOBILE
     overflow: hidden;
 }
 
-.print-marquee--hero .print-marquee-item {
-    font-size: 20px;
+.print-marquee.print-marquee--hero .print-marquee-item {
+    font-size: 26px;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-dot {
+    width: 11px;
+    height: 11px;
 }
 
 .hero {
@@ -1889,14 +1892,14 @@ RESPONSIVE — MOBILE
 }
 
 .upper {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
     line-height: 0.85;
 }
 
 .lower {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
     line-height: 0.85;
 }
 
@@ -2338,13 +2341,13 @@ nav a {
 }
 
 .upper {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
 }
 
 .lower {
-    font-size: clamp(120px, 46vw, 180px);
-    letter-spacing: -7px;
+    font-size: clamp(130px, 48vw, 200px);
+    letter-spacing: -8px;
 }
 
 .shape-left,
@@ -2461,44 +2464,6 @@ PRODUCTS PAGE MARQUEE
 background: #C7F06F;
 }
 
-/* Hero top ticker — compact print-marquee */
-
-.print-marquee--hero {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 20;
-    padding: 0;
-    height: var(--hero-ticker-h);
-    border-bottom: 3px solid #C7F06F;
-    background: #FFFD46;
-    overflow: hidden;
-}
-
-.print-marquee--hero .print-marquee-track {
-    height: var(--hero-ticker-bar);
-    align-items: center;
-    animation: printMarqueeLTR 28s linear infinite;
-}
-
-.print-marquee--hero .print-marquee-content {
-    gap: 40px;
-    padding-right: 40px;
-}
-
-.print-marquee--hero .print-marquee-item {
-    font-size: clamp(22px, 2.6vw, 30px);
-    line-height: 1;
-    letter-spacing: -0.5px;
-}
-
-.print-marquee--hero .print-marquee-dot {
-    width: 12px;
-    height: 12px;
-}
-
 .print-marquee {
 width: 100%;
 overflow: hidden;
@@ -2554,6 +2519,50 @@ to {
 .print-marquee-track {
     animation: none;
 }
+}
+
+/* Hero top ticker — overrides MUST sit after .print-marquee (kills 36px padding bug) */
+
+.print-marquee.print-marquee--hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 20;
+    margin: 0;
+    padding: 0;
+    height: var(--hero-ticker-h);
+    min-height: var(--hero-ticker-h);
+    max-height: var(--hero-ticker-h);
+    border-bottom: 3px solid #C7F06F;
+    background: #FFFD46;
+    overflow: hidden;
+    display: block;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-track {
+    height: var(--hero-ticker-bar);
+    align-items: center;
+    animation: printMarqueeLTR 26s linear infinite;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-content {
+    gap: 36px;
+    padding-right: 36px;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-item {
+    font-size: 34px;
+    line-height: var(--hero-ticker-bar);
+    letter-spacing: -0.5px;
+    padding: 0;
+}
+
+.print-marquee.print-marquee--hero .print-marquee-dot {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
 }
 
 /* =========================
