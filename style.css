@@ -2468,21 +2468,24 @@ background: #C7F06F;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     z-index: 20;
     padding: 0;
-    height: var(--hero-ticker-bar);
+    height: var(--hero-ticker-h);
     border-bottom: 3px solid #C7F06F;
-    display: flex;
-    align-items: center;
+    background: #FFFD46;
+    overflow: hidden;
 }
 
 .print-marquee--hero .print-marquee-track {
-    animation: printMarqueeLTR 24s linear infinite;
+    height: var(--hero-ticker-bar);
+    align-items: center;
+    animation: printMarqueeLTR 28s linear infinite;
 }
 
 .print-marquee--hero .print-marquee-content {
-    gap: clamp(32px, 5vw, 52px);
-    padding-right: clamp(32px, 5vw, 52px);
+    gap: 40px;
+    padding-right: 40px;
 }
 
 .print-marquee--hero .print-marquee-item {
