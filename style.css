@@ -37,7 +37,8 @@ body {
     min-height: 100vh;
     position: relative;
     background: #FFF3EF;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     padding-top: 0;
     /* margin-bottom:220px; */
 }
@@ -1934,8 +1935,9 @@ RESPONSIVE — MOBILE
 
 @media (max-width: 768px) {
 .container {
-    --hero-ticker-h: 40px;
-    min-height: auto;
+    --hero-ticker-bar: 34px;
+    --hero-ticker-h: calc(var(--hero-ticker-bar) + 3px);
+    min-height: 100vh;
     padding: 0 20px 24px;
     display: flex;
     flex-direction: column;
@@ -1945,7 +1947,10 @@ RESPONSIVE — MOBILE
     order: 0;
     margin: 0 -20px;
     width: calc(100% + 40px);
-    padding: 7px 0;
+}
+
+.hero-ticker-item {
+    font-size: 20px;
 }
 
 .hero {
