@@ -3250,6 +3250,20 @@ MOBILE PRODUCTS VIEW (match local)
         min-height: 0 !important;
     }
 
+    .products-view{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:0.4s ease;
+}
+
+body.is-products-active .products-view{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
     body.is-products-active .container>.hero {
         display: none !important;
         visibility: hidden !important;
