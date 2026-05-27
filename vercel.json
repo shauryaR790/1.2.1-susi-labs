@@ -1,0 +1,10 @@
+{
+  "cleanUrls": false,
+  "routes": [
+    { "src": "/products$", "dest": "/products.html" },
+    { "src": "/products\\.html$", "dest": "/products.html" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
+
