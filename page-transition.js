@@ -25,6 +25,8 @@
     let isProductsOpen = false
     let heroHomeRect = null
 
+    const isFileProtocol = location.protocol === "file:"
+
     const productsMarquee = productsView.querySelector(".products-view__marquee")
     const productsSidebar = productsView.querySelector(".products-sidebar")
     const productsMain = productsView.querySelector(".products-view__main")
@@ -138,6 +140,41 @@
         })
     }
 
+    function setOrderInUrl() {
+        if (isFileProtocol) {
+            location.hash = "order=1"
+            return
+        }
+        try {
+            const url = new URL(location.href)
+            url.searchParams.set("order", "1")
+            url.hash = ""
+            history.pushState({ view: "products" }, "", url)
+        } catch {
+            location.hash = "order=1"
+        }
+    }
+
+    function clearOrderInUrl() {
+        if (isFileProtocol || location.hash.replace(/^#/, "") === "order=1") {
+            if (location.hash) location.hash = ""
+            return
+        }
+        try {
+            const url = new URL(location.href)
+            url.searchParams.delete("order")
+            history.replaceState(null, "", url)
+        } catch {
+            if (location.hash) location.hash = ""
+        }
+    }
+
+    function goHomeFromProducts() {
+        if (!document.body.classList.contains("is-products-active")) return
+        clearOrderInUrl()
+        closeProductsView()
+    }
+
     function openProductsView(options = {}) {
         const { instant = false } = options
 
@@ -161,13 +198,8 @@
                     isTransitioning = false
                     isProductsOpen = true
                     productsView.setAttribute("aria-hidden", "false")
-                    hero.setAttribute("role", "button")
-                    hero.setAttribute("tabindex", "0")
-                    hero.setAttribute("aria-label", "Back to SUSI LABS home")
                     enableProductsScroll()
-                    const url = new URL(location.href)
-                    url.searchParams.set("order", "1")
-                    history.pushState({ view: "products" }, "", url)
+                    setOrderInUrl()
                 }
             })
 
@@ -307,9 +339,6 @@
             defaults: { ease: "power3.inOut" },
             onComplete: () => {
                 gsap.set(hero, { clearProps: "all" })
-                hero.removeAttribute("role")
-                hero.removeAttribute("tabindex")
-                hero.removeAttribute("aria-label")
                 document.body.classList.remove("is-products-active")
                 if (!isMobile || window.scrollY <= 48) {
                     document.body.classList.remove("hero-nav-compact")
@@ -372,10 +401,10 @@
             productsView,
             {
                 autoAlpha: 0,
-                duration: duration * 0.4,
+                duration: duration * 0.3,
                 ease: "power2.in"
             },
-            0.08
+            0
         )
 
         tl.to(
@@ -445,7 +474,8 @@
     }
 
     function isOrderUrl() {
-        return new URLSearchParams(location.search).get("order") === "1"
+        const hash = location.hash.replace(/^#/, "")
+        return new URLSearchParams(location.search).get("order") === "1" || hash === "order=1"
     }
 
     function handlePopState() {
@@ -484,18 +514,9 @@
         close: closeProductsView
     }
 
-    function goHomeFromProducts() {
-        if (isOrderUrl()) {
-            history.back()
-            return
-        }
-        closeProductsView()
-    }
-
     function bindHeroLogoHome() {
-        hero.addEventListener("click", (e) => {
+        hero.addEventListener("click", () => {
             if (!document.body.classList.contains("is-products-active")) return
-            e.preventDefault()
             goHomeFromProducts()
         })
 
@@ -505,6 +526,8 @@
             e.preventDefault()
             goHomeFromProducts()
         })
+
+        hero.setAttribute("tabindex", "-1")
     }
 
     productsView.querySelector(".products-view__back")?.addEventListener("click", (e) => {
@@ -513,6 +536,7 @@
     })
 
     window.addEventListener("popstate", handlePopState)
+    window.addEventListener("hashchange", handlePopState)
     window.addEventListener("load", checkAutoOpen)
 
     if (document.readyState === "loading") {
