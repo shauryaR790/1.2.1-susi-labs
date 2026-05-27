@@ -219,7 +219,9 @@
         <!-- fixed left: filters (logo stays fixed above via hero morph) -->
         <aside class="products-sidebar" aria-label="Product filters">
 
-            <a href="#" class="products-home-logo">SUSI LABS</a>
+            <button type="button" class="products-home-logo">
+    SUSI LABS
+</button>
 
             <p class="products-sidebar__label">filter</p>
             <nav class="products-filters">
@@ -853,22 +855,23 @@
     <script src="page-transition.js?v=14"></script>
     <script>
 
-        const homeLogo = document.querySelector(".products-home-logo")
-        const productsView = document.querySelector(".products-view")
+const openBtn = document.querySelector("[data-open-products]")
+const productsView = document.querySelector(".products-view")
+const homeBtn = document.querySelector(".products-home-logo")
 
-        homeLogo?.addEventListener("click", (e) => {
+openBtn?.addEventListener("click", (e)=>{
+    e.preventDefault()
 
-            e.preventDefault()
+    document.body.classList.add("is-products-active")
+})
 
-            document.body.classList.remove("is-products-active")
+homeBtn?.addEventListener("click", ()=>{
 
-            productsView.style.opacity = "0"
-            productsView.style.visibility = "hidden"
-            productsView.style.pointerEvents = "none"
+    document.body.classList.remove("is-products-active")
 
-        })
+})
 
-    </script>
+</script>
 </body>
 
 </html>
