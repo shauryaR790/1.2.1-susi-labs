@@ -489,12 +489,7 @@
     }
 
     function checkAutoOpen() {
-        const wantsOrder =
-            isOrderUrl() || sessionStorage.getItem("susi-open-products") === "1"
-
-        if (!wantsOrder) return
-
-        sessionStorage.removeItem("susi-open-products")
+        if (!isOrderUrl()) return
 
         const run = () => openProductsView({ instant: prefersReducedMotion })
 

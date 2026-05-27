@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | SUSI LABS</title>
-    <script>
-        sessionStorage.setItem("susi-open-products", "1");
-        const target = location.pathname.includes("/") && !location.pathname.endsWith("/")
-            ? "index.html?order=1"
-            : "index.html?order=1";
-        location.replace(target);
-    </script>
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content="0; url=/">
+    <script>location.replace("/");</script>
 </head>
 <body>
-    <p>Opening products…</p>
+    <p><a href="/">Go to SUSI LABS home</a></p>
 </body>
 </html>
