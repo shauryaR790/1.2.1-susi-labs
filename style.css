@@ -3267,20 +3267,6 @@ MOBILE PRODUCTS VIEW (match local)
         min-height: 0 !important;
     }
 
-    .products-view{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transition:0.4s ease;
-}
-
-body.is-products-active .products-view{
-    opacity:1;
-    visibility:visible;
-    pointer-events:auto;
-}
-
     body.is-products-active .container>.hero {
         display: none !important;
         visibility: hidden !important;
@@ -3302,14 +3288,15 @@ body.is-products-active .products-view{
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         padding-top: 0 !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
     body.is-products-active .products-view {
-        /* opacity: 1 !important;
-        visibility: visible !important; */
+        opacity: 1 !important;
+        visibility: visible !important;
         pointer-events: auto !important;
     }
 
