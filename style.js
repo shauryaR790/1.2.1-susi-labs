@@ -328,8 +328,25 @@ function playHeroIntro() {
     }
 }
 
+function initMobileNavScroll() {
+    const mq = window.matchMedia("(max-width: 992px)")
+
+    const update = () => {
+        if (!mq.matches) {
+            document.body.classList.remove("hero-nav-compact")
+            return
+        }
+        document.body.classList.toggle("hero-nav-compact", window.scrollY > 48)
+    }
+
+    window.addEventListener("scroll", update, { passive: true })
+    mq.addEventListener("change", update)
+    update()
+}
+
 function afterLoaderComplete() {
     playHeroIntro()
+    initMobileNavScroll()
     requestAnimationFrame(() => ScrollTrigger.refresh())
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()
