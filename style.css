@@ -2520,7 +2520,7 @@ PRODUCTS VIEW (hero transition)
 ========================= */
 
 .products-view {
-    --products-bg: #5d0032;
+    --products-bg: #3a002b;
     --products-marquee-h: 56px;
     --products-banner-gap: 48px;
     --products-logo-zone: 112px;
@@ -2620,11 +2620,6 @@ PRODUCTS VIEW (hero transition)
     text-transform: uppercase;
     cursor: pointer;
     transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    transform: rotate(-2deg);
-}
-
-.products-filter:nth-child(even) {
-    transform: rotate(2deg);
 }
 
 .products-filter:hover,
@@ -2632,7 +2627,7 @@ PRODUCTS VIEW (hero transition)
     background: #fffd46;
     border-color: #5a002e;
     color: #5a002e;
-    transform: rotate(0deg) scale(1.04);
+    transform: scale(1.04);
 }
 
 /* scrollable catalogue — left-aligned, close to sidebar */
@@ -2716,23 +2711,6 @@ PRODUCTS VIEW (hero transition)
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
-.product-card__pill {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 2;
-    padding: 8px 18px;
-    border-radius: 100px;
-    background: #fffd46;
-    border: 3px solid #5a002e;
-    color: #5a002e;
-    font-family: 'Hagrid Trial', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    transform: rotate(6deg);
-}
-
 .product-card__visual {
     width: 100%;
     aspect-ratio: 4 / 5;
@@ -2770,11 +2748,10 @@ PRODUCTS VIEW (hero transition)
     text-transform: uppercase;
     cursor: pointer;
     transition: transform 0.25s ease, background 0.25s ease;
-    transform: rotate(-4deg);
 }
 
 .product-card__btn:hover {
-    transform: rotate(-4deg) scale(1.06);
+    transform: scale(1.06);
     background: #ff7f00;
 }
 
@@ -2787,11 +2764,10 @@ PRODUCTS VIEW (hero transition)
     min-width: 200px;
     height: 58px;
     padding: 0 32px;
-    transform: rotate(-3deg);
 }
 
 .products-view__back.tag:hover {
-    transform: rotate(-3deg) scale(1.05);
+    transform: scale(1.05);
     background: #ff7f00;
 }
 
@@ -2819,11 +2795,16 @@ body.is-products-active .hero-aside nav {
 }
 
 body.is-products-active .hero {
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     width: fit-content;
     height: fit-content;
     z-index: 210;
     filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+}
+
+body.is-products-active .hero:hover {
+    filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.4));
 }
 
 @media (max-width: 992px) {

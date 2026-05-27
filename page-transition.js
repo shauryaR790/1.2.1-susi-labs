@@ -161,6 +161,9 @@
                     isTransitioning = false
                     isProductsOpen = true
                     productsView.setAttribute("aria-hidden", "false")
+                    hero.setAttribute("role", "button")
+                    hero.setAttribute("tabindex", "0")
+                    hero.setAttribute("aria-label", "Back to SUSI LABS home")
                     enableProductsScroll()
                     const url = new URL(location.href)
                     url.searchParams.set("order", "1")
@@ -304,6 +307,9 @@
             defaults: { ease: "power3.inOut" },
             onComplete: () => {
                 gsap.set(hero, { clearProps: "all" })
+                hero.removeAttribute("role")
+                hero.removeAttribute("tabindex")
+                hero.removeAttribute("aria-label")
                 document.body.classList.remove("is-products-active")
                 if (!isMobile || window.scrollY <= 48) {
                     document.body.classList.remove("hero-nav-compact")
@@ -478,9 +484,32 @@
         close: closeProductsView
     }
 
+    function goHomeFromProducts() {
+        if (isOrderUrl()) {
+            history.back()
+            return
+        }
+        closeProductsView()
+    }
+
+    function bindHeroLogoHome() {
+        hero.addEventListener("click", (e) => {
+            if (!document.body.classList.contains("is-products-active")) return
+            e.preventDefault()
+            goHomeFromProducts()
+        })
+
+        hero.addEventListener("keydown", (e) => {
+            if (!document.body.classList.contains("is-products-active")) return
+            if (e.key !== "Enter" && e.key !== " ") return
+            e.preventDefault()
+            goHomeFromProducts()
+        })
+    }
+
     productsView.querySelector(".products-view__back")?.addEventListener("click", (e) => {
         e.preventDefault()
-        history.back()
+        goHomeFromProducts()
     })
 
     window.addEventListener("popstate", handlePopState)
@@ -490,9 +519,11 @@
         document.addEventListener("DOMContentLoaded", () => {
             bindOrderNav()
             bindProductFilters()
+            bindHeroLogoHome()
         })
     } else {
         bindOrderNav()
         bindProductFilters()
+        bindHeroLogoHome()
     }
 })()
