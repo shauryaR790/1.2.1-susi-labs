@@ -58,6 +58,8 @@ function initSmoothScroll() {
         syncTouch: false
     })
 
+    window.lenis = lenis
+
     lenis.on("scroll", ScrollTrigger.update)
     startLenisRaf()
 
@@ -347,6 +349,7 @@ function initMobileNavScroll() {
 function afterLoaderComplete() {
     playHeroIntro()
     initMobileNavScroll()
+    window.dispatchEvent(new CustomEvent("susi:loader-complete"))
     requestAnimationFrame(() => ScrollTrigger.refresh())
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()

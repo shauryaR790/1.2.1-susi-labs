@@ -13,7 +13,7 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css">
-    <link rel="stylesheet" href="style.css?v=98">
+    <link rel="stylesheet" href="style.css?v=107">
     <style>
         body.is-loading { overflow: hidden; height: 100vh; }
         body.is-loading > *:not(#site-loader) { visibility: hidden; }
@@ -30,7 +30,7 @@
 
 </head>
 
-<body class="is-loading">
+<body class="is-loading page-home">
 
     <div id="site-loader" class="site-loader" role="status" aria-live="polite" aria-busy="true" aria-label="Loading SUSI LABS">
         <div class="loader-panel loader-panel--top" aria-hidden="true"></div>
@@ -145,7 +145,7 @@
             <nav>
                 <a href="#">ABOUT</a>
                 <a href="#">SERVICES</a>
-                <a href="#">ORDER NOW</a>
+                <a href="products.html" data-open-products>ORDER NOW</a>
             </nav>
 
             <div class="info">
@@ -172,6 +172,102 @@
             <img src="Screenshot 2026-05-22 211451.png" alt="" class="shape-right">
         </div>
 
+    </div>
+
+    <!-- PRODUCTS VIEW (animated from hero) -->
+
+    <div class="products-view" id="products-view" aria-hidden="true">
+        <!-- same infinite banner as loader -->
+        <div class="products-view__marquee loader-marquee" aria-hidden="true">
+            <div class="loader-marquee-track">
+                <div class="loader-marquee-content">
+                    <span>loading layers</span>
+                    <span>•</span>
+                    <span>warming extruders</span>
+                    <span>•</span>
+                    <span>syncing print farm</span>
+                    <span>•</span>
+                    <span>slicing model</span>
+                    <span>•</span>
+                    <span>checking tolerances</span>
+                    <span>•</span>
+                </div>
+                <div class="loader-marquee-content" aria-hidden="true">
+                    <span>loading layers</span>
+                    <span>•</span>
+                    <span>warming extruders</span>
+                    <span>•</span>
+                    <span>syncing print farm</span>
+                    <span>•</span>
+                    <span>slicing model</span>
+                    <span>•</span>
+                    <span>checking tolerances</span>
+                    <span>•</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- fixed left: filters (logo stays fixed above via hero morph) -->
+        <aside class="products-sidebar" aria-label="Product filters">
+            <p class="products-sidebar__label">filter</p>
+            <nav class="products-filters">
+                <button type="button" class="products-filter is-active" data-filter="all">all</button>
+                <button type="button" class="products-filter" data-filter="figures">figures</button>
+                <button type="button" class="products-filter" data-filter="parts">parts</button>
+                <button type="button" class="products-filter" data-filter="batch">batch</button>
+                <button type="button" class="products-filter" data-filter="resin">resin</button>
+                <button type="button" class="products-filter" data-filter="fdm">fdm</button>
+            </nav>
+        </aside>
+
+        <div class="products-view__main">
+            <div class="products-view__header">
+                <p class="products-view__eyebrow">catalog</p>
+                <h2 class="products-view__title">order your print</h2>
+                <p class="products-view__sub">pick a product — placeholders for now</p>
+            </div>
+
+            <div class="products-view__grid">
+                <article class="product-card">
+                    <span class="product-card__pill">new</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">custom figure</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+                <article class="product-card">
+                    <span class="product-card__pill">hot</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">prototype part</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+                <article class="product-card">
+                    <span class="product-card__pill">fdm</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">batch run</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+                <article class="product-card">
+                    <span class="product-card__pill">resin</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">miniature</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+                <article class="product-card">
+                    <span class="product-card__pill">rush</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">functional part</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+                <article class="product-card">
+                    <span class="product-card__pill">custom</span>
+                    <div class="product-card__visual" aria-hidden="true"></div>
+                    <h3 class="product-card__name">display piece</h3>
+                    <button type="button" class="product-card__btn">order</button>
+                </article>
+            </div>
+
+            <button type="button" class="products-view__back tag">← back to home</button>
+        </div>
     </div>
 
     <div class="container2">
@@ -734,7 +830,7 @@
 
             <!-- BUTTON -->
 
-            <button class="footer-btn">
+            <button type="button" class="footer-btn" data-open-products>
                 START A CUSTOM ORDER
             </button>
 
@@ -759,7 +855,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<script src="style.js?v=68"></script>
+<script src="style.js?v=69"></script>
+<script src="page-transition.js?v=6"></script>
 </body>
 
 </html>
