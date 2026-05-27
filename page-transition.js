@@ -20,6 +20,7 @@
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const isMobile = window.matchMedia("(max-width: 992px)").matches
+    const isPhone = () => window.matchMedia("(max-width: 600px)").matches
 
     let isTransitioning = false
     let isProductsOpen = false
@@ -51,6 +52,8 @@
     let productsWheelHandler = null
 
     function enableProductsScroll() {
+        // On phones, let the overlay scroll naturally (no wheel hijack).
+        if (isPhone()) return
         if (productsWheelHandler) return
 
         productsWheelHandler = (e) => {
@@ -183,6 +186,27 @@
         isTransitioning = true
         lockScroll(true)
         document.body.classList.add("is-products-active", "hero-nav-compact")
+
+        // Mobile: keep it simple—no hero morph, just fade the overlay in.
+        if (isPhone()) {
+            const dur = instant || prefersReducedMotion ? 0 : 0.22
+            productsView.setAttribute("aria-hidden", "false")
+            setOrderInUrl()
+
+            gsap.set(productsView, { autoAlpha: 0 })
+            return new Promise((resolve) => {
+                gsap.to(productsView, {
+                    autoAlpha: 1,
+                    duration: dur,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        isTransitioning = false
+                        isProductsOpen = true
+                        resolve()
+                    }
+                })
+            })
+        }
 
         const duration = instant || prefersReducedMotion ? 0.35 : 1.05
         const fadeDur = instant || prefersReducedMotion ? 0.2 : 0.55
@@ -332,6 +356,28 @@
 
         isTransitioning = true
         productsView.setAttribute("aria-hidden", "true")
+
+        // Mobile: simple fade out, no hero return animation.
+        if (isPhone()) {
+            const dur = instant || prefersReducedMotion ? 0 : 0.18
+            return new Promise((resolve) => {
+                gsap.to(productsView, {
+                    autoAlpha: 0,
+                    duration: dur,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        document.body.classList.remove("is-products-active")
+                        if (!isMobile || window.scrollY <= 48) {
+                            document.body.classList.remove("hero-nav-compact")
+                        }
+                        lockScroll(false)
+                        isTransitioning = false
+                        isProductsOpen = false
+                        resolve()
+                    }
+                })
+            })
+        }
 
         const duration = instant || prefersReducedMotion ? 0.3 : 0.85
 
@@ -524,6 +570,11 @@
 
         hero.setAttribute("tabindex", "-1")
     }
+
+    productsView.querySelector(".products-home-logo")?.addEventListener("click", (e) => {
+        e.preventDefault()
+        goHomeFromProducts()
+    })
 
     productsView.querySelector(".products-view__back")?.addEventListener("click", (e) => {
         e.preventDefault()
