@@ -1970,7 +1970,7 @@ RESPONSIVE — MOBILE
         left: 0;
         top: 0;
         order: 1;
-        margin-top: 70px;
+        margin-top: 0;
         line-height: 0.9;
     }
 
@@ -1999,10 +1999,6 @@ RESPONSIVE — MOBILE
     .hero-aside nav a {
         font-size: 13px;
         letter-spacing: 0;
-    }
-
-    .hero-aside .info {
-        margin-top: 40px;
     }
 
     .hero-aside .info p {
@@ -3240,23 +3236,6 @@ body.is-loading>*:not(#site-loader) {
     }
 }
 
-.products-view{
-    position: fixed;
-    inset: 0;
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transition:0.35s ease;
-}
-
-body.is-products-active .products-view{
-    opacity:1;
-    visibility:visible;
-    pointer-events:auto;
-}
-
 /* =========================
 MOBILE PRODUCTS VIEW (match local)
 ========================= */
@@ -3299,6 +3278,7 @@ MOBILE PRODUCTS VIEW (match local)
         visibility: visible !important;
         pointer-events: auto !important;
     }
+ 
 
     .products-view__marquee.loader-marquee {
         position: relative !important;
@@ -3465,26 +3445,4 @@ MOBILE PRODUCTS VIEW (match local)
     .loader-marquee-track {
         animation: none;
     }
-
-}
-
-.products-home-logo{
-    border:none;
-    background:none;
-    cursor:pointer;
-
-    display:block;
-    width:100%;
-
-    text-align:center;
-
-    font-family:'Anton',sans-serif;
-    font-size:42px;
-    line-height:0.9;
-    letter-spacing:-1px;
-
-    color:#ffffff;
-    text-transform:uppercase;
-
-    margin-bottom:16px;
 }
