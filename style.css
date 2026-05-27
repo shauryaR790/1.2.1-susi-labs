@@ -2551,6 +2551,55 @@ PRODUCTS VIEW (hero transition)
     -ms-overflow-style: none;
 }
 
+/* =========================
+PRODUCTS PAGE (standalone)
+========================= */
+.products-page {
+    background: var(--products-bg, #3a002b);
+}
+
+.products-view--page {
+    position: relative;
+    inset: auto;
+    height: auto;
+    max-height: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    touch-action: auto;
+}
+
+.products-view--page .products-view__marquee.loader-marquee {
+    position: sticky;
+    top: 0;
+}
+
+.products-view--page .products-sidebar {
+    position: sticky;
+}
+
+.products-view--page .products-home-logo {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Anton', sans-serif;
+    font-size: 42px;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+    .products-view--page .products-sidebar::before {
+        content: none !important;
+        display: none !important;
+    }
+}
+
 .products-view::-webkit-scrollbar {
     display: none;
     width: 0;
