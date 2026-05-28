@@ -13,7 +13,7 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css">
-    <link rel="stylesheet" href="style.css?v=98">
+    <link rel="stylesheet" href="style.css?v=103">
     <style>
         body.is-loading { overflow: hidden; height: 100vh; }
         body.is-loading > *:not(#site-loader) { visibility: hidden; }
@@ -98,6 +98,44 @@
                     <span>checking tolerances</span>
                     <span>•</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile-only loader: layer stack + scan line (desktop loader hidden via CSS) -->
+        <div class="loader-mobile">
+            <div class="loader-mobile__grid" aria-hidden="true"></div>
+            <div class="loader-mobile__scan" aria-hidden="true"></div>
+            <div class="loader-mobile__wipe" aria-hidden="true"></div>
+
+            <div class="loader-mobile__chips" aria-hidden="true">
+                <span>PLA</span>
+                <span>RESIN</span>
+                <span>FDM</span>
+                <span>SLA</span>
+            </div>
+
+            <div class="loader-mobile__inner">
+                <div class="loader-mobile__stack" aria-hidden="true">
+                    <span class="loader-mobile__ghost">SUSI</span>
+                    <span class="loader-mobile__ghost">SUSI</span>
+                    <span class="loader-mobile__ghost">SUSI</span>
+                </div>
+
+                <p class="loader-mobile__eyebrow">custom 3d printing</p>
+
+                <div class="loader-mobile__logo">
+                    <span class="loader-mobile__word loader-mobile__word--a">SUSI</span>
+                    <span class="loader-mobile__word loader-mobile__word--b">LABS</span>
+                </div>
+
+                <p class="loader-mobile__layer">layer 01 / 24</p>
+
+                <div class="loader-mobile__rail" aria-hidden="true">
+                    <div class="loader-mobile__rail-fill"></div>
+                </div>
+
+                <p class="loader-mobile__status">heating nozzle</p>
+                <p class="loader-mobile__percent"><span>0</span>%</p>
             </div>
         </div>
     </div>
