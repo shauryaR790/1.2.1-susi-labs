@@ -1006,6 +1006,9 @@ function initOrderNowTransition() {
             const track = overlay.querySelector(".order-transition__track")
             const go = () => {
                 track?.removeEventListener("animationend", go)
+                try {
+                    sessionStorage.setItem("susi:productsIntro", "1")
+                } catch {}
                 window.location.href = hit.href
             }
 

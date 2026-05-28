@@ -2930,6 +2930,11 @@ body.products-page {
     background: #3A002B;
 }
 
+/* Only hide products during GSAP intro (prevents flash). */
+.products-intro body.products-page {
+    opacity: 0;
+}
+
 .products-ticker.print-marquee--hero {
     position: fixed;
 }
@@ -3217,6 +3222,63 @@ body.is-order-transitioning {
     .order-transition.is-active .order-transition__track {
         animation: none;
         transform: translateX(0);
+    }
+}
+
+/* Mobile: SUSI drops from top, LABS rises from bottom (same duration as desktop). */
+@media (max-width: 768px) {
+    .order-transition__track {
+        transform: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.08em;
+    }
+
+    .order-transition.is-active .order-transition__track {
+        /* Disable the horizontal swipe on mobile. */
+        animation: none;
+    }
+
+    .order-transition__word {
+        font-size: clamp(220px, 34vw, 520px);
+        line-height: 0.82;
+        letter-spacing: -0.07em;
+    }
+
+    .order-transition__word--a {
+        transform: translateY(-120vh);
+        will-change: transform;
+    }
+
+    .order-transition__word--b {
+        transform: translateY(120vh);
+        will-change: transform;
+    }
+
+    .order-transition.is-active .order-transition__word--a {
+        animation: orderTransitionDrop 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .order-transition.is-active .order-transition__word--b {
+        animation: orderTransitionRise 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+}
+
+@keyframes orderTransitionDrop {
+    0% {
+        transform: translateY(-120vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes orderTransitionRise {
+    0% {
+        transform: translateY(120vh);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 

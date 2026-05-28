@@ -14,7 +14,17 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css?v=99">
+
+    <script>
+        // Prevent flash: only hide when arriving from ORDER NOW transition.
+        try {
+            if (sessionStorage.getItem("susi:productsIntro") === "1") {
+                document.documentElement.classList.add("products-intro");
+            }
+        } catch {}
+    </script>
 </head>
 
 <body class="products-page">
@@ -169,6 +179,73 @@
             <p class="products-note">This page is intentionally simple (no animations) so navigation works everywhere.</p>
         </footer>
     </main>
+
+    <script>
+        (function () {
+            var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            var shouldIntro = false;
+            try {
+                shouldIntro = sessionStorage.getItem("susi:productsIntro") === "1";
+                if (shouldIntro) sessionStorage.removeItem("susi:productsIntro");
+            } catch (e) {
+                shouldIntro = false;
+            }
+
+            if (!shouldIntro) return;
+
+            // Remove the "hide before paint" class as early as possible.
+            if (prefersReduced) {
+                document.documentElement.classList.remove("products-intro");
+                return;
+            }
+
+            // Wait until GSAP is available (it loads deferred in <head>).
+            var tries = 0;
+            function startWhenReady() {
+                if (window.gsap) {
+                    startIntro();
+                    return;
+                }
+                tries++;
+                if (tries > 60) {
+                    // Give up after ~1s and show page.
+                    document.documentElement.classList.remove("products-intro");
+                    return;
+                }
+                requestAnimationFrame(startWhenReady);
+            }
+
+            var root = document.body;
+            var ticker = document.querySelector(".products-ticker");
+            var home = document.querySelector(".products-home");
+            var title = document.querySelector(".products-title");
+            var controls = document.querySelector(".products-controls");
+            var cards = document.querySelectorAll(".product-card");
+            var footer = document.querySelector(".products-footer");
+
+            function startIntro() {
+                // Reveal hook: we keep the page hidden until GSAP is ready,
+                // so the first visible frame is already animating.
+                document.documentElement.classList.remove("products-intro");
+
+                window.gsap.set(root, { opacity: 0 });
+
+                var tl = window.gsap.timeline({ defaults: { ease: "power3.out" } });
+
+                tl.to(root, { opacity: 1, duration: 0.55, ease: "power2.out" }, 0);
+
+                if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08);
+                if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14);
+                if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16);
+                if (controls) tl.from(controls.children, { y: 14, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.24);
+                if (cards && cards.length) tl.from(cards, { y: 26, opacity: 0, duration: 0.75, stagger: 0.06 }, 0.3);
+                if (footer) tl.from(footer.children, { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.42);
+            }
+
+            startWhenReady();
+        })();
+    </script>
 </body>
 
 </html>
