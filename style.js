@@ -952,3 +952,77 @@ window.addEventListener("load", () => {
 })
 
 window.addEventListener("resize", scheduleHeroMarqueeFill)
+
+/* =========================
+   ORDER NOW TRANSITION (home -> products.html)
+   Keep it simple: show overlay 1s, then navigate.
+========================= */
+
+function initOrderNowTransition() {
+    const overlay = document.getElementById("order-transition")
+    if (!overlay) return
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const DURATION_MS = prefersReduced ? 0 : 2200
+
+    function shouldHandle(el) {
+        const a = el?.closest?.("a[href]")
+        if (!a) return null
+
+        const href = a.getAttribute("href") || ""
+        if (!href) return null
+
+        // Only intercept links to products page (avoid breaking other nav).
+        if (href === "products.html" || href.endsWith("/products.html")) return { a, href: "products.html" }
+        return null
+    }
+
+    document.addEventListener(
+        "click",
+        (e) => {
+            const hit = shouldHandle(e.target)
+            if (!hit) return
+
+            // Respect new tab / modifier keys / non-left clicks.
+            if (e.defaultPrevented) return
+            if (e.button !== 0) return
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+
+            e.preventDefault()
+
+            // Activate overlay + lock scroll.
+            document.body.classList.add("is-order-transitioning")
+            // Restart animation on repeated clicks.
+            overlay.classList.remove("is-active")
+            void overlay.offsetWidth
+            overlay.classList.add("is-active")
+            overlay.setAttribute("aria-hidden", "false")
+
+            if (prefersReduced) {
+                window.location.href = hit.href
+                return
+            }
+
+            const track = overlay.querySelector(".order-transition__track")
+            const go = () => {
+                track?.removeEventListener("animationend", go)
+                window.location.href = hit.href
+            }
+
+            if (track) {
+                track.addEventListener("animationend", go, { once: true })
+                // Safety fallback (in case animationend doesn't fire).
+                window.setTimeout(go, DURATION_MS + 100)
+            } else {
+                window.setTimeout(go, DURATION_MS)
+            }
+        },
+        { capture: true }
+    )
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initOrderNowTransition, { once: true })
+} else {
+    initOrderNowTransition()
+}

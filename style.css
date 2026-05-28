@@ -3144,6 +3144,82 @@ body.products-page {
     text-align: right;
 }
 
+/* =========================
+ORDER NOW TRANSITION (home -> products only)
+White screen + huge SUSI LABS sliding right -> left (1s)
+========================= */
+
+body.is-order-transitioning {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.order-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    display: grid;
+    place-items: center;
+    background: #3A002B;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.order-transition.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.order-transition.is-active {
+    /* Keep background solid (no white flash). */
+    background: #3A002B;
+}
+
+.order-transition__track {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.28em;
+    will-change: transform;
+    transform: translateX(120vw);
+}
+
+.order-transition.is-active .order-transition__track {
+    animation: orderTransitionSlide 2.2s linear forwards;
+}
+
+.order-transition__word {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.08em;
+    line-height: 0.85;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: clamp(420px, 58vw, 1800px);
+}
+
+.order-transition__word--b {
+    color: #FF7F00;
+}
+
+@keyframes orderTransitionSlide {
+    from {
+        transform: translateX(120vw);
+    }
+    to {
+        /* Push fully left (inside + past) so it "clears" the screen. */
+        transform: translateX(-140vw);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .order-transition.is-active .order-transition__track {
+        animation: none;
+        transform: translateX(0);
+    }
+}
+
 @media (max-width: 992px) {
     .products-shell {
         padding: calc(var(--hero-ticker-h, 44px) + 18px) 24px 44px;
