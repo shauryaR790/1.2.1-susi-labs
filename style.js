@@ -96,21 +96,6 @@ const LOADER_STATUSES = [
     "preparing build plate"
 ]
 
-const MOBILE_LOADER_STATUSES = [
-    "heating nozzle",
-    "laying first layer",
-    "tracing perimeter",
-    "infill pass",
-    "cooling print",
-    "farm online"
-]
-
-const LOADER_MOBILE_MQ = window.matchMedia("(max-width: 768px)")
-
-function isMobileLoaderView() {
-    return LOADER_MOBILE_MQ.matches
-}
-
 function initLoaderPikachu(scope) {
     const pikachu = scope?.querySelector(".loader-pikachu")
     if (!pikachu || prefersReducedMotion) return
@@ -139,83 +124,7 @@ function initLoaderSquad(scope) {
     })
 }
 
-function initLoaderMobile(scope) {
-    if (!scope || prefersReducedMotion || typeof gsap === "undefined") return
-
-    const ghosts = scope.querySelectorAll(".loader-mobile__ghost")
-    const chips = scope.querySelectorAll(".loader-mobile__chips span")
-
-    if (ghosts.length) {
-        gsap.to(ghosts, {
-            y: "-=14",
-            opacity: 0.28,
-            duration: 0.9,
-            stagger: 0.14,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        })
-    }
-
-    if (chips.length) {
-        gsap.to(chips, {
-            y: -5,
-            duration: 0.55,
-            stagger: 0.1,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        })
-    }
-}
-
-function removeSiteLoader(loader, onComplete) {
-    loader?.remove()
-    document.body.classList.remove("is-loading")
-    document.body.classList.add("site-ready")
-    onComplete()
-    ScrollTrigger.refresh()
-}
-
 function finishSiteLoader(loader, onComplete) {
-    if (isMobileLoaderView() && loader?.querySelector(".loader-mobile")) {
-        const mobile = loader.querySelector(".loader-mobile")
-        const inner = mobile.querySelector(".loader-mobile__inner")
-        const scan = mobile.querySelector(".loader-mobile__scan")
-        const chips = mobile.querySelector(".loader-mobile__chips")
-        const wipe = mobile.querySelector(".loader-mobile__wipe")
-
-        const exit = gsap.timeline({
-            onComplete: () => removeSiteLoader(loader, onComplete)
-        })
-
-        exit
-            .to(scan, {
-                scaleX: 1.4,
-                opacity: 0,
-                duration: prefersReducedMotion ? 0.25 : 0.35,
-                ease: "power2.in"
-            })
-            .to(
-                inner,
-                { scale: 0.92, opacity: 0, duration: prefersReducedMotion ? 0.3 : 0.42, ease: "power2.in" },
-                "-=0.2"
-            )
-            .to(
-                chips,
-                { y: -24, opacity: 0, duration: 0.3, ease: "power2.in" },
-                "-=0.35"
-            )
-            .to(
-                wipe,
-                { scaleY: 1, duration: prefersReducedMotion ? 0.4 : 0.62, ease: "power4.inOut" },
-                "-=0.12"
-            )
-            .to(loader, { opacity: 0, duration: 0.18, ease: "power1.in" }, "-=0.12")
-
-        return
-    }
-
     const inner = loader?.querySelector(".loader-inner")
     const squad = loader?.querySelector(".loader-squad")
     const marquee = loader?.querySelector(".loader-marquee")
@@ -223,7 +132,13 @@ function finishSiteLoader(loader, onComplete) {
     const panelBottom = loader?.querySelector(".loader-panel--bottom")
 
     const exit = gsap.timeline({
-        onComplete: () => removeSiteLoader(loader, onComplete)
+        onComplete() {
+            loader?.remove()
+            document.body.classList.remove("is-loading")
+            document.body.classList.add("site-ready")
+            onComplete()
+            ScrollTrigger.refresh()
+        }
     })
 
     exit
@@ -272,78 +187,39 @@ function initSiteLoader(onComplete) {
 
     document.body.classList.add("is-loading")
 
-    const useMobileLoader = isMobileLoaderView() && loader.querySelector(".loader-mobile")
-    const scope = useMobileLoader ? loader.querySelector(".loader-mobile") : loader
-    const bar = useMobileLoader
-        ? loader.querySelector(".loader-mobile__rail-fill")
-        : loader.querySelector(".loader-bar")
-    const percentEl = useMobileLoader
-        ? loader.querySelector(".loader-mobile__percent span")
-        : loader.querySelector(".loader-percent span")
-    const statusEl = useMobileLoader
-        ? loader.querySelector(".loader-mobile__status")
-        : loader.querySelector(".loader-status")
-    const layerEl = loader.querySelector(".loader-mobile__layer")
+    const scope = loader
+    const bar = loader.querySelector(".loader-bar")
+    const percentEl = loader.querySelector(".loader-percent span")
+    const statusEl = loader.querySelector(".loader-status")
     const progress = { val: 0 }
     let pageLoaded = document.readyState === "complete"
     let minTimeDone = false
     let exiting = false
 
-    if (useMobileLoader) {
-        gsap.set(loader.querySelector(".loader-mobile__wipe"), { scaleY: 0, transformOrigin: "bottom center" })
-    } else {
-        gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
-        gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
-    }
+    gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
+    gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    const minDuration = prefersReducedMotion ? 1.1 : useMobileLoader ? 2.35 : 2.85
-    const progressDuration = prefersReducedMotion ? 0.9 : useMobileLoader ? 2.2 : 2.8
+    const minDuration = prefersReducedMotion ? 1.1 : 2.85
+    const progressDuration = prefersReducedMotion ? 0.9 : 2.8
 
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
-    if (useMobileLoader) {
-        intro
-            .from(scope.querySelectorAll(".loader-mobile__chips span"), {
-                y: 18,
-                opacity: 0,
-                duration: 0.4,
-                stagger: 0.07
-            })
-            .from(scope.querySelectorAll(".loader-mobile__eyebrow"), { y: 20, opacity: 0, duration: 0.4 }, "-=0.15")
-            .from(scope.querySelectorAll(".loader-mobile__word--a"), { y: 70, opacity: 0, duration: 0.7 }, "-=0.1")
-            .from(scope.querySelectorAll(".loader-mobile__word--b"), { y: 70, opacity: 0, duration: 0.7 }, "-=0.5")
-            .from(scope.querySelectorAll(".loader-mobile__layer"), { opacity: 0, duration: 0.35 }, "-=0.45")
-            .from(
-                scope.querySelectorAll(".loader-mobile__rail"),
-                { scaleX: 0, duration: 0.55, transformOrigin: "left center" },
-                "-=0.25"
-            )
-            .from(scope.querySelectorAll(".loader-mobile__percent"), { y: 16, opacity: 0, duration: 0.4 }, "-=0.3")
-            .from(scope.querySelectorAll(".loader-mobile__status"), { opacity: 0, duration: 0.35 }, "-=0.38")
+    intro
+        .from(scope.querySelectorAll(".loader-tag"), { y: 24, opacity: 0, duration: 0.45 })
+        .from(
+            scope.querySelectorAll(".loader-juggler"),
+            { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.7)" },
+            "-=0.05"
+        )
+        .from(scope.querySelectorAll(".loader-word--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
+        .from(scope.querySelectorAll(".loader-word--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
+        .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.3")
+        .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.35")
+        .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
 
-        if (!prefersReducedMotion) initLoaderMobile(scope)
-    } else {
-        intro
-            .from(scope.querySelectorAll(".loader-tag"), { y: 24, opacity: 0, duration: 0.45 })
-            .from(
-                scope.querySelectorAll(".loader-juggler"),
-                { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.7)" },
-                "-=0.05"
-            )
-            .from(scope.querySelectorAll(".loader-word--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
-            .from(scope.querySelectorAll(".loader-word--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
-            .from(
-                scope.querySelectorAll(".loader-track"),
-                { scaleX: 0, duration: 0.65, transformOrigin: "left center" },
-                "-=0.3"
-            )
-            .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.35")
-            .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
-
-        if (!prefersReducedMotion) {
-            initLoaderSquad(scope)
-            initLoaderPikachu(scope)
-        }
+    if (!prefersReducedMotion) {
+        initLoaderSquad(scope)
+        initLoaderPikachu(scope)
     }
 
     const progressTween = gsap.to(progress, {
@@ -354,17 +230,12 @@ function initSiteLoader(onComplete) {
             const n = Math.round(progress.val)
             if (percentEl) percentEl.textContent = String(n)
             if (bar) bar.style.width = `${n}%`
-            if (layerEl) {
-                const layer = Math.min(24, Math.max(1, Math.ceil((progress.val / 100) * 24)))
-                layerEl.textContent = `layer ${String(layer).padStart(2, "0")} / 24`
-            }
             if (statusEl) {
-                const statuses = useMobileLoader ? MOBILE_LOADER_STATUSES : LOADER_STATUSES
                 const idx = Math.min(
-                    statuses.length - 1,
-                    Math.floor((progress.val / 100) * statuses.length)
+                    LOADER_STATUSES.length - 1,
+                    Math.floor((progress.val / 100) * LOADER_STATUSES.length)
                 )
-                statusEl.textContent = statuses[idx]
+                statusEl.textContent = LOADER_STATUSES[idx]
             }
         }
     })
