@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=102">
+    <link rel="stylesheet" href="style.css?v=110">
 
     <script>
         // Prevent flash: only hide when arriving from ORDER NOW transition.
@@ -232,15 +232,9 @@
             var footer = document.querySelector(".products-footer");
 
             function startIntro() {
-                // Reveal hook: we keep the page hidden until GSAP is ready,
-                // so the first visible frame is already animating.
                 document.documentElement.classList.remove("products-intro");
 
-                window.gsap.set(root, { opacity: 0 });
-
                 var tl = window.gsap.timeline({ defaults: { ease: "power3.out" } });
-
-                tl.to(root, { opacity: 1, duration: 0.55, ease: "power2.out" }, 0);
 
                 if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08);
                 if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14);

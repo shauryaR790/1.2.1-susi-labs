@@ -963,7 +963,10 @@ function initOrderNowTransition() {
     if (!overlay) return
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isMobileTransition = window.matchMedia("(max-width: 768px)").matches
     const DURATION_MS = prefersReduced ? 0 : 1200
+    // Navigate while overlay still covers the hero (before end fade reveals index).
+    const NAV_AT_MS = prefersReduced ? 0 : Math.round(DURATION_MS * (isMobileTransition ? 0.68 : 0.72))
 
     function shouldHandle(el) {
         const a = el?.closest?.("a[href]")
@@ -998,39 +1001,34 @@ function initOrderNowTransition() {
             overlay.classList.add("is-active")
             overlay.setAttribute("aria-hidden", "false")
 
+            // Warm the products document while the transition plays.
+            const prefetch = document.createElement("link")
+            prefetch.rel = "prefetch"
+            prefetch.href = hit.href
+            document.head.appendChild(prefetch)
+
             if (prefersReduced) {
+                try {
+                    sessionStorage.setItem("susi:productsIntro", "1")
+                } catch {}
                 window.location.href = hit.href
                 return
             }
 
-            const track = overlay.querySelector(".order-transition__track")
-            const words = overlay.querySelectorAll(".order-transition__word")
             let didGo = false
 
             const go = () => {
                 if (didGo) return
                 didGo = true
-                track?.removeEventListener("animationend", onEnd)
-                words.forEach((w) => w.removeEventListener("animationend", onEnd))
                 try {
                     sessionStorage.setItem("susi:productsIntro", "1")
                 } catch {}
                 window.location.href = hit.href
             }
 
-            const onEnd = (e) => {
-                // Navigate when the fade-out finishes (last ~30% of timeline).
-                if (e.animationName === "orderTransitionTextFade") go()
-            }
-
-            if (track) {
-                track.addEventListener("animationend", onEnd)
-                words.forEach((w) => w.addEventListener("animationend", onEnd))
-                // Safety fallback (in case animationend doesn't fire).
-                window.setTimeout(go, DURATION_MS + 80)
-            } else {
-                window.setTimeout(go, DURATION_MS)
-            }
+            // Go while the purple overlay still hides the hero; don't wait for full fade-out.
+            window.setTimeout(go, NAV_AT_MS)
+            window.setTimeout(go, DURATION_MS + 80)
         },
         { capture: true }
     )
