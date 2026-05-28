@@ -2928,6 +2928,8 @@ Matches hero theme; no JS required.
 
 body.products-page {
     background: #3A002B;
+    /* clip keeps horizontal bleed hidden without breaking position: sticky */
+    overflow-x: clip;
 }
 
 /* Only hide products during GSAP intro (prevents flash). */
@@ -2968,7 +2970,8 @@ body.products-page {
 .products-home {
     display: inline-flex;
     flex-direction: column;
-    line-height: 0.78;
+    gap: clamp(8px, 0.6vw, 14px);
+    line-height: 0.9;
     text-decoration: none;
     text-transform: uppercase;
     user-select: none;
@@ -2988,6 +2991,7 @@ body.products-page {
 .products-home__word--b {
     font-size: clamp(70px, 6.8vw, 108px);
     color: #FF7F00;
+    margin-top: 0;
     margin-left: -0.04em;
 }
 
@@ -3007,15 +3011,17 @@ body.products-page {
     margin-top: 10px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
+    font-weight: 700;
     line-height: 1.3;
     color: rgba(255, 243, 239, 0.82);
     text-align: right;
+    text-transform: uppercase;
     max-width: 520px;
     margin-left: auto;
 }
 
 .products-controls {
-    margin-top: 26px;
+    margin-top: 36px;
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
@@ -3149,6 +3155,105 @@ body.products-page {
     text-align: right;
 }
 
+/* Desktop: left sidebar (logo + stacked filters) | right column (title + cards). Mobile unchanged below 993px. */
+@media (min-width: 993px) {
+    html:has(body.products-page) {
+        overflow-x: clip;
+    }
+
+    body.products-page {
+        overflow-x: clip;
+    }
+
+    .products-shell,
+    .products-layout {
+        overflow: visible;
+    }
+
+    .products-shell {
+        --products-heading-push: 64px;
+        max-width: 1560px;
+        padding-left: clamp(36px, 4vw, 52px);
+        padding-right: 62px;
+    }
+
+    .products-layout {
+        display: flex;
+        align-items: stretch;
+        gap: clamp(32px, 4vw, 56px);
+    }
+
+    .products-sidebar {
+        flex: 0 0 clamp(148px, 12vw, 196px);
+        width: clamp(148px, 12vw, 196px);
+        align-self: stretch;
+    }
+
+    .products-sidebar__stick {
+        position: -webkit-sticky;
+        position: sticky;
+        top: calc(var(--hero-ticker-h, 44px) + 16px);
+        padding-top: var(--products-heading-push);
+        z-index: 5;
+    }
+
+    .products-header {
+        display: block;
+        margin: 0;
+    }
+
+    .products-home {
+        align-self: start;
+    }
+
+    .products-controls {
+        margin-top: 40px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .products-filter {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .products-main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+    }
+
+    .products-title {
+        max-width: none;
+        padding-top: var(--products-heading-push);
+    }
+
+    .products-title h1,
+    .products-title p {
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .products-title p {
+        max-width: 640px;
+        margin-bottom: 0;
+    }
+
+    .products-grid-page {
+        margin-top: 0;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .products-footer {
+        margin-top: 32px;
+    }
+}
+
 /* =========================
 ORDER NOW TRANSITION (home -> products only)
 White screen + huge SUSI LABS sliding right -> left (1s)
@@ -3191,7 +3296,7 @@ body.is-order-transitioning {
 }
 
 .order-transition.is-active .order-transition__track {
-    animation: orderTransitionSlide 2.2s linear forwards;
+    animation: orderTransitionSlide 1.2s linear forwards;
 }
 
 .order-transition__word {
@@ -3202,10 +3307,31 @@ body.is-order-transitioning {
     color: #ffffff;
     text-transform: uppercase;
     font-size: clamp(420px, 58vw, 1800px);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.order-transition.is-active .order-transition__word {
+    animation: orderTransitionTextFade 1.2s linear forwards;
 }
 
 .order-transition__word--b {
     color: #FF7F00;
+}
+
+@keyframes orderTransitionTextFade {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    68% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes orderTransitionSlide {
@@ -3222,6 +3348,11 @@ body.is-order-transitioning {
     .order-transition.is-active .order-transition__track {
         animation: none;
         transform: translateX(0);
+    }
+
+    .order-transition.is-active .order-transition__word {
+        animation: none;
+        opacity: 1;
     }
 }
 
@@ -3256,11 +3387,15 @@ body.is-order-transitioning {
     }
 
     .order-transition.is-active .order-transition__word--a {
-        animation: orderTransitionDrop 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation:
+            orderTransitionDrop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+            orderTransitionTextFade 1.2s linear forwards;
     }
 
     .order-transition.is-active .order-transition__word--b {
-        animation: orderTransitionRise 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation:
+            orderTransitionRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+            orderTransitionTextFade 1.2s linear forwards;
     }
 }
 
@@ -3287,10 +3422,34 @@ body.is-order-transitioning {
         padding: calc(var(--hero-ticker-h, 44px) + 18px) 24px 44px;
     }
 
+    .products-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .products-sidebar,
+    .products-sidebar__stick,
+    .products-main {
+        display: contents;
+    }
+
+    .products-home {
+        order: 1;
+    }
+
     .products-header {
+        order: 2;
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
+    }
+
+    .products-controls {
+        order: 3;
+    }
+
+    .products-grid-page {
+        order: 4;
     }
 
     .products-title h1,

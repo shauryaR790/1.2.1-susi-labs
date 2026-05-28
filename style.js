@@ -963,7 +963,7 @@ function initOrderNowTransition() {
     if (!overlay) return
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const DURATION_MS = prefersReduced ? 0 : 2200
+    const DURATION_MS = prefersReduced ? 0 : 1200
 
     function shouldHandle(el) {
         const a = el?.closest?.("a[href]")
@@ -1004,18 +1004,30 @@ function initOrderNowTransition() {
             }
 
             const track = overlay.querySelector(".order-transition__track")
+            const words = overlay.querySelectorAll(".order-transition__word")
+            let didGo = false
+
             const go = () => {
-                track?.removeEventListener("animationend", go)
+                if (didGo) return
+                didGo = true
+                track?.removeEventListener("animationend", onEnd)
+                words.forEach((w) => w.removeEventListener("animationend", onEnd))
                 try {
                     sessionStorage.setItem("susi:productsIntro", "1")
                 } catch {}
                 window.location.href = hit.href
             }
 
+            const onEnd = (e) => {
+                // Navigate when the fade-out finishes (last ~30% of timeline).
+                if (e.animationName === "orderTransitionTextFade") go()
+            }
+
             if (track) {
-                track.addEventListener("animationend", go, { once: true })
+                track.addEventListener("animationend", onEnd)
+                words.forEach((w) => w.addEventListener("animationend", onEnd))
                 // Safety fallback (in case animationend doesn't fire).
-                window.setTimeout(go, DURATION_MS + 100)
+                window.setTimeout(go, DURATION_MS + 80)
             } else {
                 window.setTimeout(go, DURATION_MS)
             }

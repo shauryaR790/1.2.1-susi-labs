@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=99">
+    <link rel="stylesheet" href="style.css?v=102">
 
     <script>
         // Prevent flash: only hide when arriving from ORDER NOW transition.
@@ -53,28 +53,34 @@
     </div>
 
     <main class="products-shell">
-        <header class="products-header">
-            <a class="products-home" href="index.html" aria-label="Back to home">
-                <span class="products-home__word products-home__word--a">SUSI</span>
-                <span class="products-home__word products-home__word--b">LABS</span>
-            </a>
+        <div class="products-layout">
+            <aside class="products-sidebar" aria-label="Products navigation">
+                <div class="products-sidebar__stick">
+                    <a class="products-home" href="index.html" aria-label="Back to home">
+                        <span class="products-home__word products-home__word--a">SUSI</span>
+                        <span class="products-home__word products-home__word--b">LABS</span>
+                    </a>
 
-            <div class="products-title">
-                <h1>ORDER NOW</h1>
-                <p>pick a category, then choose a product. simple for now.</p>
-            </div>
-        </header>
+                    <section class="products-controls" aria-label="Product filters">
+                        <button type="button" class="products-filter is-active">all</button>
+                        <button type="button" class="products-filter">figures</button>
+                        <button type="button" class="products-filter">functional</button>
+                        <button type="button" class="products-filter">props</button>
+                        <button type="button" class="products-filter">resin</button>
+                        <button type="button" class="products-filter">fdm</button>
+                    </section>
+                </div>
+            </aside>
 
-        <section class="products-controls" aria-label="Product filters">
-            <button type="button" class="products-filter is-active">all</button>
-            <button type="button" class="products-filter">figures</button>
-            <button type="button" class="products-filter">functional</button>
-            <button type="button" class="products-filter">props</button>
-            <button type="button" class="products-filter">resin</button>
-            <button type="button" class="products-filter">fdm</button>
-        </section>
+            <div class="products-main">
+                <header class="products-header">
+                    <div class="products-title">
+                        <h1>ORDER NOW</h1>
+                        <p>Filter by category, pick your build, and hit order when you're ready.</p>
+                    </div>
+                </header>
 
-        <section class="products-grid-page" aria-label="Products">
+                <section class="products-grid-page" aria-label="Products">
             <article class="product-card">
                 <div class="product-card__visual" aria-hidden="true"></div>
                 <h2 class="product-card__name">custom figure</h2>
@@ -172,11 +178,12 @@
                 <p class="product-card__meta">multiple parts</p>
                 <a class="product-card__btn" href="#" aria-label="Order prototype kit">order</a>
             </article>
-        </section>
+                </section>
+            </div>
+        </div>
 
         <footer class="products-footer">
             <a class="products-back" href="index.html">← back to home</a>
-            <p class="products-note">This page is intentionally simple (no animations) so navigation works everywhere.</p>
         </footer>
     </main>
 
