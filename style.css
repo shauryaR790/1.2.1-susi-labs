@@ -3371,6 +3371,10 @@ body.is-order-transitioning {
         --order-transition-cy: 50%;
     }
 
+    .order-transition.is-active {
+        animation: orderTransitionMobileOverlayFade 1.2s linear forwards;
+    }
+
     .order-transition__fx,
     .order-transition__shine {
         display: block;
@@ -3706,6 +3710,17 @@ body.is-order-transitioning {
     }
 }
 
+@keyframes orderTransitionMobileOverlayFade {
+    0%,
+    67% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes orderTransitionMobileRing {
     0% {
         opacity: 0;
@@ -3716,8 +3731,13 @@ body.is-order-transitioning {
         opacity: 0.9;
     }
 
+    68% {
+        opacity: 0.9;
+        transform: scale(1) rotate(280deg);
+    }
+
     100% {
-        opacity: 0.35;
+        opacity: 0;
         transform: scale(1) rotate(300deg);
     }
 }
@@ -3728,8 +3748,17 @@ body.is-order-transitioning {
         transform: scale(1.8);
     }
 
-    100% {
+    40% {
         opacity: 1;
+        transform: scale(1);
+    }
+
+    68% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
         transform: scale(1);
     }
 }
