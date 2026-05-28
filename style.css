@@ -3368,6 +3368,7 @@ body.is-order-transitioning {
         overflow: hidden;
         padding: 28px 16px;
         box-sizing: border-box;
+        --order-transition-cy: 50%;
     }
 
     .order-transition__fx,
@@ -3385,7 +3386,7 @@ body.is-order-transitioning {
     .order-transition__pulse {
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: var(--order-transition-cy);
         width: 40vmin;
         height: 40vmin;
         margin: -20vmin 0 0 -20vmin;
@@ -3402,7 +3403,7 @@ body.is-order-transitioning {
     .order-transition__ring {
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: var(--order-transition-cy);
         width: min(72vw, 320px);
         height: min(72vw, 320px);
         margin: calc(min(72vw, 320px) / -2) 0 0 calc(min(72vw, 320px) / -2);
@@ -3473,7 +3474,7 @@ body.is-order-transitioning {
     .order-transition__orbit {
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: var(--order-transition-cy);
         width: min(58vw, 260px);
         height: min(58vw, 260px);
         margin: calc(min(58vw, 260px) / -2) 0 0 calc(min(58vw, 260px) / -2);
@@ -3501,7 +3502,7 @@ body.is-order-transitioning {
     .order-transition__sparks {
         position: absolute;
         left: 50%;
-        top: 46%;
+        top: var(--order-transition-cy);
         width: 0;
         height: 0;
     }
@@ -3590,11 +3591,11 @@ body.is-order-transitioning {
     }
 
     .order-transition__track {
-        transform: none;
+        transform: translateY(-0.32em);
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 0.04em;
+        gap: 0.02em;
         position: relative;
         z-index: 2;
         overflow: visible;
@@ -3634,7 +3635,7 @@ body.is-order-transitioning {
 
     .order-transition__word {
         font-size: clamp(76px, 19.5vw, 118px);
-        line-height: 0.95;
+        line-height: 0.88;
         letter-spacing: -0.04em;
         clip-path: none;
         transform: scale(1.12);
@@ -3791,16 +3792,16 @@ body.is-order-transitioning {
 @keyframes orderTransitionMobileTrackPulse {
     0%,
     48% {
-        transform: scale(1);
+        transform: translateY(-0.32em) scale(1);
     }
 
     56% {
-        transform: scale(1.035);
+        transform: translateY(-0.32em) scale(1.035);
     }
 
     72%,
     100% {
-        transform: scale(1);
+        transform: translateY(-0.32em) scale(1);
     }
 }
 
