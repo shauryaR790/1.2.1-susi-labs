@@ -260,7 +260,7 @@ async function initProductsCatalog() {
         const rendered = renderProducts(products, grid, "all")
         initAddToCart(grid)
         initProductFilters(products, grid)
-        window.SUSI_CART?.syncBadges()
+        window.SUSI_CART?.refresh()
 
         window.dispatchEvent(
             new CustomEvent("susi:products-loaded", {

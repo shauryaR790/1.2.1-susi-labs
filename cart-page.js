@@ -218,7 +218,7 @@ function runCartIntro() {
 function initCartPage() {
     renderCartPage()
     initCartPageControls()
-    window.SUSI_CART?.syncBadges()
+    window.SUSI_CART?.refresh()
     runCartIntro()
 }
 

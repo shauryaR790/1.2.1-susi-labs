@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | SUSI LABS</title>
+    <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.cdnfonts.com/css/peace-sans" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css?v=138">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body class="products-page cart-page checkout-page">
+    <div class="print-marquee print-marquee--hero products-ticker" aria-hidden="true">
+        <div class="print-marquee-track">
+            <div class="print-marquee-content">
+                <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SLICE IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">BUILD IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">CUSTOM PARTS</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">RESIN READY</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">FDM FARM</span><span class="print-marquee-dot"></span>
+            </div>
+            <div class="print-marquee-content" aria-hidden="true">
+                <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SLICE IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">BUILD IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">CUSTOM PARTS</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">RESIN READY</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">FDM FARM</span><span class="print-marquee-dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <main class="products-shell cart-shell">
+        <div class="products-layout cart-layout">
+            <aside class="products-sidebar" aria-label="Checkout navigation">
+                <div class="products-sidebar__stick">
+                    <a class="products-home" href="index.html" aria-label="Back to home">
+                        <span class="products-home__word products-home__word--a">SUSI</span>
+                        <span class="products-home__word products-home__word--b">LABS</span>
+                    </a>
+
+                    <nav class="cart-sidebar-links" aria-label="Quick links">
+                        <a class="cart-sidebar-links__btn" href="products.html">shop</a>
+                        <a class="cart-sidebar-links__btn" href="cart.html">cart</a>
+                        <a class="cart-sidebar-links__btn" href="index.html">home</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="cart-main checkout-main">
+                <header class="products-header cart-header">
+                    <div class="cart-title products-title">
+                        <h1>CHECKOUT</h1>
+                        <p>Shipping details + secure pay — UPI, cards, netbanking via Razorpay.</p>
+                    </div>
+                </header>
+
+                <div class="cart-main__scroll">
+                    <section class="checkout-empty" hidden aria-live="polite">
+                        <p class="cart-empty__title">Your cart is empty.</p>
+                        <p class="cart-empty__meta">Add products before checkout.</p>
+                        <a class="cart-empty__btn" href="products.html">browse products</a>
+                    </section>
+
+                    <form class="checkout-form" id="checkout-form" novalidate hidden>
+                        <fieldset class="checkout-form__section">
+                            <legend class="checkout-form__legend">contact</legend>
+                            <label class="checkout-field">
+                                <span>Full name</span>
+                                <input type="text" name="name" autocomplete="name" required>
+                            </label>
+                            <label class="checkout-field">
+                                <span>Phone</span>
+                                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required>
+                            </label>
+                            <label class="checkout-field">
+                                <span>Email</span>
+                                <input type="email" name="email" autocomplete="email" required>
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="checkout-form__section">
+                            <legend class="checkout-form__legend">shipping address</legend>
+                            <label class="checkout-field checkout-field--full">
+                                <span>Address line 1</span>
+                                <input type="text" name="address_line1" autocomplete="address-line1" required>
+                            </label>
+                            <label class="checkout-field checkout-field--full">
+                                <span>Address line 2 <em>(optional)</em></span>
+                                <input type="text" name="address_line2" autocomplete="address-line2">
+                            </label>
+                            <div class="checkout-form__row">
+                                <label class="checkout-field">
+                                    <span>City</span>
+                                    <input type="text" name="city" autocomplete="address-level2" required>
+                                </label>
+                                <label class="checkout-field">
+                                    <span>State</span>
+                                    <input type="text" name="state" autocomplete="address-level1" required>
+                                </label>
+                            </div>
+                            <label class="checkout-field">
+                                <span>PIN code</span>
+                                <input type="text" name="pin_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required>
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="checkout-form__section">
+                            <legend class="checkout-form__legend">order notes</legend>
+                            <label class="checkout-field checkout-field--full">
+                                <span>Notes <em>(optional)</em></span>
+                                <textarea name="notes" rows="3" placeholder="Size, material, STL link, special instructions…"></textarea>
+                            </label>
+                        </fieldset>
+
+                        <p class="checkout-form__error" id="checkout-error" hidden role="alert"></p>
+                    </form>
+                </div>
+            </div>
+
+            <aside class="cart-summary-panel checkout-summary-panel" hidden aria-label="Order summary">
+                <div class="cart-summary-panel__stick">
+                    <div class="cart-summary" id="checkout-summary">
+                        <h2 class="cart-summary__title">order summary</h2>
+                        <div class="cart-summary__items" data-checkout-summary-items></div>
+                        <p class="cart-summary__row"><span>Items</span><span data-checkout-summary-count>0 items</span></p>
+                        <p class="cart-summary__row cart-summary__row--total"><span>Total</span><span data-checkout-summary-subtotal>—</span></p>
+                        <button type="submit" form="checkout-form" class="checkout-pay-btn" id="checkout-pay-btn">
+                            pay with UPI / card
+                        </button>
+                        <a class="cart-summary__shop" href="cart.html">← back to cart</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="cart-store.js?v=2"></script>
+    <script src="checkout-page.js?v=1"></script>
+</body>
+
+</html>

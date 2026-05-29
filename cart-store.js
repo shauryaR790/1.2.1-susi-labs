@@ -1,30 +1,63 @@
 /* =========================
-   SUSI CART — localStorage
+   SUSI CART — localStorage (persists across visits)
 ========================= */
 
 ;(function () {
     const CART_KEY = "susi:cart"
+    const CART_VERSION = 1
     const EVENT = "susi:cart-updated"
 
-    function readRaw() {
+    function canUseStorage() {
         try {
-            const raw = localStorage.getItem(CART_KEY)
-            if (!raw) return []
-            const parsed = JSON.parse(raw)
-            return Array.isArray(parsed) ? parsed : []
+            const probe = "__susi_cart_probe__"
+            localStorage.setItem(probe, "1")
+            localStorage.removeItem(probe)
+            return true
         } catch {
-            return []
+            return false
         }
+    }
+
+    const storageOk = canUseStorage()
+
+    function sanitizeUrl(raw) {
+        return String(raw ?? "").replace(/[\r\n]+/g, "").trim()
     }
 
     function normalizeItem(product) {
         return {
-            id: String(product.id),
+            id: String(product.id ?? product.name ?? ""),
             name: String(product.name || "Untitled"),
             price: String(product.price || ""),
-            image_url: String(product.image_url || ""),
+            image_url: sanitizeUrl(product.image_url),
             category: String(product.category || ""),
             qty: Math.max(1, Number(product.qty) || 1)
+        }
+    }
+
+    function parsePayload(raw) {
+        if (!raw) return []
+
+        const parsed = JSON.parse(raw)
+
+        if (Array.isArray(parsed)) {
+            return parsed.map(normalizeItem).filter((item) => item.id)
+        }
+
+        if (parsed && Array.isArray(parsed.items)) {
+            return parsed.items.map(normalizeItem).filter((item) => item.id)
+        }
+
+        return []
+    }
+
+    function readRaw() {
+        if (!storageOk) return []
+
+        try {
+            return parsePayload(localStorage.getItem(CART_KEY))
+        } catch {
+            return []
         }
     }
 
@@ -47,8 +80,33 @@
         })
     }
 
+    function persist(items) {
+        if (!storageOk) {
+            console.warn("[SUSI] Cart cannot persist — localStorage is blocked in this browser.")
+            return false
+        }
+
+        const payload = {
+            v: CART_VERSION,
+            updatedAt: new Date().toISOString(),
+            items
+        }
+
+        try {
+            localStorage.setItem(CART_KEY, JSON.stringify(payload))
+            const check = parsePayload(localStorage.getItem(CART_KEY))
+            if (check.length !== items.length) {
+                throw new Error("Cart write verification failed")
+            }
+            return true
+        } catch (err) {
+            console.warn("[SUSI] Failed to save cart:", err)
+            return false
+        }
+    }
+
     function write(items) {
-        localStorage.setItem(CART_KEY, JSON.stringify(items))
+        persist(items)
         syncBadges()
         window.dispatchEvent(
             new CustomEvent(EVENT, {
@@ -67,7 +125,9 @@
 
     function addItem(product) {
         const items = readRaw()
-        const id = String(product.id)
+        const id = String(product.id ?? product.name ?? "")
+        if (!id) return items
+
         const existing = items.find((item) => item.id === id)
 
         if (existing) {
@@ -106,6 +166,15 @@
         return []
     }
 
+    function refresh() {
+        syncBadges()
+        window.dispatchEvent(
+            new CustomEvent(EVENT, {
+                detail: { items: readRaw(), count: getCount() }
+            })
+        )
+    }
+
     window.SUSI_CART = {
         getItems,
         getCount,
@@ -113,12 +182,27 @@
         removeItem,
         setQty,
         clearCart,
-        syncBadges
+        syncBadges,
+        refresh,
+        storageOk
+    }
+
+    function init() {
+        syncBadges()
+
+        window.addEventListener("storage", (e) => {
+            if (e.key === CART_KEY) refresh()
+        })
+
+        window.addEventListener("pageshow", () => refresh())
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") refresh()
+        })
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", syncBadges, { once: true })
+        document.addEventListener("DOMContentLoaded", init, { once: true })
     } else {
-        syncBadges()
+        init()
     }
 })()
