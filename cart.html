@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products | SUSI LABS</title>
+    <title>Cart | SUSI LABS</title>
     <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,20 +15,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=138">
+    <link rel="stylesheet" href="style.css?v=137">
 
     <script>
-        // Prevent flash: only hide when arriving from ORDER NOW transition.
         try {
-            if (sessionStorage.getItem("susi:productsIntro") === "1") {
-                document.documentElement.classList.add("products-intro");
+            if (sessionStorage.getItem("susi:cartIntro") === "1") {
+                document.documentElement.classList.add("cart-intro");
             }
         } catch {}
     </script>
 </head>
 
-<body class="products-page">
-    <!-- Top ticker (same as hero theme) -->
+<body class="products-page cart-page">
     <div class="print-marquee print-marquee--hero products-ticker" aria-hidden="true">
         <div class="print-marquee-track">
             <div class="print-marquee-content">
@@ -52,51 +50,54 @@
         </div>
     </div>
 
-    <main class="products-shell">
-        <div class="products-layout">
-            <aside class="products-sidebar" aria-label="Products navigation">
+    <main class="products-shell cart-shell">
+        <div class="products-layout cart-layout">
+            <aside class="products-sidebar" aria-label="Cart navigation">
                 <div class="products-sidebar__stick">
                     <a class="products-home" href="index.html" aria-label="Back to home">
                         <span class="products-home__word products-home__word--a">SUSI</span>
                         <span class="products-home__word products-home__word--b">LABS</span>
                     </a>
 
-                    <section class="products-controls" aria-label="Product filters">
-                        <button type="button" class="products-filter is-active">all</button>
-                        <button type="button" class="products-filter">figures</button>
-                        <button type="button" class="products-filter">functional</button>
-                        <button type="button" class="products-filter">props</button>
-                        <button type="button" class="products-filter">resin</button>
-                        <button type="button" class="products-filter">fdm</button>
-                    </section>
+                    <nav class="cart-sidebar-links" aria-label="Quick links">
+                        <a class="cart-sidebar-links__btn" href="products.html">shop</a>
+                        <a class="cart-sidebar-links__btn" href="index.html">home</a>
+                    </nav>
                 </div>
             </aside>
 
-            <div class="products-main">
-                <header class="products-header">
-                    <div class="products-title">
-                        <h1>ORDER NOW</h1>
-                        <p>Filter by category, pick your build, and add to cart when you're ready.</p>
+            <div class="cart-main">
+                <header class="products-header cart-header">
+                    <div class="cart-title products-title">
+                        <h1>YOUR CART</h1>
+                        <p>Review your builds, tweak quantities, then checkout when ready.</p>
                     </div>
-                    <a class="cart-nav cart-nav--products" href="cart.html" aria-label="Shopping cart">
-                        <svg class="cart-nav__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M3 3h2l2.2 12.4a2 2 0 0 0 2 1.6h9.2a2 2 0 0 0 2-1.6L22 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="10" cy="21" r="1.35" fill="currentColor"/>
-                            <circle cx="18" cy="21" r="1.35" fill="currentColor"/>
-                        </svg>
-                        <span class="cart-nav__badge" data-cart-badge hidden aria-hidden="true">0</span>
-                    </a>
                 </header>
 
-                <section class="products-grid-page" aria-label="Products" aria-busy="true">
-                    <p class="products-status products-status--loading">loading products…</p>
-                </section>
-            </div>
-        </div>
+                <div class="cart-main__scroll">
+                    <section class="cart-empty" hidden aria-live="polite">
+                        <p class="cart-empty__title">Your cart is empty.</p>
+                        <p class="cart-empty__meta">Browse the catalog and hit add to cart on anything you want printed.</p>
+                        <a class="cart-empty__btn" href="products.html">browse products</a>
+                    </section>
 
-        <footer class="products-footer">
-            <a class="products-back" href="index.html">← back to home</a>
-        </footer>
+                    <section class="cart-list" aria-label="Cart items" hidden></section>
+                </div>
+            </div>
+
+            <aside class="cart-summary-panel" hidden aria-label="Order summary">
+                <div class="cart-summary-panel__stick">
+                    <div class="cart-summary" id="cart-summary">
+                        <h2 class="cart-summary__title">order summary</h2>
+                        <div class="cart-summary__items" data-cart-summary-items></div>
+                        <p class="cart-summary__row"><span>Items</span><span data-cart-summary-count>0 items</span></p>
+                        <p class="cart-summary__row cart-summary__row--total"><span>Subtotal</span><span data-cart-summary-subtotal>—</span></p>
+                        <a class="cart-summary__checkout" href="index.html">continue to checkout</a>
+                        <a class="cart-summary__shop" href="products.html">keep shopping</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </main>
 
     <div class="order-transition" id="order-transition" aria-hidden="true">
@@ -120,11 +121,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
     <script src="cart-store.js"></script>
     <script src="page-transition.js"></script>
-    <script src="products.js?v=5"></script>
+    <script src="cart-page.js?v=5"></script>
 </body>
 
 </html>
