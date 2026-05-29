@@ -1,0 +1,7 @@
+{
+  "name": "susi-labs",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-supabase-config.js"
+  }
+}
