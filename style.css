@@ -4886,6 +4886,10 @@ CHECKOUT PAGE
     min-height: calc(100svh - var(--hero-ticker-h, 44px) - 80px);
 }
 
+.checkout-success-page .print-marquee.print-marquee--hero .print-marquee-track {
+    animation: printMarqueeLTR 14s linear infinite;
+}
+
 .checkout-success {
     max-width: 560px;
     margin: 0 auto;

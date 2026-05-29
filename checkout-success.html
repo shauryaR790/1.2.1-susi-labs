@@ -8,7 +8,7 @@
     <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
     <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=138">
+    <link rel="stylesheet" href="style.css?v=139">
 </head>
 
 <body class="products-page cart-page checkout-page checkout-success-page">
@@ -16,11 +16,21 @@
         <div class="print-marquee-track">
             <div class="print-marquee-content">
                 <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SLICE IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">BUILD IT</span><span class="print-marquee-dot"></span>
                 <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">CUSTOM PARTS</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">RESIN READY</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">FDM FARM</span><span class="print-marquee-dot"></span>
             </div>
             <div class="print-marquee-content" aria-hidden="true">
                 <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SLICE IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">BUILD IT</span><span class="print-marquee-dot"></span>
                 <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">CUSTOM PARTS</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">RESIN READY</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">FDM FARM</span><span class="print-marquee-dot"></span>
             </div>
         </div>
     </div>
@@ -41,9 +51,16 @@
     <script>
         try {
             const params = new URLSearchParams(window.location.search)
-            const id = params.get("order") || ""
+            let id = params.get("order") || ""
+            if (!id) {
+                id = sessionStorage.getItem("susi:lastOrderId") || ""
+                sessionStorage.removeItem("susi:lastOrderId")
+            }
             const el = document.getElementById("order-ref")
-            if (el && id) el.textContent = id.slice(0, 8).toUpperCase()
+            if (el && id) {
+                const short = id.replace(/-/g, "").slice(0, 8).toUpperCase()
+                el.textContent = short || id.slice(0, 8)
+            }
         } catch {}
     </script>
 </body>

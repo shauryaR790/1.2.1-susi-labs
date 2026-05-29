@@ -196,6 +196,9 @@ function initCheckoutPage() {
             })
 
             window.SUSI_CART.clearCart()
+            try {
+                sessionStorage.setItem("susi:lastOrderId", orderPayload.orderId)
+            } catch {}
             window.location.href = `checkout-success.html?order=${encodeURIComponent(orderPayload.orderId)}`
         } catch (err) {
             console.error(err)
