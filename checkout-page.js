@@ -31,14 +31,32 @@ function orderRefShort(orderId) {
         .toUpperCase()
 }
 
-function buildUpiPayUri(vpa, amountPaise, orderId) {
-    const params = new URLSearchParams()
-    params.set("pa", vpa)
-    params.set("pn", "SUSI LABS")
-    params.set("am", (amountPaise / 100).toFixed(2))
-    params.set("cu", "INR")
-    params.set("tn", `SUSI ${orderRefShort(orderId)}`)
-    return `upi://pay?${params.toString()}`
+async function renderUpiQr(orderPayload) {
+    const img = document.getElementById("upi-qr-img")
+    const loading = document.getElementById("upi-qr-loading")
+
+    if (!img) {
+        throw new Error("QR code UI missing")
+    }
+
+    if (loading) loading.hidden = false
+    img.hidden = true
+    img.removeAttribute("src")
+
+    const qs = new URLSearchParams({
+        vpa: orderPayload.upiId || DEFAULT_UPI_VPA,
+        amountPaise: String(orderPayload.amount),
+        orderId: orderPayload.orderId || ""
+    })
+
+    await new Promise((resolve, reject) => {
+        img.onload = () => resolve()
+        img.onerror = () => reject(new Error("QR code failed to load"))
+        img.src = `/api/upi-qr?${qs.toString()}`
+    })
+
+    if (loading) loading.hidden = true
+    img.hidden = false
 }
 
 function renderSummary(items) {
@@ -201,31 +219,9 @@ function setUpiModalOpen(open) {
     document.body.classList.toggle("checkout-upi-open", open)
 }
 
-async function renderUpiQr(uri) {
-    const img = document.getElementById("upi-qr-img")
-    const loading = document.getElementById("upi-qr-loading")
-
-    if (!img) {
-        throw new Error("QR code UI missing")
-    }
-
-    if (loading) loading.hidden = false
-    img.hidden = true
-    img.removeAttribute("src")
-
-    await new Promise((resolve, reject) => {
-        img.onload = () => resolve()
-        img.onerror = () => reject(new Error("QR code failed to load"))
-        img.src = `/api/upi-qr?data=${encodeURIComponent(uri)}`
-    })
-
-    if (loading) loading.hidden = true
-    img.hidden = false
-}
-
 function showUpiModal(orderPayload) {
     const vpa = orderPayload.upiId || DEFAULT_UPI_VPA
-    const uri = buildUpiPayUri(vpa, orderPayload.amount, orderPayload.orderId)
+    const uri = orderPayload.upiUri || ""
     const ref = orderRefShort(orderPayload.orderId)
 
     const amountEl = document.getElementById("upi-modal-amount")
@@ -236,9 +232,11 @@ function showUpiModal(orderPayload) {
     if (amountEl) amountEl.textContent = formatInrFromPaise(orderPayload.amount)
     if (vpaEl) vpaEl.textContent = vpa
     if (refEl) refEl.textContent = ref
-    if (openAppEl) {
+    if (openAppEl && uri) {
         openAppEl.href = uri
         openAppEl.hidden = false
+    } else if (openAppEl) {
+        openAppEl.hidden = true
     }
 
     return new Promise((resolve, reject) => {
@@ -311,7 +309,7 @@ function showUpiModal(orderPayload) {
         document.addEventListener("keydown", onKeydown)
 
         setUpiModalOpen(true)
-        renderUpiQr(uri).catch((err) => {
+        renderUpiQr(orderPayload).catch((err) => {
             cleanup()
             setUpiModalOpen(false)
             reject(err)
