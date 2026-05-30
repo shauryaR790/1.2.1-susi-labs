@@ -53,7 +53,7 @@ Admin inbox: **dcchampavat@gmail.com**
 | `ADMIN_EMAIL` | `dcchampavat@gmail.com` |
 | `RESEND_API_KEY` | Resend API key |
 | `RESEND_FROM` | optional — e.g. `SUSI LABS <onboarding@resend.dev>` |
-| `UPI_VPA` | optional — defaults to `8849670831@pthdfc` |
+| `UPI_VPA` | optional — defaults to `635642524@ptaxis` |
 
 Then **Redeploy**.
 

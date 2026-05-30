@@ -143,7 +143,7 @@ module.exports = async function handler(req, res) {
         }
 
         if (paymentMethod === "upi") {
-            const upiVpa = process.env.UPI_VPA || "8849670831@pthdfc"
+            const upiVpa = process.env.UPI_VPA || "635642524@ptaxis"
             return json(res, 200, {
                 orderId: order.id,
                 amount: amountPaise,
