@@ -110,16 +110,28 @@ function showError(msg) {
 function setPayLoading(loading) {
     const upiBtn = document.getElementById("checkout-upi-btn")
     const cardBtn = document.getElementById("checkout-card-btn")
-    const confirmBtn = document.getElementById("upi-confirm-btn")
 
-    ;[upiBtn, cardBtn, confirmBtn].forEach((btn) => {
+    ;[upiBtn, cardBtn].forEach((btn) => {
         if (!btn) return
         btn.disabled = loading
     })
 
     if (upiBtn) upiBtn.textContent = loading ? "processing…" : "pay with UPI"
     if (cardBtn) cardBtn.textContent = loading ? "processing…" : "pay with card"
-    if (confirmBtn) confirmBtn.textContent = loading ? "finishing up…" : "I've sent the payment — continue"
+}
+
+function resetUpiConfirmButton() {
+    const confirmBtn = document.getElementById("upi-confirm-btn")
+    if (!confirmBtn) return
+    confirmBtn.disabled = false
+    confirmBtn.textContent = "I've sent the payment — continue"
+}
+
+function setUpiConfirmLoading(loading) {
+    const confirmBtn = document.getElementById("upi-confirm-btn")
+    if (!confirmBtn) return
+    confirmBtn.disabled = loading
+    confirmBtn.textContent = loading ? "finishing up…" : "I've sent the payment — continue"
 }
 
 function validateForm(form) {
@@ -281,11 +293,7 @@ function showUpiModal(orderPayload) {
         }
 
         async function onConfirm() {
-            const confirmBtn = document.getElementById("upi-confirm-btn")
-            if (confirmBtn) {
-                confirmBtn.disabled = true
-                confirmBtn.textContent = "finishing up…"
-            }
+            setUpiConfirmLoading(true)
 
             try {
                 await Promise.race([
@@ -323,6 +331,7 @@ function showUpiModal(orderPayload) {
         document.addEventListener("keydown", onKeydown)
 
         setUpiModalOpen(true)
+        resetUpiConfirmButton()
         renderUpiQr(orderPayload).catch((err) => {
             cleanup()
             setUpiModalOpen(false)
