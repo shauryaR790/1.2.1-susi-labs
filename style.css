@@ -4937,8 +4937,8 @@ body.checkout-upi-open {
     position: relative;
     width: min(420px, 100%);
     max-height: calc(100svh - 40px);
-    overflow: auto;
-    padding: 28px 24px 24px;
+    overflow: hidden;
+    padding: 24px 22px 22px;
     border: 4px solid #000;
     border-radius: 28px;
     background: #FFF3EF;
@@ -4989,14 +4989,12 @@ body.checkout-upi-open {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 18px auto 0;
-    padding: 14px;
+    margin: 14px auto 0;
+    padding: 12px;
     border: 3px solid #000;
     border-radius: 18px;
     background: #fff;
     width: fit-content;
-    min-width: 268px;
-    min-height: 268px;
 }
 
 .checkout-upi-modal__qr {
@@ -5025,9 +5023,29 @@ body.checkout-upi-open {
 }
 
 .checkout-upi-modal__vpa strong {
-    font-family: 'Hagrid Trial', sans-serif;
     font-size: 15px;
-    letter-spacing: 0.02em;
+}
+
+.checkout-upi-modal__ref {
+    margin: 10px 0 0;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 13px;
+    color: #3A002B;
+    text-transform: uppercase;
+}
+
+.checkout-upi-modal__ref-label {
+    font-family: 'Hagrid Trial', sans-serif;
+}
+
+.checkout-code {
+    font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-variant-numeric: tabular-nums;
+    word-break: break-all;
 }
 
 .checkout-upi-modal__copy {
@@ -5042,16 +5060,8 @@ body.checkout-upi-open {
     cursor: pointer;
 }
 
-.checkout-upi-modal__ref {
-    margin: 12px 0 0;
-    font-family: 'Hagrid Trial', sans-serif;
-    font-size: 13px;
-    color: #3A002B;
-    text-transform: uppercase;
-}
-
 .checkout-upi-modal__hint {
-    margin: 14px 0 0;
+    margin: 12px 0 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     line-height: 1.45;
@@ -5125,6 +5135,15 @@ body.checkout-success-page {
     font-size: clamp(15px, 2vw, 18px);
     color: #FFFD46;
     text-transform: uppercase;
+}
+
+.checkout-success__ref-label {
+    font-family: 'Hagrid Trial', sans-serif;
+}
+
+.checkout-success__ref .checkout-code {
+    color: #FFFD46;
+    font-size: clamp(16px, 2.2vw, 20px);
 }
 
 .checkout-success__actions {
