@@ -2,7 +2,7 @@
    CHECKOUT PAGE
 ========================= */
 
-const DEFAULT_UPI_VPA = "635642524@ptaxis"
+const DEFAULT_UPI_VPA = "6356425245@ptaxis"
 
 function escapeHtml(str) {
     return String(str ?? "")
