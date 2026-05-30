@@ -54,6 +54,7 @@ Admin inbox: **dcchampavat@gmail.com**
 | `RESEND_API_KEY` | Resend API key |
 | `RESEND_FROM` | optional — e.g. `SUSI LABS <onboarding@resend.dev>` |
 | `UPI_VPA` | optional — defaults to `635642524@ptaxis` |
+| `UPI_PAYEE_NAME` | optional — **must match the name on your Paytm UPI account** (defaults to `SUSI LABS`) |
 
 Then **Redeploy**.
 

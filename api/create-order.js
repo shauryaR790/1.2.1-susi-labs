@@ -1,7 +1,7 @@
 const { getSupabaseAdmin } = require("../lib/supabase-admin")
 const { parsePriceToPaise } = require("../lib/parse-price")
 const { createRazorpayOrder, getRazorpayAuth } = require("../lib/razorpay")
-const { buildUpiPayUri, getDefaultVpa } = require("../lib/upi")
+const { generateUpiPayment, getDefaultVpa } = require("../lib/upi")
 
 function json(res, status, body) {
     res.statusCode = status
@@ -144,12 +144,10 @@ module.exports = async function handler(req, res) {
         }
 
         if (paymentMethod === "upi") {
-            const upiVpa = getDefaultVpa()
-            const orderRef = order.id.replace(/-/g, "").slice(0, 8).toUpperCase()
-            const upiUri = buildUpiPayUri({
-                vpa: upiVpa,
+            const { upiId, upiUri } = await generateUpiPayment({
+                vpa: getDefaultVpa(),
                 amountPaise,
-                transactionNote: `SUSI ${orderRef}`
+                orderId: order.id
             })
 
             return json(res, 200, {
@@ -157,7 +155,7 @@ module.exports = async function handler(req, res) {
                 amount: amountPaise,
                 currency: "INR",
                 paymentMethod: "upi",
-                upiId: upiVpa,
+                upiId,
                 upiUri
             })
         }

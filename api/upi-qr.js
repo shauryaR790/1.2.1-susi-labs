@@ -1,5 +1,4 @@
-const QRCode = require("qrcode")
-const { buildUpiPayUri, getDefaultVpa, normalizeVpa } = require("../lib/upi")
+const { generateUpiPayment, getDefaultVpa } = require("../lib/upi")
 
 module.exports = async function handler(req, res) {
     if (req.method !== "GET") {
@@ -10,35 +9,28 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-        let payload = String(req.query?.data || "").trim()
+        const amountPaise = Math.round(Number(req.query?.amountPaise || req.query?.amount || 0))
+        const orderId = String(req.query?.orderId || "").trim()
 
-        if (!payload) {
-            const vpa = req.query?.vpa || getDefaultVpa()
-            const amountPaise = Math.round(Number(req.query?.amountPaise || req.query?.amount || 0))
-            const orderId = String(req.query?.orderId || "").trim()
-            const ref = orderId.replace(/-/g, "").slice(0, 8).toUpperCase()
-
-            payload = buildUpiPayUri({
-                vpa: normalizeVpa(vpa),
-                amountPaise,
-                transactionNote: ref ? `SUSI ${ref}` : ""
-            })
-        }
-
-        if (!payload || payload.length > 512 || !payload.startsWith("upi://pay?")) {
+        if (!amountPaise || amountPaise < 100) {
             res.statusCode = 400
             res.setHeader("Content-Type", "text/plain")
-            res.end("Missing or invalid QR data")
+            res.end("Missing or invalid amount")
             return
         }
 
-        const png = await QRCode.toBuffer(payload, {
-            type: "png",
-            width: 280,
-            margin: 2,
-            errorCorrectionLevel: "M",
-            color: { dark: "#000000", light: "#FFFFFF" }
+        const { qrDataUrl } = await generateUpiPayment({
+            vpa: getDefaultVpa(),
+            amountPaise,
+            orderId
         })
+
+        const base64 = String(qrDataUrl || "").split(",")[1]
+        if (!base64) {
+            throw new Error("Could not build UPI QR image")
+        }
+
+        const png = Buffer.from(base64, "base64")
 
         res.statusCode = 200
         res.setHeader("Content-Type", "image/png")

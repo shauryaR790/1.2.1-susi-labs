@@ -44,7 +44,6 @@ async function renderUpiQr(orderPayload) {
     img.removeAttribute("src")
 
     const qs = new URLSearchParams({
-        vpa: orderPayload.upiId || DEFAULT_UPI_VPA,
         amountPaise: String(orderPayload.amount),
         orderId: orderPayload.orderId || ""
     })
