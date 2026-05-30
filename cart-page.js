@@ -85,11 +85,13 @@ function renderCartPage() {
         list.hidden = true
         if (empty) empty.hidden = false
         if (summaryPanel) summaryPanel.hidden = true
+        document.querySelector(".cart-layout")?.classList.add("cart-layout--empty")
         const itemsEl = document.querySelector("[data-cart-summary-items]")
         if (itemsEl) itemsEl.innerHTML = ""
         return
     }
 
+    document.querySelector(".cart-layout")?.classList.remove("cart-layout--empty")
     if (empty) empty.hidden = true
     if (summaryPanel) summaryPanel.hidden = false
     list.hidden = false
