@@ -119,7 +119,7 @@ function setPayLoading(loading) {
 
     if (upiBtn) upiBtn.textContent = loading ? "processing…" : "pay with UPI"
     if (cardBtn) cardBtn.textContent = loading ? "processing…" : "pay with card"
-    if (confirmBtn) confirmBtn.textContent = loading ? "redirecting…" : "I've sent the payment — continue"
+    if (confirmBtn) confirmBtn.textContent = loading ? "finishing up…" : "I've sent the payment — continue"
 }
 
 function validateForm(form) {
@@ -162,9 +162,9 @@ async function verifyPayment(payload) {
     return data
 }
 
-async function confirmUpiPayment(orderId) {
+async function confirmUpiPayment(orderId, { timeoutMs = 10000 } = {}) {
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 12000)
+    const timeout = setTimeout(() => controller.abort(), timeoutMs)
 
     try {
         const res = await fetch("/api/confirm-upi-payment", {
@@ -182,22 +182,6 @@ async function confirmUpiPayment(orderId) {
     } finally {
         clearTimeout(timeout)
     }
-}
-
-function notifyUpiPayment(orderId) {
-    const payload = JSON.stringify({ orderId })
-    try {
-        if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: "application/json" })
-            if (navigator.sendBeacon("/api/confirm-upi-payment", blob)) {
-                return
-            }
-        }
-    } catch {}
-
-    confirmUpiPayment(orderId).catch((err) => {
-        console.warn("[SUSI] UPI confirm notify failed:", err)
-    })
 }
 
 function openRazorpayCheckout(orderPayload) {
@@ -300,10 +284,18 @@ function showUpiModal(orderPayload) {
             const confirmBtn = document.getElementById("upi-confirm-btn")
             if (confirmBtn) {
                 confirmBtn.disabled = true
-                confirmBtn.textContent = "redirecting…"
+                confirmBtn.textContent = "finishing up…"
             }
 
-            notifyUpiPayment(orderPayload.orderId)
+            try {
+                await Promise.race([
+                    confirmUpiPayment(orderPayload.orderId, { timeoutMs: 8000 }),
+                    new Promise((resolve) => setTimeout(resolve, 8000))
+                ])
+            } catch (err) {
+                console.warn("[SUSI] UPI confirm:", err)
+            }
+
             finish("confirm")
         }
 

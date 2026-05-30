@@ -66,9 +66,11 @@ module.exports = async function handler(req, res) {
 
         const { data: items } = await supabase.from("order_items").select("*").eq("order_id", orderId)
 
-        sendUpiPendingEmail({ order, items: items || [] }).catch((err) => {
+        try {
+            await sendUpiPendingEmail({ order, items: items || [] })
+        } catch (err) {
             console.warn("[SUSI] UPI pending email failed:", err)
-        })
+        }
 
         return json(res, 200, { ok: true, orderId: order.id })
     } catch (err) {
