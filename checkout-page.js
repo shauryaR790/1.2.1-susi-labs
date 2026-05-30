@@ -202,16 +202,25 @@ function setUpiModalOpen(open) {
 }
 
 async function renderUpiQr(uri) {
-    const canvas = document.getElementById("upi-qr-canvas")
-    if (!canvas || !window.QRCode) {
-        throw new Error("QR code failed to load")
+    const img = document.getElementById("upi-qr-img")
+    const loading = document.getElementById("upi-qr-loading")
+
+    if (!img) {
+        throw new Error("QR code UI missing")
     }
 
-    await window.QRCode.toCanvas(canvas, uri, {
-        width: 240,
-        margin: 1,
-        color: { dark: "#000000", light: "#FFFFFF" }
+    if (loading) loading.hidden = false
+    img.hidden = true
+    img.removeAttribute("src")
+
+    await new Promise((resolve, reject) => {
+        img.onload = () => resolve()
+        img.onerror = () => reject(new Error("QR code failed to load"))
+        img.src = `/api/upi-qr?data=${encodeURIComponent(uri)}`
     })
+
+    if (loading) loading.hidden = true
+    img.hidden = false
 }
 
 function showUpiModal(orderPayload) {
@@ -301,12 +310,12 @@ function showUpiModal(orderPayload) {
         if (copyBtn) copyBtn.addEventListener("click", onCopy)
         document.addEventListener("keydown", onKeydown)
 
-        renderUpiQr(uri)
-            .then(() => setUpiModalOpen(true))
-            .catch((err) => {
-                cleanup()
-                reject(err)
-            })
+        setUpiModalOpen(true)
+        renderUpiQr(uri).catch((err) => {
+            cleanup()
+            setUpiModalOpen(false)
+            reject(err)
+        })
     })
 }
 

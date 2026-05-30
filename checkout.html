@@ -14,7 +14,7 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=141">
+    <link rel="stylesheet" href="style.css?v=142">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
@@ -160,7 +160,8 @@
             <h2 class="checkout-upi-modal__title" id="upi-modal-title">Pay with UPI</h2>
             <p class="checkout-upi-modal__amount" id="upi-modal-amount">—</p>
             <div class="checkout-upi-modal__qr-wrap">
-                <canvas id="upi-qr-canvas" width="240" height="240" aria-label="UPI payment QR code"></canvas>
+                <img id="upi-qr-img" class="checkout-upi-modal__qr" width="240" height="240" alt="UPI payment QR code" hidden>
+                <p class="checkout-upi-modal__qr-loading" id="upi-qr-loading">Generating QR…</p>
             </div>
             <p class="checkout-upi-modal__vpa">
                 <span>UPI ID</span>
@@ -176,9 +177,8 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
     <script src="cart-store.js?v=2"></script>
-    <script src="checkout-page.js?v=3"></script>
+    <script src="checkout-page.js?v=4"></script>
 </body>
 
 </html>

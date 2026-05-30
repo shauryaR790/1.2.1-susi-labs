@@ -4986,6 +4986,8 @@ body.checkout-upi-open {
 
 .checkout-upi-modal__qr-wrap {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 18px auto 0;
     padding: 14px;
@@ -4993,6 +4995,21 @@ body.checkout-upi-open {
     border-radius: 18px;
     background: #fff;
     width: fit-content;
+    min-width: 268px;
+    min-height: 268px;
+}
+
+.checkout-upi-modal__qr {
+    display: block;
+}
+
+.checkout-upi-modal__qr-loading {
+    margin: 0;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #3A002B;
 }
 
 .checkout-upi-modal__vpa {

@@ -5,6 +5,7 @@
     "build": "node scripts/generate-supabase-config.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.8"
+    "@supabase/supabase-js": "^2.49.8",
+    "qrcode": "^1.5.4"
   }
 }
