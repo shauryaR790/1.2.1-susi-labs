@@ -119,7 +119,7 @@ function setPayLoading(loading) {
 
     if (upiBtn) upiBtn.textContent = loading ? "processing…" : "pay with UPI"
     if (cardBtn) cardBtn.textContent = loading ? "processing…" : "pay with card"
-    if (confirmBtn) confirmBtn.textContent = loading ? "confirming…" : "I've sent the payment"
+    if (confirmBtn) confirmBtn.textContent = loading ? "redirecting…" : "I've sent the payment — continue"
 }
 
 function validateForm(form) {
@@ -163,17 +163,41 @@ async function verifyPayment(payload) {
 }
 
 async function confirmUpiPayment(orderId) {
-    const res = await fetch("/api/confirm-upi-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId })
-    })
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 12000)
 
-    const data = await res.json().catch(() => ({}))
-    if (!res.ok) {
-        throw new Error(data.error || "Could not confirm UPI payment")
+    try {
+        const res = await fetch("/api/confirm-upi-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId }),
+            signal: controller.signal
+        })
+
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+            throw new Error(data.error || "Could not confirm UPI payment")
+        }
+        return data
+    } finally {
+        clearTimeout(timeout)
     }
-    return data
+}
+
+function notifyUpiPayment(orderId) {
+    const payload = JSON.stringify({ orderId })
+    try {
+        if (navigator.sendBeacon) {
+            const blob = new Blob([payload], { type: "application/json" })
+            if (navigator.sendBeacon("/api/confirm-upi-payment", blob)) {
+                return
+            }
+        }
+    } catch {}
+
+    confirmUpiPayment(orderId).catch((err) => {
+        console.warn("[SUSI] UPI confirm notify failed:", err)
+    })
 }
 
 function openRazorpayCheckout(orderPayload) {
@@ -273,15 +297,14 @@ function showUpiModal(orderPayload) {
         }
 
         async function onConfirm() {
-            setPayLoading(true)
-            try {
-                await confirmUpiPayment(orderPayload.orderId)
-                finish("confirm")
-            } catch (err) {
-                showError(err.message || "Could not confirm payment")
-            } finally {
-                setPayLoading(false)
+            const confirmBtn = document.getElementById("upi-confirm-btn")
+            if (confirmBtn) {
+                confirmBtn.disabled = true
+                confirmBtn.textContent = "redirecting…"
             }
+
+            notifyUpiPayment(orderPayload.orderId)
+            finish("confirm")
         }
 
         async function onCopy() {

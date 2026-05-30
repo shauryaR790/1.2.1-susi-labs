@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
             return json(res, 404, { error: "Order not found" })
         }
 
-        if (order.payment_method !== "upi") {
+        if (order.payment_method !== "upi" && order.razorpay_order_id) {
             return json(res, 400, { error: "Not a UPI order" })
         }
 
@@ -57,9 +57,18 @@ module.exports = async function handler(req, res) {
             return json(res, 200, { ok: true, orderId: order.id, alreadyPaid: true })
         }
 
+        if (order.payment_status === "pending") {
+            await supabase
+                .from("orders")
+                .update({ payment_status: "awaiting_verification" })
+                .eq("id", orderId)
+        }
+
         const { data: items } = await supabase.from("order_items").select("*").eq("order_id", orderId)
 
-        await sendUpiPendingEmail({ order, items: items || [] })
+        sendUpiPendingEmail({ order, items: items || [] }).catch((err) => {
+            console.warn("[SUSI] UPI pending email failed:", err)
+        })
 
         return json(res, 200, { ok: true, orderId: order.id })
     } catch (err) {
