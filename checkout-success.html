@@ -14,9 +14,9 @@
 <body class="checkout-success-page">
     <main class="checkout-success-shell">
         <section class="checkout-success" aria-live="polite">
-            <p class="checkout-success__tag">payment received</p>
-            <h1 class="checkout-success__title">You're in the queue.</h1>
-            <p class="checkout-success__meta">Thanks for your order. We'll start your build and reach out if we need anything else.</p>
+            <p class="checkout-success__tag" id="success-tag">payment received</p>
+            <h1 class="checkout-success__title" id="success-title">You're in the queue.</h1>
+            <p class="checkout-success__meta" id="success-meta">Thanks for your order. We'll start your build and reach out if we need anything else.</p>
             <p class="checkout-success__ref">Order ref: <span id="order-ref">—</span></p>
             <div class="checkout-success__actions">
                 <a class="cart-empty__btn" href="products.html">keep shopping</a>
@@ -37,6 +37,18 @@
             if (el && id) {
                 const short = id.replace(/-/g, "").slice(0, 8).toUpperCase()
                 el.textContent = short || id.slice(0, 8)
+            }
+
+            if (params.get("pending") === "upi") {
+                const tag = document.getElementById("success-tag")
+                const title = document.getElementById("success-title")
+                const meta = document.getElementById("success-meta")
+                if (tag) tag.textContent = "payment pending"
+                if (title) title.textContent = "Almost there."
+                if (meta) {
+                    meta.textContent =
+                        "We saved your order. Once your UPI payment is verified, we'll start your build and reach out if we need anything else."
+                }
             }
         } catch {}
     </script>

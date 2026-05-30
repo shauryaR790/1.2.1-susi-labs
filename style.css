@@ -4879,6 +4879,178 @@ CHECKOUT PAGE
     cursor: wait;
 }
 
+.checkout-pay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.checkout-pay-btn--upi {
+    background: #FFFD46;
+    color: #3A002B;
+}
+
+.checkout-pay-btn--card {
+    background: transparent;
+    color: #FFFD46;
+    border: 2px solid #FFFD46;
+    box-shadow: none;
+}
+
+.checkout-pay-btn--card:hover:not(:disabled) {
+    background: rgba(255, 253, 70, 0.12);
+    transform: translateY(-1px);
+}
+
+.checkout-pay-btn--confirm {
+    width: 100%;
+    margin-top: 8px;
+}
+
+body.checkout-upi-open {
+    overflow: hidden;
+}
+
+.checkout-upi-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.checkout-upi-modal[hidden] {
+    display: none;
+}
+
+.checkout-upi-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(58, 0, 43, 0.82);
+}
+
+.checkout-upi-modal__panel {
+    position: relative;
+    width: min(420px, 100%);
+    max-height: calc(100svh - 40px);
+    overflow: auto;
+    padding: 28px 24px 24px;
+    border: 4px solid #000;
+    border-radius: 28px;
+    background: #FFF3EF;
+    text-align: center;
+}
+
+.checkout-upi-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #3A002B;
+}
+
+.checkout-upi-modal__tag {
+    margin: 0;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #FF7F00;
+}
+
+.checkout-upi-modal__title {
+    margin: 8px 0 0;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(28px, 6vw, 36px);
+    line-height: 0.95;
+    color: #3A002B;
+    text-transform: uppercase;
+}
+
+.checkout-upi-modal__amount {
+    margin: 12px 0 0;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 8vw, 48px);
+    line-height: 1;
+    color: #FF7F00;
+}
+
+.checkout-upi-modal__qr-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 18px auto 0;
+    padding: 14px;
+    border: 3px solid #000;
+    border-radius: 18px;
+    background: #fff;
+    width: fit-content;
+}
+
+.checkout-upi-modal__vpa {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #3A002B;
+}
+
+.checkout-upi-modal__vpa strong {
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+}
+
+.checkout-upi-modal__copy {
+    border: 2px solid #3A002B;
+    border-radius: 999px;
+    padding: 4px 12px;
+    background: transparent;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.checkout-upi-modal__ref {
+    margin: 12px 0 0;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 13px;
+    color: #3A002B;
+    text-transform: uppercase;
+}
+
+.checkout-upi-modal__hint {
+    margin: 14px 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(58, 0, 43, 0.78);
+}
+
+.checkout-upi-modal__open {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'Hagrid Trial', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FF7F00;
+}
+
 body.checkout-success-page {
     background: #3A002B;
     overflow-x: clip;

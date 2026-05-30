@@ -53,8 +53,15 @@ Admin inbox: **dcchampavat@gmail.com**
 | `ADMIN_EMAIL` | `dcchampavat@gmail.com` |
 | `RESEND_API_KEY` | Resend API key |
 | `RESEND_FROM` | optional — e.g. `SUSI LABS <onboarding@resend.dev>` |
+| `UPI_VPA` | optional — defaults to `8849670831@pthdfc` |
 
 Then **Redeploy**.
+
+---
+
+## 4b. UPI column (if you already ran orders.sql)
+
+Run `supabase/orders-upi.sql` in Supabase SQL Editor once.
 
 ---
 

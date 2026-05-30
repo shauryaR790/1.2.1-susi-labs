@@ -2,6 +2,8 @@
    CHECKOUT PAGE
 ========================= */
 
+const DEFAULT_UPI_VPA = "8849670831@pthdfc"
+
 function escapeHtml(str) {
     return String(str ?? "")
         .replace(/&/g, "&amp;")
@@ -10,18 +12,33 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;")
 }
 
-function parseDisplayPrice(priceStr) {
-    const digits = String(priceStr ?? "").replace(/[^\d.]/g, "")
-    const rupees = Math.round(parseFloat(digits) || 0)
-    return rupees > 0 ? `₹${rupees}` : "—"
-}
-
 function sumCartPaise(items) {
     return items.reduce((sum, item) => {
         const digits = String(item.price || "").replace(/[^\d.]/g, "")
         const rupees = Math.round(parseFloat(digits) || 0)
         return sum + rupees * 100 * (Number(item.qty) || 1)
     }, 0)
+}
+
+function formatInrFromPaise(paise) {
+    return `₹${Math.round(paise / 100)}`
+}
+
+function orderRefShort(orderId) {
+    return String(orderId || "")
+        .replace(/-/g, "")
+        .slice(0, 8)
+        .toUpperCase()
+}
+
+function buildUpiPayUri(vpa, amountPaise, orderId) {
+    const params = new URLSearchParams()
+    params.set("pa", vpa)
+    params.set("pn", "SUSI LABS")
+    params.set("am", (amountPaise / 100).toFixed(2))
+    params.set("cu", "INR")
+    params.set("tn", `SUSI ${orderRefShort(orderId)}`)
+    return `upi://pay?${params.toString()}`
 }
 
 function renderSummary(items) {
@@ -43,7 +60,7 @@ function renderSummary(items) {
 
     const totalItems = items.reduce((n, row) => n + (Number(row.qty) || 1), 0)
     if (countEl) countEl.textContent = `${totalItems} item${totalItems === 1 ? "" : "s"}`
-    if (subtotalEl) subtotalEl.textContent = `₹${Math.round(sumCartPaise(items) / 100)}`
+    if (subtotalEl) subtotalEl.textContent = formatInrFromPaise(sumCartPaise(items))
 }
 
 function getFormCustomer(form) {
@@ -74,18 +91,35 @@ function showError(msg) {
 }
 
 function setPayLoading(loading) {
-    const btn = document.getElementById("checkout-pay-btn")
-    if (!btn) return
-    btn.disabled = loading
-    btn.textContent = loading ? "processing…" : "pay with UPI / card"
+    const upiBtn = document.getElementById("checkout-upi-btn")
+    const cardBtn = document.getElementById("checkout-card-btn")
+    const confirmBtn = document.getElementById("upi-confirm-btn")
+
+    ;[upiBtn, cardBtn, confirmBtn].forEach((btn) => {
+        if (!btn) return
+        btn.disabled = loading
+    })
+
+    if (upiBtn) upiBtn.textContent = loading ? "processing…" : "pay with UPI"
+    if (cardBtn) cardBtn.textContent = loading ? "processing…" : "pay with card"
+    if (confirmBtn) confirmBtn.textContent = loading ? "confirming…" : "I've sent the payment"
 }
 
-async function createOrder(customer, items) {
+function validateForm(form) {
+    if (!form.checkValidity()) {
+        form.reportValidity()
+        return false
+    }
+    return true
+}
+
+async function createOrder(customer, items, paymentMethod) {
     const res = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             customer,
+            paymentMethod,
             items: items.map((row) => ({ id: row.id, qty: row.qty }))
         })
     })
@@ -107,6 +141,20 @@ async function verifyPayment(payload) {
     const data = await res.json().catch(() => ({}))
     if (!res.ok) {
         throw new Error(data.error || "Payment verification failed")
+    }
+    return data
+}
+
+async function confirmUpiPayment(orderId) {
+    const res = await fetch("/api/confirm-upi-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId })
+    })
+
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+        throw new Error(data.error || "Could not confirm UPI payment")
     }
     return data
 }
@@ -145,10 +193,152 @@ function openRazorpayCheckout(orderPayload) {
     })
 }
 
+function setUpiModalOpen(open) {
+    const modal = document.getElementById("upi-pay-modal")
+    if (!modal) return
+    modal.hidden = !open
+    modal.setAttribute("aria-hidden", open ? "false" : "true")
+    document.body.classList.toggle("checkout-upi-open", open)
+}
+
+async function renderUpiQr(uri) {
+    const canvas = document.getElementById("upi-qr-canvas")
+    if (!canvas || !window.QRCode) {
+        throw new Error("QR code failed to load")
+    }
+
+    await window.QRCode.toCanvas(canvas, uri, {
+        width: 240,
+        margin: 1,
+        color: { dark: "#000000", light: "#FFFFFF" }
+    })
+}
+
+function showUpiModal(orderPayload) {
+    const vpa = orderPayload.upiId || DEFAULT_UPI_VPA
+    const uri = buildUpiPayUri(vpa, orderPayload.amount, orderPayload.orderId)
+    const ref = orderRefShort(orderPayload.orderId)
+
+    const amountEl = document.getElementById("upi-modal-amount")
+    const vpaEl = document.getElementById("upi-modal-vpa")
+    const refEl = document.getElementById("upi-modal-ref")
+    const openAppEl = document.getElementById("upi-open-app")
+
+    if (amountEl) amountEl.textContent = formatInrFromPaise(orderPayload.amount)
+    if (vpaEl) vpaEl.textContent = vpa
+    if (refEl) refEl.textContent = ref
+    if (openAppEl) {
+        openAppEl.href = uri
+        openAppEl.hidden = false
+    }
+
+    return new Promise((resolve, reject) => {
+        const modal = document.getElementById("upi-pay-modal")
+        const confirmBtn = document.getElementById("upi-confirm-btn")
+        const copyBtn = document.getElementById("upi-copy-btn")
+
+        if (!modal || !confirmBtn) {
+            reject(new Error("UPI payment UI missing"))
+            return
+        }
+
+        let settled = false
+
+        function cleanup() {
+            modal.querySelectorAll("[data-upi-dismiss]").forEach((el) => {
+                el.removeEventListener("click", onDismiss)
+            })
+            confirmBtn.removeEventListener("click", onConfirm)
+            if (copyBtn) copyBtn.removeEventListener("click", onCopy)
+            document.removeEventListener("keydown", onKeydown)
+        }
+
+        function finish(action) {
+            if (settled) return
+            settled = true
+            cleanup()
+            setUpiModalOpen(false)
+            if (action === "confirm") resolve(orderPayload)
+            else reject(new Error("Payment cancelled"))
+        }
+
+        function onDismiss() {
+            finish("dismiss")
+        }
+
+        async function onConfirm() {
+            setPayLoading(true)
+            try {
+                await confirmUpiPayment(orderPayload.orderId)
+                finish("confirm")
+            } catch (err) {
+                showError(err.message || "Could not confirm payment")
+            } finally {
+                setPayLoading(false)
+            }
+        }
+
+        async function onCopy() {
+            try {
+                await navigator.clipboard.writeText(vpa)
+                copyBtn.textContent = "copied"
+                setTimeout(() => {
+                    copyBtn.textContent = "copy"
+                }, 1500)
+            } catch {
+                showError("Could not copy UPI ID")
+            }
+        }
+
+        function onKeydown(e) {
+            if (e.key === "Escape") onDismiss()
+        }
+
+        modal.querySelectorAll("[data-upi-dismiss]").forEach((el) => {
+            el.addEventListener("click", onDismiss)
+        })
+        confirmBtn.addEventListener("click", onConfirm)
+        if (copyBtn) copyBtn.addEventListener("click", onCopy)
+        document.addEventListener("keydown", onKeydown)
+
+        renderUpiQr(uri)
+            .then(() => setUpiModalOpen(true))
+            .catch((err) => {
+                cleanup()
+                reject(err)
+            })
+    })
+}
+
+function redirectAfterSuccess(orderId, { pendingUpi = false } = {}) {
+    window.SUSI_CART.clearCart()
+    try {
+        sessionStorage.setItem("susi:lastOrderId", orderId)
+    } catch {}
+
+    const params = new URLSearchParams({ order: orderId })
+    if (pendingUpi) params.set("pending", "upi")
+    window.location.href = `checkout-success.html?${params.toString()}`
+}
+
+function handleCheckoutError(err) {
+    console.error(err)
+    const msg = String(err.message || err)
+    if (msg.includes("Failed to fetch") || msg.includes("NetworkError")) {
+        showError(
+            "Checkout API unavailable. Deploy on Vercel with payment env vars, or run vercel dev locally."
+        )
+    } else if (msg !== "Payment cancelled") {
+        showError(msg)
+    }
+}
+
 function initCheckoutPage() {
     const form = document.getElementById("checkout-form")
     const empty = document.querySelector(".checkout-empty")
     const summaryPanel = document.querySelector(".checkout-summary-panel")
+    const upiBtn = document.getElementById("checkout-upi-btn")
+    const cardBtn = document.getElementById("checkout-card-btn")
 
     if (!form || !window.SUSI_CART) return
 
@@ -166,14 +356,9 @@ function initCheckoutPage() {
     if (summaryPanel) summaryPanel.hidden = false
     renderSummary(items)
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault()
+    async function runUpiCheckout() {
         showError("")
-
-        if (!form.checkValidity()) {
-            form.reportValidity()
-            return
-        }
+        if (!validateForm(form)) return
 
         const customer = getFormCustomer(form)
         const cartItems = window.SUSI_CART.getItems()
@@ -185,7 +370,31 @@ function initCheckoutPage() {
         setPayLoading(true)
 
         try {
-            const orderPayload = await createOrder(customer, cartItems)
+            const orderPayload = await createOrder(customer, cartItems, "upi")
+            await showUpiModal(orderPayload)
+            redirectAfterSuccess(orderPayload.orderId, { pendingUpi: true })
+        } catch (err) {
+            handleCheckoutError(err)
+        } finally {
+            setPayLoading(false)
+        }
+    }
+
+    async function runCardCheckout() {
+        showError("")
+        if (!validateForm(form)) return
+
+        const customer = getFormCustomer(form)
+        const cartItems = window.SUSI_CART.getItems()
+        if (!cartItems.length) {
+            window.location.href = "cart.html"
+            return
+        }
+
+        setPayLoading(true)
+
+        try {
+            const orderPayload = await createOrder(customer, cartItems, "razorpay")
             const payment = await openRazorpayCheckout(orderPayload)
 
             await verifyPayment({
@@ -195,25 +404,16 @@ function initCheckoutPage() {
                 razorpay_signature: payment.razorpay_signature
             })
 
-            window.SUSI_CART.clearCart()
-            try {
-                sessionStorage.setItem("susi:lastOrderId", orderPayload.orderId)
-            } catch {}
-            window.location.href = `checkout-success.html?order=${encodeURIComponent(orderPayload.orderId)}`
+            redirectAfterSuccess(orderPayload.orderId)
         } catch (err) {
-            console.error(err)
-            const msg = String(err.message || err)
-            if (msg.includes("Failed to fetch") || msg.includes("NetworkError")) {
-                showError(
-                    "Checkout API unavailable. Deploy on Vercel with payment env vars, or run vercel dev locally."
-                )
-            } else if (msg !== "Payment cancelled") {
-                showError(msg)
-            }
+            handleCheckoutError(err)
         } finally {
             setPayLoading(false)
         }
-    })
+    }
+
+    if (upiBtn) upiBtn.addEventListener("click", runUpiCheckout)
+    if (cardBtn) cardBtn.addEventListener("click", runCardCheckout)
 }
 
 if (document.readyState === "loading") {

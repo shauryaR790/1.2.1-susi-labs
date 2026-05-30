@@ -48,6 +48,7 @@ module.exports = async function handler(req, res) {
         const body = await readBody(req)
         const customer = body.customer || {}
         const cartItems = Array.isArray(body.items) ? body.items : []
+        const paymentMethod = body.paymentMethod === "upi" ? "upi" : "razorpay"
 
         const validationError = validateCustomer(customer)
         if (validationError) {
@@ -107,6 +108,7 @@ module.exports = async function handler(req, res) {
             .from("orders")
             .insert({
                 payment_status: "pending",
+                payment_method: paymentMethod,
                 amount_paise: amountPaise,
                 currency: "INR",
                 customer_name: String(customer.name).trim(),
@@ -140,6 +142,17 @@ module.exports = async function handler(req, res) {
             return json(res, 500, { error: "Could not save order items" })
         }
 
+        if (paymentMethod === "upi") {
+            const upiVpa = process.env.UPI_VPA || "8849670831@pthdfc"
+            return json(res, 200, {
+                orderId: order.id,
+                amount: amountPaise,
+                currency: "INR",
+                paymentMethod: "upi",
+                upiId: upiVpa
+            })
+        }
+
         const receipt = order.id.replace(/-/g, "").slice(0, 40)
         const razorpayOrder = await createRazorpayOrder({
             amountPaise,
@@ -159,6 +172,7 @@ module.exports = async function handler(req, res) {
             razorpayOrderId: razorpayOrder.id,
             amount: amountPaise,
             currency: "INR",
+            paymentMethod: "razorpay",
             keyId,
             customer: {
                 name: order.customer_name,

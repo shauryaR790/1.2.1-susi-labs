@@ -5,6 +5,7 @@ create table if not exists orders (
     id uuid primary key default gen_random_uuid(),
     created_at timestamptz not null default now(),
     payment_status text not null default 'pending',
+    payment_method text not null default 'razorpay',
     razorpay_order_id text,
     razorpay_payment_id text,
     amount_paise integer not null,

@@ -14,7 +14,7 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=138">
+    <link rel="stylesheet" href="style.css?v=141">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
@@ -63,7 +63,7 @@
                 <header class="products-header cart-header">
                     <div class="cart-title products-title">
                         <h1>CHECKOUT</h1>
-                        <p>Shipping details + secure pay — UPI, cards, netbanking via Razorpay.</p>
+                        <p>Shipping details + pay with UPI QR or card via Razorpay.</p>
                     </div>
                 </header>
 
@@ -137,9 +137,14 @@
                         <div class="cart-summary__items" data-checkout-summary-items></div>
                         <p class="cart-summary__row"><span>Items</span><span data-checkout-summary-count>0 items</span></p>
                         <p class="cart-summary__row cart-summary__row--total"><span>Total</span><span data-checkout-summary-subtotal>—</span></p>
-                        <button type="submit" form="checkout-form" class="checkout-pay-btn" id="checkout-pay-btn">
-                            pay with UPI / card
-                        </button>
+                        <div class="checkout-pay-actions">
+                            <button type="button" class="checkout-pay-btn checkout-pay-btn--upi" id="checkout-upi-btn">
+                                pay with UPI
+                            </button>
+                            <button type="button" class="checkout-pay-btn checkout-pay-btn--card" id="checkout-card-btn">
+                                pay with card
+                            </button>
+                        </div>
                         <a class="cart-summary__shop" href="cart.html">← back to cart</a>
                     </div>
                 </div>
@@ -147,8 +152,33 @@
         </div>
     </main>
 
+    <div class="checkout-upi-modal" id="upi-pay-modal" hidden aria-hidden="true">
+        <div class="checkout-upi-modal__backdrop" data-upi-dismiss></div>
+        <div class="checkout-upi-modal__panel" role="dialog" aria-modal="true" aria-labelledby="upi-modal-title">
+            <button type="button" class="checkout-upi-modal__close" data-upi-dismiss aria-label="Close">×</button>
+            <p class="checkout-upi-modal__tag">scan &amp; pay</p>
+            <h2 class="checkout-upi-modal__title" id="upi-modal-title">Pay with UPI</h2>
+            <p class="checkout-upi-modal__amount" id="upi-modal-amount">—</p>
+            <div class="checkout-upi-modal__qr-wrap">
+                <canvas id="upi-qr-canvas" width="240" height="240" aria-label="UPI payment QR code"></canvas>
+            </div>
+            <p class="checkout-upi-modal__vpa">
+                <span>UPI ID</span>
+                <strong id="upi-modal-vpa">8849670831@pthdfc</strong>
+                <button type="button" class="checkout-upi-modal__copy" id="upi-copy-btn">copy</button>
+            </p>
+            <p class="checkout-upi-modal__ref">Order ref: <span id="upi-modal-ref">—</span></p>
+            <p class="checkout-upi-modal__hint">Scan the QR or pay in any UPI app using the exact amount above. Use order ref in the payment note if your app allows it.</p>
+            <a class="checkout-upi-modal__open" id="upi-open-app" href="#" hidden>Open in UPI app</a>
+            <button type="button" class="checkout-pay-btn checkout-pay-btn--confirm" id="upi-confirm-btn">
+                I've sent the payment
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
     <script src="cart-store.js?v=2"></script>
-    <script src="checkout-page.js?v=2"></script>
+    <script src="checkout-page.js?v=3"></script>
 </body>
 
 </html>
