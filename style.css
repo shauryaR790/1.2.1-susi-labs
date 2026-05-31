@@ -2958,47 +2958,105 @@ to {
 }
 
 @media (max-width: 600px) {
-.loader-mon--in3,
-.loader-mon--in4 {
-    top: auto;
-    bottom: clamp(108px, 17vh, 128px);
+/* outer ring — hug corners, smaller */
+.loader-mon--tl {
+    top: 4%;
+    left: 4px;
+    width: clamp(38px, 10vw, 50px);
 }
 
-.loader-mon--in3 {
-    left: 16%;
+.loader-mon--tr {
+    top: 5%;
+    right: 4px;
+    width: clamp(40px, 10.5vw, 52px);
 }
 
-.loader-mon--in4 {
-    right: 16%;
+.loader-mon--bl {
+    bottom: clamp(68px, 10vh, 88px);
+    left: 4px;
+    width: clamp(36px, 9.5vw, 48px);
 }
 
+.loader-mon--br {
+    bottom: clamp(66px, 10vh, 86px);
+    right: 4px;
+    width: clamp(42px, 11vw, 54px);
+}
+
+/* side mons off on narrow screens — frees mid space */
+.loader-mon--l,
+.loader-mon--r {
+    display: none;
+}
+
+/* inner top row — lower + inward, clear of corner mons */
 .loader-mon--in1 {
-    top: 10%;
-    left: 14%;
+    top: 17%;
+    left: 28%;
+    width: clamp(34px, 9vw, 46px);
 }
 
 .loader-mon--in2 {
-    top: 10%;
-    right: 14%;
+    top: 17%;
+    right: 28%;
+    width: clamp(34px, 9vw, 46px);
 }
 
-.loader-mon--in5 {
-    bottom: clamp(92px, 14vh, 112px);
+/* inner mid row — sits under logo / progress */
+.loader-mon--in3 {
+    top: auto;
+    bottom: clamp(158px, 24vh, 188px);
     left: 20%;
+    width: clamp(32px, 8.5vw, 44px);
 }
 
-.loader-mon--in6 {
-    bottom: clamp(92px, 14vh, 112px);
+.loader-mon--in4 {
+    top: auto;
+    bottom: clamp(158px, 24vh, 188px);
     right: 20%;
+    width: clamp(32px, 8.5vw, 44px);
 }
 
-.loader-mon--in1,
-.loader-mon--in2,
-.loader-mon--in3,
-.loader-mon--in4,
-.loader-mon--in5,
+/* inner bottom row — above corner mons, below pikachu */
+.loader-mon--in5 {
+    bottom: clamp(108px, 16vh, 128px);
+    left: 22%;
+    width: clamp(34px, 9vw, 46px);
+}
+
 .loader-mon--in6 {
-    width: clamp(40px, 11vw, 54px);
+    bottom: clamp(108px, 16vh, 128px);
+    right: 22%;
+    width: clamp(34px, 9vw, 46px);
+}
+
+.loader-juggler {
+    width: clamp(100px, 26vw, 128px);
+    height: clamp(100px, 26vw, 128px);
+    margin-top: 0;
+}
+
+.loader-pikachu {
+    width: 100%;
+    height: auto;
+    max-width: 128px;
+}
+
+.loader-inner {
+    padding: 16px 12px;
+    width: min(88vw, 480px);
+}
+
+.loader-word--a {
+    font-size: clamp(56px, 15vw, 96px);
+}
+
+.loader-word--b {
+    font-size: clamp(62px, 16vw, 104px);
+}
+
+.loader-logo {
+    margin-bottom: 24px;
 }
 }
 
