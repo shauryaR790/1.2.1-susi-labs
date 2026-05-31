@@ -5062,9 +5062,6 @@ html.cart-intro {
         border: none;
         border-radius: 0;
         color: #FF7F00;
-        font-size: inherit;
-        line-height: inherit;
-        letter-spacing: inherit;
         text-transform: uppercase;
         align-self: auto;
         vertical-align: baseline;
@@ -5073,9 +5070,6 @@ html.cart-intro {
 
     .hero-aside nav .cart-nav__label {
         display: inline;
-        font-size: inherit;
-        line-height: inherit;
-        letter-spacing: inherit;
     }
 
     .hero-aside nav .cart-nav__icon {
