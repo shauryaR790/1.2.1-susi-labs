@@ -203,6 +203,10 @@ function runProductsIntro() {
         document.documentElement.classList.remove("products-intro")
 
         const isMobileHeader = window.matchMedia("(max-width: 992px)").matches
+
+        /* Mobile uses CSS grid for header — GSAP y-transforms break layout after cart nav */
+        if (isMobileHeader) return
+
         const tl = window.gsap.timeline({
             defaults: { ease: "power3.out" },
             onComplete: () => {
@@ -211,7 +215,11 @@ function runProductsIntro() {
                         document.querySelector(".products-home"),
                         document.querySelector(".products-title"),
                         document.querySelector(".products-title h1"),
-                        document.querySelector(".cart-nav")
+                        document.querySelector(".cart-nav"),
+                        document.querySelector(".products-controls"),
+                        document.querySelector(".products-grid-page"),
+                        ...document.querySelectorAll(".products-filter"),
+                        ...document.querySelectorAll(".product-card")
                     ].filter(Boolean),
                     { clearProps: "transform,opacity" }
                 )
@@ -220,25 +228,15 @@ function runProductsIntro() {
         const ticker = document.querySelector(".products-ticker")
         const home = document.querySelector(".products-home")
         const title = document.querySelector(".products-title")
-        const titleHeading = document.querySelector(".products-title h1")
         const controls = document.querySelector(".products-controls")
         const cards = document.querySelectorAll(".product-card")
         const footer = document.querySelector(".products-footer")
         const cartNav = document.querySelector(".cart-nav")
 
         if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08)
-
-        if (isMobileHeader) {
-            const headerFade = { opacity: 0, duration: 0.45 }
-            if (home) tl.from(home, headerFade, 0.12)
-            if (titleHeading) tl.from(titleHeading, headerFade, 0.14)
-            if (cartNav) tl.from(cartNav, headerFade, 0.14)
-        } else {
-            if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
-            if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
-            if (cartNav) tl.from(cartNav, { y: 12, opacity: 0, duration: 0.55 }, 0.18)
-        }
-
+        if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
+        if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
+        if (cartNav) tl.from(cartNav, { y: 12, opacity: 0, duration: 0.55 }, 0.18)
         if (controls) tl.from(controls.children, { y: 14, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.24)
         if (cards.length) tl.from(cards, { y: 26, opacity: 0, duration: 0.75, stagger: 0.06 }, 0.3)
         if (footer) tl.from(footer.children, { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.42)

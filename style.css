@@ -4229,6 +4229,8 @@ body.is-order-transitioning {
         margin-top: 0;
         gap: 8px;
         align-self: start;
+        position: relative;
+        z-index: 2;
     }
 
     body.products-page:not(.cart-page) .products-main .products-header .cart-nav__icon {
@@ -4251,6 +4253,8 @@ body.is-order-transitioning {
         min-width: 0;
         margin-top: 0;
         align-self: start;
+        position: relative;
+        z-index: 1;
     }
 
     .products-grid-page {
