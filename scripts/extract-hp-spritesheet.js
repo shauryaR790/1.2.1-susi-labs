@@ -16,7 +16,7 @@ const PICKS = [
     { file: "hp-hermione.png", left: 172, top: 6, width: 82, height: 112 },
     { file: "hp-dumbledore.png", left: 8, top: 232, width: 82, height: 118 },
     { file: "hp-snape.png", left: 90, top: 232, width: 82, height: 118 },
-    { file: "hp-dobby.png", left: 758, top: 698, width: 98, height: 125 }
+    { file: "hp-draco.png", left: 342, top: 232, width: 82, height: 118 }
 ]
 
 function stripBackground(data) {
