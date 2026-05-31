@@ -4137,11 +4137,11 @@ body.is-order-transitioning {
     body.products-page:not(.cart-page) .products-layout {
         display: grid;
         grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
-        grid-template-rows: var(--products-mobile-top-h, clamp(48px, 13vw, 58px)) auto auto;
+        grid-template-rows: var(--products-mobile-top-h, clamp(68px, 18vw, 80px)) auto auto;
         column-gap: 6px;
         row-gap: 12px;
         align-items: stretch;
-        --products-mobile-top-h: clamp(48px, 13vw, 58px);
+        --products-mobile-top-h: clamp(68px, 18vw, 80px);
         grid-template-areas:
             "logo title cart"
             "filters filters filters"
@@ -4152,7 +4152,7 @@ body.is-order-transitioning {
         grid-area: logo;
         grid-column: logo;
         order: unset;
-        gap: 1px;
+        gap: 2px;
         align-self: center;
         justify-self: start;
         flex-shrink: 0;
@@ -4164,11 +4164,11 @@ body.is-order-transitioning {
     }
 
     body.products-page:not(.cart-page) .products-home__word--a {
-        font-size: clamp(20px, 5.5vw, 28px);
+        font-size: clamp(28px, 8vw, 40px);
     }
 
     body.products-page:not(.cart-page) .products-home__word--b {
-        font-size: clamp(22px, 6vw, 30px);
+        font-size: clamp(30px, 8.5vw, 44px);
         margin-left: -0.02em;
     }
 
@@ -4215,9 +4215,9 @@ body.is-order-transitioning {
         justify-self: end;
         flex-shrink: 0;
         margin: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 11px;
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
         border-width: 2px;
     }
 
@@ -4232,8 +4232,8 @@ body.is-order-transitioning {
     }
 
     body.products-page:not(.cart-page) .products-main .products-header .cart-nav__icon {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
     }
 
     body.products-page:not(.cart-page) .products-filter {
