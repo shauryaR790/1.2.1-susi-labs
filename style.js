@@ -97,21 +97,20 @@ const LOADER_STATUSES = [
 ]
 
 function initLoaderPikachu(scope) {
-    const juggler = scope?.querySelector(".loader-juggler")
-    if (!juggler || prefersReducedMotion) return
+    const pikachu = scope?.querySelector(".loader-pikachu")
+    if (!pikachu || prefersReducedMotion) return
 
-    gsap.to(juggler.children, {
+    gsap.to(pikachu, {
         y: -6,
         duration: 0.5,
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.08
+        ease: "sine.inOut"
     })
 }
 
 function initLoaderSquad(scope) {
-    const mons = scope?.querySelectorAll(".loader-mon, .loader-wiz")
+    const mons = scope?.querySelectorAll(".loader-mon")
     if (!mons?.length || prefersReducedMotion || typeof gsap === "undefined") return
 
     gsap.from(mons, {
@@ -128,7 +127,6 @@ function initLoaderSquad(scope) {
 function finishSiteLoader(loader, onComplete) {
     const inner = loader?.querySelector(".loader-inner")
     const squad = loader?.querySelector(".loader-squad")
-    const cast = loader?.querySelector(".loader-cast")
     const marquee = loader?.querySelector(".loader-marquee")
     const panelTop = loader?.querySelector(".loader-panel--top")
     const panelBottom = loader?.querySelector(".loader-panel--bottom")
@@ -154,11 +152,6 @@ function finishSiteLoader(loader, onComplete) {
             squad,
             { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" },
             "-=0.4"
-        )
-        .to(
-            cast,
-            { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" },
-            "-=0.35"
         )
         .to(
             marquee,
