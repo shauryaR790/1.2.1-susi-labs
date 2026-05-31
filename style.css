@@ -2829,7 +2829,7 @@ animation-delay: 1.05s;
 .loader-mon--l {
 top: 50%;
 left: clamp(8px, 3vw, 28px);
-width: clamp(44px, 6vw, 58px);
+width: clamp(40px, 5.5vw, 64px);
 transform: translateY(-50%);
 animation-delay: 0.5s;
 }
@@ -2837,44 +2837,99 @@ animation-delay: 0.5s;
 .loader-mon--r {
 top: 48%;
 right: clamp(8px, 3vw, 28px);
-width: clamp(40px, 5.5vw, 52px);
+width: clamp(46px, 6.5vw, 74px);
 transform: translateY(-50%);
 animation-delay: 0.85s;
 }
 
-/* HP mid-ring — sits between corner Pokémon and center logo */
-.loader-mon--hp-tcl {
-top: 19%;
-left: 24%;
-width: clamp(36px, 5.5vw, 48px);
+/* HP inner ring — mudkat101 sprites, transparent PNGs */
+.loader-cast {
+position: absolute;
+inset: 0;
+z-index: 5;
+pointer-events: none;
+}
+
+.loader-hp {
+position: absolute;
+display: block;
+height: auto;
+object-fit: contain;
+image-rendering: pixelated;
+image-rendering: crisp-edges;
+filter: drop-shadow(3px 4px 0 rgba(103, 0, 56, 0.22));
+will-change: transform;
+animation: loader-mon-bob 2.4s ease-in-out infinite;
+}
+
+.loader-hp--1 {
+top: 24%;
+left: 15%;
+width: clamp(38px, 5.5vw, 52px);
+animation-delay: 0.1s;
+}
+
+.loader-hp--2 {
+top: 24%;
+right: 15%;
+width: clamp(38px, 5.5vw, 52px);
 animation-delay: 0.2s;
 }
 
-.loader-mon--hp-tcr {
-top: 19%;
-right: 24%;
-width: clamp(44px, 6.5vw, 58px);
-animation-delay: 0.55s;
-}
-
-.loader-mon--hp-tc {
-top: 6%;
-left: 50%;
-width: clamp(48px, 8vw, 72px);
-transform: translateX(-50%);
-animation-name: loader-broom-drift;
-animation-duration: 3.2s;
+.loader-hp--3 {
+top: 34%;
+left: 12%;
+width: clamp(36px, 5vw, 50px);
 animation-delay: 0.35s;
 }
 
-@keyframes loader-broom-drift {
-0%, 100% {
-    transform: translateX(-50%) translateY(0) rotate(-3deg);
+.loader-hp--4 {
+top: 34%;
+right: 12%;
+width: clamp(36px, 5vw, 50px);
+animation-delay: 0.45s;
 }
 
-50% {
-    transform: translateX(calc(-50% + 8px)) translateY(-6px) rotate(3deg);
+.loader-hp--5 {
+top: 44%;
+left: 14%;
+width: clamp(36px, 5vw, 48px);
+animation-delay: 0.55s;
 }
+
+.loader-hp--6 {
+top: 44%;
+right: 14%;
+width: clamp(36px, 5vw, 48px);
+animation-delay: 0.65s;
+}
+
+.loader-hp--7 {
+top: 54%;
+left: 16%;
+width: clamp(34px, 4.8vw, 46px);
+animation-delay: 0.75s;
+}
+
+.loader-hp--8 {
+top: 54%;
+right: 16%;
+width: clamp(34px, 4.8vw, 46px);
+animation-delay: 0.85s;
+}
+
+.loader-hp--9 {
+bottom: clamp(96px, 15vh, 118px);
+left: 22%;
+width: clamp(40px, 6vw, 54px);
+animation-delay: 0.95s;
+}
+
+.loader-hp--10 {
+bottom: clamp(96px, 15vh, 118px);
+right: 22%;
+width: clamp(38px, 5.5vw, 50px);
+animation-delay: 1.05s;
 }
 
 .loader-juggler {
@@ -2943,30 +2998,34 @@ to {
 }
 
 @media (max-width: 600px) {
-.loader-mon--hp-tcl {
-    top: 16%;
-    left: 20%;
-    width: clamp(32px, 9vw, 42px);
+.loader-hp--7,
+.loader-hp--8 {
+    display: none;
 }
 
-.loader-mon--hp-tcr {
-    top: 16%;
-    right: 20%;
-    width: clamp(38px, 10vw, 50px);
+.loader-hp--1,
+.loader-hp--2 {
+    top: 18%;
 }
 
-.loader-mon--hp-tc {
-    top: auto;
-    bottom: clamp(92px, 14vh, 112px);
-    width: clamp(44px, 12vw, 64px);
+.loader-hp--3,
+.loader-hp--4 {
+    top: 28%;
 }
 
-.loader-mon--l {
-    width: clamp(38px, 11vw, 50px);
+.loader-hp--5,
+.loader-hp--6 {
+    top: 38%;
 }
 
-.loader-mon--r {
-    width: clamp(34px, 10vw, 46px);
+.loader-hp--9 {
+    left: 18%;
+    bottom: clamp(88px, 13vh, 108px);
+}
+
+.loader-hp--10 {
+    right: 18%;
+    bottom: clamp(88px, 13vh, 108px);
 }
 }
 
