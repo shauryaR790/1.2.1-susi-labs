@@ -101,6 +101,7 @@ function showError(msg) {
     if (msg) {
         el.textContent = msg
         el.hidden = false
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" })
     } else {
         el.textContent = ""
         el.hidden = true
@@ -359,7 +360,13 @@ function handleCheckoutError(err) {
             "Checkout API unavailable. Deploy on Vercel with payment env vars, or run vercel dev locally."
         )
     } else if (msg !== "Payment cancelled") {
-        showError(msg)
+        if (/razorpay keys rejected|authentication failed/i.test(msg)) {
+            showError(
+                "Card payment is not configured yet. Check Vercel env vars RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET (same key pair from Razorpay → Test mode), then Redeploy."
+            )
+        } else {
+            showError(msg)
+        }
     }
 }
 

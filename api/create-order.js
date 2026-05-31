@@ -189,6 +189,10 @@ module.exports = async function handler(req, res) {
         })
     } catch (err) {
         console.error(err)
-        return json(res, 500, { error: err.message || "Server error" })
+        if (err.message?.includes("Missing RAZORPAY_KEY_ID")) {
+            return json(res, 500, { error: "Payment gateway not configured" })
+        }
+        const status = err.statusCode === 401 ? 401 : 500
+        return json(res, status, { error: err.message || "Server error" })
     }
 }

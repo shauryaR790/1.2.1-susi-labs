@@ -16,13 +16,21 @@ Get your **service role key** (server only — never put in frontend):
 
 ---
 
-## 2. Razorpay
+## 2. Razorpay (already integrated)
+
+Standard Checkout is wired in this repo:
+
+| Step | Implementation |
+|------|----------------|
+| Create order | `POST /api/create-order` → Razorpay `POST /v1/orders` (via `lib/razorpay.js`) |
+| Open modal | `checkout.html` loads `checkout.razorpay.com/v1/checkout.js`; **Pay with card** in `checkout-page.js` |
+| Verify signature | `POST /api/verify-payment` → HMAC-SHA256 `order_id\|payment_id` |
 
 1. Sign up at [https://razorpay.com](https://razorpay.com)
 2. Complete KYC when ready; use **Test Mode** first
-3. **Settings → API Keys** → copy:
-   - **Key ID** (starts with `rzp_test_` or `rzp_live_`)
-   - **Key Secret**
+3. **Settings → API Keys** → copy into Vercel env (and local `.env` from `.env.example`):
+   - `RAZORPAY_KEY_ID` (starts with `rzp_test_` or `rzp_live_`)
+   - `RAZORPAY_KEY_SECRET` — **server only**, never in frontend
 
 Test cards / UPI: [Razorpay test docs](https://razorpay.com/docs/payments/payments/test-card-upi-details/)
 

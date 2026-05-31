@@ -4133,6 +4133,86 @@ body.is-order-transitioning {
         justify-content: flex-start;
     }
 
+    /* Order Now page — mobile header: logo left, cart right, compact filters */
+    body.products-page:not(.cart-page) .products-layout {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 12px;
+        row-gap: 10px;
+        grid-template-areas:
+            "logo cart"
+            "title title"
+            "filters filters"
+            "grid grid";
+    }
+
+    body.products-page:not(.cart-page) .products-home {
+        grid-area: logo;
+        order: unset;
+        gap: 2px;
+        align-self: start;
+        justify-self: start;
+    }
+
+    body.products-page:not(.cart-page) .products-home__word--a {
+        font-size: clamp(26px, 7vw, 34px);
+    }
+
+    body.products-page:not(.cart-page) .products-home__word--b {
+        font-size: clamp(28px, 7.5vw, 36px);
+        margin-left: -0.02em;
+    }
+
+    body.products-page:not(.cart-page) .products-header {
+        display: contents;
+        order: unset;
+    }
+
+    body.products-page:not(.cart-page) .products-title {
+        grid-area: title;
+    }
+
+    body.products-page:not(.cart-page) .products-title p {
+        display: none;
+    }
+
+    body.products-page:not(.cart-page) .products-main .products-header .cart-nav {
+        grid-area: cart;
+        position: static;
+        right: auto;
+        top: auto;
+        align-self: start;
+        justify-self: end;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border-width: 2px;
+    }
+
+    body.products-page:not(.cart-page) .products-main .products-header .cart-nav__icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    body.products-page:not(.cart-page) .products-controls {
+        grid-area: filters;
+        order: unset;
+        margin-top: 4px;
+        gap: 8px;
+    }
+
+    body.products-page:not(.cart-page) .products-filter {
+        height: 32px;
+        padding: 0 11px;
+        font-size: 11px;
+        border-width: 2px;
+    }
+
+    body.products-page:not(.cart-page) .products-grid-page {
+        grid-area: grid;
+        order: unset;
+    }
+
     .products-grid-page {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
