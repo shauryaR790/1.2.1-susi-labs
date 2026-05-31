@@ -4373,6 +4373,10 @@ CART NAV + CART PAGE
     pointer-events: none;
 }
 
+.cart-nav__label {
+    display: none;
+}
+
 .cart-nav--hero {
     color: #3A002B;
     background: #FFFD46;
