@@ -4180,10 +4180,10 @@ body.is-order-transitioning {
         width: 100%;
     }
 
-    body.products-page:not(.cart-page) .products-title h1 {
-        font-size: clamp(26px, 7.2vw, 40px);
-        line-height: 0.95;
-        letter-spacing: -1px;
+    body.products-page:not(.cart-page) .products-main .products-title h1 {
+        font-size: clamp(32px, 10vw, 52px) !important;
+        line-height: 0.92;
+        letter-spacing: -1.5px;
         margin: 0;
         padding: 0;
         text-align: center;
