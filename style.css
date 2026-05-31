@@ -5047,17 +5047,48 @@ html.cart-intro {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .hero-aside nav .cart-nav--hero {
-        width: 40px;
-        height: 40px;
-        border-width: 2px;
-        border-radius: 12px;
+        width: auto;
+        height: auto;
+        min-width: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        color: #FF7F00;
+        font-size: inherit;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+        align-self: auto;
+    }
+
+    .hero-aside nav .cart-nav__label {
+        display: inline;
     }
 
     .hero-aside nav .cart-nav__icon {
-        width: 22px;
-        height: 22px;
+        display: none;
+    }
+
+    .hero-aside nav .cart-nav--hero:hover {
+        transform: none;
+        background: transparent;
+        color: #000000;
+    }
+
+    .hero-aside nav .cart-nav__badge {
+        top: -6px;
+        right: -8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-aside nav .cart-nav--hero {
+        width: auto;
+        height: auto;
+        border: none;
+        border-radius: 0;
     }
 
     .cart-nav--products {
