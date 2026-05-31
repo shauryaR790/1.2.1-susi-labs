@@ -110,7 +110,7 @@ function initLoaderPikachu(scope) {
 }
 
 function initLoaderSquad(scope) {
-    const mons = scope?.querySelectorAll(".loader-mon, .loader-hp")
+    const mons = scope?.querySelectorAll(".loader-mon")
     if (!mons?.length || prefersReducedMotion || typeof gsap === "undefined") return
 
     gsap.from(mons, {
@@ -127,7 +127,7 @@ function initLoaderSquad(scope) {
 function finishSiteLoader(loader, onComplete) {
     const inner = loader?.querySelector(".loader-inner")
     const squad = loader?.querySelector(".loader-squad")
-    const cast = loader?.querySelector(".loader-cast")
+    const squadInner = loader?.querySelector(".loader-squad-inner")
     const marquee = loader?.querySelector(".loader-marquee")
     const panelTop = loader?.querySelector(".loader-panel--top")
     const panelBottom = loader?.querySelector(".loader-panel--bottom")
@@ -155,7 +155,7 @@ function finishSiteLoader(loader, onComplete) {
             "-=0.4"
         )
         .to(
-            cast,
+            squadInner,
             { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" },
             "-=0.35"
         )

@@ -2842,64 +2842,53 @@ transform: translateY(-50%);
 animation-delay: 0.85s;
 }
 
-/* HP inner ring — mudkat101 sprites, transparent PNGs */
-.loader-cast {
+/* Inner ring — extra Pokémon in empty space */
+.loader-squad-inner {
 position: absolute;
 inset: 0;
 z-index: 5;
 pointer-events: none;
 }
 
-.loader-hp {
-position: absolute;
-display: block;
-width: clamp(44px, 6.2vw, 58px);
-height: auto;
-max-height: 72px;
-object-fit: contain;
-image-rendering: pixelated;
-image-rendering: crisp-edges;
-filter: drop-shadow(3px 4px 0 rgba(103, 0, 56, 0.22));
-will-change: transform;
-animation: loader-mon-bob 2.4s ease-in-out infinite;
-}
-
-/* upper inner pair */
-.loader-hp--1 {
+.loader-mon--in1 {
 top: 15%;
 left: 22%;
+width: clamp(44px, 6.5vw, 62px);
 animation-delay: 0.1s;
 }
 
-.loader-hp--2 {
+.loader-mon--in2 {
 top: 15%;
 right: 22%;
+width: clamp(44px, 6.5vw, 62px);
 animation-delay: 0.2s;
 }
 
-/* mid inner pair — clear of logo sides */
-.loader-hp--3 {
+.loader-mon--in3 {
 top: 38%;
 left: 20%;
+width: clamp(42px, 6vw, 58px);
 animation-delay: 0.35s;
 }
 
-.loader-hp--4 {
+.loader-mon--in4 {
 top: 38%;
 right: 20%;
+width: clamp(42px, 6vw, 58px);
 animation-delay: 0.45s;
 }
 
-/* lower inner pair — above marquee */
-.loader-hp--5 {
+.loader-mon--in5 {
 bottom: clamp(100px, 16vh, 124px);
 left: 24%;
+width: clamp(44px, 6.5vw, 62px);
 animation-delay: 0.55s;
 }
 
-.loader-hp--6 {
+.loader-mon--in6 {
 bottom: clamp(100px, 16vh, 124px);
 right: 24%;
+width: clamp(44px, 6.5vw, 62px);
 animation-delay: 0.65s;
 }
 
@@ -2969,44 +2958,47 @@ to {
 }
 
 @media (max-width: 600px) {
-.loader-hp--3,
-.loader-hp--4 {
+.loader-mon--in3,
+.loader-mon--in4 {
     top: auto;
     bottom: clamp(108px, 17vh, 128px);
-    transform: none;
 }
 
-.loader-hp--3 {
+.loader-mon--in3 {
     left: 16%;
 }
 
-.loader-hp--4 {
+.loader-mon--in4 {
     right: 16%;
 }
 
-.loader-hp--1 {
+.loader-mon--in1 {
     top: 10%;
     left: 14%;
 }
 
-.loader-hp--2 {
+.loader-mon--in2 {
     top: 10%;
     right: 14%;
 }
 
-.loader-hp--5 {
+.loader-mon--in5 {
     bottom: clamp(92px, 14vh, 112px);
     left: 20%;
 }
 
-.loader-hp--6 {
+.loader-mon--in6 {
     bottom: clamp(92px, 14vh, 112px);
     right: 20%;
 }
 
-.loader-hp {
-    width: clamp(38px, 11vw, 52px);
-    max-height: 64px;
+.loader-mon--in1,
+.loader-mon--in2,
+.loader-mon--in3,
+.loader-mon--in4,
+.loader-mon--in5,
+.loader-mon--in6 {
+    width: clamp(40px, 11vw, 54px);
 }
 }
 
