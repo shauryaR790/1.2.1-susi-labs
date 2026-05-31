@@ -5053,6 +5053,7 @@ html.cart-intro {
 
 @media (max-width: 992px) {
     .hero-aside nav .cart-nav--hero {
+        display: inline;
         width: auto;
         height: auto;
         min-width: 0;
@@ -5062,28 +5063,33 @@ html.cart-intro {
         border-radius: 0;
         color: #FF7F00;
         font-size: inherit;
-        letter-spacing: -1px;
+        line-height: inherit;
+        letter-spacing: inherit;
         text-transform: uppercase;
         align-self: auto;
+        vertical-align: baseline;
+        position: static;
     }
 
     .hero-aside nav .cart-nav__label {
         display: inline;
+        font-size: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
     }
 
     .hero-aside nav .cart-nav__icon {
         display: none;
     }
 
+    .hero-aside nav .cart-nav__badge {
+        display: none !important;
+    }
+
     .hero-aside nav .cart-nav--hero:hover {
         transform: none;
         background: transparent;
         color: #000000;
-    }
-
-    .hero-aside nav .cart-nav__badge {
-        top: -6px;
-        right: -8px;
     }
 }
 
