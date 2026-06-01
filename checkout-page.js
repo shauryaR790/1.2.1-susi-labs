@@ -2,6 +2,8 @@
    CHECKOUT PAGE
 ========================= */
 
+const CHECKOUT_LOGO_URL = new URL("SUSI.jpg.jpeg", window.location.origin).href
+
 function escapeHtml(str) {
     return String(str ?? "")
         .replace(/&/g, "&amp;")
@@ -131,6 +133,7 @@ function openRazorpayCheckout(orderPayload) {
             amount: orderPayload.amount,
             currency: orderPayload.currency,
             name: "SUSI LABS",
+            image: CHECKOUT_LOGO_URL,
             description: "Custom 3D print order",
             order_id: orderPayload.razorpayOrderId,
             prefill: orderPayload.customer,
