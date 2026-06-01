@@ -6205,7 +6205,7 @@ body.checkout-success-page {
     border-radius: 999px;
     background: rgba(255, 243, 239, 0.1);
     color: #FFF3EF;
-    font-family: 'Hagrid Trial', sans-serif;
+    font-family: 'Hagrid Trial', Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
@@ -6258,7 +6258,7 @@ body.checkout-success-page {
 }
 
 .cb-urgency__title {
-    font-family: 'Hagrid Trial', sans-serif;
+    font-family: 'Hagrid Trial', Arial, Helvetica, sans-serif;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;

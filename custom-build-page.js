@@ -153,13 +153,13 @@ function updateProgressUI() {
 }
 
 function labelCategory(v) {
-    return v || "—"
+    return v || "-"
 }
 
 function labelUrgency(v) {
     const map = {
-        standard: "standard (5–7 days)",
-        express: "express (2–3 days)",
+        standard: "standard (5-7 days)",
+        express: "express (2-3 days)",
         rush: "rush (24 hours)"
     }
     return map[v] || v
@@ -173,7 +173,7 @@ function renderSummary() {
     const dims = [form.dimLength.value, form.dimWidth.value, form.dimHeight.value]
         .map((x) => x.trim())
         .filter(Boolean)
-    const dimStr = dims.length ? `${dims.join(" × ")} mm` : "—"
+    const dimStr = dims.length ? `${dims.join(" x ")} mm` : "-"
 
     const files =
         selectedFiles.length > 0
@@ -190,9 +190,9 @@ function renderSummary() {
             <div><dt>quantity</dt><dd>${escapeHtml(form.quantity.value)}</dd></div>
             <div><dt>urgency</dt><dd>${escapeHtml(labelUrgency(getRadio(form, "urgency")))}</dd></div>
             <div><dt>dimensions</dt><dd>${escapeHtml(dimStr)}</dd></div>
-            <div><dt>infill</dt><dd>${escapeHtml(getRadio(form, "infill") || "—")}</dd></div>
-            <div><dt>finish</dt><dd>${escapeHtml(getRadio(form, "finish") || "—")}</dd></div>
-            <div><dt>budget</dt><dd>${escapeHtml(form.budgetRange.value || "—")}</dd></div>
+            <div><dt>infill</dt><dd>${escapeHtml(getRadio(form, "infill") || "-")}</dd></div>
+            <div><dt>finish</dt><dd>${escapeHtml(getRadio(form, "finish") || "-")}</dd></div>
+            <div><dt>budget</dt><dd>${escapeHtml(form.budgetRange.value || "-")}</dd></div>
             <div class="cb-summary__full"><dt>files</dt><dd>${escapeHtml(files)}</dd></div>
         </dl>
     `

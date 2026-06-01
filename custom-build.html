@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=187">
+    <link rel="stylesheet" href="style.css?v=188">
 
     <script>
         try {
@@ -121,7 +121,7 @@
                 </fieldset>
 
                 <fieldset class="cb-fieldset">
-                    <legend class="cb-label">dimensions in mm (length × width × height) — optional</legend>
+                    <legend class="cb-label">dimensions in mm (length x width x height) - optional</legend>
                     <div class="cb-dims">
                         <input type="text" name="dimLength" inputmode="decimal" placeholder="length" aria-label="Length mm">
                         <input type="text" name="dimWidth" inputmode="decimal" placeholder="width" aria-label="Width mm">
@@ -195,10 +195,10 @@
                         <span class="cb-label">budget range <em>(optional)</em></span>
                         <select name="budgetRange">
                             <option value="">not sure yet</option>
-                            <option value="under-500">under ₹500</option>
-                            <option value="500-2000">₹500 – ₹2,000</option>
-                            <option value="2000-5000">₹2,000 – ₹5,000</option>
-                            <option value="5000-plus">₹5,000+</option>
+                            <option value="under-500">under Rs. 500</option>
+                            <option value="500-2000">Rs. 500 - Rs. 2,000</option>
+                            <option value="2000-5000">Rs. 2,000 - Rs. 5,000</option>
+                            <option value="5000-plus">Rs. 5,000+</option>
                         </select>
                     </label>
                 </div>
@@ -206,7 +206,7 @@
                 <fieldset class="cb-fieldset">
                     <legend class="cb-label">infill / strength</legend>
                     <div class="cb-pills" role="radiogroup">
-                        <label class="cb-pill"><input type="radio" name="infill" value="light"> light (15–20%)</label>
+                        <label class="cb-pill"><input type="radio" name="infill" value="light"> light (15-20%)</label>
                         <label class="cb-pill is-selected"><input type="radio" name="infill" value="standard" checked> standard (30%)</label>
                         <label class="cb-pill"><input type="radio" name="infill" value="strong"> strong (50%+)</label>
                     </div>
@@ -226,11 +226,11 @@
                     <div class="cb-urgency">
                         <label class="cb-urgency__opt is-selected">
                             <input type="radio" name="urgency" value="standard" checked>
-                            <span class="cb-urgency__title">standard (5–7 days)</span>
+                            <span class="cb-urgency__title">standard (5-7 days)</span>
                         </label>
                         <label class="cb-urgency__opt">
                             <input type="radio" name="urgency" value="express">
-                            <span class="cb-urgency__title">express (2–3 days)</span>
+                            <span class="cb-urgency__title">express (2-3 days)</span>
                         </label>
                         <label class="cb-urgency__opt">
                             <input type="radio" name="urgency" value="rush">
@@ -243,7 +243,7 @@
             <!-- STEP 3 -->
             <section class="custom-build-step" data-step="3" hidden aria-labelledby="cb-step-3-title">
                 <h2 class="custom-build-step__title" id="cb-step-3-title">upload files</h2>
-                <p class="custom-build-step__hint">STL, OBJ, 3MF, STEP, images, PDF, ZIP — up to 5 files, 4 MB each.</p>
+                <p class="custom-build-step__hint">STL, OBJ, 3MF, STEP, images, PDF, ZIP - up to 5 files, 4 MB each.</p>
 
                 <div class="cb-upload" id="cb-upload-zone">
                     <input type="file" id="cb-file-input" class="cb-upload__input" multiple accept=".stl,.obj,.3mf,.step,.stp,.png,.jpg,.jpeg,.pdf,.zip,.rar,.gif,.webp">
