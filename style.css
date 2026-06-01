@@ -1876,8 +1876,14 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 
 .how-order-img-group {
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto 0 12px;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.how-order-img {
+    max-height: clamp(160px, 32vh, 240px);
+    object-fit: cover;
+    object-position: center;
 }
 
 .event-content h1 {
@@ -2202,65 +2208,87 @@ RESPONSIVE — MOBILE
     overflow: visible;
 }
 
+.container7 .print-marquee {
+    padding: 14px 0;
+}
+
+.container7 .print-marquee-item {
+    font-size: clamp(28px, 7vw, 40px);
+}
+
+.container7 .print-marquee-dot {
+    width: 18px;
+    height: 18px;
+}
+
 .container7-main {
     flex-direction: column;
     align-items: stretch;
-    padding: 28px 20px 24px;
-    gap: 12px;
+    padding: 20px 16px 20px;
+    gap: 10px;
 }
 
 .event-visual {
     position: relative;
-    width: min(100%, 380px);
+    width: min(100%, 300px);
+    max-width: 86vw;
     margin: 0 auto;
     min-height: auto;
+    flex-shrink: 0;
 }
 
 .how-order-img-group {
     width: 100%;
-    max-width: none;
-    margin-left: 12px;
-    margin-right: 0;
+    max-width: 100%;
+    margin-left: 8px;
+    margin-right: 4px;
 }
 
 .how-order-img {
     width: 100%;
+    max-height: clamp(140px, 36vw, 200px);
+    height: auto;
     display: block;
+    object-fit: cover;
+    object-position: center;
 }
 
 .spiral-top {
     position: absolute;
-    width: 80px;
-    left: -14px;
-    top: 18px;
+    width: 64px;
+    left: -10px;
+    top: 10px;
     z-index: 2;
 }
 
 .star-shape {
     position: absolute;
-    right: -50px;
+    right: -28px;
     left: auto;
-    width: 72px;
-    bottom: calc(24% - 15px);
+    width: 52px;
+    bottom: calc(20% - 8px);
     z-index: 2;
 }
 
 .event-content {
     margin-top: 0;
+    width: 100%;
 }
 
 .event-content h1 {
-    font-size: clamp(40px, 11vw, 56px);
-    letter-spacing: -4px;
+    font-size: clamp(34px, 9.5vw, 48px);
+    letter-spacing: -3px;
+    line-height: 0.9;
 }
 
 .event-info {
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
 .event-info p {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 15px;
+    margin-bottom: 6px;
+    line-height: 1.35;
 }
 
 .event-info p br {
@@ -2459,13 +2487,45 @@ RESPONSIVE — MOBILE
     padding: 0;
 }
 
+.container7 .print-marquee {
+    padding: 10px 0;
+}
+
 .container7-main {
-    padding: 20px 16px 18px;
+    padding: 16px 14px 16px;
     gap: 8px;
+}
+
+.how-order-img {
+    max-height: clamp(120px, 32vw, 168px);
+}
+
+.event-visual {
+    width: min(100%, 280px);
+}
+
+.spiral-top {
+    width: 52px;
+    left: -8px;
+    top: 6px;
+}
+
+.star-shape {
+    width: 44px;
+    right: -22px;
+}
+
+.event-content h1 {
+    font-size: clamp(30px, 9vw, 42px);
 }
 
 .event-info {
     margin-top: 8px;
+}
+
+.event-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 .elevate-content h1 {
@@ -2479,13 +2539,6 @@ RESPONSIVE — MOBILE
 .elevate-content button {
     margin-top: 18px;
     height: 48px;
-}
-
-.star-shape {
-    width: 64px;
-    right: -44px;
-    left: auto;
-    bottom: calc(22% - 15px);
 }
 
 .container3 {
