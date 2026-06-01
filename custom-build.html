@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=186">
+    <link rel="stylesheet" href="style.css?v=187">
 
     <script>
         try {
@@ -103,22 +103,18 @@
                     <div class="cb-cards" role="radiogroup" aria-label="Category">
                         <label class="cb-card is-selected">
                             <input type="radio" name="category" value="prototype" checked>
-                            <span class="cb-card__icon" aria-hidden="true">⚡</span>
                             <span class="cb-card__name">prototype</span>
                         </label>
                         <label class="cb-card">
                             <input type="radio" name="category" value="figurine">
-                            <span class="cb-card__icon" aria-hidden="true">🏅</span>
                             <span class="cb-card__name">figurine</span>
                         </label>
                         <label class="cb-card">
                             <input type="radio" name="category" value="product">
-                            <span class="cb-card__icon" aria-hidden="true">📦</span>
                             <span class="cb-card__name">product</span>
                         </label>
                         <label class="cb-card">
                             <input type="radio" name="category" value="custom">
-                            <span class="cb-card__icon" aria-hidden="true">★</span>
                             <span class="cb-card__name">custom</span>
                         </label>
                     </div>
@@ -133,15 +129,17 @@
                     </div>
                 </fieldset>
 
-                <label class="cb-field">
-                    <span class="cb-label">reference link <em>(optional)</em></span>
-                    <input type="url" name="referenceLink" placeholder="Drive, Pinterest, Thingiverse…">
-                </label>
+                <div class="cb-row-2">
+                    <label class="cb-field">
+                        <span class="cb-label">reference link <em>(optional)</em></span>
+                        <input type="url" name="referenceLink" placeholder="Drive, Pinterest, Thingiverse…">
+                    </label>
 
-                <label class="cb-field">
-                    <span class="cb-label">application / intended use</span>
-                    <input type="text" name="application" placeholder="e.g. Desk display, functional bracket, cosplay prop">
-                </label>
+                    <label class="cb-field">
+                        <span class="cb-label">application / intended use</span>
+                        <input type="text" name="application" placeholder="e.g. Desk display, functional bracket, cosplay prop">
+                    </label>
+                </div>
             </section>
 
             <!-- STEP 2 -->
@@ -188,7 +186,7 @@
                     </div>
                 </fieldset>
 
-                <div class="cb-row-2">
+                <div class="cb-row-2 cb-row-2--specs-top">
                     <label class="cb-field">
                         <span class="cb-label">quantity *</span>
                         <input type="number" name="quantity" min="1" max="999" value="1" required>
@@ -249,8 +247,7 @@
 
                 <div class="cb-upload" id="cb-upload-zone">
                     <input type="file" id="cb-file-input" class="cb-upload__input" multiple accept=".stl,.obj,.3mf,.step,.stp,.png,.jpg,.jpeg,.pdf,.zip,.rar,.gif,.webp">
-                    <p class="cb-upload__icon" aria-hidden="true">↑</p>
-                    <p class="cb-upload__text">drag & drop or <button type="button" class="cb-upload__browse" id="cb-upload-browse">browse files</button></p>
+                    <p class="cb-upload__text">drag & drop files here or <button type="button" class="cb-upload__browse" id="cb-upload-browse">browse</button></p>
                 </div>
                 <ul class="cb-file-list" id="cb-file-list" hidden></ul>
             </section>
