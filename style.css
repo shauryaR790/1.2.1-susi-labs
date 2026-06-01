@@ -6200,16 +6200,27 @@ body.checkout-success-page {
 .cb-pill {
     display: inline-flex;
     align-items: center;
+    gap: 6px;
     padding: 10px 14px;
     border: 3px solid #000000;
     border-radius: 999px;
     background: rgba(255, 243, 239, 0.1);
     color: #FFF3EF;
-    font-family: 'Hagrid Trial', Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
     font-weight: 700;
-    text-transform: uppercase;
     cursor: pointer;
+}
+
+.cb-pill__label {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cb-pill__meta {
+    font-weight: 600;
+    text-transform: none;
+    opacity: 0.92;
 }
 
 .cb-pill input {
@@ -6220,8 +6231,17 @@ body.checkout-success-page {
 .cb-pill.is-selected,
 .cb-pill:has(input:checked) {
     border-color: #FF7F00;
-    background: rgba(255, 127, 0, 0.35);
-    color: #FFFD46;
+    background: #FF7F00;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 #000000;
+}
+
+.cb-pill.is-selected .cb-pill__label,
+.cb-pill.is-selected .cb-pill__meta,
+.cb-pill:has(input:checked) .cb-pill__label,
+.cb-pill:has(input:checked) .cb-pill__meta {
+    color: #fff;
 }
 
 .cb-urgency {
@@ -6252,17 +6272,38 @@ body.checkout-success-page {
     border-color: #FF7F00;
 }
 
-.cb-urgency__opt.is-selected .cb-urgency__title,
-.cb-urgency__opt:has(input:checked) .cb-urgency__title {
+.cb-urgency__opt.is-selected .cb-urgency__label,
+.cb-urgency__opt.is-selected .cb-urgency__meta,
+.cb-urgency__opt:has(input:checked) .cb-urgency__label,
+.cb-urgency__opt:has(input:checked) .cb-urgency__meta {
     color: #FF7F00;
 }
 
-.cb-urgency__title {
-    font-family: 'Hagrid Trial', Arial, Helvetica, sans-serif;
+.cb-urgency__label,
+.cb-urgency__meta {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFF3EF;
+}
+
+.cb-urgency__label {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #FFF3EF;
+    letter-spacing: 0.04em;
+}
+
+.cb-urgency__meta {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: auto;
+    text-transform: none;
+}
+
+.custom-build-form .cb-field input,
+.custom-build-form .cb-field textarea,
+.custom-build-form .cb-field select,
+.custom-build-form .cb-dims input {
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .cb-upload {

@@ -158,9 +158,9 @@ function labelCategory(v) {
 
 function labelUrgency(v) {
     const map = {
-        standard: "standard (5-7 days)",
-        express: "express (2-3 days)",
-        rush: "rush (24 hours)"
+        standard: "standard - 5-7 days",
+        express: "express - 2-3 days",
+        rush: "rush - 24 hours"
     }
     return map[v] || v
 }
@@ -384,7 +384,7 @@ function getStepAnimTargets(stepEl) {
     if (!stepEl) return []
     return [
         ...stepEl.querySelectorAll(
-            ".custom-build-step__title, .custom-build-step__hint, .cb-field, .cb-fieldset, .cb-row-2, .cb-upload, .cb-summary, .cb-contact, .custom-build-nav"
+            ".custom-build-step__title, .custom-build-step__hint, .cb-field, .cb-fieldset, .cb-row-2, .cb-pill, .cb-urgency__opt, .cb-upload, .cb-summary, .cb-contact, .custom-build-nav"
         )
     ]
 }
