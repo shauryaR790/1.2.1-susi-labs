@@ -5158,6 +5158,11 @@ html.cart-intro {
         border-width: 2px;
     }
 
+  /* Mobile: sidebar quick links are shop + home only */
+    .cart-sidebar-links__btn[href*="cart.html"] {
+        display: none !important;
+    }
+
     .cart-page:not(.checkout-page) .cart-title {
         grid-area: title;
         grid-column: title;
@@ -6531,16 +6536,60 @@ body.custom-build-success-page .checkout-success__meta strong {
     .cart-page.custom-build-page .products-home {
         grid-area: logo;
         grid-column: logo;
+        margin-bottom: 0;
+        gap: 2px;
+        align-self: center;
+        justify-self: start;
+        height: var(--cart-mobile-top-h);
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .cart-page.custom-build-page .products-home__word--a {
+        font-size: clamp(28px, 8vw, 40px);
+    }
+
+    .cart-page.custom-build-page .products-home__word--b {
+        font-size: clamp(30px, 8.5vw, 44px);
+        margin-left: -0.02em;
     }
 
     .cart-page.custom-build-page .cart-title {
         grid-area: title;
         grid-column: title;
+        min-width: 0;
+        width: 100%;
+        align-self: center;
+        justify-self: center;
+        height: var(--cart-mobile-top-h);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .cart-page.custom-build-page .cart-sidebar-links {
         grid-area: nav;
         grid-column: nav;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        margin: 0;
+        gap: 6px;
+        width: auto;
+        min-width: 72px;
+        align-self: center;
+        justify-self: end;
+        height: var(--cart-mobile-top-h);
+        justify-content: center;
+    }
+
+    .cart-page.custom-build-page .cart-sidebar-links__btn {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 11px;
+        border-width: 2px;
     }
 
     .cart-page.custom-build-page .custom-build-scroll {
