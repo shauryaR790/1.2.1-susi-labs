@@ -828,6 +828,7 @@ padding:40px 70px;
 .event-visual{
 width:48%;
 position:relative;
+overflow:visible;
 }
 
 /* HOW TO ORDER PHOTO */
@@ -837,6 +838,7 @@ position:relative;
 margin-left:12px;
 width:100%;
 max-width:560px;
+overflow:visible;
 }
 
 .how-order-img{
@@ -875,9 +877,10 @@ object-fit:contain;
 
 .star-shape{
 position:absolute;
+right:-112px;
+left:auto;
+bottom:28%;
 width:160px;
-right:10px;
-bottom:120px;
 object-fit:contain;
 z-index:2;
 pointer-events:none;
@@ -2232,10 +2235,10 @@ RESPONSIVE — MOBILE
 
 .star-shape {
     position: absolute;
-    width: 72px;
-    right: -14px;
-    bottom: 24%;
+    right: -50px;
     left: auto;
+    width: 72px;
+    bottom: 24%;
     z-index: 2;
 }
 
@@ -2477,7 +2480,8 @@ RESPONSIVE — MOBILE
 
 .star-shape {
     width: 64px;
-    right: -10px;
+    right: -44px;
+    left: auto;
     bottom: 22%;
 }
 
