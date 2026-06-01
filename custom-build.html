@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=189">
+    <link rel="stylesheet" href="style.css?v=190">
 
     <script>
         try {
@@ -227,9 +227,18 @@
                 <fieldset class="cb-fieldset">
                     <legend class="cb-label">surface finish</legend>
                     <div class="cb-pills" role="radiogroup">
-                        <label class="cb-pill is-selected"><input type="radio" name="finish" value="raw" checked> raw print</label>
-                        <label class="cb-pill"><input type="radio" name="finish" value="sanded"> sanded</label>
-                        <label class="cb-pill"><input type="radio" name="finish" value="painted"> painted</label>
+                        <label class="cb-pill is-selected">
+                            <input type="radio" name="finish" value="raw" checked>
+                            <span class="cb-pill__label">raw print</span>
+                        </label>
+                        <label class="cb-pill">
+                            <input type="radio" name="finish" value="sanded">
+                            <span class="cb-pill__label">sanded</span>
+                        </label>
+                        <label class="cb-pill">
+                            <input type="radio" name="finish" value="painted">
+                            <span class="cb-pill__label">painted</span>
+                        </label>
                     </div>
                 </fieldset>
 
