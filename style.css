@@ -830,12 +830,15 @@ width:48%;
 position:relative;
 }
 
-/* MAIN IMAGE */
+/* HOW TO ORDER PHOTO */
 
-.main-shape{
-width:700px;
+.how-order-img{
+width:100%;
+max-width:560px;
+height:auto;
 display:block;
-object-fit:contain;
+object-fit:cover;
+border-radius:0;
 }
 
 /* SPIRALS */
@@ -1555,7 +1558,7 @@ RESPONSIVE — TABLET
     font-size: 70px;
 }
 
-.main-shape {
+.how-order-img {
     width: 100%;
     max-width: 520px;
 }
@@ -1860,7 +1863,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     margin-right: 0;
 }
 
-.main-shape {
+.how-order-img {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
@@ -2202,28 +2205,11 @@ RESPONSIVE — MOBILE
     min-height: auto;
 }
 
-.main-shape {
+.how-order-img {
     width: 100%;
     max-width: none;
     margin: 0;
     display: block;
-}
-
-.spiral-top {
-    position: absolute;
-    width: 80px;
-    left: -14px;
-    top: 18px;
-    z-index: 2;
-}
-
-.star-shape {
-    position: absolute;
-    width: 72px;
-    right: -14px;
-    bottom: 24%;
-    left: auto;
-    z-index: 2;
 }
 
 .event-content {
