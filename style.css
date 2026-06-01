@@ -1876,14 +1876,8 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 
 .how-order-img-group {
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
     margin: 0 auto;
-}
-
-.how-order-img {
-    max-height: clamp(160px, 32vh, 240px);
-    object-fit: cover;
-    object-position: center;
 }
 
 .event-content h1 {
@@ -2230,27 +2224,26 @@ RESPONSIVE — MOBILE
 
 .event-visual {
     position: relative;
-    width: min(100%, 300px);
-    max-width: 86vw;
+    width: min(100%, 320px);
+    max-width: calc(86vw + 20px);
     margin: 0 auto;
     min-height: auto;
     flex-shrink: 0;
 }
 
 .how-order-img-group {
-    width: 100%;
-    max-width: 100%;
+    width: calc(100% + 20px);
+    max-width: none;
     margin-left: 8px;
-    margin-right: 4px;
+    margin-right: 0;
 }
 
 .how-order-img {
     width: 100%;
-    max-height: clamp(140px, 36vw, 200px);
     height: auto;
     display: block;
-    object-fit: cover;
-    object-position: center;
+    max-height: none;
+    object-fit: unset;
 }
 
 .spiral-top {
@@ -2496,12 +2489,12 @@ RESPONSIVE — MOBILE
     gap: 8px;
 }
 
-.how-order-img {
-    max-height: clamp(120px, 32vw, 168px);
+.event-visual {
+    width: min(100%, 300px);
 }
 
-.event-visual {
-    width: min(100%, 280px);
+.how-order-img-group {
+    width: calc(100% + 20px);
 }
 
 .spiral-top {
