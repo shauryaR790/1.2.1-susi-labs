@@ -879,7 +879,7 @@ object-fit:contain;
 position:absolute;
 right:-112px;
 left:auto;
-bottom:28%;
+bottom:calc(28% - 5px);
 width:160px;
 object-fit:contain;
 z-index:2;
@@ -2238,7 +2238,7 @@ RESPONSIVE — MOBILE
     right: -50px;
     left: auto;
     width: 72px;
-    bottom: 24%;
+    bottom: calc(24% - 5px);
     z-index: 2;
 }
 
@@ -2482,7 +2482,7 @@ RESPONSIVE — MOBILE
     width: 64px;
     right: -44px;
     left: auto;
-    bottom: 22%;
+    bottom: calc(22% - 5px);
 }
 
 .container3 {
