@@ -14,11 +14,20 @@
     <link href="https://fonts.cdnfonts.com/css/extenda-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=160">
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=165">
+
+    <script>
+        try {
+            if (sessionStorage.getItem("susi:checkoutIntro") === "1") {
+                document.documentElement.classList.add("cart-intro");
+            }
+        } catch {}
+    </script>
 </head>
 
 <body class="products-page cart-page checkout-page">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <div class="print-marquee print-marquee--hero products-ticker" aria-hidden="true">
         <div class="print-marquee-track">
             <div class="print-marquee-content">
@@ -62,7 +71,6 @@
                 <header class="products-header cart-header">
                     <div class="cart-title products-title">
                         <h1>CHECKOUT</h1>
-                        <p>Shipping details + pay with UPI QR or card via Razorpay.</p>
                     </div>
                 </header>
 
@@ -176,8 +184,30 @@
         </div>
     </div>
 
+    <div class="order-transition" id="order-transition" aria-hidden="true">
+        <div class="order-transition__fx" aria-hidden="true">
+            <div class="order-transition__pulse"></div>
+            <div class="order-transition__ring"></div>
+            <span class="order-transition__corner order-transition__corner--tl"></span>
+            <span class="order-transition__corner order-transition__corner--tr"></span>
+            <span class="order-transition__corner order-transition__corner--bl"></span>
+            <span class="order-transition__corner order-transition__corner--br"></span>
+            <div class="order-transition__orbit"><span class="order-transition__nozzle"></span></div>
+            <div class="order-transition__sparks">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <p class="order-transition__tag">queue unlocked</p>
+        </div>
+        <div class="order-transition__track" aria-hidden="true">
+            <span class="order-transition__shine"></span>
+            <span class="order-transition__word order-transition__word--a">SUSI</span>
+            <span class="order-transition__word order-transition__word--b">LABS</span>
+        </div>
+    </div>
+
     <script src="cart-store.js?v=2"></script>
-    <script src="checkout-page.js?v=11"></script>
+    <script src="page-transition.js"></script>
+    <script src="checkout-page.js?v=12"></script>
 </body>
 
 </html>
