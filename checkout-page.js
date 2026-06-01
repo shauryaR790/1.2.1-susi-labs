@@ -2,8 +2,6 @@
    CHECKOUT PAGE
 ========================= */
 
-const DEFAULT_UPI_VPA = "6356425245@ptaxis"
-
 function escapeHtml(str) {
     return String(str ?? "")
         .replace(/&/g, "&amp;")
@@ -22,40 +20,6 @@ function sumCartPaise(items) {
 
 function formatInrFromPaise(paise) {
     return `₹${Math.round(paise / 100)}`
-}
-
-function orderRefShort(orderId) {
-    return String(orderId || "")
-        .replace(/-/g, "")
-        .slice(0, 8)
-        .toUpperCase()
-}
-
-async function renderUpiQr(orderPayload) {
-    const img = document.getElementById("upi-qr-img")
-    const loading = document.getElementById("upi-qr-loading")
-
-    if (!img) {
-        throw new Error("QR code UI missing")
-    }
-
-    if (loading) loading.hidden = false
-    img.hidden = true
-    img.removeAttribute("src")
-
-    const qs = new URLSearchParams({
-        amountPaise: String(orderPayload.amount),
-        orderId: orderPayload.orderId || ""
-    })
-
-    await new Promise((resolve, reject) => {
-        img.onload = () => resolve()
-        img.onerror = () => reject(new Error("QR code failed to load"))
-        img.src = `/api/upi-qr?${qs.toString()}`
-    })
-
-    if (loading) loading.hidden = true
-    img.hidden = false
 }
 
 function renderSummary(items) {
@@ -109,30 +73,10 @@ function showError(msg) {
 }
 
 function setPayLoading(loading) {
-    const upiBtn = document.getElementById("checkout-upi-btn")
-    const cardBtn = document.getElementById("checkout-card-btn")
-
-    ;[upiBtn, cardBtn].forEach((btn) => {
-        if (!btn) return
-        btn.disabled = loading
-    })
-
-    if (upiBtn) upiBtn.textContent = loading ? "processing…" : "pay with UPI"
-    if (cardBtn) cardBtn.textContent = loading ? "processing…" : "pay with card"
-}
-
-function resetUpiConfirmButton() {
-    const confirmBtn = document.getElementById("upi-confirm-btn")
-    if (!confirmBtn) return
-    confirmBtn.disabled = false
-    confirmBtn.textContent = "I've sent the payment — continue"
-}
-
-function setUpiConfirmLoading(loading) {
-    const confirmBtn = document.getElementById("upi-confirm-btn")
-    if (!confirmBtn) return
-    confirmBtn.disabled = loading
-    confirmBtn.textContent = loading ? "finishing up…" : "I've sent the payment — continue"
+    const payBtn = document.getElementById("checkout-pay-btn")
+    if (!payBtn) return
+    payBtn.disabled = loading
+    payBtn.textContent = loading ? "processing…" : "pay with UPI / card"
 }
 
 function validateForm(form) {
@@ -143,13 +87,13 @@ function validateForm(form) {
     return true
 }
 
-async function createOrder(customer, items, paymentMethod) {
+async function createOrder(customer, items) {
     const res = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             customer,
-            paymentMethod,
+            paymentMethod: "razorpay",
             items: items.map((row) => ({ id: row.id, qty: row.qty }))
         })
     })
@@ -173,28 +117,6 @@ async function verifyPayment(payload) {
         throw new Error(data.error || "Payment verification failed")
     }
     return data
-}
-
-async function confirmUpiPayment(orderId, { timeoutMs = 10000 } = {}) {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), timeoutMs)
-
-    try {
-        const res = await fetch("/api/confirm-upi-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ orderId }),
-            signal: controller.signal
-        })
-
-        const data = await res.json().catch(() => ({}))
-        if (!res.ok) {
-            throw new Error(data.error || "Could not confirm UPI payment")
-        }
-        return data
-    } finally {
-        clearTimeout(timeout)
-    }
 }
 
 function openRazorpayCheckout(orderPayload) {
@@ -231,124 +153,13 @@ function openRazorpayCheckout(orderPayload) {
     })
 }
 
-function setUpiModalOpen(open) {
-    const modal = document.getElementById("upi-pay-modal")
-    if (!modal) return
-    modal.hidden = !open
-    modal.setAttribute("aria-hidden", open ? "false" : "true")
-    document.body.classList.toggle("checkout-upi-open", open)
-}
-
-function showUpiModal(orderPayload) {
-    const vpa = orderPayload.upiId || DEFAULT_UPI_VPA
-    const uri = orderPayload.upiUri || ""
-    const ref = orderRefShort(orderPayload.orderId)
-
-    const amountEl = document.getElementById("upi-modal-amount")
-    const vpaEl = document.getElementById("upi-modal-vpa")
-    const refEl = document.getElementById("upi-modal-ref")
-    const openAppEl = document.getElementById("upi-open-app")
-
-    if (amountEl) amountEl.textContent = formatInrFromPaise(orderPayload.amount)
-    if (vpaEl) vpaEl.textContent = vpa
-    if (refEl) refEl.textContent = ref
-    if (openAppEl && uri) {
-        openAppEl.href = uri
-        openAppEl.hidden = false
-    } else if (openAppEl) {
-        openAppEl.hidden = true
-    }
-
-    return new Promise((resolve, reject) => {
-        const modal = document.getElementById("upi-pay-modal")
-        const confirmBtn = document.getElementById("upi-confirm-btn")
-        const copyBtn = document.getElementById("upi-copy-btn")
-
-        if (!modal || !confirmBtn) {
-            reject(new Error("UPI payment UI missing"))
-            return
-        }
-
-        let settled = false
-
-        function cleanup() {
-            modal.querySelectorAll("[data-upi-dismiss]").forEach((el) => {
-                el.removeEventListener("click", onDismiss)
-            })
-            confirmBtn.removeEventListener("click", onConfirm)
-            if (copyBtn) copyBtn.removeEventListener("click", onCopy)
-            document.removeEventListener("keydown", onKeydown)
-        }
-
-        function finish(action) {
-            if (settled) return
-            settled = true
-            cleanup()
-            setUpiModalOpen(false)
-            if (action === "confirm") resolve(orderPayload)
-            else reject(new Error("Payment cancelled"))
-        }
-
-        function onDismiss() {
-            finish("dismiss")
-        }
-
-        async function onConfirm() {
-            setUpiConfirmLoading(true)
-
-            try {
-                await Promise.race([
-                    confirmUpiPayment(orderPayload.orderId, { timeoutMs: 8000 }),
-                    new Promise((resolve) => setTimeout(resolve, 8000))
-                ])
-            } catch (err) {
-                console.warn("[SUSI] UPI confirm:", err)
-            }
-
-            finish("confirm")
-        }
-
-        async function onCopy() {
-            try {
-                await navigator.clipboard.writeText(vpa)
-                copyBtn.textContent = "copied"
-                setTimeout(() => {
-                    copyBtn.textContent = "copy"
-                }, 1500)
-            } catch {
-                showError("Could not copy UPI ID")
-            }
-        }
-
-        function onKeydown(e) {
-            if (e.key === "Escape") onDismiss()
-        }
-
-        modal.querySelectorAll("[data-upi-dismiss]").forEach((el) => {
-            el.addEventListener("click", onDismiss)
-        })
-        confirmBtn.addEventListener("click", onConfirm)
-        if (copyBtn) copyBtn.addEventListener("click", onCopy)
-        document.addEventListener("keydown", onKeydown)
-
-        setUpiModalOpen(true)
-        resetUpiConfirmButton()
-        renderUpiQr(orderPayload).catch((err) => {
-            cleanup()
-            setUpiModalOpen(false)
-            reject(err)
-        })
-    })
-}
-
-function redirectAfterSuccess(orderId, { pendingUpi = false } = {}) {
+function redirectAfterSuccess(orderId) {
     window.SUSI_CART.clearCart()
     try {
         sessionStorage.setItem("susi:lastOrderId", orderId)
     } catch {}
 
     const params = new URLSearchParams({ order: orderId })
-    if (pendingUpi) params.set("pending", "upi")
     window.location.href = `checkout-success.html?${params.toString()}`
 }
 
@@ -362,7 +173,7 @@ function handleCheckoutError(err) {
     } else if (msg !== "Payment cancelled") {
         if (/razorpay keys rejected|authentication failed/i.test(msg)) {
             showError(
-                "Card payment is not configured yet. Check Vercel env vars RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET (same key pair from Razorpay → Test mode), then Redeploy."
+                "Payment is not configured yet. Check Vercel env vars RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET (same key pair from Razorpay → Test mode), then Redeploy."
             )
         } else {
             showError(msg)
@@ -374,10 +185,12 @@ function initCheckoutPage() {
     const form = document.getElementById("checkout-form")
     const empty = document.querySelector(".checkout-empty")
     const summaryPanel = document.querySelector(".checkout-summary-panel")
-    const upiBtn = document.getElementById("checkout-upi-btn")
-    const cardBtn = document.getElementById("checkout-card-btn")
+    const payBtn = document.getElementById("checkout-pay-btn")
 
-    if (!form || !window.SUSI_CART) return
+    if (!form || !window.SUSI_CART) {
+        runCheckoutIntro()
+        return
+    }
 
     const items = window.SUSI_CART.getItems()
 
@@ -385,6 +198,7 @@ function initCheckoutPage() {
         form.hidden = true
         if (summaryPanel) summaryPanel.hidden = true
         if (empty) empty.hidden = false
+        runCheckoutIntro()
         return
     }
 
@@ -393,7 +207,7 @@ function initCheckoutPage() {
     if (summaryPanel) summaryPanel.hidden = false
     renderSummary(items)
 
-    async function runUpiCheckout() {
+    async function runCheckout() {
         showError("")
         if (!validateForm(form)) return
 
@@ -407,31 +221,7 @@ function initCheckoutPage() {
         setPayLoading(true)
 
         try {
-            const orderPayload = await createOrder(customer, cartItems, "upi")
-            await showUpiModal(orderPayload)
-            redirectAfterSuccess(orderPayload.orderId, { pendingUpi: true })
-        } catch (err) {
-            handleCheckoutError(err)
-        } finally {
-            setPayLoading(false)
-        }
-    }
-
-    async function runCardCheckout() {
-        showError("")
-        if (!validateForm(form)) return
-
-        const customer = getFormCustomer(form)
-        const cartItems = window.SUSI_CART.getItems()
-        if (!cartItems.length) {
-            window.location.href = "cart.html"
-            return
-        }
-
-        setPayLoading(true)
-
-        try {
-            const orderPayload = await createOrder(customer, cartItems, "razorpay")
+            const orderPayload = await createOrder(customer, cartItems)
             const payment = await openRazorpayCheckout(orderPayload)
 
             await verifyPayment({
@@ -449,8 +239,93 @@ function initCheckoutPage() {
         }
     }
 
-    if (upiBtn) upiBtn.addEventListener("click", runUpiCheckout)
-    if (cardBtn) cardBtn.addEventListener("click", runCardCheckout)
+    if (payBtn) payBtn.addEventListener("click", runCheckout)
+
+    runCheckoutIntro()
+}
+
+function runCheckoutIntro() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    let shouldIntro = false
+    try {
+        shouldIntro = sessionStorage.getItem("susi:checkoutIntro") === "1"
+        if (shouldIntro) sessionStorage.removeItem("susi:checkoutIntro")
+    } catch {
+        shouldIntro = false
+    }
+
+    if (!shouldIntro || prefersReduced) {
+        document.documentElement.classList.remove("cart-intro")
+        return
+    }
+
+    const startIntro = () => {
+        if (!window.gsap) return
+
+        document.documentElement.classList.remove("cart-intro")
+
+        const isMobileHeader = window.matchMedia("(max-width: 992px)").matches
+        const tl = window.gsap.timeline({
+            defaults: { ease: "power3.out" },
+            onComplete: () => {
+                window.gsap.set(
+                    [
+                        document.querySelector(".products-home"),
+                        document.querySelector(".cart-title"),
+                        document.querySelector(".cart-title h1"),
+                        document.querySelector(".cart-sidebar-links"),
+                        document.getElementById("checkout-form"),
+                        document.querySelector(".checkout-summary-panel")
+                    ].filter(Boolean),
+                    { clearProps: "transform,opacity" }
+                )
+            }
+        })
+        const ticker = document.querySelector(".products-ticker")
+        const home = document.querySelector(".products-home")
+        const title = document.querySelector(".cart-title")
+        const titleHeading = document.querySelector(".cart-title h1")
+        const nav = document.querySelector(".cart-sidebar-links")
+        const form = document.getElementById("checkout-form")
+        const summaryPanel = document.querySelector(".checkout-summary-panel")
+        const empty = document.querySelector(".checkout-empty")
+
+        if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08)
+
+        if (isMobileHeader) {
+            const headerFade = { opacity: 0, duration: 0.45 }
+            if (home) tl.from(home, headerFade, 0.12)
+            if (titleHeading) tl.from(titleHeading, headerFade, 0.14)
+            if (nav) tl.from(nav, headerFade, 0.14)
+            if (form && !form.hidden) tl.from(form, { opacity: 0, duration: 0.5 }, 0.2)
+            if (summaryPanel && !summaryPanel.hidden) tl.from(summaryPanel, { opacity: 0, duration: 0.5 }, 0.22)
+            if (empty && !empty.hidden) tl.from(empty, { opacity: 0, duration: 0.5 }, 0.2)
+        } else {
+            if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
+            if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
+            if (nav) tl.from(nav, { x: 18, opacity: 0, duration: 0.65 }, 0.18)
+            if (form && !form.hidden) tl.from(form, { y: 26, opacity: 0, duration: 0.75 }, 0.28)
+            if (summaryPanel && !summaryPanel.hidden) tl.from(summaryPanel, { x: 18, opacity: 0, duration: 0.65 }, 0.22)
+            if (empty && !empty.hidden) tl.from(empty, { y: 20, opacity: 0, duration: 0.65 }, 0.28)
+        }
+    }
+
+    let tries = 0
+    const waitForGsap = () => {
+        if (window.gsap) {
+            startIntro()
+            return
+        }
+        tries++
+        if (tries > 60) {
+            document.documentElement.classList.remove("cart-intro")
+            return
+        }
+        requestAnimationFrame(waitForGsap)
+    }
+
+    waitForGsap()
 }
 
 if (document.readyState === "loading") {
