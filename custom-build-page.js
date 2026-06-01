@@ -24,6 +24,10 @@ const ALLOWED_EXT = [
 
 let currentStep = 1
 let selectedFiles = []
+let introPlayed = false
+
+const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 function $(sel) {
     return document.querySelector(sel)
@@ -144,6 +148,8 @@ function updateProgressUI() {
     if (submit) submit.hidden = currentStep !== TOTAL_STEPS
 
     if (currentStep === TOTAL_STEPS) renderSummary()
+
+    animateStepIn()
 }
 
 function labelCategory(v) {
@@ -374,6 +380,124 @@ function handleSubmitError(err) {
     }
 }
 
+function getStepAnimTargets(stepEl) {
+    if (!stepEl) return []
+    return [
+        ...stepEl.querySelectorAll(
+            ".custom-build-step__title, .custom-build-step__hint, .cb-field, .cb-fieldset, .cb-row-2, .cb-upload, .cb-summary, .cb-contact, .custom-build-nav"
+        )
+    ]
+}
+
+function animateStepIn() {
+    if (!window.gsap || prefersReducedMotion() || !introPlayed) return
+
+    const step = document.querySelector(`.custom-build-step[data-step="${currentStep}"]`)
+    const targets = getStepAnimTargets(step)
+    if (!targets.length) return
+
+    window.gsap.fromTo(
+        targets,
+        { y: 22, opacity: 0 },
+        {
+            y: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.05,
+            ease: "power3.out",
+            clearProps: "transform,opacity"
+        }
+    )
+}
+
+function runCustomBuildIntro() {
+    const prefersReduced = prefersReducedMotion()
+
+    let shouldIntro = false
+    try {
+        shouldIntro = sessionStorage.getItem("susi:customBuildIntro") === "1"
+        if (shouldIntro) sessionStorage.removeItem("susi:customBuildIntro")
+    } catch {
+        shouldIntro = false
+    }
+
+    if (!shouldIntro || prefersReduced) {
+        document.documentElement.classList.remove("cart-intro")
+        introPlayed = true
+        animateStepIn()
+        return
+    }
+
+    const startIntro = () => {
+        if (!window.gsap) return
+
+        document.documentElement.classList.remove("cart-intro")
+        introPlayed = true
+
+        const isMobileHeader = window.matchMedia("(max-width: 992px)").matches
+        const tl = window.gsap.timeline({
+            defaults: { ease: "power3.out" },
+            onComplete: () => {
+                window.gsap.set(
+                    [
+                        document.querySelector(".products-home"),
+                        document.querySelector(".cart-title"),
+                        document.querySelector(".cart-title h1"),
+                        document.querySelector(".cart-sidebar-links"),
+                        document.querySelector(".custom-build-progress"),
+                        document.querySelector(".custom-build-form"),
+                        document.querySelector(".custom-build-nav")
+                    ].filter(Boolean),
+                    { clearProps: "transform,opacity" }
+                )
+                animateStepIn()
+            }
+        })
+
+        const ticker = document.querySelector(".products-ticker")
+        const home = document.querySelector(".products-home")
+        const title = document.querySelector(".cart-title")
+        const titleHeading = document.querySelector(".cart-title h1")
+        const nav = document.querySelector(".cart-sidebar-links")
+        const progress = document.querySelector(".custom-build-progress")
+        const form = document.querySelector(".custom-build-form")
+
+        if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08)
+
+        if (isMobileHeader) {
+            const headerFade = { opacity: 0, duration: 0.45 }
+            if (home) tl.from(home, headerFade, 0.12)
+            if (titleHeading) tl.from(titleHeading, headerFade, 0.14)
+            if (nav) tl.from(nav, headerFade, 0.14)
+            if (progress) tl.from(progress, { opacity: 0, y: 12, duration: 0.5 }, 0.18)
+            if (form) tl.from(form, { opacity: 0, y: 20, duration: 0.65 }, 0.22)
+        } else {
+            if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
+            if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
+            if (nav) tl.from(nav, { x: 18, opacity: 0, duration: 0.65 }, 0.18)
+            if (progress) tl.from(progress, { y: 16, opacity: 0, duration: 0.6 }, 0.24)
+            if (form) tl.from(form, { y: 28, opacity: 0, duration: 0.75 }, 0.3)
+        }
+    }
+
+    let tries = 0
+    const waitForGsap = () => {
+        if (window.gsap) {
+            startIntro()
+            return
+        }
+        tries++
+        if (tries > 60) {
+            document.documentElement.classList.remove("cart-intro")
+            introPlayed = true
+            return
+        }
+        requestAnimationFrame(waitForGsap)
+    }
+
+    waitForGsap()
+}
+
 function initCustomBuildPage() {
     const form = $("#custom-build-form")
     if (!form) return
@@ -386,6 +510,12 @@ function initCustomBuildPage() {
 
     initFileUpload()
     updateProgressUI()
+    if (!introPlayed) {
+        const step = document.querySelector(".custom-build-step.is-active")
+        if (step && window.gsap && !prefersReducedMotion()) {
+            window.gsap.set(getStepAnimTargets(step), { opacity: 0 })
+        }
+    }
 
     $("#cb-next")?.addEventListener("click", () => {
         if (!validateStep(currentStep)) return
@@ -406,6 +536,8 @@ function initCustomBuildPage() {
     })
 
     form.addEventListener("submit", submitForm)
+
+    runCustomBuildIntro()
 }
 
 if (document.readyState === "loading") {

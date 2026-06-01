@@ -1,12 +1,14 @@
 /* =========================
    SUSI PAGE TRANSITIONS
-   products.html + cart.html (desktop slide / mobile Print Forge)
+   products.html, cart.html, checkout.html, custom-build.html
 ========================= */
 
 ;(function () {
     const ROUTES = [
         { page: "products.html", introKey: "susi:productsIntro" },
-        { page: "cart.html", introKey: "susi:cartIntro" }
+        { page: "cart.html", introKey: "susi:cartIntro" },
+        { page: "checkout.html", introKey: "susi:checkoutIntro" },
+        { page: "custom-build.html", introKey: "susi:customBuildIntro" }
     ]
 
     let initialized = false

@@ -4596,6 +4596,11 @@ html.cart-intro {
     background: #3A002B;
 }
 
+.cart-intro body.custom-build-page {
+    opacity: 0;
+    background: #3A002B;
+}
+
 .cart-page .cart-header {
     margin: 0;
     justify-content: center;
@@ -4990,6 +4995,10 @@ html.cart-intro {
         flex-direction: column;
         gap: 18px;
         min-width: 0;
+    }
+
+    .custom-build-page .custom-build-layout {
+        grid-template-columns: clamp(148px, 12vw, 196px) minmax(0, 1fr);
     }
 
     .cart-header {
@@ -5843,60 +5852,34 @@ body.checkout-success-page {
    CUSTOM BUILD PAGE
 ========================= */
 
-body.custom-build-page {
-    background: #e8e4df;
-    color: #1a1a1a;
-    min-height: 100svh;
+.custom-build-page .cart-header {
+    margin: 0;
+    justify-content: center;
+    width: 100%;
 }
 
-.custom-build-ticker {
-    position: sticky;
-    top: 0;
-    z-index: 20;
+.custom-build-page .cart-title {
+    width: 100%;
+    text-align: center;
 }
 
-.custom-build-header {
-    padding: 28px 24px 8px;
-    max-width: 920px;
+.custom-build-page .cart-title h1 {
+    color: #FFF3EF;
+}
+
+.custom-build-main {
+    width: 100%;
+    min-width: 0;
+}
+
+.custom-build-scroll {
+    width: 100%;
+}
+
+.custom-build-inner {
+    width: min(720px, 100%);
     margin: 0 auto;
-}
-
-.custom-build-home {
-    font-family: 'Hagrid Trial', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #3A002B;
-    text-decoration: none;
-}
-
-.custom-build-home:hover {
-    color: #FF7F00;
-}
-
-.custom-build-header__tag {
-    margin: 16px 0 0;
-    font-family: 'Hagrid Trial', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #FF7F00;
-}
-
-.custom-build-header__title {
-    margin: 4px 0 0;
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(48px, 10vw, 88px);
-    line-height: 0.92;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    color: #3A002B;
-}
-
-.custom-build-shell {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 12px 20px 64px;
+    padding-bottom: 32px;
 }
 
 .custom-build-progress {
@@ -5905,7 +5888,7 @@ body.custom-build-page {
 
 .custom-build-progress__track {
     height: 6px;
-    background: rgba(58, 0, 43, 0.12);
+    background: rgba(255, 243, 239, 0.15);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -5930,7 +5913,7 @@ body.custom-build-page {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: rgba(58, 0, 43, 0.45);
+    color: rgba(255, 243, 239, 0.45);
 }
 
 .custom-build-progress__steps .is-active {
@@ -5938,15 +5921,16 @@ body.custom-build-page {
 }
 
 .custom-build-progress__steps .is-done {
-    color: #3A002B;
+    color: #FFFD46;
 }
 
 .custom-build-form {
-    background: #fffaf7;
-    border: 4px solid #3A002B;
+    margin-top: 8px;
+    padding: clamp(22px, 4vw, 32px);
+    border: 4px solid #000000;
     border-radius: 28px;
-    padding: clamp(24px, 5vw, 36px);
-    box-shadow: 8px 8px 0 rgba(58, 0, 43, 0.15);
+    background: rgba(255, 253, 70, 0.08);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
 }
 
 .custom-build-step__title {
@@ -5954,7 +5938,7 @@ body.custom-build-page {
     font-family: 'Anton', sans-serif;
     font-size: clamp(28px, 5vw, 40px);
     text-transform: uppercase;
-    color: #3A002B;
+    color: #FFFD46;
     letter-spacing: -1px;
 }
 
@@ -5962,7 +5946,7 @@ body.custom-build-page {
     margin: -12px 0 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    color: rgba(26, 26, 26, 0.65);
+    color: rgba(255, 243, 239, 0.72);
 }
 
 .cb-label {
@@ -5973,7 +5957,7 @@ body.custom-build-page {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #1a1a1a;
+    color: rgba(255, 243, 239, 0.88);
 }
 
 .cb-label em {
@@ -5993,23 +5977,22 @@ body.custom-build-page {
 .cb-field select {
     width: 100%;
     box-sizing: border-box;
-    padding: 14px 16px;
-    border: 2px solid rgba(58, 0, 43, 0.2);
-    border-radius: 14px;
-    background: #fff;
+    padding: 12px 14px;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    background: #FFF3EF;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    color: #1a1a1a;
-    box-shadow: 0 3px 0 rgba(58, 0, 43, 0.06);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 15px;
+    font-weight: 600;
+    color: #3A002B;
+    transition: outline 0.2s ease;
 }
 
 .cb-field input:focus,
 .cb-field textarea:focus,
 .cb-field select:focus {
-    outline: none;
-    border-color: #FF7F00;
-    box-shadow: 0 0 0 3px rgba(255, 127, 0, 0.2);
+    outline: 3px solid #FFFD46;
+    outline-offset: 2px;
 }
 
 .cb-fieldset {
@@ -6032,9 +6015,9 @@ body.custom-build-page {
     gap: 8px;
     min-height: 96px;
     padding: 12px 8px;
-    border: 2px solid rgba(58, 0, 43, 0.18);
+    border: 3px solid #000000;
     border-radius: 16px;
-    background: #fff;
+    background: rgba(255, 243, 239, 0.12);
     cursor: pointer;
     transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
@@ -6051,7 +6034,7 @@ body.custom-build-page {
     background: #FF7F00;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 4px 4px 0 #3A002B;
+    box-shadow: 4px 4px 0 #000000;
 }
 
 .cb-card.is-selected .cb-card__name,
@@ -6069,7 +6052,7 @@ body.custom-build-page {
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #3A002B;
+    color: #FFF3EF;
 }
 
 .cb-dims {
@@ -6079,11 +6062,19 @@ body.custom-build-page {
 }
 
 .cb-dims input {
-    padding: 14px 12px;
-    border: 2px solid rgba(58, 0, 43, 0.2);
-    border-radius: 14px;
+    padding: 12px 10px;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    background: #FFF3EF;
     font-size: 15px;
+    font-weight: 600;
+    color: #3A002B;
     text-align: center;
+}
+
+.cb-dims input:focus {
+    outline: 3px solid #FFFD46;
+    outline-offset: 2px;
 }
 
 .cb-materials {
@@ -6098,9 +6089,9 @@ body.custom-build-page {
     align-items: flex-start;
     gap: 4px;
     padding: 14px 12px;
-    border: 2px solid rgba(58, 0, 43, 0.18);
+    border: 3px solid #000000;
     border-radius: 16px;
-    background: #fff;
+    background: rgba(255, 243, 239, 0.1);
     cursor: pointer;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -6127,7 +6118,7 @@ body.custom-build-page {
 .cb-material__meta {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
-    color: rgba(26, 26, 26, 0.6);
+    color: rgba(255, 243, 239, 0.62);
 }
 
 .cb-colors {
@@ -6177,9 +6168,10 @@ body.custom-build-page {
     display: inline-flex;
     align-items: center;
     padding: 10px 14px;
-    border: 2px solid rgba(58, 0, 43, 0.18);
+    border: 3px solid #000000;
     border-radius: 999px;
-    background: #fff;
+    background: rgba(255, 243, 239, 0.1);
+    color: #FFF3EF;
     font-family: 'Hagrid Trial', sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -6195,8 +6187,8 @@ body.custom-build-page {
 .cb-pill.is-selected,
 .cb-pill:has(input:checked) {
     border-color: #FF7F00;
-    background: rgba(255, 127, 0, 0.12);
-    color: #3A002B;
+    background: rgba(255, 127, 0, 0.35);
+    color: #FFFD46;
 }
 
 .cb-urgency {
@@ -6210,9 +6202,9 @@ body.custom-build-page {
     align-items: center;
     gap: 12px;
     padding: 16px 18px;
-    border: 2px solid rgba(58, 0, 43, 0.18);
+    border: 3px solid #000000;
     border-radius: 16px;
-    background: #fff;
+    background: rgba(255, 243, 239, 0.08);
     cursor: pointer;
 }
 
@@ -6237,14 +6229,15 @@ body.custom-build-page {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
+    color: #FFF3EF;
 }
 
 .cb-upload {
-    border: 2px dashed rgba(58, 0, 43, 0.28);
+    border: 3px dashed rgba(255, 243, 239, 0.35);
     border-radius: 20px;
     padding: 40px 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.15);
     cursor: pointer;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -6272,7 +6265,7 @@ body.custom-build-page {
     margin: 12px 0 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    color: rgba(26, 26, 26, 0.7);
+    color: rgba(255, 243, 239, 0.75);
 }
 
 .cb-upload__browse {
@@ -6306,9 +6299,11 @@ body.custom-build-page {
     padding: 10px 14px;
     margin-top: 8px;
     border-radius: 12px;
-    background: rgba(58, 0, 43, 0.06);
+    border: 2px solid #000;
+    background: rgba(255, 253, 70, 0.1);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
+    color: #FFF3EF;
 }
 
 .cb-file-list__item button {
@@ -6317,7 +6312,7 @@ body.custom-build-page {
     font-size: 22px;
     line-height: 1;
     cursor: pointer;
-    color: #3A002B;
+    color: #FFFD46;
 }
 
 .cb-summary {
@@ -6325,7 +6320,7 @@ body.custom-build-page {
     border-radius: 18px;
     padding: 20px 18px;
     margin-bottom: 24px;
-    background: #fff;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .cb-summary__head {
@@ -6354,7 +6349,7 @@ body.custom-build-page {
     font-family: 'Hagrid Trial', sans-serif;
     font-size: 11px;
     text-transform: uppercase;
-    color: rgba(26, 26, 26, 0.55);
+    color: rgba(255, 243, 239, 0.55);
 }
 
 .cb-summary__grid dd {
@@ -6362,7 +6357,7 @@ body.custom-build-page {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #FFF3EF;
 }
 
 .cb-summary__full {
@@ -6375,10 +6370,11 @@ body.custom-build-page {
 
 .custom-build-form__error {
     margin: 16px 0 0;
-    padding: 12px 14px;
-    border-radius: 12px;
-    background: rgba(229, 57, 53, 0.12);
-    color: #b71c1c;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 3px solid #000;
+    background: rgba(247, 165, 211, 0.25);
+    color: #FFF3EF;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
@@ -6399,7 +6395,7 @@ body.custom-build-page {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #3A002B;
+    color: #FFF3EF;
     cursor: pointer;
 }
 
@@ -6412,7 +6408,7 @@ body.custom-build-page {
     margin-left: auto;
     min-width: 160px;
     padding: 16px 28px;
-    border: 4px solid #3A002B;
+    border: 4px solid #000000;
     border-radius: 999px;
     background: #FF7F00;
     color: #fff;
@@ -6421,7 +6417,7 @@ body.custom-build-page {
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 4px 4px 0 #3A002B;
+    box-shadow: 4px 4px 0 #000000;
     transition: transform 0.15s ease, background 0.15s ease;
 }
 
@@ -6439,6 +6435,49 @@ body.custom-build-page {
 
 body.custom-build-success-page .checkout-success__meta strong {
     color: #FFFD46;
+}
+
+@media (max-width: 992px) {
+    .cart-page.custom-build-page .cart-layout {
+        grid-template-areas:
+            "logo title nav"
+            "content content content";
+        grid-template-rows: var(--cart-mobile-top-h, clamp(68px, 18vw, 80px)) auto;
+    }
+
+    .cart-page.custom-build-page .products-sidebar,
+    .cart-page.custom-build-page .products-sidebar__stick,
+    .cart-page.custom-build-page .custom-build-main,
+    .cart-page.custom-build-page .cart-header {
+        display: contents;
+    }
+
+    .cart-page.custom-build-page .products-home {
+        grid-area: logo;
+        grid-column: logo;
+    }
+
+    .cart-page.custom-build-page .cart-title {
+        grid-area: title;
+        grid-column: title;
+    }
+
+    .cart-page.custom-build-page .cart-sidebar-links {
+        grid-area: nav;
+        grid-column: nav;
+    }
+
+    .cart-page.custom-build-page .custom-build-scroll {
+        grid-area: content;
+        grid-column: 1 / -1;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .cart-page.custom-build-page .cart-title h1 {
+        font-size: clamp(28px, 8.5vw, 44px) !important;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width: 640px) {
