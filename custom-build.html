@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Build | SUSI LABS</title>
+    <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=185">
+</head>
+
+<body class="custom-build-page">
+    <div class="print-marquee print-marquee--hero custom-build-ticker" aria-hidden="true">
+        <div class="print-marquee-track">
+            <div class="print-marquee-content">
+                <span class="print-marquee-item">CUSTOM BUILD</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SEND STL</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">PICK MATERIAL</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">WE QUOTE</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+            </div>
+            <div class="print-marquee-content" aria-hidden="true">
+                <span class="print-marquee-item">CUSTOM BUILD</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SEND STL</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">PICK MATERIAL</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">WE QUOTE</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">PRINT IT</span><span class="print-marquee-dot"></span>
+                <span class="print-marquee-item">SHIP IT</span><span class="print-marquee-dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <header class="custom-build-header">
+        <a class="custom-build-home" href="index.html">← home</a>
+        <p class="custom-build-header__tag">made to order</p>
+        <h1 class="custom-build-header__title">custom build</h1>
+    </header>
+
+    <main class="custom-build-shell">
+        <div class="custom-build-progress" aria-label="Form progress">
+            <div class="custom-build-progress__track">
+                <span class="custom-build-progress__fill" data-progress-fill></span>
+            </div>
+            <ol class="custom-build-progress__steps">
+                <li class="is-active" data-step-label="1">project</li>
+                <li data-step-label="2">specs</li>
+                <li data-step-label="3">files</li>
+                <li data-step-label="4">review</li>
+            </ol>
+        </div>
+
+        <form class="custom-build-form" id="custom-build-form" novalidate>
+            <!-- STEP 1 -->
+            <section class="custom-build-step is-active" data-step="1" aria-labelledby="cb-step-1-title">
+                <h2 class="custom-build-step__title" id="cb-step-1-title">project details</h2>
+
+                <label class="cb-field">
+                    <span class="cb-label">project name *</span>
+                    <input type="text" name="projectName" required placeholder="e.g. Custom phone stand" autocomplete="off">
+                </label>
+
+                <label class="cb-field">
+                    <span class="cb-label">description</span>
+                    <textarea name="description" rows="4" placeholder="Tell us about your project, tolerances, assembly, etc."></textarea>
+                </label>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">category *</legend>
+                    <div class="cb-cards" role="radiogroup" aria-label="Category">
+                        <label class="cb-card is-selected">
+                            <input type="radio" name="category" value="prototype" checked>
+                            <span class="cb-card__icon" aria-hidden="true">⚡</span>
+                            <span class="cb-card__name">prototype</span>
+                        </label>
+                        <label class="cb-card">
+                            <input type="radio" name="category" value="figurine">
+                            <span class="cb-card__icon" aria-hidden="true">🏅</span>
+                            <span class="cb-card__name">figurine</span>
+                        </label>
+                        <label class="cb-card">
+                            <input type="radio" name="category" value="product">
+                            <span class="cb-card__icon" aria-hidden="true">📦</span>
+                            <span class="cb-card__name">product</span>
+                        </label>
+                        <label class="cb-card">
+                            <input type="radio" name="category" value="custom">
+                            <span class="cb-card__icon" aria-hidden="true">★</span>
+                            <span class="cb-card__name">custom</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">dimensions in mm (length × width × height) — optional</legend>
+                    <div class="cb-dims">
+                        <input type="text" name="dimLength" inputmode="decimal" placeholder="length" aria-label="Length mm">
+                        <input type="text" name="dimWidth" inputmode="decimal" placeholder="width" aria-label="Width mm">
+                        <input type="text" name="dimHeight" inputmode="decimal" placeholder="height" aria-label="Height mm">
+                    </div>
+                </fieldset>
+
+                <label class="cb-field">
+                    <span class="cb-label">reference link <em>(optional)</em></span>
+                    <input type="url" name="referenceLink" placeholder="Drive, Pinterest, Thingiverse…">
+                </label>
+
+                <label class="cb-field">
+                    <span class="cb-label">application / intended use</span>
+                    <input type="text" name="application" placeholder="e.g. Desk display, functional bracket, cosplay prop">
+                </label>
+            </section>
+
+            <!-- STEP 2 -->
+            <section class="custom-build-step" data-step="2" hidden aria-labelledby="cb-step-2-title">
+                <h2 class="custom-build-step__title" id="cb-step-2-title">specifications</h2>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">material *</legend>
+                    <div class="cb-materials" role="radiogroup">
+                        <label class="cb-material is-selected">
+                            <input type="radio" name="material" value="PLA" checked>
+                            <span class="cb-material__name">PLA</span>
+                            <span class="cb-material__meta">standard, eco-friendly</span>
+                        </label>
+                        <label class="cb-material">
+                            <input type="radio" name="material" value="TPU">
+                            <span class="cb-material__name">TPU</span>
+                            <span class="cb-material__meta">flexible, durable</span>
+                        </label>
+                        <label class="cb-material">
+                            <input type="radio" name="material" value="ABS">
+                            <span class="cb-material__name">ABS</span>
+                            <span class="cb-material__meta">strong, heat-resistant</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">color *</legend>
+                    <div class="cb-colors" role="radiogroup" aria-label="Color">
+                        <label class="cb-color is-selected" title="Black">
+                            <input type="radio" name="color" value="black" checked>
+                            <span style="background:#111"></span>
+                        </label>
+                        <label class="cb-color" title="White"><input type="radio" name="color" value="white"><span style="background:#f5f5f5;border:1px solid #ccc"></span></label>
+                        <label class="cb-color" title="Grey"><input type="radio" name="color" value="grey"><span style="background:#888"></span></label>
+                        <label class="cb-color" title="Red"><input type="radio" name="color" value="red"><span style="background:#e53935"></span></label>
+                        <label class="cb-color" title="Orange"><input type="radio" name="color" value="orange"><span style="background:#FF7F00"></span></label>
+                        <label class="cb-color" title="Green"><input type="radio" name="color" value="green"><span style="background:#43a047"></span></label>
+                        <label class="cb-color" title="Cream"><input type="radio" name="color" value="cream"><span style="background:#f5e6c8"></span></label>
+                        <label class="cb-color" title="Gold"><input type="radio" name="color" value="gold"><span style="background:#d4af37"></span></label>
+                        <label class="cb-color" title="Navy"><input type="radio" name="color" value="navy"><span style="background:#1a237e"></span></label>
+                        <label class="cb-color" title="Brown"><input type="radio" name="color" value="brown"><span style="background:#6d4c41"></span></label>
+                    </div>
+                </fieldset>
+
+                <div class="cb-row-2">
+                    <label class="cb-field">
+                        <span class="cb-label">quantity *</span>
+                        <input type="number" name="quantity" min="1" max="999" value="1" required>
+                    </label>
+                    <label class="cb-field">
+                        <span class="cb-label">budget range <em>(optional)</em></span>
+                        <select name="budgetRange">
+                            <option value="">not sure yet</option>
+                            <option value="under-500">under ₹500</option>
+                            <option value="500-2000">₹500 – ₹2,000</option>
+                            <option value="2000-5000">₹2,000 – ₹5,000</option>
+                            <option value="5000-plus">₹5,000+</option>
+                        </select>
+                    </label>
+                </div>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">infill / strength</legend>
+                    <div class="cb-pills" role="radiogroup">
+                        <label class="cb-pill"><input type="radio" name="infill" value="light"> light (15–20%)</label>
+                        <label class="cb-pill is-selected"><input type="radio" name="infill" value="standard" checked> standard (30%)</label>
+                        <label class="cb-pill"><input type="radio" name="infill" value="strong"> strong (50%+)</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">surface finish</legend>
+                    <div class="cb-pills" role="radiogroup">
+                        <label class="cb-pill is-selected"><input type="radio" name="finish" value="raw" checked> raw print</label>
+                        <label class="cb-pill"><input type="radio" name="finish" value="sanded"> sanded</label>
+                        <label class="cb-pill"><input type="radio" name="finish" value="painted"> painted</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cb-fieldset">
+                    <legend class="cb-label">urgency</legend>
+                    <div class="cb-urgency">
+                        <label class="cb-urgency__opt is-selected">
+                            <input type="radio" name="urgency" value="standard" checked>
+                            <span class="cb-urgency__title">standard (5–7 days)</span>
+                        </label>
+                        <label class="cb-urgency__opt">
+                            <input type="radio" name="urgency" value="express">
+                            <span class="cb-urgency__title">express (2–3 days)</span>
+                        </label>
+                        <label class="cb-urgency__opt">
+                            <input type="radio" name="urgency" value="rush">
+                            <span class="cb-urgency__title">rush (24 hours)</span>
+                        </label>
+                    </div>
+                </fieldset>
+            </section>
+
+            <!-- STEP 3 -->
+            <section class="custom-build-step" data-step="3" hidden aria-labelledby="cb-step-3-title">
+                <h2 class="custom-build-step__title" id="cb-step-3-title">upload files</h2>
+                <p class="custom-build-step__hint">STL, OBJ, 3MF, STEP, images, PDF, ZIP — up to 5 files, 4 MB each.</p>
+
+                <div class="cb-upload" id="cb-upload-zone">
+                    <input type="file" id="cb-file-input" class="cb-upload__input" multiple accept=".stl,.obj,.3mf,.step,.stp,.png,.jpg,.jpeg,.pdf,.zip,.rar,.gif,.webp">
+                    <p class="cb-upload__icon" aria-hidden="true">↑</p>
+                    <p class="cb-upload__text">drag & drop or <button type="button" class="cb-upload__browse" id="cb-upload-browse">browse files</button></p>
+                </div>
+                <ul class="cb-file-list" id="cb-file-list" hidden></ul>
+            </section>
+
+            <!-- STEP 4 -->
+            <section class="custom-build-step" data-step="4" hidden aria-labelledby="cb-step-4-title">
+                <h2 class="custom-build-step__title" id="cb-step-4-title">review & submit</h2>
+
+                <div class="cb-summary" id="cb-summary" aria-live="polite"></div>
+
+                <div class="cb-contact">
+                    <label class="cb-field">
+                        <span class="cb-label">your name *</span>
+                        <input type="text" name="contactName" required autocomplete="name">
+                    </label>
+                    <div class="cb-row-2">
+                        <label class="cb-field">
+                            <span class="cb-label">email *</span>
+                            <input type="email" name="email" required placeholder="your@email.com" autocomplete="email">
+                        </label>
+                        <label class="cb-field">
+                            <span class="cb-label">phone *</span>
+                            <input type="tel" name="phone" required placeholder="+91 …" autocomplete="tel">
+                        </label>
+                    </div>
+                    <label class="cb-field">
+                        <span class="cb-label">preferred contact</span>
+                        <select name="contactMethod">
+                            <option value="email">email</option>
+                            <option value="phone">phone call</option>
+                            <option value="whatsapp">whatsapp</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <p class="custom-build-form__error" id="custom-build-error" hidden role="alert"></p>
+
+            <div class="custom-build-nav">
+                <button type="button" class="custom-build-nav__prev" id="cb-prev" hidden>previous</button>
+                <button type="button" class="custom-build-nav__next" id="cb-next">next step</button>
+                <button type="submit" class="custom-build-nav__submit" id="cb-submit" hidden>send request</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="custom-build-page.js?v=1"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request sent | SUSI LABS</title>
+    <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=185">
+</head>
+
+<body class="checkout-success-page custom-build-success-page">
+    <main class="checkout-success-shell">
+        <section class="checkout-success" aria-live="polite">
+            <p class="checkout-success__tag">request received</p>
+            <h1 class="checkout-success__title">You're in the queue.</h1>
+            <p class="checkout-success__meta">
+                Our team will contact you with your full project breakdown, pricing, and next steps.
+                We reply within <strong>24 hours</strong>.
+            </p>
+            <p class="checkout-success__ref">
+                <span class="checkout-success__ref-label">Request ref:</span>
+                <span id="request-ref" class="checkout-code">—</span>
+            </p>
+            <div class="checkout-success__actions">
+                <a class="cart-empty__btn" href="custom-build.html">submit another build</a>
+                <a class="cart-summary__shop" href="index.html">home</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        try {
+            let id = new URLSearchParams(window.location.search).get("ref") || ""
+            if (!id) {
+                id = sessionStorage.getItem("susi:customBuildRequestId") || ""
+                sessionStorage.removeItem("susi:customBuildRequestId")
+            }
+            const el = document.getElementById("request-ref")
+            if (el && id) {
+                el.textContent = id.replace(/-/g, "").slice(0, 8).toUpperCase()
+            }
+        } catch {}
+    </script>
+</body>
+
+</html>
