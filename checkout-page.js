@@ -2,7 +2,7 @@
    CHECKOUT PAGE
 ========================= */
 
-const CHECKOUT_LOGO_URL = new URL("SUSI.jpg.jpeg", window.location.origin).href
+const CHECKOUT_LOGO_URL = new URL("images/susi-labs-logo.png", window.location.origin).href
 
 function escapeHtml(str) {
     return String(str ?? "")
