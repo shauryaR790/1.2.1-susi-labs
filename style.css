@@ -2779,6 +2779,7 @@ margin-bottom: 18px;
 .loader-logo {
 display: flex;
 flex-direction: column;
+align-items: center;
 line-height: 0.82;
 margin-bottom: 36px;
 }
@@ -2787,6 +2788,8 @@ margin-bottom: 36px;
 font-family: 'Anton', sans-serif;
 font-weight: 400;
 text-transform: uppercase;
+display: block;
+text-align: center;
 }
 
 .loader-word--a {
@@ -2798,7 +2801,6 @@ color: #000000;
 .loader-word--b {
 font-size: clamp(80px, 20vw, 140px);
 letter-spacing: -0.06em;
-margin-left: -0.04em;
 color: #FF7F00;
 }
 
