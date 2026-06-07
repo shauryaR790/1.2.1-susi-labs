@@ -132,7 +132,76 @@ function renderProducts(products, grid, activeCategory = "all") {
     grid.innerHTML = filtered.map(buildProductCard).join("")
     grid.setAttribute("aria-busy", "false")
     attachProductImageFallback(grid)
+    normalizeProductCardImages(grid)
     return filtered
+}
+
+function median(values) {
+    if (!values.length) return 0
+    const sorted = [...values].sort((a, b) => a - b)
+    const mid = Math.floor(sorted.length / 2)
+    return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid]
+}
+
+function normalizeProductCardImages(grid) {
+    if (!grid) return
+
+    const images = [...grid.querySelectorAll(".product-card__img")]
+    if (!images.length) return
+
+    const applyScales = () => {
+        if (images.length === 1) {
+            images[0].style.transform = "translate(-50%, -50%)"
+            return
+        }
+
+        const heights = images
+            .map((img) => img.getBoundingClientRect().height)
+            .filter((h) => h > 2)
+
+        if (heights.length < 2) return
+
+        const targetHeight = median(heights)
+
+        images.forEach((img) => {
+            const height = img.getBoundingClientRect().height
+            if (height <= 0) {
+                img.style.transform = "translate(-50%, -50%)"
+                return
+            }
+
+            const scale = Math.min(Math.max(targetHeight / height, 0.55), 1.4)
+            img.style.transform = `translate(-50%, -50%) scale(${scale})`
+        })
+    }
+
+    Promise.all(
+        images.map((img) => {
+            if (img.complete && img.naturalWidth > 0) return Promise.resolve()
+            return new Promise((resolve) => {
+                img.addEventListener("load", resolve, { once: true })
+                img.addEventListener("error", resolve, { once: true })
+            })
+        })
+    ).then(applyScales)
+}
+
+function initProductImageNormalize(grid) {
+    if (!grid || grid.dataset.normalizeBound === "1") return
+    grid.dataset.normalizeBound = "1"
+
+    let resizeTimer
+    const schedule = () => {
+        window.clearTimeout(resizeTimer)
+        resizeTimer = window.setTimeout(() => normalizeProductCardImages(grid), 120)
+    }
+
+    if (typeof ResizeObserver !== "undefined") {
+        const observer = new ResizeObserver(schedule)
+        observer.observe(grid)
+    }
+
+    window.addEventListener("resize", schedule, { passive: true })
 }
 
 let productsCatalog = []
@@ -299,6 +368,7 @@ async function initProductsCatalog() {
         const rendered = renderProducts(products, grid, "all")
         initAddToCart(grid)
         initProductNavigation(grid)
+        initProductImageNormalize(grid)
         initProductFilters(products, grid)
         window.SUSI_CART?.refresh()
 

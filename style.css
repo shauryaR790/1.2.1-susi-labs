@@ -3408,9 +3408,10 @@ html.products-intro {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 72%;
-    height: 72%;
+    width: 90%;
+    height: 90%;
     transform: translate(-50%, -50%);
+    transform-origin: center center;
     object-fit: contain;
     object-position: center center;
     display: block;
@@ -4886,9 +4887,10 @@ body.is-order-transitioning {
     .product-card__img {
         top: 50%;
         left: 50%;
-        width: 72%;
-        height: 72%;
+        width: 90%;
+        height: 90%;
         transform: translate(-50%, -50%);
+        transform-origin: center center;
         object-fit: contain;
     }
 
