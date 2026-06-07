@@ -2820,6 +2820,21 @@ transform: none !important;
 margin: 0.02em 0 0 -6px !important;
 }
 
+@media (max-width: 600px) {
+#site-loader .loader-logo-stack {
+align-items: center;
+}
+
+#site-loader .loader-word--a {
+margin-left: 0 !important;
+}
+
+#site-loader .loader-word--b {
+margin-top: 0.02em !important;
+margin-left: 0 !important;
+}
+}
+
 .loader-track {
 width: 100%;
 height: 6px;
@@ -3160,15 +3175,6 @@ to {
     --loader-susi-size: clamp(56px, 15vw, 96px);
     --loader-labs-size: clamp(62px, 16vw, 104px);
     margin: 0 auto 24px;
-}
-
-#site-loader .loader-word--a {
-    margin-left: 5px !important;
-}
-
-#site-loader .loader-word--b {
-    margin-top: 0.015em !important;
-    margin-left: -5px !important;
 }
 }
 
