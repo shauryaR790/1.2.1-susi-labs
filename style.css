@@ -2788,7 +2788,7 @@ text-align: center;
 .loader-logo-stack {
 display: inline-flex;
 flex-direction: column;
-align-items: center;
+align-items: flex-start;
 line-height: 0.82;
 }
 
