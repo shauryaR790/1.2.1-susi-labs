@@ -2786,9 +2786,10 @@ text-align: center;
 }
 
 .loader-logo-stack {
-display: inline-grid;
-justify-items: center;
-text-align: center;
+display: inline-flex;
+flex-direction: column;
+align-items: flex-start;
+line-height: 0.82;
 }
 
 .loader-word {
@@ -2797,7 +2798,6 @@ font-weight: 400;
 text-transform: uppercase;
 letter-spacing: -0.045em;
 white-space: nowrap;
-grid-column: 1;
 }
 
 .loader-word--a {
@@ -2808,6 +2808,18 @@ color: #000000;
 .loader-word--b {
 font-size: var(--loader-labs-size);
 color: #FF7F00;
+margin-top: 0.06em;
+}
+
+/* hard nudge — SUSI sits centered over LABS (overrides old cached JS inline styles) */
+#site-loader .loader-word--a {
+margin-left: -16px !important;
+margin-right: 0 !important;
+transform: none !important;
+}
+
+#site-loader .loader-word--b {
+margin-left: -6px !important;
 }
 
 .loader-track {
@@ -3150,6 +3162,10 @@ to {
     --loader-susi-size: clamp(56px, 15vw, 96px);
     --loader-labs-size: clamp(62px, 16vw, 104px);
     margin: 0 auto 24px;
+}
+
+#site-loader .loader-word--a {
+    margin-left: -10px !important;
 }
 }
 
