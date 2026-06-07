@@ -58,6 +58,21 @@ function renderCartItem(item) {
     `.trim()
 }
 
+function renderCartShopMoreCard() {
+    return `
+        <article class="cart-shop-more" aria-label="Keep shopping">
+            <div class="cart-shop-more__visual" aria-hidden="true">
+                <span class="cart-shop-more__icon">+</span>
+            </div>
+            <div class="cart-shop-more__body">
+                <p class="cart-shop-more__title">want more?</p>
+                <p class="cart-shop-more__meta">browse the catalog and hit add to cart on anything you want printed.</p>
+                <a class="cart-shop-more__btn" href="products.html">browse products</a>
+            </div>
+        </article>
+    `.trim()
+}
+
 function renderSummaryLine(item) {
     const name = escapeHtml(item.name || "Untitled")
     const price = escapeHtml(item.price || "—")
@@ -95,7 +110,7 @@ function renderCartPage() {
     if (empty) empty.hidden = true
     if (summaryPanel) summaryPanel.hidden = false
     list.hidden = false
-    list.innerHTML = items.map(renderCartItem).join("")
+    list.innerHTML = items.map(renderCartItem).join("") + renderCartShopMoreCard()
 
     const itemsEl = document.querySelector("[data-cart-summary-items]")
     const countEl = document.querySelector("[data-cart-summary-count]")
@@ -213,8 +228,10 @@ function runCartIntro() {
         }
 
         const items = document.querySelectorAll(".cart-item")
+        const shopMore = document.querySelector(".cart-shop-more")
         if (items.length) {
             tl.from(items, { y: 26, opacity: 0, duration: 0.75, stagger: 0.08 }, 0.28)
+            if (shopMore) tl.from(shopMore, { y: 26, opacity: 0, duration: 0.75 }, 0.36)
         } else if (empty && !empty.hidden) {
             tl.from(empty, { y: 20, opacity: 0, duration: 0.65 }, 0.28)
         }
