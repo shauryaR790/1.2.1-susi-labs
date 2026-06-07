@@ -3678,6 +3678,10 @@ html.products-intro {
     position: relative;
 }
 
+.product-page .products-layout {
+    margin-top: 40px;
+}
+
 .product-page .product-main__cart {
     position: absolute;
     top: 0;
