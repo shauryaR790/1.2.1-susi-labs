@@ -70,11 +70,7 @@ function resolveGalleryImages(product, galleryRows) {
 }
 
 function buildGalleryMarkup(images, productName) {
-    const safeName = escapeHtml(productName || "Product")
     const hasMultiple = images.length > 1
-
-    const mainUrl = escapeAttr(images[0])
-    const mainAlt = escapeAttr(`${productName || "Product"} — image 1`)
 
     const navMarkup = hasMultiple
         ? `
@@ -109,18 +105,20 @@ function buildGalleryMarkup(images, productName) {
         `
         : ""
 
+    const slidesMarkup = images
+        .map((url, index) => {
+            const slideUrl = escapeAttr(url)
+            const slideAlt = escapeAttr(`${productName || "Product"} — image ${index + 1}`)
+            const active = index === 0 ? " is-active" : ""
+            return `<img class="product-detail__img product-gallery__slide${active}" src="${slideUrl}" alt="${slideAlt}" data-gallery-slide="${index}" decoding="async" referrerpolicy="no-referrer">`
+        })
+        .join("")
+
     return `
         <div class="product-detail__gallery" data-product-gallery data-gallery-count="${images.length}" tabindex="0">
             <div class="product-detail__media product-detail__media--carousel">
                 <div class="product-gallery__stage" data-gallery-stage>
-                    <img
-                        class="product-detail__img product-gallery__main"
-                        src="${mainUrl}"
-                        alt="${mainAlt}"
-                        data-gallery-main
-                        decoding="async"
-                        referrerpolicy="no-referrer"
-                    >
+                    ${slidesMarkup}
                 </div>
                 ${navMarkup}
             </div>
@@ -184,9 +182,15 @@ function renderProduct(product, root, galleryRows) {
 }
 
 function bindProductImageFallback(root) {
-    root.querySelectorAll(".product-detail__img, .product-gallery__thumb img").forEach((img) => {
+    root.querySelectorAll(".product-detail__img, .product-gallery__thumb img, .product-gallery__slide").forEach((img) => {
         img.addEventListener("error", () => {
-            if (img.classList.contains("product-gallery__main")) {
+            if (img.classList.contains("product-gallery__slide")) {
+                img.classList.remove("is-active")
+                img.style.visibility = "hidden"
+                return
+            }
+
+            if (img.classList.contains("product-gallery__main") || img.closest(".product-detail__media:not(.product-detail__media--carousel)")) {
                 const media = img.closest(".product-detail__media")
                 img.remove()
                 media?.classList.add("product-detail__media--fallback")
@@ -206,7 +210,7 @@ function bindProductGallery(root, images, productName) {
     const gallery = root.querySelector("[data-product-gallery]")
     if (!gallery || images.length < 2) return
 
-    const mainImg = gallery.querySelector("[data-gallery-main]")
+    const slides = [...gallery.querySelectorAll("[data-gallery-slide]")]
     const prevBtn = gallery.querySelector("[data-gallery-prev]")
     const nextBtn = gallery.querySelector("[data-gallery-next]")
     const thumbs = [...gallery.querySelectorAll("[data-gallery-thumb]")]
@@ -216,12 +220,10 @@ function bindProductGallery(root, images, productName) {
 
     function setSlide(nextIndex) {
         index = (nextIndex + images.length) % images.length
-        const url = images[index]
 
-        if (mainImg) {
-            mainImg.src = url
-            mainImg.alt = `${productName} — image ${index + 1}`
-        }
+        slides.forEach((slide, i) => {
+            slide.classList.toggle("is-active", i === index)
+        })
 
         thumbs.forEach((btn, i) => {
             const active = i === index
