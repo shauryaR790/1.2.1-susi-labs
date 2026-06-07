@@ -2789,6 +2789,8 @@ max-width: 100%;
 
 .loader-logo-line {
 display: block;
+width: 100%;
+text-align: center;
 }
 
 .loader-word {
@@ -2797,7 +2799,8 @@ font-weight: 400;
 text-transform: uppercase;
 letter-spacing: -0.045em;
 white-space: nowrap;
-display: block;
+display: inline-block;
+vertical-align: top;
 }
 
 .loader-word--a {

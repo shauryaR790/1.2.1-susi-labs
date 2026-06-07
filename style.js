@@ -186,9 +186,28 @@ function alignLoaderLogo(scope) {
     const labs = scope.querySelector(".loader-word--b")
     if (!susi || !labs) return
 
-    susi.style.transform = ""
-    const offset = (labs.getBoundingClientRect().width - susi.getBoundingClientRect().width) / 2
-    susi.style.transform = `translateX(${offset}px)`
+    susi.style.marginLeft = "0px"
+
+    const susiRect = susi.getBoundingClientRect()
+    const labsRect = labs.getBoundingClientRect()
+    const susiCenter = susiRect.left + susiRect.width / 2
+    const labsCenter = labsRect.left + labsRect.width / 2
+    const delta = labsCenter - susiCenter
+
+    if (Math.abs(delta) > 0.5) {
+        susi.style.marginLeft = `${delta}px`
+    }
+}
+
+function scheduleLoaderLogoAlign(scope) {
+    alignLoaderLogo(scope)
+    requestAnimationFrame(() => {
+        alignLoaderLogo(scope)
+        requestAnimationFrame(() => alignLoaderLogo(scope))
+    })
+    if (document.fonts?.ready) {
+        document.fonts.ready.then(() => scheduleLoaderLogoAlign(scope))
+    }
 }
 
 function initSiteLoader(onComplete) {
@@ -215,10 +234,7 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    alignLoaderLogo(scope)
-    if (document.fonts?.ready) {
-        document.fonts.ready.then(() => alignLoaderLogo(scope))
-    }
+    scheduleLoaderLogoAlign(scope)
 
     const minDuration = prefersReducedMotion ? 1.1 : 2.85
     const progressDuration = prefersReducedMotion ? 0.9 : 2.8
@@ -237,6 +253,7 @@ function initSiteLoader(onComplete) {
         .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.3")
         .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.35")
         .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
+        .call(() => scheduleLoaderLogoAlign(scope))
 
     if (!prefersReducedMotion) {
         initLoaderSquad(scope)
