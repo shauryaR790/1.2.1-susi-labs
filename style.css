@@ -3074,76 +3074,97 @@ to {
 }
 
 @media (max-width: 600px) {
-/* outer ring — hug corners, smaller */
+/* mobile — two vertical columns, left + right edges */
+.loader-mon {
+    width: clamp(34px, 9vw, 46px);
+    transform: none;
+    animation-name: loader-mon-bob;
+}
+
 .loader-mon--tl {
-    top: 4%;
+    top: 6%;
     left: 4px;
-    width: clamp(38px, 10vw, 50px);
+    right: auto;
+    bottom: auto;
 }
 
 .loader-mon--tr {
-    top: 5%;
+    top: 6%;
     right: 4px;
-    width: clamp(40px, 10.5vw, 52px);
+    left: auto;
+    bottom: auto;
 }
 
-.loader-mon--bl {
-    bottom: clamp(68px, 10vh, 88px);
-    left: 4px;
-    width: clamp(36px, 9.5vw, 48px);
-}
-
-.loader-mon--br {
-    bottom: clamp(66px, 10vh, 86px);
-    right: 4px;
-    width: clamp(42px, 11vw, 54px);
-}
-
-/* side mons off on narrow screens — frees mid space */
-.loader-mon--l,
-.loader-mon--r {
-    display: none;
-}
-
-/* inner top row — lower + inward, clear of corner mons */
 .loader-mon--in1 {
-    top: 17%;
-    left: 28%;
-    width: clamp(34px, 9vw, 46px);
+    top: 20%;
+    left: 4px;
+    right: auto;
+    bottom: auto;
 }
 
 .loader-mon--in2 {
-    top: 17%;
-    right: 28%;
-    width: clamp(34px, 9vw, 46px);
+    top: 20%;
+    right: 4px;
+    left: auto;
+    bottom: auto;
 }
 
-/* inner mid row — sits under logo / progress */
+.loader-mon--l {
+    display: block;
+    top: 34%;
+    left: 4px;
+    right: auto;
+    bottom: auto;
+}
+
+.loader-mon--r {
+    display: block;
+    top: 34%;
+    right: 4px;
+    left: auto;
+    bottom: auto;
+}
+
 .loader-mon--in3 {
-    top: auto;
-    bottom: clamp(158px, 24vh, 188px);
-    left: 20%;
-    width: clamp(32px, 8.5vw, 44px);
+    top: 48%;
+    left: 4px;
+    right: auto;
+    bottom: auto;
 }
 
 .loader-mon--in4 {
-    top: auto;
-    bottom: clamp(158px, 24vh, 188px);
-    right: 20%;
-    width: clamp(32px, 8.5vw, 44px);
+    top: 48%;
+    right: 4px;
+    left: auto;
+    bottom: auto;
 }
 
-/* inner bottom row — above corner mons, below pikachu */
 .loader-mon--in5 {
-    bottom: clamp(108px, 16vh, 128px);
-    left: 22%;
-    width: clamp(34px, 9vw, 46px);
+    top: 62%;
+    left: 4px;
+    right: auto;
+    bottom: auto;
 }
 
 .loader-mon--in6 {
-    bottom: clamp(108px, 16vh, 128px);
-    right: 22%;
-    width: clamp(34px, 9vw, 46px);
+    top: 62%;
+    right: 4px;
+    left: auto;
+    bottom: auto;
+}
+
+.loader-mon--bl {
+    top: auto;
+    bottom: 68px;
+    left: 4px;
+    right: auto;
+}
+
+.loader-mon--br {
+    top: auto;
+    bottom: 68px;
+    right: 4px;
+    left: auto;
 }
 
 .loader-juggler {
