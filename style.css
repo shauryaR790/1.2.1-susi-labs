@@ -3380,14 +3380,14 @@ html.products-intro {
 
 .product-card {
     background: #FFFD46;
-    border: 4px solid #000000;
-    border-radius: 28px;
-    padding: 18px 18px 16px;
-    box-shadow: 6px 6px 0 #000;
+    border: 2px solid #000000;
+    border-radius: 0;
+    padding: 10px 10px 12px;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    min-height: 320px;
+    gap: 8px;
+    min-height: 0;
     cursor: pointer;
 }
 
@@ -3395,8 +3395,8 @@ html.products-intro {
     width: 100%;
     height: 0;
     padding-bottom: 100%;
-    border-radius: 18px;
-    border: 3px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+    border: 2px solid rgba(0, 0, 0, 0.12);
     background: #FFF3EF;
     overflow: hidden;
     box-sizing: border-box;
@@ -3441,7 +3441,7 @@ html.products-intro {
     margin: 0;
     margin-top: 2px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 13px;
     font-weight: 700;
     color: #3A002B;
     letter-spacing: 0.01em;
@@ -3452,37 +3452,37 @@ html.products-intro {
 .product-card__name {
     margin: 0;
     font-family: 'Anton', sans-serif;
-    font-size: 28px;
-    letter-spacing: -1px;
+    font-size: clamp(15px, 4.2vw, 20px);
+    letter-spacing: -0.5px;
     font-weight: 400;
     color: #000000;
     text-transform: uppercase;
-    line-height: 1;
+    line-height: 1.05;
 }
 
 .product-card__meta {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 11px;
+    line-height: 1.25;
     color: rgba(0, 0, 0, 0.75);
     text-transform: lowercase;
 }
 
 .product-card__btn {
     margin-top: auto;
-    align-self: flex-start;
-    height: 48px;
-    padding: 0 22px;
+    align-self: stretch;
+    justify-content: center;
+    height: 38px;
+    padding: 0 10px;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    border: 4px solid transparent;
-    border-color: #000000;
+    border-radius: 0;
+    border: 2px solid #000000;
     background: #3A002B;
     color: #FFFD46;
     font-family: 'Hagrid Trial', sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
@@ -3981,36 +3981,6 @@ html.products-intro {
         margin-top: 0;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 14px;
-    }
-
-    .product-card {
-        padding: 14px 14px 12px;
-        gap: 10px;
-        min-height: 280px;
-        border-radius: 22px;
-        box-shadow: 5px 5px 0 #000;
-    }
-
-    .product-card__visual {
-        border-radius: 14px;
-    }
-
-    .product-card__name {
-        font-size: 24px;
-    }
-
-    .product-card__price {
-        font-size: 18px;
-    }
-
-    .product-card__meta {
-        font-size: 13px;
-    }
-
-    .product-card__btn {
-        height: 42px;
-        padding: 0 18px;
-        font-size: 13px;
     }
 
     .products-footer {
