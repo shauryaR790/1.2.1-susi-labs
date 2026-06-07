@@ -3763,6 +3763,7 @@ html.products-intro {
     .product-page .products-home {
         grid-area: logo;
         grid-column: logo;
+        margin-top: 5px;
         margin-bottom: 0;
         gap: 2px;
         align-self: center;
