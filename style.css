@@ -2826,7 +2826,7 @@ align-items: center;
 }
 
 #site-loader .loader-word--a {
-margin-left: 0 !important;
+margin-left: -2px !important;
 }
 
 #site-loader .loader-word--b {
