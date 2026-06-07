@@ -72,11 +72,15 @@ function showError(msg) {
     }
 }
 
-function setPayLoading(loading) {
+function setPayLoading(loading, label) {
     const payBtn = document.getElementById("checkout-pay-btn")
     if (!payBtn) return
     payBtn.disabled = loading
-    payBtn.textContent = loading ? "processing…" : "pay with UPI / card"
+    if (!loading) {
+        payBtn.textContent = "pay with UPI / card"
+        return
+    }
+    payBtn.textContent = label || "processing…"
 }
 
 function validateForm(form) {
@@ -133,6 +137,37 @@ async function syncPayment(orderId) {
     return data
 }
 
+async function confirmPaymentOnServer(orderPayload, payment) {
+    if (payment.synced) return
+
+    const hasSignature =
+        payment.razorpay_signature &&
+        payment.razorpay_payment_id &&
+        payment.razorpay_order_id
+
+    if (hasSignature) {
+        try {
+            await verifyPayment({
+                orderId: orderPayload.orderId,
+                razorpay_order_id: payment.razorpay_order_id,
+                razorpay_payment_id: payment.razorpay_payment_id,
+                razorpay_signature: payment.razorpay_signature
+            })
+        } catch (err) {
+            const sync = await syncPayment(orderPayload.orderId)
+            if (!sync.paid) throw err
+        }
+        return
+    }
+
+    const sync = await syncPayment(orderPayload.orderId)
+    if (!sync.paid) {
+        throw new Error(
+            "Payment not confirmed. If UPI was debited, contact us with your order details."
+        )
+    }
+}
+
 function openRazorpayCheckout(orderPayload) {
     return new Promise((resolve, reject) => {
         if (!window.Razorpay) {
@@ -140,9 +175,13 @@ function openRazorpayCheckout(orderPayload) {
             return
         }
 
+        const POLL_MS = 2500
+        const MAX_POLL_MS = 180000
+
         let settled = false
         let pollTimer = null
         let rzp = null
+        const pollStart = Date.now()
 
         function stopPolling() {
             if (pollTimer) {
@@ -169,6 +208,17 @@ function openRazorpayCheckout(orderPayload) {
         }
 
         async function checkServerPayment() {
+            if (settled) return
+
+            if (Date.now() - pollStart > MAX_POLL_MS) {
+                finishError(
+                    new Error(
+                        "Payment not confirmed in time. If UPI was debited, contact us with your order details."
+                    )
+                )
+                return
+            }
+
             try {
                 const data = await syncPayment(orderPayload.orderId)
                 if (data.paid) {
@@ -199,11 +249,9 @@ function openRazorpayCheckout(orderPayload) {
             },
             modal: {
                 ondismiss() {
-                    checkServerPayment().finally(() => {
-                        if (!settled) {
-                            finishError(new Error("Payment cancelled"))
-                        }
-                    })
+                    // UPI QR often completes after the modal is closed — keep polling.
+                    setPayLoading(true, "checking payment…")
+                    checkServerPayment()
                 }
             }
         }
@@ -220,7 +268,7 @@ function openRazorpayCheckout(orderPayload) {
 
         rzp.open()
         checkServerPayment()
-        pollTimer = window.setInterval(checkServerPayment, 2500)
+        pollTimer = window.setInterval(checkServerPayment, POLL_MS)
     })
 }
 
@@ -295,14 +343,8 @@ function initCheckoutPage() {
             const orderPayload = await createOrder(customer, cartItems)
             const payment = await openRazorpayCheckout(orderPayload)
 
-            if (!payment.synced) {
-                await verifyPayment({
-                    orderId: orderPayload.orderId,
-                    razorpay_order_id: payment.razorpay_order_id,
-                    razorpay_payment_id: payment.razorpay_payment_id,
-                    razorpay_signature: payment.razorpay_signature
-                })
-            }
+            setPayLoading(true, "confirming payment…")
+            await confirmPaymentOnServer(orderPayload, payment)
 
             redirectAfterSuccess(orderPayload.orderId)
         } catch (err) {

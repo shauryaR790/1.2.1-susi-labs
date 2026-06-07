@@ -54,10 +54,24 @@ module.exports = async function handler(req, res) {
             return json(res, 200, { ok: true, paid: false })
         }
 
-        const paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
+        let paymentsPayload
+        try {
+            paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
+        } catch (razorpayErr) {
+            console.error("[SUSI] sync-payment Razorpay fetch failed:", razorpayErr.message, {
+                orderId,
+                razorpay_order_id: order.razorpay_order_id
+            })
+            return json(res, razorpayErr.statusCode || 500, {
+                error: razorpayErr.message || "Could not check Razorpay payment status"
+            })
+        }
+
         const captured = findCapturedPayment(paymentsPayload)
 
         if (!captured?.id) {
+            const statuses = (paymentsPayload?.items || []).map((row) => row.status).join(", ") || "none"
+            console.log("[SUSI] sync-payment: no captured payment yet", { orderId, statuses })
             return json(res, 200, { ok: true, paid: false })
         }
 
