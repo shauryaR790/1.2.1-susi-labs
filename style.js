@@ -181,6 +181,16 @@ function finishSiteLoader(loader, onComplete) {
         )
 }
 
+function alignLoaderLogo(scope) {
+    const susi = scope.querySelector(".loader-word--a")
+    const labs = scope.querySelector(".loader-word--b")
+    if (!susi || !labs) return
+
+    susi.style.transform = ""
+    const offset = (labs.getBoundingClientRect().width - susi.getBoundingClientRect().width) / 2
+    susi.style.transform = `translateX(${offset}px)`
+}
+
 function initSiteLoader(onComplete) {
     const loader = document.getElementById("site-loader")
     if (!loader || typeof gsap === "undefined") {
@@ -205,6 +215,11 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
+    alignLoaderLogo(scope)
+    if (document.fonts?.ready) {
+        document.fonts.ready.then(() => alignLoaderLogo(scope))
+    }
+
     const minDuration = prefersReducedMotion ? 1.1 : 2.85
     const progressDuration = prefersReducedMotion ? 0.9 : 2.8
 
@@ -217,8 +232,8 @@ function initSiteLoader(onComplete) {
             { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.7)" },
             "-=0.05"
         )
-        .from(scope.querySelectorAll(".loader-word--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
-        .from(scope.querySelectorAll(".loader-word--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
+        .from(scope.querySelectorAll(".loader-logo-line--a"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.25")
+        .from(scope.querySelectorAll(".loader-logo-line--b"), { y: 90, opacity: 0, duration: 0.75 }, "-=0.55")
         .from(scope.querySelectorAll(".loader-track"), { scaleX: 0, duration: 0.65, transformOrigin: "left center" }, "-=0.3")
         .from(scope.querySelectorAll(".loader-percent"), { y: 20, opacity: 0, duration: 0.45 }, "-=0.35")
         .from(scope.querySelectorAll(".loader-status"), { opacity: 0, duration: 0.35 }, "-=0.4")
