@@ -2779,17 +2779,15 @@ margin-bottom: 18px;
 .loader-logo {
 --loader-susi-size: clamp(72px, 18vw, 128px);
 --loader-labs-size: clamp(80px, 20vw, 140px);
-display: inline-flex;
-flex-direction: column;
-align-items: flex-start;
 line-height: 0.82;
 margin: 0 auto 36px;
 max-width: 100%;
+text-align: center;
 }
 
-.loader-logo-line {
-display: block;
-width: 100%;
+.loader-logo-stack {
+display: inline-grid;
+justify-items: center;
 text-align: center;
 }
 
@@ -2799,8 +2797,7 @@ font-weight: 400;
 text-transform: uppercase;
 letter-spacing: -0.045em;
 white-space: nowrap;
-display: inline-block;
-vertical-align: top;
+grid-column: 1;
 }
 
 .loader-word--a {
