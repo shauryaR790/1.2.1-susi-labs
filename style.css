@@ -2777,19 +2777,21 @@ margin-bottom: 18px;
 }
 
 .loader-logo {
-display: flex;
+display: inline-flex;
 flex-direction: column;
-align-items: center;
+align-items: stretch;
+width: max-content;
+max-width: 100%;
 line-height: 0.82;
-margin-bottom: 36px;
+margin: 0 auto 36px;
 }
 
 .loader-word {
 font-family: 'Anton', sans-serif;
 font-weight: 400;
 text-transform: uppercase;
-display: block;
 text-align: center;
+white-space: nowrap;
 }
 
 .loader-word--a {
@@ -3141,7 +3143,7 @@ to {
 }
 
 .loader-logo {
-    margin-bottom: 24px;
+    margin: 0 auto 24px;
 }
 }
 
