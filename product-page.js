@@ -80,7 +80,6 @@ function buildGalleryMarkup(images, productName) {
         ? `
             <button type="button" class="product-gallery__nav product-gallery__nav--prev" data-gallery-prev aria-label="Previous image">‹</button>
             <button type="button" class="product-gallery__nav product-gallery__nav--next" data-gallery-next aria-label="Next image">›</button>
-            <p class="product-gallery__counter" data-gallery-counter aria-live="polite">1 / ${images.length}</p>
         `
         : ""
 
@@ -208,7 +207,6 @@ function bindProductGallery(root, images, productName) {
     if (!gallery || images.length < 2) return
 
     const mainImg = gallery.querySelector("[data-gallery-main]")
-    const counter = gallery.querySelector("[data-gallery-counter]")
     const prevBtn = gallery.querySelector("[data-gallery-prev]")
     const nextBtn = gallery.querySelector("[data-gallery-next]")
     const thumbs = [...gallery.querySelectorAll("[data-gallery-thumb]")]
@@ -223,10 +221,6 @@ function bindProductGallery(root, images, productName) {
         if (mainImg) {
             mainImg.src = url
             mainImg.alt = `${productName} — image ${index + 1}`
-        }
-
-        if (counter) {
-            counter.textContent = `${index + 1} / ${images.length}`
         }
 
         thumbs.forEach((btn, i) => {

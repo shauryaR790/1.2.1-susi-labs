@@ -3612,22 +3612,6 @@ html.products-intro {
     right: clamp(10px, 1.2vw, 14px);
 }
 
-.product-gallery__counter {
-    position: absolute;
-    left: 50%;
-    bottom: clamp(10px, 1.5vw, 16px);
-    transform: translateX(-50%);
-    margin: 0;
-    padding: 4px 10px;
-    border: 2px solid #000000;
-    background: rgba(255, 253, 70, 0.92);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: #3A002B;
-    letter-spacing: 0.04em;
-}
-
 .product-gallery__thumbs {
     display: flex;
     flex-wrap: nowrap;
