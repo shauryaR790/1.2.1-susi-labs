@@ -3126,28 +3126,28 @@ to {
 }
 
 .loader-mon--in3 {
-    top: 48%;
+    top: 60%;
     left: 4px;
     right: auto;
     bottom: auto;
 }
 
 .loader-mon--in4 {
-    top: 48%;
+    top: 60%;
     right: 4px;
     left: auto;
     bottom: auto;
 }
 
 .loader-mon--in5 {
-    top: 62%;
+    top: 76%;
     left: 4px;
     right: auto;
     bottom: auto;
 }
 
 .loader-mon--in6 {
-    top: 62%;
+    top: 76%;
     right: 4px;
     left: auto;
     bottom: auto;
@@ -3155,14 +3155,14 @@ to {
 
 .loader-mon--bl {
     top: auto;
-    bottom: 68px;
+    bottom: 52px;
     left: 4px;
     right: auto;
 }
 
 .loader-mon--br {
     top: auto;
-    bottom: 68px;
+    bottom: 52px;
     right: 4px;
     left: auto;
 }
