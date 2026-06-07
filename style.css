@@ -32,6 +32,34 @@ body {
     padding: 0;
 }
 
+@media (max-width: 992px) {
+    html,
+    body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    *::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+}
+
 .container {
     --hero-ticker-bar: 44px;
     --hero-ticker-h: var(--hero-ticker-bar);
@@ -3640,8 +3668,14 @@ html.products-intro {
     flex-wrap: nowrap;
     gap: 8px;
     overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.product-gallery__thumbs::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .product-gallery__thumb {
