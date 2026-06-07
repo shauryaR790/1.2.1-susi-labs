@@ -119,11 +119,70 @@ async function verifyPayment(payload) {
     return data
 }
 
+async function syncPayment(orderId) {
+    const res = await fetch("/api/sync-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId })
+    })
+
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+        throw new Error(data.error || "Could not check payment status")
+    }
+    return data
+}
+
 function openRazorpayCheckout(orderPayload) {
     return new Promise((resolve, reject) => {
         if (!window.Razorpay) {
             reject(new Error("Payment gateway failed to load"))
             return
+        }
+
+        let settled = false
+        let pollTimer = null
+        let rzp = null
+
+        function stopPolling() {
+            if (pollTimer) {
+                clearInterval(pollTimer)
+                pollTimer = null
+            }
+        }
+
+        function finishSuccess(response, synced = false) {
+            if (settled) return
+            settled = true
+            stopPolling()
+            try {
+                rzp?.close()
+            } catch {}
+            resolve({ ...response, synced })
+        }
+
+        function finishError(err) {
+            if (settled) return
+            settled = true
+            stopPolling()
+            reject(err)
+        }
+
+        async function checkServerPayment() {
+            try {
+                const data = await syncPayment(orderPayload.orderId)
+                if (data.paid) {
+                    finishSuccess(
+                        {
+                            razorpay_order_id: data.razorpay_order_id || orderPayload.razorpayOrderId,
+                            razorpay_payment_id: data.razorpay_payment_id
+                        },
+                        true
+                    )
+                }
+            } catch (err) {
+                console.warn("[SUSI] Payment sync:", err)
+            }
         }
 
         const options = {
@@ -136,20 +195,32 @@ function openRazorpayCheckout(orderPayload) {
             prefill: orderPayload.customer,
             theme: { color: "#3A002B" },
             handler(response) {
-                resolve(response)
+                finishSuccess(response, false)
             },
             modal: {
                 ondismiss() {
-                    reject(new Error("Payment cancelled"))
+                    checkServerPayment().finally(() => {
+                        if (!settled) {
+                            finishError(new Error("Payment cancelled"))
+                        }
+                    })
                 }
             }
         }
 
-        const rzp = new window.Razorpay(options)
-        rzp.on("payment.failed", (response) => {
-            reject(new Error(response.error?.description || "Payment failed"))
+        rzp = new window.Razorpay(options)
+
+        rzp.on("payment.success", (response) => {
+            finishSuccess(response, false)
         })
+
+        rzp.on("payment.failed", (response) => {
+            finishError(new Error(response.error?.description || "Payment failed"))
+        })
+
         rzp.open()
+        checkServerPayment()
+        pollTimer = window.setInterval(checkServerPayment, 2500)
     })
 }
 
@@ -224,12 +295,14 @@ function initCheckoutPage() {
             const orderPayload = await createOrder(customer, cartItems)
             const payment = await openRazorpayCheckout(orderPayload)
 
-            await verifyPayment({
-                orderId: orderPayload.orderId,
-                razorpay_order_id: payment.razorpay_order_id,
-                razorpay_payment_id: payment.razorpay_payment_id,
-                razorpay_signature: payment.razorpay_signature
-            })
+            if (!payment.synced) {
+                await verifyPayment({
+                    orderId: orderPayload.orderId,
+                    razorpay_order_id: payment.razorpay_order_id,
+                    razorpay_payment_id: payment.razorpay_payment_id,
+                    razorpay_signature: payment.razorpay_signature
+                })
+            }
 
             redirectAfterSuccess(orderPayload.orderId)
         } catch (err) {

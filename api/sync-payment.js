@@ -1,5 +1,5 @@
 const { getSupabaseAdmin } = require("../lib/supabase-admin")
-const { verifyPaymentSignature } = require("../lib/razorpay")
+const { fetchOrderPayments, findCapturedPayment } = require("../lib/razorpay")
 const { completeOrderPayment } = require("../lib/complete-order-payment")
 
 function json(res, status, body) {
@@ -32,54 +32,48 @@ module.exports = async function handler(req, res) {
 
     try {
         const body = await readBody(req)
-        const {
-            orderId,
-            razorpay_order_id: razorpayOrderId,
-            razorpay_payment_id: razorpayPaymentId,
-            razorpay_signature: razorpaySignature
-        } = body
+        const orderId = String(body.orderId || "").trim()
 
-        if (!orderId || !razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
-            return json(res, 400, { error: "Missing payment fields" })
-        }
-
-        const valid = verifyPaymentSignature({
-            orderId: razorpayOrderId,
-            paymentId: razorpayPaymentId,
-            signature: razorpaySignature
-        })
-
-        if (!valid) {
-            return json(res, 400, { error: "Payment verification failed" })
+        if (!orderId) {
+            return json(res, 400, { error: "Missing order ID" })
         }
 
         const supabase = getSupabaseAdmin()
 
-        const { data: order, error: fetchError } = await supabase
-            .from("orders")
-            .select("*")
-            .eq("id", orderId)
-            .single()
+        const { data: order, error: fetchError } = await supabase.from("orders").select("*").eq("id", orderId).single()
 
         if (fetchError || !order) {
             return json(res, 404, { error: "Order not found" })
         }
 
-        if (order.razorpay_order_id !== razorpayOrderId) {
-            return json(res, 400, { error: "Order mismatch" })
-        }
-
         if (order.payment_status === "paid") {
-            return json(res, 200, { ok: true, orderId: order.id, alreadyPaid: true })
+            return json(res, 200, { ok: true, paid: true, orderId: order.id, alreadyPaid: true })
         }
 
-        const result = await completeOrderPayment(supabase, orderId, razorpayPaymentId)
+        if (!order.razorpay_order_id) {
+            return json(res, 200, { ok: true, paid: false })
+        }
+
+        const paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
+        const captured = findCapturedPayment(paymentsPayload)
+
+        if (!captured?.id) {
+            return json(res, 200, { ok: true, paid: false })
+        }
+
+        const result = await completeOrderPayment(supabase, orderId, captured.id)
 
         if (result.error) {
             return json(res, result.status || 500, { error: result.error })
         }
 
-        return json(res, 200, { ok: true, orderId: result.orderId })
+        return json(res, 200, {
+            ok: true,
+            paid: true,
+            orderId: result.orderId,
+            razorpay_order_id: order.razorpay_order_id,
+            razorpay_payment_id: captured.id
+        })
     } catch (err) {
         console.error(err)
         return json(res, 500, { error: err.message || "Server error" })
