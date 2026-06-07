@@ -3400,20 +3400,20 @@ html.products-intro {
     overflow: hidden;
     padding: 0;
     box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .product-card__img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    max-width: none;
-    max-height: none;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     object-position: center center;
     display: block;
-    flex-shrink: 0;
 }
 
 .product-card__visual--fallback {
@@ -3790,7 +3790,7 @@ html.products-intro {
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: stretch;
-        margin: 0;
+        margin: 5px 0 0;
         gap: 6px;
         width: auto;
         min-width: 72px;
