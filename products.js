@@ -160,6 +160,23 @@ function initAddToCart(grid) {
     })
 }
 
+function initProductNavigation(grid) {
+    if (!grid || grid.dataset.navBound === "1") return
+    grid.dataset.navBound = "1"
+
+    grid.addEventListener("click", (event) => {
+        if (event.target.closest("[data-add-to-cart]")) return
+
+        const card = event.target.closest(".product-card")
+        if (!card) return
+
+        const id = card.getAttribute("data-product-id")
+        if (!id) return
+
+        window.location.href = `product.html?id=${encodeURIComponent(id)}`
+    })
+}
+
 function initProductFilters(products, grid) {
     const buttons = document.querySelectorAll(".products-filter")
     if (!buttons.length) return
@@ -281,6 +298,7 @@ async function initProductsCatalog() {
         productsCatalog = products
         const rendered = renderProducts(products, grid, "all")
         initAddToCart(grid)
+        initProductNavigation(grid)
         initProductFilters(products, grid)
         window.SUSI_CART?.refresh()
 

@@ -1,11 +1,12 @@
 /* =========================
    SUSI PAGE TRANSITIONS
-   products.html, cart.html, checkout.html, custom-build.html
+   products.html, product.html, cart.html, checkout.html, custom-build.html
 ========================= */
 
 ;(function () {
     const ROUTES = [
         { page: "products.html", introKey: "susi:productsIntro" },
+        { page: "product.html", introKey: "susi:productIntro" },
         { page: "cart.html", introKey: "susi:cartIntro" },
         { page: "checkout.html", introKey: "susi:checkoutIntro" },
         { page: "custom-build.html", introKey: "susi:customBuildIntro" }
@@ -48,7 +49,8 @@
                 const a = e.target?.closest?.("a[href]")
                 if (!a) return
 
-                const route = matchRoute(a.getAttribute("href") || "")
+                const href = a.getAttribute("href") || ""
+                const route = matchRoute(href)
                 if (!route) return
 
                 if (e.defaultPrevented) return
@@ -65,14 +67,14 @@
 
                 const prefetch = document.createElement("link")
                 prefetch.rel = "prefetch"
-                prefetch.href = route.page
+                prefetch.href = href
                 document.head.appendChild(prefetch)
 
                 const go = () => {
                     try {
                         sessionStorage.setItem(route.introKey, "1")
                     } catch {}
-                    window.location.href = route.page
+                    window.location.href = href
                 }
 
                 if (prefersReduced) {
