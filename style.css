@@ -2789,7 +2789,7 @@ text-align: center;
 display: inline-flex;
 flex-direction: column;
 align-items: flex-start;
-line-height: 0.76;
+line-height: 0.82;
 }
 
 .loader-word {
@@ -2812,7 +2812,7 @@ color: #FF7F00;
 
 #site-loader .loader-word--a {
 margin: 0 !important;
-margin-left: 5px !important;
+margin-left: 7px !important;
 transform: none !important;
 }
 
@@ -3163,7 +3163,7 @@ to {
 }
 
 #site-loader .loader-word--a {
-    margin-left: 4px !important;
+    margin-left: 5px !important;
 }
 
 #site-loader .loader-word--b {
