@@ -2814,9 +2814,16 @@ margin: 0.06em 0 0;
 
 #site-loader .loader-word--a,
 #site-loader .loader-word--b {
-margin-left: 0 !important;
 margin-right: 0 !important;
 transform: none !important;
+}
+
+#site-loader .loader-word--a {
+margin-left: -8px !important;
+}
+
+#site-loader .loader-word--b {
+margin-left: 0 !important;
 }
 
 .loader-track {
@@ -3162,7 +3169,7 @@ to {
 }
 
 #site-loader .loader-word--a {
-    margin-left: -10px !important;
+    margin-left: -6px !important;
 }
 }
 
