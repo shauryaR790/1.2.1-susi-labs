@@ -63,6 +63,11 @@ body {
 .container {
     --hero-ticker-bar: 44px;
     --hero-ticker-h: var(--hero-ticker-bar);
+    --hero-aside-inset: 62px;
+    --shape-left-size: 270px;
+    --shape-right-size: 280px;
+    --shape-edge-nudge: 8px;
+    --shape-cluster-start: calc(var(--shape-left-size) + var(--shape-right-size) - var(--shape-edge-nudge) - var(--shape-edge-nudge));
     --hero-title-size: clamp(280px, calc((100svh - var(--hero-ticker-h) - 24px) / 1.9 + 30px), 750px);
     --hero-title-size-lower: clamp(325px, calc((100svh - var(--hero-ticker-h) - 24px) / 1.84 + 60px), 820px);
     margin-top: 0;
@@ -124,7 +129,7 @@ body {
 .hero-aside {
     position: absolute;
     top: calc(var(--hero-ticker-h) + 32px);
-    right: 62px;
+    right: var(--hero-aside-inset);
     z-index: 6;
     display: flex;
     flex-direction: column;
@@ -157,6 +162,7 @@ body {
     width: 450px;
     max-width: 38vw;
     margin-top: 20px;
+    margin-left: calc(100% - var(--shape-cluster-start) + var(--hero-aside-inset));
 }
 
 .info p {
@@ -182,18 +188,18 @@ body {
 }
 
 .shape-left {
-    width: 270px;
-    height: 270px;
+    width: var(--shape-left-size);
+    height: var(--shape-left-size);
     object-fit: contain;
-    margin-right: -8px;
+    margin-right: calc(-1 * var(--shape-edge-nudge));
     margin-bottom: -10px;
 }
 
 .shape-right {
-    width: 280px;
-    height: 280px;
+    width: var(--shape-right-size);
+    height: var(--shape-right-size);
     object-fit: contain;
-    margin-right: -8px;
+    margin-right: calc(-1 * var(--shape-edge-nudge));
 }
 
 .container2 {
@@ -1523,8 +1529,8 @@ RESPONSIVE — TABLET
 ========================= */
 
 @media (max-width: 1400px) {
-    .hero-aside {
-        right: 72px;
+    .container {
+        --hero-aside-inset: 72px;
     }
 
     .hero-aside .info {
@@ -1533,8 +1539,8 @@ RESPONSIVE — TABLET
 }
 
 @media (max-width: 1200px) {
-.hero-aside {
-    right: 30px;
+.container {
+    --hero-aside-inset: 30px;
 }
 
 .hero-aside nav {
@@ -1754,6 +1760,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     width: 100%;
     max-width: none;
     padding-top: 12px;
+    margin-left: 0;
 }
 
 .hero-aside .info p {
