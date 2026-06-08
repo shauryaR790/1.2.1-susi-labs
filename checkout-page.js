@@ -259,7 +259,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             return
         }
 
-        const POLL_MS = 500
+        const POLL_MS = 2000
         const MAX_POLL_MS = 600000
         const orderRef = orderPayload.orderId.slice(0, 8).toUpperCase()
 
@@ -267,6 +267,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         let pollTimer = null
         let rzp = null
         let syncErrors = 0
+        let syncActive = false
         const pollStart = Date.now()
         let manualBtn = null
 
@@ -278,6 +279,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         }
 
         function stopPolling() {
+            syncActive = false
             if (pollTimer) {
                 clearInterval(pollTimer)
                 pollTimer = null
@@ -310,7 +312,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             reject(err)
         }
 
-        async function checkServerPayment() {
+        async function checkServerPayment(showOverlay = true) {
             if (settled) return
 
             const elapsed = Date.now() - pollStart
@@ -323,7 +325,9 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                 return
             }
 
-            showPaymentPending(`checking payment… ${orderRef}`)
+            if (showOverlay) {
+                showPaymentPending(`confirming payment… ${orderRef}`)
+            }
 
             try {
                 const data = await syncPayment(orderPayload.orderId)
@@ -349,9 +353,16 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             }
         }
 
+        function startUpiSyncPolling() {
+            if (syncActive || settled) return
+            syncActive = true
+            checkServerPayment(true)
+            pollTimer = window.setInterval(() => checkServerPayment(false), POLL_MS)
+        }
+
         function onReturnToPage() {
             if (document.visibilityState && document.visibilityState !== "visible") return
-            checkServerPayment()
+            startUpiSyncPolling()
         }
 
         const options = {
@@ -365,13 +376,16 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             theme: { color: "#3A002B" },
             retry: { enabled: false },
             handler(response) {
+                if (!response?.razorpay_payment_id || !response?.razorpay_signature) {
+                    return
+                }
                 finishSuccess(response, false)
             },
             modal: {
                 confirm_close: true,
                 ondismiss() {
-                    showPaymentPending(`confirming UPI payment… ${orderRef}`)
-                    checkServerPayment()
+                    if (settled) return
+                    startUpiSyncPolling()
                 }
             }
         }
@@ -379,6 +393,9 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         rzp = new window.Razorpay(options)
 
         rzp.on("payment.success", (response) => {
+            if (!response?.razorpay_payment_id || !response?.razorpay_signature) {
+                return
+            }
             finishSuccess(response, false)
         })
 
@@ -390,19 +407,19 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         manualBtn.type = "button"
         manualBtn.className = "checkout-manual-confirm"
         manualBtn.textContent = "I've paid with UPI — continue"
+        manualBtn.hidden = true
         manualBtn.addEventListener("click", () => {
-            showPaymentPending(`confirming payment… ${orderRef}`)
-            checkServerPayment()
+            startUpiSyncPolling()
         })
         document.body.appendChild(manualBtn)
 
         window.addEventListener("focus", onReturnToPage)
         document.addEventListener("visibilitychange", onReturnToPage)
 
-        showPaymentPending(`complete payment… ${orderRef}`)
         rzp.open()
-        checkServerPayment()
-        pollTimer = window.setInterval(checkServerPayment, POLL_MS)
+        window.setTimeout(() => {
+            if (!settled && manualBtn) manualBtn.hidden = false
+        }, 4000)
     })
 }
 

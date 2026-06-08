@@ -2,10 +2,11 @@ const { getSupabaseAdmin } = require("../lib/supabase-admin")
 const {
     fetchRazorpayOrder,
     fetchOrderPayments,
-    findSuccessfulPayment,
+    findCapturedPayment,
+    findAuthorizedPayment,
     captureRazorpayPayment,
-    isRazorpayOrderSettled,
-    sortPaymentsNewestFirst
+    isPaymentCaptured,
+    isRazorpayOrderSettled
 } = require("../lib/razorpay")
 const { completeOrderPayment } = require("../lib/complete-order-payment")
 
@@ -30,6 +31,33 @@ function readBody(req) {
         })
         req.on("error", reject)
     })
+}
+
+async function resolveCapturedPayment(razorpayOrderId, orderAmountPaise, paymentsPayload, razorpayOrder) {
+    let payment = findCapturedPayment(paymentsPayload)
+
+    if (!payment) {
+        const authorized = findAuthorizedPayment(paymentsPayload)
+        if (authorized?.id && orderAmountPaise) {
+            try {
+                const captured = await captureRazorpayPayment(authorized.id, orderAmountPaise)
+                if (isPaymentCaptured(captured)) {
+                    payment = captured
+                }
+            } catch (captureErr) {
+                console.warn("[SUSI] sync-payment capture failed:", captureErr.message, {
+                    paymentId: authorized.id
+                })
+            }
+        }
+    }
+
+    if (!payment && isRazorpayOrderSettled(razorpayOrder)) {
+        const refreshed = await fetchOrderPayments(razorpayOrderId)
+        payment = findCapturedPayment(refreshed)
+    }
+
+    return isPaymentCaptured(payment) ? payment : null
 }
 
 module.exports = async function handler(req, res) {
@@ -79,39 +107,16 @@ module.exports = async function handler(req, res) {
             })
         }
 
-        let payment = findSuccessfulPayment(paymentsPayload)
+        const payment = await resolveCapturedPayment(
+            order.razorpay_order_id,
+            order.amount_paise,
+            paymentsPayload,
+            razorpayOrder
+        )
 
-        if (
-            payment?.status === "authorized" &&
-            payment.captured !== true &&
-            payment.id &&
-            order.amount_paise
-        ) {
-            try {
-                payment = await captureRazorpayPayment(payment.id, order.amount_paise)
-            } catch (captureErr) {
-                console.warn("[SUSI] sync-payment capture failed:", captureErr.message, {
-                    orderId,
-                    paymentId: payment.id
-                })
-            }
-        }
-
-        if (!payment?.id && isRazorpayOrderSettled(razorpayOrder)) {
-            paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
-            payment = findSuccessfulPayment(paymentsPayload)
-
-            if (!payment?.id) {
-                const latest = sortPaymentsNewestFirst(paymentsPayload)[0]
-                if (latest?.id && latest.status !== "failed") {
-                    payment = latest
-                }
-            }
-        }
-
-        if (!payment?.id) {
+        if (!payment) {
             const statuses = (paymentsPayload?.items || []).map((row) => row.status).join(", ") || "none"
-            console.log("[SUSI] sync-payment: payment not ready", {
+            console.log("[SUSI] sync-payment: no captured payment yet", {
                 orderId,
                 razorpayOrderStatus: razorpayOrder?.status || "unknown",
                 paymentStatuses: statuses
