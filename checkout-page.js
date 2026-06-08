@@ -81,18 +81,26 @@ function hidePaymentPending() {
 
 let paymentConfig = null
 
-const WORKING_CHECKOUT_ORIGIN = "https://1-2-1-susi-labs.vercel.app"
+const PENDING_ORDER_KEY = "susi:pendingOrderId"
 
-function isWrongCheckoutHost() {
-    const host = window.location.hostname.replace(/^www\./, "")
-    return host === "susilabs.in"
+function savePendingOrderId(orderId) {
+    try {
+        if (orderId) sessionStorage.setItem(PENDING_ORDER_KEY, orderId)
+    } catch {}
 }
 
-function showDomainMisconfigWarning(message) {
-    const el = document.getElementById("checkout-domain-warning")
-    if (!el) return
-    el.hidden = false
-    el.innerHTML = message
+function clearPendingOrderId() {
+    try {
+        sessionStorage.removeItem(PENDING_ORDER_KEY)
+    } catch {}
+}
+
+function getPendingOrderId() {
+    try {
+        return sessionStorage.getItem(PENDING_ORDER_KEY) || ""
+    } catch {
+        return ""
+    }
 }
 
 async function loadPaymentConfig() {
@@ -226,15 +234,16 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         }
 
         const POLL_MS = 2000
-        const DISMISS_SYNC_ATTEMPTS = 12
-        const RETURN_SYNC_MAX_MS = 120000
+        const MAX_POLL_MS = 300000
         const orderRef = orderPayload.orderId.slice(0, 8).toUpperCase()
 
         let settled = false
         let pollTimer = null
         let rzp = null
-        let syncActive = false
-        let returnSyncStart = 0
+        let modalOpen = true
+        const pollStart = Date.now()
+
+        savePendingOrderId(orderPayload.orderId)
 
         function cleanupListeners() {
             window.removeEventListener("focus", onReturnToPage)
@@ -242,7 +251,6 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         }
 
         function stopPolling() {
-            syncActive = false
             if (pollTimer) {
                 clearInterval(pollTimer)
                 pollTimer = null
@@ -252,9 +260,11 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         function finishSuccess(response, synced = false) {
             if (settled) return
             settled = true
+            modalOpen = false
             stopPolling()
             cleanupListeners()
             hidePaymentPending()
+            clearPendingOrderId()
             try {
                 rzp?.close()
             } catch {}
@@ -266,87 +276,85 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             resolve({ ...response, synced })
         }
 
-        function finishCancelled() {
-            finishError(new Error("Payment cancelled"))
-        }
-
         function finishError(err) {
             if (settled) return
             settled = true
+            modalOpen = false
             stopPolling()
             cleanupListeners()
             hidePaymentPending()
             reject(err)
         }
 
-        function sleep(ms) {
-            return new Promise((resolve) => window.setTimeout(resolve, ms))
+        function redirectToPendingSuccess() {
+            if (settled) return
+            settled = true
+            modalOpen = false
+            stopPolling()
+            cleanupListeners()
+            hidePaymentPending()
+            try {
+                sessionStorage.setItem("susi:lastOrderId", orderPayload.orderId)
+            } catch {}
+            const params = new URLSearchParams({
+                order: orderPayload.orderId,
+                pending: "upi"
+            })
+            window.location.href = `checkout-success.html?${params.toString()}`
+        }
+
+        function handleRazorpaySuccess(response) {
+            if (response?.razorpay_payment_id && response?.razorpay_signature) {
+                finishSuccess(response, false)
+                return
+            }
+            if (response?.razorpay_payment_id) {
+                void checkServerPaymentOnce()
+            }
         }
 
         async function checkServerPaymentOnce() {
-            const data = await syncPayment(orderPayload.orderId)
-            if (data.paid) {
-                finishSuccess(
-                    {
-                        razorpay_order_id: data.razorpay_order_id || orderPayload.razorpayOrderId,
-                        razorpay_payment_id: data.razorpay_payment_id
-                    },
-                    true
-                )
-                return true
+            if (settled) return false
+
+            if (Date.now() - pollStart > MAX_POLL_MS) {
+                redirectToPendingSuccess()
+                return false
             }
-            return false
-        }
-
-        async function syncAfterModalDismiss() {
-            if (settled) return
-            hidePaymentPending()
-            setPayLoading(true, "checking payment…")
-
-            for (let attempt = 0; attempt < DISMISS_SYNC_ATTEMPTS; attempt++) {
-                if (settled) return
-                try {
-                    if (await checkServerPaymentOnce()) return
-                } catch (err) {
-                    console.warn("[SUSI] Payment sync after dismiss:", err)
-                }
-                await sleep(POLL_MS)
-            }
-
-            if (!settled) finishCancelled()
-        }
-
-        async function checkServerPaymentWhileAway() {
-            if (settled) return
-
-            if (returnSyncStart && Date.now() - returnSyncStart > RETURN_SYNC_MAX_MS) {
-                stopPolling()
-                hidePaymentPending()
-                setPayLoading(false)
-                return
-            }
-
-            setPayLoading(true, "confirming payment…")
 
             try {
-                await checkServerPaymentOnce()
+                const data = await syncPayment(orderPayload.orderId)
+                if (data.paid) {
+                    finishSuccess(
+                        {
+                            razorpay_order_id: data.razorpay_order_id || orderPayload.razorpayOrderId,
+                            razorpay_payment_id: data.razorpay_payment_id
+                        },
+                        true
+                    )
+                    return true
+                }
             } catch (err) {
                 console.warn("[SUSI] Payment sync:", err)
             }
+
+            if (!modalOpen) {
+                setPayLoading(true, `confirming payment… ${orderRef}`)
+            }
+
+            return false
         }
 
-        function startReturnSyncPolling() {
-            if (syncActive || settled) return
-            syncActive = true
-            returnSyncStart = Date.now()
-            hidePaymentPending()
-            checkServerPaymentWhileAway()
-            pollTimer = window.setInterval(checkServerPaymentWhileAway, POLL_MS)
+        function startSyncPolling() {
+            if (pollTimer || settled) return
+            void checkServerPaymentOnce()
+            pollTimer = window.setInterval(() => {
+                void checkServerPaymentOnce()
+            }, POLL_MS)
         }
 
         function onReturnToPage() {
             if (document.visibilityState && document.visibilityState !== "visible") return
-            startReturnSyncPolling()
+            startSyncPolling()
         }
 
         const options = {
@@ -360,30 +368,25 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             theme: { color: "#3A002B" },
             retry: { enabled: false },
             handler(response) {
-                if (!response?.razorpay_payment_id || !response?.razorpay_signature) {
-                    return
-                }
-                finishSuccess(response, false)
+                handleRazorpaySuccess(response)
             },
             modal: {
                 confirm_close: true,
                 ondismiss() {
                     if (settled) return
-                    void syncAfterModalDismiss()
+                    modalOpen = false
+                    setPayLoading(true, `confirming payment… ${orderRef}`)
+                    startSyncPolling()
                 }
             }
         }
 
         rzp = new window.Razorpay(options)
 
-        rzp.on("payment.success", (response) => {
-            if (!response?.razorpay_payment_id || !response?.razorpay_signature) {
-                return
-            }
-            finishSuccess(response, false)
-        })
+        rzp.on("payment.success", handleRazorpaySuccess)
 
         rzp.on("payment.failed", (response) => {
+            clearPendingOrderId()
             finishError(new Error(response.error?.description || "Payment failed"))
         })
 
@@ -391,10 +394,12 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         document.addEventListener("visibilitychange", onReturnToPage)
 
         rzp.open()
+        startSyncPolling()
     })
 }
 
 function redirectAfterSuccess(orderId) {
+    clearPendingOrderId()
     window.SUSI_CART.clearCart()
     try {
         sessionStorage.setItem("susi:lastOrderId", orderId)
@@ -402,6 +407,20 @@ function redirectAfterSuccess(orderId) {
 
     const params = new URLSearchParams({ order: orderId })
     window.location.href = `checkout-success.html?${params.toString()}`
+}
+
+async function resumePendingOrderIfPaid() {
+    const orderId = getPendingOrderId()
+    if (!orderId) return
+
+    try {
+        const data = await syncPayment(orderId)
+        if (data.paid) {
+            redirectAfterSuccess(orderId)
+        }
+    } catch (err) {
+        console.warn("[SUSI] Resume pending order:", err)
+    }
 }
 
 function handleCheckoutError(err) {
@@ -452,20 +471,10 @@ function initCheckoutPage() {
         showError(err.message || "Payment gateway not configured")
     })
 
-    if (isWrongCheckoutHost()) {
-        showDomainMisconfigWarning(
-            `susilabs.in is not connected to the checkout server yet — pay here instead: <a href="${WORKING_CHECKOUT_ORIGIN}/checkout.html">${WORKING_CHECKOUT_ORIGIN}/checkout.html</a>`
-        )
-        const payBtn = document.getElementById("checkout-pay-btn")
-        if (payBtn) payBtn.disabled = true
-    }
+    void resumePendingOrderIfPaid()
 
     async function runCheckout() {
         showError("")
-        if (isWrongCheckoutHost()) {
-            showError(`Checkout does not work on susilabs.in yet. Open ${WORKING_CHECKOUT_ORIGIN}/checkout.html`)
-            return
-        }
         if (!validateForm(form)) return
 
         const customer = getFormCustomer(form)

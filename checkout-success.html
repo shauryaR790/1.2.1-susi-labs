@@ -25,63 +25,7 @@
         </section>
     </main>
 
-    <script>
-        ;(async function () {
-            try {
-                const params = new URLSearchParams(window.location.search)
-                let id = params.get("order") || ""
-                if (!id) {
-                    id = sessionStorage.getItem("susi:lastOrderId") || ""
-                    sessionStorage.removeItem("susi:lastOrderId")
-                }
-                const el = document.getElementById("order-ref")
-                if (el && id) {
-                    const short = id.replace(/-/g, "").slice(0, 8).toUpperCase()
-                    el.textContent = short || id.slice(0, 8)
-                }
-
-                const pending = params.get("pending") === "upi"
-                const tag = document.getElementById("success-tag")
-                const title = document.getElementById("success-title")
-                const meta = document.getElementById("success-meta")
-
-                if (pending && id) {
-                    if (tag) tag.textContent = "confirming payment"
-                    if (title) title.textContent = "Almost there."
-                    if (meta) {
-                        meta.textContent =
-                            "We are confirming your UPI payment. This page will update automatically — do not pay again."
-                    }
-
-                    for (let i = 0; i < 120; i++) {
-                        const res = await fetch("/api/sync-payment", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ orderId: id })
-                        })
-                        const data = await res.json().catch(() => ({}))
-                        if (data.paid) {
-                            if (tag) tag.textContent = "payment received"
-                            if (title) title.textContent = "You're in the queue."
-                            if (meta) {
-                                meta.textContent =
-                                    "Thanks for your order. We'll start your build and reach out if we need anything else."
-                            }
-                            break
-                        }
-                        await new Promise((r) => setTimeout(r, 2000))
-                    }
-                } else if (pending) {
-                    if (tag) tag.textContent = "payment pending"
-                    if (title) title.textContent = "Almost there."
-                    if (meta) {
-                        meta.textContent =
-                            "We saved your order. Once your UPI payment is verified, we'll start your build and reach out if we need anything else."
-                    }
-                }
-            } catch {}
-        })()
-    </script>
+    <script src="checkout-success-page.js?v=1"></script>
 </body>
 
 </html>
