@@ -60,7 +60,7 @@ function loadScript(src) {
 }
 
 async function initSmoothScroll() {
-    if (isMobile || prefersReducedMotion) {
+    if (prefersReducedMotion) {
         bindNativeScroll()
         return
     }
@@ -77,11 +77,11 @@ async function initSmoothScroll() {
 
     lenis = new Lenis({
         autoRaf: false,
-        lerp: isMac ? 0.12 : 0.1,
+        lerp: isMobile ? 0.14 : isMac ? 0.12 : 0.1,
         smoothWheel: true,
         wheelMultiplier: isMac ? 0.85 : 1,
-        touchMultiplier: 1,
-        syncTouch: false
+        touchMultiplier: isMobile ? 0.9 : 1,
+        syncTouch: isMobile
     })
 
     lenis.on("scroll", ScrollTrigger.update)
@@ -208,12 +208,7 @@ function finishSiteLoader(loader, onComplete) {
 }
 
 function shouldSkipLoader() {
-    if (prefersReducedMotion) return true
-    try {
-        return sessionStorage.getItem("susi:siteSeen") === "1"
-    } catch {
-        return false
-    }
+    return prefersReducedMotion
 }
 
 function skipSiteLoader(onComplete) {
@@ -266,8 +261,8 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    const minDuration = prefersReducedMotion ? 0.8 : isMobile ? 2.85 : 1.45
-    const progressDuration = prefersReducedMotion ? 0.7 : isMobile ? 2.8 : 1.35
+    const minDuration = prefersReducedMotion ? 0.8 : 2.85
+    const progressDuration = prefersReducedMotion ? 0.7 : 2.8
 
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
@@ -376,24 +371,21 @@ function playHeroIntro() {
         delay: 0.95
     })
 
-    if (!isMobile) {
-        ;[".shape-left", ".shape-right"].forEach((sel, i) => {
-            const el = document.querySelector(sel)
-            if (!el) return
-            gsap.fromTo(
-                el,
-                { y: 300, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.4,
-                    ease: "power4.out",
-                    delay: 1 + i * 0.1
-                }
-            )
-        })
-
-    }
+    ;[".shape-left", ".shape-right"].forEach((sel, i) => {
+        const el = document.querySelector(sel)
+        if (!el) return
+        gsap.fromTo(
+            el,
+            { y: isMobile ? 120 : 300, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: isMobile ? 1 : 1.4,
+                ease: "power4.out",
+                delay: 1 + i * 0.1
+            }
+        )
+    })
 }
 
 function initMobileNavScroll() {
@@ -452,9 +444,6 @@ function afterLoaderComplete() {
 
 function bootSite() {
     const done = () => {
-        try {
-            sessionStorage.setItem("susi:siteSeen", "1")
-        } catch {}
         afterLoaderComplete()
     }
 
@@ -992,7 +981,7 @@ fromIfExists(".footer-bottom",{
 ========================= */
 
 async function initVanillaTilt() {
-    if (isMobile || prefersReducedMotion) return
+    if (prefersReducedMotion) return
     if (!window.matchMedia("(hover: hover)").matches) return
 
     if (typeof VanillaTilt === "undefined") {

@@ -35,13 +35,8 @@
         initialized = true
 
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        const isMobileTransition = window.matchMedia("(max-width: 768px)").matches
         const DURATION_MS = prefersReduced ? 0 : 1200
-        const NAV_AT_MS = prefersReduced
-            ? 0
-            : isMobileTransition
-              ? Math.round(DURATION_MS * 0.68)
-              : DURATION_MS
+        const NAV_AT_MS = DURATION_MS
 
         document.addEventListener(
             "click",

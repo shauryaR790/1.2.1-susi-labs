@@ -288,11 +288,6 @@ function runProductsIntro() {
 
         document.documentElement.classList.remove("products-intro")
 
-        const isMobileHeader = window.matchMedia("(max-width: 992px)").matches
-
-        /* Mobile uses CSS grid for header — GSAP y-transforms break layout after cart nav */
-        if (isMobileHeader) return
-
         const tl = window.gsap.timeline({
             defaults: { ease: "power3.out" },
             onComplete: () => {

@@ -192,7 +192,6 @@ function runCartIntro() {
 
         document.documentElement.classList.remove("cart-intro")
 
-        const isMobileHeader = window.matchMedia("(max-width: 992px)").matches
         const tl = window.gsap.timeline({
             defaults: { ease: "power3.out" },
             onComplete: () => {
@@ -210,22 +209,14 @@ function runCartIntro() {
         const ticker = document.querySelector(".products-ticker")
         const home = document.querySelector(".products-home")
         const title = document.querySelector(".cart-title")
-        const titleHeading = document.querySelector(".cart-title h1")
         const nav = document.querySelector(".cart-sidebar-links")
         const empty = document.querySelector(".cart-empty")
         const summaryPanel = document.querySelector(".cart-summary-panel")
 
         if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08)
-
-        if (isMobileHeader) {
-            const headerFade = { opacity: 0, duration: 0.45 }
-            if (home) tl.from(home, headerFade, 0.12)
-            if (titleHeading) tl.from(titleHeading, headerFade, 0.14)
-            if (nav) tl.from(nav, headerFade, 0.14)
-        } else {
-            if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
-            if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
-        }
+        if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
+        if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
+        if (nav) tl.from(nav, { x: 18, opacity: 0, duration: 0.65 }, 0.18)
 
         const items = document.querySelectorAll(".cart-item")
         const shopMore = document.querySelector(".cart-shop-more")
