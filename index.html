@@ -5,13 +5,12 @@
     <meta charset="UTF-8" />
     <script>
         (function () {
-            var mobile = window.matchMedia("(max-width: 768px)").matches
             var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
             var seen = false
             try {
                 seen = sessionStorage.getItem("susi:siteSeen") === "1"
             } catch {}
-            if (mobile || reduced || seen) {
+            if (reduced || seen) {
                 document.documentElement.classList.add("skip-loader")
             }
         })()
@@ -114,11 +113,6 @@
         html.skip-loader #site-loader { display: none !important; }
         html.skip-loader body.is-loading { overflow: auto; height: auto; }
         html.skip-loader body.is-loading > *:not(#site-loader) { visibility: visible !important; }
-        @media (max-width: 768px) {
-            .loader-squad,
-            .loader-squad-inner,
-            .loader-juggler { display: none !important; }
-        }
         body.is-loading { overflow: hidden; height: 100vh; }
         #site-loader {
             position: fixed;
@@ -941,7 +935,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script defer src="cart-store.js?v=2"></script>
 <script defer src="page-transition.js"></script>
-<script defer src="style.js?v=125"></script>
+<script defer src="style.js?v=126"></script>
 </body>
 
 </html>

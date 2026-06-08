@@ -208,7 +208,7 @@ function finishSiteLoader(loader, onComplete) {
 }
 
 function shouldSkipLoader() {
-    if (prefersReducedMotion || isMobile) return true
+    if (prefersReducedMotion) return true
     try {
         return sessionStorage.getItem("susi:siteSeen") === "1"
     } catch {
@@ -266,8 +266,8 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    const minDuration = prefersReducedMotion ? 0.8 : 1.45
-    const progressDuration = prefersReducedMotion ? 0.7 : 1.35
+    const minDuration = prefersReducedMotion ? 0.8 : isMobile ? 2.85 : 1.45
+    const progressDuration = prefersReducedMotion ? 0.7 : isMobile ? 2.8 : 1.35
 
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
@@ -342,7 +342,7 @@ function initSiteLoader(onComplete) {
 ========================= */
 
 function playHeroIntro() {
-    if (isMobile || prefersReducedMotion) return
+    if (prefersReducedMotion) return
 
     fromIfExists(".upper", {
         y: isMobile ? 0 : -400,
