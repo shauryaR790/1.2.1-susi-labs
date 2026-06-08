@@ -7295,52 +7295,10 @@ body.custom-build-success-page .checkout-success__meta strong {
 }
 
 /* =========================
-   CUSTOM DESKTOP CURSOR
+   CUSTOM DESKTOP CURSOR — oversized arrow pointer
 ========================= */
 
 html.susi-custom-cursor,
 html.susi-custom-cursor * {
-    cursor: none !important;
-}
-
-.susi-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #ff7f00;
-    border: 3px solid #000;
-    box-sizing: border-box;
-    pointer-events: none;
-    z-index: 1000001;
-    opacity: 0;
-    transition: opacity 0.12s ease, width 0.18s ease, height 0.18s ease;
-    will-change: transform;
-}
-
-.susi-cursor.is-visible {
-    opacity: 1;
-}
-
-.susi-cursor.is-pointer {
-    width: 40px;
-    height: 40px;
-}
-
-.susi-cursor.is-pressed {
-    width: 22px;
-    height: 22px;
-}
-
-@media (max-width: 768px), (hover: none), (pointer: coarse) {
-    .susi-cursor {
-        display: none !important;
-    }
-
-    html.susi-custom-cursor,
-    html.susi-custom-cursor * {
-        cursor: auto !important;
-    }
+    cursor: url("images/susi-cursor-arrow.svg") 2 1, auto !important;
 }
