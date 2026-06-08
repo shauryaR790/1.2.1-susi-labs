@@ -3,7 +3,9 @@ const {
     fetchRazorpayOrder,
     fetchOrderPayments,
     findSuccessfulPayment,
-    captureRazorpayPayment
+    captureRazorpayPayment,
+    isRazorpayOrderSettled,
+    sortPaymentsNewestFirst
 } = require("../lib/razorpay")
 const { completeOrderPayment } = require("../lib/complete-order-payment")
 
@@ -95,8 +97,16 @@ module.exports = async function handler(req, res) {
             }
         }
 
-        if (!payment?.id && razorpayOrder?.status === "paid") {
+        if (!payment?.id && isRazorpayOrderSettled(razorpayOrder)) {
+            paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
             payment = findSuccessfulPayment(paymentsPayload)
+
+            if (!payment?.id) {
+                const latest = sortPaymentsNewestFirst(paymentsPayload)[0]
+                if (latest?.id && latest.status !== "failed") {
+                    payment = latest
+                }
+            }
         }
 
         if (!payment?.id) {

@@ -133,10 +133,12 @@
                         </fieldset>
 
                         <div class="checkout-mode-banner checkout-mode-banner--test" id="checkout-static-help">
-                            <strong>Test checkout — no real money</strong>
-                            <ul>
-                                <li><strong>Easiest:</strong> choose <strong>Card</strong> → <code>4111 1111 1111 1111</code> · expiry <code>12/30</code> · CVV <code>123</code> · OTP <code>123456</code></li>
-                                <li><strong>UPI:</strong> pick “Pay with UPI ID / VPA” (not QR) → type <code>success@razorpay</code></li>
+                            <strong id="checkout-static-help-title">After UPI payment</strong>
+                            <ul id="checkout-static-help-list">
+                                <li>Scan QR and pay in your UPI app</li>
+                                <li>Return to this tab — we check automatically every second</li>
+                                <li>Or tap the yellow <strong>“I've paid with UPI — continue”</strong> button at the bottom</li>
+                                <li>You can close the Razorpay window after paying</li>
                             </ul>
                             <p class="checkout-domain-warning" id="checkout-domain-warning" hidden></p>
                         </div>
@@ -188,7 +190,7 @@
 
     <script src="cart-store.js?v=2"></script>
     <script src="page-transition.js"></script>
-    <script src="checkout-page.js?v=21"></script>
+    <script src="checkout-page.js?v=22"></script>
 </body>
 
 </html>

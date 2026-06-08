@@ -149,8 +149,11 @@ function renderPaymentModeBanner(config) {
 
     banner.className = "checkout-mode-banner checkout-mode-banner--live"
     banner.innerHTML = `<strong>LIVE MODE — real money (${escapeHtml(config.keyPrefix || "rzp_live")})</strong>
-Real UPI and cards will charge your account. Test card numbers will not work here.`
+After UPI QR payment, return to this tab or tap <strong>I've paid with UPI — continue</strong> at the bottom. The Razorpay window may stay open — that's normal.`
     banner.hidden = false
+
+    const staticHelp = document.getElementById("checkout-static-help")
+    if (staticHelp) staticHelp.hidden = false
 }
 
 function setPayLoading(loading, label) {
@@ -249,15 +252,15 @@ async function confirmPaymentOnServer(orderPayload, payment) {
     }
 }
 
-function openRazorpayCheckout(orderPayload) {
+function openRazorpayCheckout(orderPayload, onPaidDetected) {
     return new Promise((resolve, reject) => {
         if (!window.Razorpay) {
             reject(new Error("Payment gateway failed to load"))
             return
         }
 
-        const POLL_MS = 1000
-        const MAX_POLL_MS = 300000
+        const POLL_MS = 500
+        const MAX_POLL_MS = 600000
         const orderRef = orderPayload.orderId.slice(0, 8).toUpperCase()
 
         let settled = false
@@ -265,6 +268,14 @@ function openRazorpayCheckout(orderPayload) {
         let rzp = null
         let syncErrors = 0
         const pollStart = Date.now()
+        let manualBtn = null
+
+        function cleanupListeners() {
+            window.removeEventListener("focus", onReturnToPage)
+            document.removeEventListener("visibilitychange", onReturnToPage)
+            manualBtn?.remove()
+            manualBtn = null
+        }
 
         function stopPolling() {
             if (pollTimer) {
@@ -277,10 +288,16 @@ function openRazorpayCheckout(orderPayload) {
             if (settled) return
             settled = true
             stopPolling()
+            cleanupListeners()
             hidePaymentPending()
             try {
                 rzp?.close()
             } catch {}
+
+            if (synced && typeof onPaidDetected === "function") {
+                onPaidDetected(orderPayload.orderId)
+            }
+
             resolve({ ...response, synced })
         }
 
@@ -288,6 +305,7 @@ function openRazorpayCheckout(orderPayload) {
             if (settled) return
             settled = true
             stopPolling()
+            cleanupListeners()
             hidePaymentPending()
             reject(err)
         }
@@ -299,13 +317,13 @@ function openRazorpayCheckout(orderPayload) {
             if (elapsed > MAX_POLL_MS) {
                 finishError(
                     new Error(
-                        `Payment not confirmed in time. Order ref: ${orderRef}. If UPI was debited, do not pay again — WhatsApp us this ref.`
+                        `Payment not confirmed in time. Order ref: ${orderRef}. If UPI was debited, do not pay again — contact us with this ref.`
                     )
                 )
                 return
             }
 
-            showPaymentPending(`confirming payment… ${orderRef}`)
+            showPaymentPending(`checking payment… ${orderRef}`)
 
             try {
                 const data = await syncPayment(orderPayload.orderId)
@@ -325,10 +343,15 @@ function openRazorpayCheckout(orderPayload) {
                 console.warn("[SUSI] Payment sync:", err)
                 if (syncErrors >= 3) {
                     showError(
-                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Keep this page open — still retrying.`
+                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Tap "I've paid" below or keep this tab open.`
                     )
                 }
             }
+        }
+
+        function onReturnToPage() {
+            if (document.visibilityState && document.visibilityState !== "visible") return
+            checkServerPayment()
         }
 
         const options = {
@@ -341,31 +364,13 @@ function openRazorpayCheckout(orderPayload) {
             prefill: orderPayload.customer,
             theme: { color: "#3A002B" },
             retry: { enabled: false },
-            config: {
-                display: {
-                    blocks: {
-                        card_block: {
-                            name: "Pay with Card",
-                            instruments: [{ method: "card" }]
-                        },
-                        upi_block: {
-                            name: "Pay with UPI",
-                            instruments: [{ method: "upi", flows: ["collect", "intent", "qr"] }]
-                        }
-                    },
-                    sequence: ["block.card_block", "block.upi_block"],
-                    preferences: {
-                        show_default_blocks: false
-                    }
-                }
-            },
             handler(response) {
                 finishSuccess(response, false)
             },
             modal: {
                 confirm_close: true,
                 ondismiss() {
-                    showPaymentPending(`upi received? confirming… ${orderRef}`)
+                    showPaymentPending(`confirming UPI payment… ${orderRef}`)
                     checkServerPayment()
                 }
             }
@@ -381,7 +386,20 @@ function openRazorpayCheckout(orderPayload) {
             finishError(new Error(response.error?.description || "Payment failed"))
         })
 
-        showPaymentPending(`complete payment in the window… ${orderRef}`)
+        manualBtn = document.createElement("button")
+        manualBtn.type = "button"
+        manualBtn.className = "checkout-manual-confirm"
+        manualBtn.textContent = "I've paid with UPI — continue"
+        manualBtn.addEventListener("click", () => {
+            showPaymentPending(`confirming payment… ${orderRef}`)
+            checkServerPayment()
+        })
+        document.body.appendChild(manualBtn)
+
+        window.addEventListener("focus", onReturnToPage)
+        document.addEventListener("visibilitychange", onReturnToPage)
+
+        showPaymentPending(`complete payment… ${orderRef}`)
         rzp.open()
         checkServerPayment()
         pollTimer = window.setInterval(checkServerPayment, POLL_MS)
@@ -483,7 +501,14 @@ function initCheckoutPage() {
                 throw new Error("Server payment mode mismatch. Redeploy Vercel after updating Razorpay keys.")
             }
 
-            const payment = await openRazorpayCheckout(orderPayload)
+            let redirected = false
+            const payment = await openRazorpayCheckout(orderPayload, (orderId) => {
+                if (redirected) return
+                redirected = true
+                redirectAfterSuccess(orderId)
+            })
+
+            if (redirected) return
 
             showPaymentPending("payment confirmed — finishing…")
             await confirmPaymentOnServer(orderPayload, payment)
