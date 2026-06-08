@@ -622,6 +622,7 @@ body {
     align-items: center;
 }
 
+.stat-top .stat-value,
 .stat-top h2 {
     font-family: 'Anton', sans-serif;
     font-size: 92px;
@@ -1236,6 +1237,7 @@ padding:38px 30px 28px 30px;
 
 /* TITLE */
 
+.contact-form-box h3,
 .contact-form-box h2{
 font-size:64px;
 
@@ -1335,7 +1337,7 @@ margin-top:10px;
 
 font-size:13px;
 
-color:#D1A34F;
+color:#7A4A12;
 
 font-family:Arial, Helvetica, sans-serif;
 }
@@ -1597,6 +1599,7 @@ RESPONSIVE — TABLET
     font-size: 100px;
 }
 
+.stat-top .stat-value,
 .stat-top h2 {
     font-size: 70px;
 }
@@ -1880,6 +1883,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     font-size: 72px;
 }
 
+.stat-top .stat-value,
 .stat-top h2 {
     font-size: 56px;
 }
@@ -2201,6 +2205,7 @@ RESPONSIVE — MOBILE
     gap: 6px;
 }
 
+.stat-top .stat-value,
 .stat-top h2 {
     font-size: clamp(44px, 12vw, 64px);
 }
@@ -2421,6 +2426,7 @@ RESPONSIVE — MOBILE
     padding: 28px 20px 24px;
 }
 
+.contact-form-box h3,
 .contact-form-box h2 {
     font-size: 40px;
     margin-bottom: 20px;

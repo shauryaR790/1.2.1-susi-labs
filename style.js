@@ -43,10 +43,36 @@ function startLenisRaf() {
     lenisRafId = requestAnimationFrame(raf)
 }
 
-function initSmoothScroll() {
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[data-susi-src="${src}"]`)) {
+            resolve()
+            return
+        }
+        const script = document.createElement("script")
+        script.src = src
+        script.defer = true
+        script.dataset.susiSrc = src
+        script.onload = () => resolve()
+        script.onerror = () => reject(new Error(`Failed to load ${src}`))
+        document.head.appendChild(script)
+    })
+}
+
+async function initSmoothScroll() {
     if (isMobile || prefersReducedMotion) {
         bindNativeScroll()
         return
+    }
+
+    if (typeof Lenis === "undefined") {
+        try {
+            await loadScript("https://unpkg.com/lenis@1.1.14/dist/lenis.min.js")
+        } catch (err) {
+            console.warn("[SUSI] Lenis failed to load:", err)
+            bindNativeScroll()
+            return
+        }
     }
 
     lenis = new Lenis({
@@ -64,7 +90,7 @@ function initSmoothScroll() {
     requestAnimationFrame(() => ScrollTrigger.refresh())
 }
 
-initSmoothScroll()
+initSmoothScroll().catch(() => bindNativeScroll())
 
 let resizeTimer
 
@@ -198,6 +224,26 @@ function skipSiteLoader(onComplete) {
     onComplete()
 }
 
+function hydrateLoaderMedia(scope) {
+    if (!scope) return
+    scope.querySelectorAll("img[data-src]").forEach((img) => {
+        if (img.getAttribute("src")) return
+        const src = img.getAttribute("data-src")
+        const fallback = img.getAttribute("data-fallback")
+        if (fallback) {
+            img.addEventListener(
+                "error",
+                () => {
+                    img.onerror = null
+                    img.src = fallback
+                },
+                { once: true }
+            )
+        }
+        img.src = src
+    })
+}
+
 function initSiteLoader(onComplete) {
     const loader = document.getElementById("site-loader")
     if (!loader || typeof gsap === "undefined") {
@@ -208,6 +254,7 @@ function initSiteLoader(onComplete) {
     document.body.classList.add("is-loading")
 
     const scope = loader
+    hydrateLoaderMedia(scope)
     const bar = loader.querySelector(".loader-bar")
     const percentEl = loader.querySelector(".loader-percent span")
     const statusEl = loader.querySelector(".loader-status")
@@ -219,8 +266,8 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    const minDuration = prefersReducedMotion ? 0.8 : 2.85
-    const progressDuration = prefersReducedMotion ? 0.7 : 2.8
+    const minDuration = prefersReducedMotion ? 0.8 : 1.45
+    const progressDuration = prefersReducedMotion ? 0.7 : 1.35
 
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
@@ -944,10 +991,18 @@ fromIfExists(".footer-bottom",{
    VANILLA TILT
 ========================= */
 
-function initVanillaTilt() {
-    if (typeof VanillaTilt === "undefined") return
+async function initVanillaTilt() {
     if (isMobile || prefersReducedMotion) return
     if (!window.matchMedia("(hover: hover)").matches) return
+
+    if (typeof VanillaTilt === "undefined") {
+        try {
+            await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js")
+        } catch (err) {
+            console.warn("[SUSI] VanillaTilt failed to load:", err)
+            return
+        }
+    }
 
     document.querySelectorAll(".product-img").forEach((img) => {
         if (img.closest(".tilt-wrap")) return
@@ -1013,7 +1068,9 @@ function scheduleHeroMarqueeFill() {
 
 window.addEventListener("load", () => {
     fillHeroMarquee()
-    setTimeout(initVanillaTilt, 400)
+    setTimeout(() => {
+        initVanillaTilt().catch(() => {})
+    }, 400)
 })
 
 window.addEventListener("resize", scheduleHeroMarqueeFill)

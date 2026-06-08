@@ -2,7 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".",
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true }
+    { "source": "/index.html", "destination": "/", "statusCode": 308 }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" }
@@ -15,7 +15,14 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
+      ]
+    },
+    {
+      "source": "/images/(.*)\\.vtt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vtt; charset=utf-8" }
       ]
     }
   ]

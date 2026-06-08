@@ -89,7 +89,7 @@
     </noscript>
     <link rel="preload" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css"></noscript>
-    <link rel="stylesheet" href="style.css?v=233">
+    <link rel="stylesheet" href="style.css?v=234">
     <style>
         .skip-link {
             position: absolute;
@@ -120,7 +120,6 @@
             .loader-juggler { display: none !important; }
         }
         body.is-loading { overflow: hidden; height: 100vh; }
-        body.is-loading > *:not(#site-loader) { visibility: hidden; }
         #site-loader {
             position: fixed;
             inset: 0;
@@ -167,21 +166,21 @@
         <div class="loader-panel loader-panel--bottom" aria-hidden="true"></div>
 
         <div class="loader-squad" aria-hidden="true">
-            <img class="loader-mon loader-mon--tl" src="images/decor-gengar.gif" alt="" width="72" height="72" decoding="async">
-            <img class="loader-mon loader-mon--tr" src="images/decor-charizard.gif" alt="" width="76" height="76" decoding="async">
-            <img class="loader-mon loader-mon--bl" src="images/decor-squirtle.gif" alt="" width="68" height="68" decoding="async">
-            <img class="loader-mon loader-mon--br" src="images/decor-snorlax.gif" alt="" width="80" height="80" decoding="async">
-            <img class="loader-mon loader-mon--l" src="images/decor-meowth.gif" alt="" width="64" height="64" decoding="async">
-            <img class="loader-mon loader-mon--r" src="images/decor-mewtwo.gif" alt="" width="74" height="74" decoding="async">
+            <img class="loader-mon loader-mon--tl" data-src="images/decor-gengar.gif" alt="" width="72" height="72" decoding="async">
+            <img class="loader-mon loader-mon--tr" data-src="images/decor-charizard.gif" alt="" width="76" height="76" decoding="async">
+            <img class="loader-mon loader-mon--bl" data-src="images/decor-squirtle.gif" alt="" width="68" height="68" decoding="async">
+            <img class="loader-mon loader-mon--br" data-src="images/decor-snorlax.gif" alt="" width="80" height="80" decoding="async">
+            <img class="loader-mon loader-mon--l" data-src="images/decor-meowth.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--r" data-src="images/decor-mewtwo.gif" alt="" width="74" height="74" decoding="async">
         </div>
 
         <div class="loader-squad-inner" aria-hidden="true">
-            <img class="loader-mon loader-mon--in1" src="images/decor-eevee.gif" alt="" width="64" height="64" decoding="async" loading="eager">
-            <img class="loader-mon loader-mon--in2" src="images/decor-jigglypuff.gif" alt="" width="64" height="64" decoding="async" loading="eager">
-            <img class="loader-mon loader-mon--in3" src="images/decor-mew.gif" alt="" width="64" height="64" decoding="async" loading="eager">
-            <img class="loader-mon loader-mon--in4" src="images/decor-bulbasaur.gif" alt="" width="64" height="64" decoding="async" loading="eager">
-            <img class="loader-mon loader-mon--in5" src="images/decor-psyduck.gif" alt="" width="64" height="64" decoding="async" loading="eager">
-            <img class="loader-mon loader-mon--in6" src="images/decor-vulpix.gif" alt="" width="64" height="64" decoding="async" loading="eager">
+            <img class="loader-mon loader-mon--in1" data-src="images/decor-eevee.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--in2" data-src="images/decor-jigglypuff.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--in3" data-src="images/decor-mew.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--in4" data-src="images/decor-bulbasaur.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--in5" data-src="images/decor-psyduck.gif" alt="" width="64" height="64" decoding="async">
+            <img class="loader-mon loader-mon--in6" data-src="images/decor-vulpix.gif" alt="" width="64" height="64" decoding="async">
         </div>
 
         <div class="loader-inner">
@@ -204,12 +203,12 @@
             <div class="loader-juggler" aria-hidden="true">
                 <img
                     class="loader-pikachu"
-                    src="images/pikachu-animated.gif"
+                    data-src="images/pikachu-animated.gif"
+                    data-fallback="images/pikachu-official.png"
                     width="160"
                     height="160"
                     alt=""
-                    decoding="async"
-                    onerror="this.onerror=null;this.src='images/pikachu-official.png';">
+                    decoding="async">
             </div>
         </div>
 
@@ -287,7 +286,7 @@
         <div class="hero-aside">
             <nav>
                 <a href="custom-build.html">CUSTOM BUILD</a>
-                <a href="#">SERVICES</a>
+                <a href="#" aria-label="Services — coming soon">SERVICES</a>
                 <a href="products.html">ORDER NOW</a>
                 <a class="cart-nav cart-nav--hero" href="cart.html" aria-label="Shopping cart">
                     <span class="cart-nav__label">CART</span>
@@ -455,7 +454,7 @@
                 <div class="stat-item">
 
                     <div class="stat-top">
-                        <h2>15+</h2>
+                        <p class="stat-value">15+</p>
                         <span>Machines running daily</span>
                     </div>
 
@@ -466,7 +465,7 @@
                 <div class="stat-item">
 
                     <div class="stat-top">
-                        <h2>10K+</h2>
+                        <p class="stat-value">10K+</p>
                         <span>Custom prints delivered</span>
                     </div>
 
@@ -477,7 +476,7 @@
                 <div class="stat-item">
 
                     <div class="stat-top">
-                        <h2>48HR</h2>
+                        <p class="stat-value">48HR</p>
                         <span>Rush orders available</span>
                     </div>
 
@@ -575,11 +574,20 @@
 
     <div class="event-visual">
 
-        <img src="Screenshot_2026-05-24_222301-removebg-preview.png" alt="" class="spiral-top">
+        <picture>
+            <source srcset="images/spiral-top.webp" type="image/webp">
+            <img src="Screenshot_2026-05-24_222301-removebg-preview.png" alt="" class="spiral-top" width="320" height="320" loading="lazy" decoding="async">
+        </picture>
 
         <div class="how-order-img-group">
-            <img src="images/how-order-photo.jpg?v=4" alt="3D printing at SUSI Labs" class="how-order-img">
-            <img src="Screenshot_2026-05-24_222342-removebg-preview.png" alt="" class="star-shape">
+            <picture>
+                <source srcset="images/how-order-photo.webp" type="image/webp">
+                <img src="images/how-order-photo-opt.jpg" alt="3D printing at SUSI Labs" class="how-order-img" width="900" height="600" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+                <source srcset="images/star-shape.webp" type="image/webp">
+                <img src="Screenshot_2026-05-24_222342-removebg-preview.png" alt="" class="star-shape" width="240" height="240" loading="lazy" decoding="async">
+            </picture>
         </div>
 
     </div>
@@ -622,7 +630,7 @@
 
     <div class="side-card left-card">
 
-        <img src="images/Lego Space Maxifig.jpg" alt="" class="person-img left-img">
+        <img src="images/Lego Space Maxifig.jpg" alt="Custom 3D printed Lego-style figure" class="person-img left-img" width="360" height="480" loading="lazy" decoding="async">
 
     </div>
 
@@ -632,7 +640,7 @@
 
         <div class="main-card">
 
-            <img src="images/4362930884617363.jpg" alt="" class="person-img main-img">
+            <img src="images/4362930884617363.jpg" alt="Custom 3D printed collectible" class="person-img main-img" width="420" height="520" loading="lazy" decoding="async">
 
         </div>
 
@@ -650,7 +658,7 @@
 
     <div class="side-card right-card">
 
-        <img src="images/lando norris mclaren f1 front wing.jpg" alt="" class="person-img right-img">
+        <img src="images/lando norris mclaren f1 front wing.jpg" alt="Custom 3D printed F1 front wing model" class="person-img right-img" width="360" height="480" loading="lazy" decoding="async">
 
     </div>
 
@@ -755,7 +763,7 @@
 
     <div class="contact-form-box">
 
-        <h2>Request a Quote</h2>
+        <h3>Request a Quote</h3>
 
         <!-- INPUT -->
 
@@ -789,7 +797,7 @@
 
         <!-- BUTTON -->
 
-        <button class="submit-btn">
+        <button type="button" class="submit-btn">
             Send Request
         </button>
 
@@ -931,11 +939,9 @@
 
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script defer src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script defer src="cart-store.js?v=2"></script>
 <script defer src="page-transition.js"></script>
-<script defer src="style.js?v=124"></script>
+<script defer src="style.js?v=125"></script>
 </body>
 
 </html>
