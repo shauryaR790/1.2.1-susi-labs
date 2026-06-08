@@ -346,7 +346,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                     finishError(new Error("Payment cancelled"))
                     return false
                 }
-                setPayLoading(true, `confirming payment… ${orderRef}`)
+                setPayLoading(true, "checking payment…")
             }
 
             return false
@@ -384,7 +384,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                     if (settled) return
                     modalOpen = false
                     dismissSyncAttempts = 0
-                    setPayLoading(true, `confirming payment… ${orderRef}`)
+                    setPayLoading(true, "checking payment…")
                     startSyncPolling()
                 }
             }

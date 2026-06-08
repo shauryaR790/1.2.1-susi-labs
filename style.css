@@ -6053,8 +6053,17 @@ CHECKOUT PAGE
 }
 
 .checkout-pay-btn:disabled {
-    opacity: 0.65;
+    opacity: 1;
     cursor: wait;
+    transform: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-inline: 20px;
+    text-transform: none;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
 }
 
 .checkout-pay-actions {
