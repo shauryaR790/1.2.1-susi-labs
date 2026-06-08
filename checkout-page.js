@@ -149,11 +149,8 @@ function renderPaymentModeBanner(config) {
 
     banner.className = "checkout-mode-banner checkout-mode-banner--live"
     banner.innerHTML = `<strong>LIVE MODE — real money (${escapeHtml(config.keyPrefix || "rzp_live")})</strong>
-After UPI QR payment, return to this tab or tap <strong>I've paid with UPI — continue</strong> at the bottom. The Razorpay window may stay open — that's normal.`
+Real UPI and cards will charge your account.`
     banner.hidden = false
-
-    const staticHelp = document.getElementById("checkout-static-help")
-    if (staticHelp) staticHelp.hidden = false
 }
 
 function setPayLoading(loading, label) {
@@ -269,13 +266,10 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         let syncErrors = 0
         let syncActive = false
         const pollStart = Date.now()
-        let manualBtn = null
 
         function cleanupListeners() {
             window.removeEventListener("focus", onReturnToPage)
             document.removeEventListener("visibilitychange", onReturnToPage)
-            manualBtn?.remove()
-            manualBtn = null
         }
 
         function stopPolling() {
@@ -347,7 +341,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                 console.warn("[SUSI] Payment sync:", err)
                 if (syncErrors >= 3) {
                     showError(
-                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Tap "I've paid" below or keep this tab open.`
+                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Keep this tab open — still retrying.`
                     )
                 }
             }
@@ -403,23 +397,10 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             finishError(new Error(response.error?.description || "Payment failed"))
         })
 
-        manualBtn = document.createElement("button")
-        manualBtn.type = "button"
-        manualBtn.className = "checkout-manual-confirm"
-        manualBtn.textContent = "I've paid with UPI — continue"
-        manualBtn.hidden = true
-        manualBtn.addEventListener("click", () => {
-            startUpiSyncPolling()
-        })
-        document.body.appendChild(manualBtn)
-
         window.addEventListener("focus", onReturnToPage)
         document.addEventListener("visibilitychange", onReturnToPage)
 
         rzp.open()
-        window.setTimeout(() => {
-            if (!settled && manualBtn) manualBtn.hidden = false
-        }, 4000)
     })
 }
 

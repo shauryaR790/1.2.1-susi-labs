@@ -6064,31 +6064,6 @@ CHECKOUT PAGE
     text-decoration: underline;
 }
 
-.checkout-manual-confirm {
-    position: fixed;
-    left: 50%;
-    bottom: max(18px, env(safe-area-inset-bottom));
-    z-index: 1000001;
-    transform: translateX(-50%);
-    width: min(92vw, 420px);
-    min-height: 52px;
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: 4px solid #000;
-    background: #FFFD46;
-    color: #3A002B;
-    font-family: 'Hagrid Trial', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 8px 0 #000;
-}
-
-.checkout-manual-confirm:hover {
-    background: #fff;
-}
-
 .checkout-pay-btn {
     display: flex;
     align-items: center;
