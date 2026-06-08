@@ -186,6 +186,7 @@ module.exports = async function handler(req, res) {
             currency: "INR",
             paymentMethod: "razorpay",
             keyId,
+            testMode: keyId.includes("_test_"),
             customer: {
                 name: order.customer_name,
                 email: order.customer_email,
