@@ -831,7 +831,10 @@ font-weight:700;
 
 cursor:pointer;
 
-transition:0.3s ease;
+transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .elevate-content .elevate-order-btn{
@@ -845,8 +848,12 @@ white-space:nowrap;
 }
 
 .elevate-content button:hover,
-.elevate-content .elevate-order-btn:hover{
-transform:scale(1.06) rotate(-2deg);
+.elevate-content .elevate-order-btn:hover,
+.elevate-content button:active,
+.elevate-content .elevate-order-btn:active{
+transform:scale(1.08) rotate(-4deg);
+background:#FFB8DC;
+box-shadow:0 14px 30px rgba(122, 45, 72, 0.35);
 }
 
 .container7{
@@ -1580,11 +1587,20 @@ letter-spacing:0.02em;
 
 cursor:pointer;
 
-transition:0.35s ease;
+transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
-.footer-btn:hover{
-transform:scale(1.06) rotate(-3deg);
+.footer-btn:hover,
+.footer-btn:active,
+.footer-btn:focus-visible{
+transform:scale(1.08) rotate(-4deg);
+background:#FFF56A;
+box-shadow:0 14px 30px rgba(0, 0, 0, 0.28);
+border-color:#3D001F;
 }
 
 /* BOTTOM */
@@ -1605,6 +1621,7 @@ align-items:center;
 color:#E8BDD2;
 
 font-size:18px;
+font-weight:700;
 
 font-family:Arial, Helvetica, sans-serif;
 }
@@ -2081,7 +2098,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 
 .footer-brand__name,
 .footer-brand h1 {
-    font-size: 90px;
+    font-size: clamp(120px, 24vw, 160px);
 }
 
 .footer-bottom {
@@ -2550,22 +2567,24 @@ RESPONSIVE — MOBILE
 
 .footer-brand__name,
 .footer-brand h1 {
-    font-size: clamp(56px, 17vw, 88px);
+    font-size: clamp(108px, 30vw, 150px);
 }
 
 .footer-brand p {
     font-size: 18px;
+    font-weight: 700;
     margin-top: 16px;
 }
 
 .footer-links h3,
 .footer-social h3 {
-    font-size: 22px;
-    margin-bottom: 16px;
+    font-size: clamp(44px, 12vw, 64px);
+    margin-bottom: 18px;
 }
 
 .footer-links a {
     font-size: 18px;
+    font-weight: 700;
     margin-bottom: 12px;
 }
 
@@ -2575,15 +2594,17 @@ RESPONSIVE — MOBILE
 }
 
 .footer-contact__link {
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .footer-btn {
     width: 100%;
     max-width: 340px;
     height: 60px;
-    font-size: 15px;
-    font-weight: 700;
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .footer-bottom {
@@ -2594,6 +2615,7 @@ RESPONSIVE — MOBILE
 .footer-bottom p,
 .footer-bottom span {
     font-size: 14px;
+    font-weight: 700;
 }
 }
 
