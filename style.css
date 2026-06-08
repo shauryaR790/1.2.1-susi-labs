@@ -7300,5 +7300,5 @@ body.custom-build-success-page .checkout-success__meta strong {
 
 html.susi-custom-cursor,
 html.susi-custom-cursor * {
-    cursor: url("images/susi-cursor-arrow.svg") 3 1, auto !important;
+    cursor: url("images/susi-cursor-arrow.svg") 2 1, auto !important;
 }

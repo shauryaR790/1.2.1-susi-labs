@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 22 24">
   <path
     fill="#FF5A00"
     stroke="#000000"
-    stroke-width="2.1"
+    stroke-width="1.65"
     stroke-linejoin="miter"
     stroke-linecap="butt"
     paint-order="stroke fill"
-    d="M1.5 0.5 L1.5 18.75 L7.1 13.85 L10.35 22.1 L13.65 20.55 L10.4 12.35 L21.75 12.35 L1.5 0.5 Z" />
+    d="M2 1 L2 18.5 L5.6 14.9 L7.4 20.6 L9.4 19.4 L7.4 13 L12.8 13 L2 1 Z" />
 </svg>
