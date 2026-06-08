@@ -914,7 +914,7 @@ fromIfExists(".footer-brand h1",{
     }
 })
 
-fromIfExists(".footer-brand p",{
+fromIfExists(".footer-brand__tagline",{
     y:60,
     opacity:0,
     duration:1.2,

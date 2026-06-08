@@ -1454,17 +1454,18 @@ color:#FF7F00;
 color:#000000;
 }
 
-.footer-brand p{
+.footer-brand__tagline{
 margin-top:28px;
+max-width:520px;
 
-font-size:26px;
+font-family:'Anton', sans-serif;
+font-size:clamp(40px, 4.8vw, 64px);
+font-weight:400;
+line-height:0.95;
+letter-spacing:-0.03em;
+text-transform:lowercase;
 
-line-height:1.1;
-
-color:#F7D9E8;
-
-font-family:Arial, Helvetica, sans-serif;
-font-weight:700;
+color:#FFFFFF;
 }
 
 /* LINKS */
@@ -2570,10 +2571,10 @@ RESPONSIVE — MOBILE
     font-size: clamp(108px, 30vw, 150px);
 }
 
-.footer-brand p {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 16px;
+.footer-brand__tagline {
+    font-size: clamp(32px, 8vw, 48px);
+    margin-top: 20px;
+    max-width: 100%;
 }
 
 .footer-links h3,
