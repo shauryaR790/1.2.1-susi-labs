@@ -72,15 +72,6 @@ function showError(msg) {
     }
 }
 
-function showPaymentPending(message) {
-    const overlay = document.getElementById("order-transition")
-    const tag = overlay?.querySelector(".order-transition__tag")
-    if (tag) tag.textContent = message || "confirming payment…"
-    document.body.classList.add("is-order-transitioning")
-    overlay?.classList.add("is-active")
-    overlay?.setAttribute("aria-hidden", "false")
-}
-
 function hidePaymentPending() {
     const overlay = document.getElementById("order-transition")
     overlay?.classList.remove("is-active")
@@ -257,15 +248,15 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         }
 
         const POLL_MS = 2000
-        const MAX_POLL_MS = 600000
+        const DISMISS_SYNC_ATTEMPTS = 12
+        const RETURN_SYNC_MAX_MS = 120000
         const orderRef = orderPayload.orderId.slice(0, 8).toUpperCase()
 
         let settled = false
         let pollTimer = null
         let rzp = null
-        let syncErrors = 0
         let syncActive = false
-        const pollStart = Date.now()
+        let returnSyncStart = 0
 
         function cleanupListeners() {
             window.removeEventListener("focus", onReturnToPage)
@@ -297,6 +288,10 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             resolve({ ...response, synced })
         }
 
+        function finishCancelled() {
+            finishError(new Error("Payment cancelled"))
+        }
+
         function finishError(err) {
             if (settled) return
             settled = true
@@ -306,57 +301,74 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             reject(err)
         }
 
-        async function checkServerPayment(showOverlay = true) {
+        function sleep(ms) {
+            return new Promise((resolve) => window.setTimeout(resolve, ms))
+        }
+
+        async function checkServerPaymentOnce() {
+            const data = await syncPayment(orderPayload.orderId)
+            if (data.paid) {
+                finishSuccess(
+                    {
+                        razorpay_order_id: data.razorpay_order_id || orderPayload.razorpayOrderId,
+                        razorpay_payment_id: data.razorpay_payment_id
+                    },
+                    true
+                )
+                return true
+            }
+            return false
+        }
+
+        async function syncAfterModalDismiss() {
+            if (settled) return
+            hidePaymentPending()
+            setPayLoading(true, "checking payment…")
+
+            for (let attempt = 0; attempt < DISMISS_SYNC_ATTEMPTS; attempt++) {
+                if (settled) return
+                try {
+                    if (await checkServerPaymentOnce()) return
+                } catch (err) {
+                    console.warn("[SUSI] Payment sync after dismiss:", err)
+                }
+                await sleep(POLL_MS)
+            }
+
+            if (!settled) finishCancelled()
+        }
+
+        async function checkServerPaymentWhileAway() {
             if (settled) return
 
-            const elapsed = Date.now() - pollStart
-            if (elapsed > MAX_POLL_MS) {
-                finishError(
-                    new Error(
-                        `Payment not confirmed in time. Order ref: ${orderRef}. If UPI was debited, do not pay again — contact us with this ref.`
-                    )
-                )
+            if (returnSyncStart && Date.now() - returnSyncStart > RETURN_SYNC_MAX_MS) {
+                stopPolling()
+                hidePaymentPending()
+                setPayLoading(false)
                 return
             }
 
-            if (showOverlay) {
-                showPaymentPending(`confirming payment… ${orderRef}`)
-            }
+            setPayLoading(true, "confirming payment…")
 
             try {
-                const data = await syncPayment(orderPayload.orderId)
-                syncErrors = 0
-
-                if (data.paid) {
-                    finishSuccess(
-                        {
-                            razorpay_order_id: data.razorpay_order_id || orderPayload.razorpayOrderId,
-                            razorpay_payment_id: data.razorpay_payment_id
-                        },
-                        true
-                    )
-                }
+                await checkServerPaymentOnce()
             } catch (err) {
-                syncErrors += 1
                 console.warn("[SUSI] Payment sync:", err)
-                if (syncErrors >= 3) {
-                    showError(
-                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Keep this tab open — still retrying.`
-                    )
-                }
             }
         }
 
-        function startUpiSyncPolling() {
+        function startReturnSyncPolling() {
             if (syncActive || settled) return
             syncActive = true
-            checkServerPayment(true)
-            pollTimer = window.setInterval(() => checkServerPayment(false), POLL_MS)
+            returnSyncStart = Date.now()
+            hidePaymentPending()
+            checkServerPaymentWhileAway()
+            pollTimer = window.setInterval(checkServerPaymentWhileAway, POLL_MS)
         }
 
         function onReturnToPage() {
             if (document.visibilityState && document.visibilityState !== "visible") return
-            startUpiSyncPolling()
+            startReturnSyncPolling()
         }
 
         const options = {
@@ -379,7 +391,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                 confirm_close: true,
                 ondismiss() {
                     if (settled) return
-                    startUpiSyncPolling()
+                    void syncAfterModalDismiss()
                 }
             }
         }
@@ -508,14 +520,14 @@ function initCheckoutPage() {
 
             if (redirected) return
 
-            showPaymentPending("payment confirmed — finishing…")
+            setPayLoading(true, "finishing…")
             await confirmPaymentOnServer(orderPayload, payment)
-            hidePaymentPending()
             redirectAfterSuccess(orderPayload.orderId)
             return
         } catch (err) {
             handleCheckoutError(err)
         } finally {
+            hidePaymentPending()
             setPayLoading(false)
         }
     }
