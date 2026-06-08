@@ -1,5 +1,10 @@
 const { getSupabaseAdmin } = require("../lib/supabase-admin")
-const { fetchOrderPayments, findCapturedPayment } = require("../lib/razorpay")
+const {
+    fetchRazorpayOrder,
+    fetchOrderPayments,
+    findSuccessfulPayment,
+    captureRazorpayPayment
+} = require("../lib/razorpay")
 const { completeOrderPayment } = require("../lib/complete-order-payment")
 
 function json(res, status, body) {
@@ -54,9 +59,14 @@ module.exports = async function handler(req, res) {
             return json(res, 200, { ok: true, paid: false })
         }
 
+        let razorpayOrder
         let paymentsPayload
+
         try {
-            paymentsPayload = await fetchOrderPayments(order.razorpay_order_id)
+            ;[razorpayOrder, paymentsPayload] = await Promise.all([
+                fetchRazorpayOrder(order.razorpay_order_id),
+                fetchOrderPayments(order.razorpay_order_id)
+            ])
         } catch (razorpayErr) {
             console.error("[SUSI] sync-payment Razorpay fetch failed:", razorpayErr.message, {
                 orderId,
@@ -67,15 +77,43 @@ module.exports = async function handler(req, res) {
             })
         }
 
-        const captured = findCapturedPayment(paymentsPayload)
+        let payment = findSuccessfulPayment(paymentsPayload)
 
-        if (!captured?.id) {
-            const statuses = (paymentsPayload?.items || []).map((row) => row.status).join(", ") || "none"
-            console.log("[SUSI] sync-payment: no captured payment yet", { orderId, statuses })
-            return json(res, 200, { ok: true, paid: false })
+        if (
+            payment?.status === "authorized" &&
+            payment.captured !== true &&
+            payment.id &&
+            order.amount_paise
+        ) {
+            try {
+                payment = await captureRazorpayPayment(payment.id, order.amount_paise)
+            } catch (captureErr) {
+                console.warn("[SUSI] sync-payment capture failed:", captureErr.message, {
+                    orderId,
+                    paymentId: payment.id
+                })
+            }
         }
 
-        const result = await completeOrderPayment(supabase, orderId, captured.id)
+        if (!payment?.id && razorpayOrder?.status === "paid") {
+            payment = findSuccessfulPayment(paymentsPayload)
+        }
+
+        if (!payment?.id) {
+            const statuses = (paymentsPayload?.items || []).map((row) => row.status).join(", ") || "none"
+            console.log("[SUSI] sync-payment: payment not ready", {
+                orderId,
+                razorpayOrderStatus: razorpayOrder?.status || "unknown",
+                paymentStatuses: statuses
+            })
+            return json(res, 200, {
+                ok: true,
+                paid: false,
+                razorpayOrderStatus: razorpayOrder?.status || null
+            })
+        }
+
+        const result = await completeOrderPayment(supabase, orderId, payment.id)
 
         if (result.error) {
             return json(res, result.status || 500, { error: result.error })
@@ -86,7 +124,7 @@ module.exports = async function handler(req, res) {
             paid: true,
             orderId: result.orderId,
             razorpay_order_id: order.razorpay_order_id,
-            razorpay_payment_id: captured.id
+            razorpay_payment_id: payment.id
         })
     } catch (err) {
         console.error(err)

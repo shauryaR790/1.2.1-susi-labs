@@ -167,10 +167,15 @@ module.exports = async function handler(req, res) {
             notes: { susi_order_id: order.id }
         })
 
-        await supabase
+        const { error: linkError } = await supabase
             .from("orders")
             .update({ razorpay_order_id: razorpayOrder.id })
             .eq("id", order.id)
+
+        if (linkError) {
+            console.error("[SUSI] Could not link Razorpay order:", linkError)
+            return json(res, 500, { error: "Could not link payment order" })
+        }
 
         const { keyId } = getRazorpayAuth()
 

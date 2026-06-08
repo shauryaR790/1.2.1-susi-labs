@@ -72,6 +72,22 @@ function showError(msg) {
     }
 }
 
+function showPaymentPending(message) {
+    const overlay = document.getElementById("order-transition")
+    const tag = overlay?.querySelector(".order-transition__tag")
+    if (tag) tag.textContent = message || "confirming payment…"
+    document.body.classList.add("is-order-transitioning")
+    overlay?.classList.add("is-active")
+    overlay?.setAttribute("aria-hidden", "false")
+}
+
+function hidePaymentPending() {
+    const overlay = document.getElementById("order-transition")
+    overlay?.classList.remove("is-active")
+    overlay?.setAttribute("aria-hidden", "true")
+    document.body.classList.remove("is-order-transitioning")
+}
+
 function setPayLoading(loading, label) {
     const payBtn = document.getElementById("checkout-pay-btn")
     if (!payBtn) return
@@ -163,7 +179,7 @@ async function confirmPaymentOnServer(orderPayload, payment) {
     const sync = await syncPayment(orderPayload.orderId)
     if (!sync.paid) {
         throw new Error(
-            "Payment not confirmed. If UPI was debited, contact us with your order details."
+            `Payment not confirmed yet. Order ref: ${orderPayload.orderId.slice(0, 8).toUpperCase()}. If UPI was debited, do not pay again — contact us with this ref.`
         )
     }
 }
@@ -175,12 +191,14 @@ function openRazorpayCheckout(orderPayload) {
             return
         }
 
-        const POLL_MS = 2500
-        const MAX_POLL_MS = 180000
+        const POLL_MS = 1000
+        const MAX_POLL_MS = 300000
+        const orderRef = orderPayload.orderId.slice(0, 8).toUpperCase()
 
         let settled = false
         let pollTimer = null
         let rzp = null
+        let syncErrors = 0
         const pollStart = Date.now()
 
         function stopPolling() {
@@ -194,6 +212,7 @@ function openRazorpayCheckout(orderPayload) {
             if (settled) return
             settled = true
             stopPolling()
+            hidePaymentPending()
             try {
                 rzp?.close()
             } catch {}
@@ -204,23 +223,29 @@ function openRazorpayCheckout(orderPayload) {
             if (settled) return
             settled = true
             stopPolling()
+            hidePaymentPending()
             reject(err)
         }
 
         async function checkServerPayment() {
             if (settled) return
 
-            if (Date.now() - pollStart > MAX_POLL_MS) {
+            const elapsed = Date.now() - pollStart
+            if (elapsed > MAX_POLL_MS) {
                 finishError(
                     new Error(
-                        "Payment not confirmed in time. If UPI was debited, contact us with your order details."
+                        `Payment not confirmed in time. Order ref: ${orderRef}. If UPI was debited, do not pay again — WhatsApp us this ref.`
                     )
                 )
                 return
             }
 
+            showPaymentPending(`confirming payment… ${orderRef}`)
+
             try {
                 const data = await syncPayment(orderPayload.orderId)
+                syncErrors = 0
+
                 if (data.paid) {
                     finishSuccess(
                         {
@@ -231,7 +256,13 @@ function openRazorpayCheckout(orderPayload) {
                     )
                 }
             } catch (err) {
+                syncErrors += 1
                 console.warn("[SUSI] Payment sync:", err)
+                if (syncErrors >= 3) {
+                    showError(
+                        `Checking payment failed (${err.message || "server error"}). Order ref: ${orderRef}. Keep this page open — still retrying.`
+                    )
+                }
             }
         }
 
@@ -244,13 +275,14 @@ function openRazorpayCheckout(orderPayload) {
             order_id: orderPayload.razorpayOrderId,
             prefill: orderPayload.customer,
             theme: { color: "#3A002B" },
+            retry: { enabled: false },
             handler(response) {
                 finishSuccess(response, false)
             },
             modal: {
+                confirm_close: true,
                 ondismiss() {
-                    // UPI QR often completes after the modal is closed — keep polling.
-                    setPayLoading(true, "checking payment…")
+                    showPaymentPending(`upi received? confirming… ${orderRef}`)
                     checkServerPayment()
                 }
             }
@@ -266,6 +298,7 @@ function openRazorpayCheckout(orderPayload) {
             finishError(new Error(response.error?.description || "Payment failed"))
         })
 
+        showPaymentPending(`complete payment in the window… ${orderRef}`)
         rzp.open()
         checkServerPayment()
         pollTimer = window.setInterval(checkServerPayment, POLL_MS)
@@ -343,10 +376,11 @@ function initCheckoutPage() {
             const orderPayload = await createOrder(customer, cartItems)
             const payment = await openRazorpayCheckout(orderPayload)
 
-            setPayLoading(true, "confirming payment…")
+            showPaymentPending("payment confirmed — finishing…")
             await confirmPaymentOnServer(orderPayload, payment)
-
+            hidePaymentPending()
             redirectAfterSuccess(orderPayload.orderId)
+            return
         } catch (err) {
             handleCheckoutError(err)
         } finally {
