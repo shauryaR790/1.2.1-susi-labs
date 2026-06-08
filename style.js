@@ -181,13 +181,27 @@ function finishSiteLoader(loader, onComplete) {
         )
 }
 
+function shouldSkipLoader() {
+    if (prefersReducedMotion || isMobile) return true
+    try {
+        return sessionStorage.getItem("susi:siteSeen") === "1"
+    } catch {
+        return false
+    }
+}
+
+function skipSiteLoader(onComplete) {
+    const loader = document.getElementById("site-loader")
+    loader?.remove()
+    document.body.classList.remove("is-loading")
+    document.body.classList.add("site-ready")
+    onComplete()
+}
+
 function initSiteLoader(onComplete) {
     const loader = document.getElementById("site-loader")
     if (!loader || typeof gsap === "undefined") {
-        loader?.remove()
-        document.body.classList.remove("is-loading")
-        document.body.classList.add("site-ready")
-        onComplete()
+        skipSiteLoader(onComplete)
         return
     }
 
@@ -205,8 +219,8 @@ function initSiteLoader(onComplete) {
     gsap.set(loader.querySelector(".loader-panel--top"), { yPercent: -100 })
     gsap.set(loader.querySelector(".loader-panel--bottom"), { yPercent: 100 })
 
-    const minDuration = prefersReducedMotion ? 1.1 : 2.85
-    const progressDuration = prefersReducedMotion ? 0.9 : 2.8
+    const minDuration = prefersReducedMotion ? 0.8 : 2.85
+    const progressDuration = prefersReducedMotion ? 0.7 : 2.8
 
     const intro = gsap.timeline({ defaults: { ease: "power3.out" } })
 
@@ -281,6 +295,8 @@ function initSiteLoader(onComplete) {
 ========================= */
 
 function playHeroIntro() {
+    if (isMobile || prefersReducedMotion) return
+
     fromIfExists(".upper", {
         y: isMobile ? 0 : -400,
         opacity: isMobile ? 0 : 1,
@@ -349,9 +365,37 @@ function initMobileNavScroll() {
     update()
 }
 
+function initLazyVideo() {
+    const video = document.querySelector(".experience-video")
+    if (!video || typeof IntersectionObserver === "undefined") return
+
+    const playWhenReady = () => {
+        video.play().catch(() => {})
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return
+                observer.disconnect()
+                if (video.readyState >= 2) {
+                    playWhenReady()
+                    return
+                }
+                video.addEventListener("loadeddata", playWhenReady, { once: true })
+                video.load()
+            })
+        },
+        { rootMargin: "240px 0px" }
+    )
+
+    observer.observe(video)
+}
+
 function afterLoaderComplete() {
     playHeroIntro()
     initMobileNavScroll()
+    initLazyVideo()
     requestAnimationFrame(() => ScrollTrigger.refresh())
     gsap.delayedCall(1.4, () => {
         initFloatingDecor()
@@ -359,7 +403,23 @@ function afterLoaderComplete() {
     })
 }
 
-initSiteLoader(afterLoaderComplete)
+function bootSite() {
+    const done = () => {
+        try {
+            sessionStorage.setItem("susi:siteSeen", "1")
+        } catch {}
+        afterLoaderComplete()
+    }
+
+    if (shouldSkipLoader() || document.documentElement.classList.contains("skip-loader")) {
+        skipSiteLoader(done)
+        return
+    }
+
+    initSiteLoader(done)
+}
+
+bootSite()
 /* =========================
    NAV HOVER
 ========================= */

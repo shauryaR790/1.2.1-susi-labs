@@ -110,13 +110,14 @@ body {
     text-transform: uppercase;
 }
 
-.hero h1:last-child {
-    margin-top: 0.06em;
-    margin-left: -6px;
+.hero-brand {
+    display: block;
 }
 
-.hero h1 {
+.hero-brand .lower {
     display: block;
+    margin-top: 0.06em;
+    margin-left: -6px;
 }
 
 /* NAV + RIGHT TEXT */
@@ -228,7 +229,7 @@ body {
     overflow: visible;
 }
 
-.heading h1 {
+.heading h2 {
     font-size: 195px;
     font-weight: 400;
     line-height: 1;
@@ -237,12 +238,12 @@ body {
     text-transform: lowercase;
 }
 
-.heading h1 + h1 {
+.heading h2 + h2 {
     margin-top: -0.04em;
 }
 
-.heading h1:first-child,
-.heading h1:last-child {
+.heading h2:first-child,
+.heading h2:last-child {
     color: #000000;
 }
 
@@ -491,7 +492,7 @@ body {
     padding: 0 0 28px;
 }
 
-.product-heading h1 {
+.product-heading h2 {
     font-family: 'Anton', sans-serif;
     text-align: center;
     font-size: 380px;
@@ -528,7 +529,7 @@ body {
     padding: 0;
 }
 
-.bottom-title h1 {
+.bottom-title h2 {
     font-family: 'Anton', sans-serif;
     font-size: 210px;
     font-weight: 400;
@@ -584,7 +585,7 @@ body {
     overflow: visible;
 }
 
-.experience-title h1 {
+.experience-title h2 {
     font-family: 'Anton', sans-serif;
     font-size: 145px;
     line-height: 1.0;
@@ -751,6 +752,7 @@ text-align:center;
 
 /* HUGE TITLE */
 
+.elevate-content .elevate-title,
 .elevate-content h1{
 font-family:'Peace Sans', sans-serif;
 
@@ -774,6 +776,7 @@ text-align:center;
 
 /* SUBTITLE */
 
+.elevate-content .elevate-subtitle,
 .elevate-content h2{
 margin-top:10px;
 
@@ -925,7 +928,7 @@ margin-right: 50px;
 
 /* TITLE */
 
-.event-content h1{
+.event-content h2{
 font-family:'Extenda 80 Peta', sans-serif;
 
 font-size:115px;
@@ -1098,7 +1101,7 @@ position:relative;
 width:max-content;
 }
 
-.contact-heading h1{
+.contact-heading h2{
 font-family:'Extenda 80 Peta', sans-serif;
 
 font-size:118px;
@@ -1379,6 +1382,7 @@ gap:80px;
 
 /* BRAND */
 
+.footer-brand__name,
 .footer-brand h1{
 font-family:'Anton', sans-serif;
 
@@ -1548,7 +1552,7 @@ RESPONSIVE — TABLET
     font-size: 22px;
 }
 
-.heading h1 {
+.heading h2 {
     font-size: 140px;
 }
 
@@ -1565,7 +1569,7 @@ RESPONSIVE — TABLET
     gap: 0;
 }
 
-.product-heading h1 {
+.product-heading h2 {
     font-size: 240px;
 }
 
@@ -1578,7 +1582,7 @@ RESPONSIVE — TABLET
     height: auto;
 }
 
-.bottom-title h1 {
+.bottom-title h2 {
     font-size: 140px;
 }
 
@@ -1589,7 +1593,7 @@ RESPONSIVE — TABLET
     aspect-ratio: 3 / 4;
 }
 
-.experience-title h1 {
+.experience-title h2 {
     font-size: 100px;
 }
 
@@ -1602,7 +1606,7 @@ RESPONSIVE — TABLET
     max-width: 520px;
 }
 
-.event-content h1 {
+.event-content h2 {
     font-size: 80px;
 }
 
@@ -1621,7 +1625,7 @@ RESPONSIVE — TABLET
     padding: 50px 24px;
 }
 
-.contact-heading h1 {
+.contact-heading h2 {
     font-size: 90px;
 }
 
@@ -1636,6 +1640,7 @@ RESPONSIVE — TABLET
     max-width: 560px;
 }
 
+.footer-brand__name,
 .footer-brand h1 {
     font-size: 120px;
 }
@@ -1697,7 +1702,7 @@ RESPONSIVE — TABLET
     line-height: 0.85;
 }
 
-    .hero h1:last-child {
+    .hero-brand .lower {
         margin-top: 4px;
         margin-left: 0;
     }
@@ -1774,7 +1779,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     padding: 32px 24px 0;
 }
 
-.heading h1 {
+.heading h2 {
     font-size: 110px;
 }
 
@@ -1833,7 +1838,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     gap: 16px;
 }
 
-.product-heading h1 {
+.product-heading h2 {
     font-size: 160px;
 }
 
@@ -1847,7 +1852,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     margin-top: 28px;
 }
 
-.bottom-title h1 {
+.bottom-title h2 {
     line-height: 0.72;
     font-size: 100px;
 }
@@ -1871,7 +1876,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     object-fit: cover;
 }
 
-.experience-title h1 {
+.experience-title h2 {
     font-size: 72px;
 }
 
@@ -1912,7 +1917,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     text-align: center;
 }
 
-.container7 .event-content h1 {
+.container7 .event-content h2 {
     text-align: center;
 }
 
@@ -1924,7 +1929,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     text-align: center;
 }
 
-.event-content h1 {
+.event-content h2 {
     font-size: 64px;
     letter-spacing: -8px;
 }
@@ -1979,6 +1984,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     gap: 36px;
 }
 
+.footer-brand__name,
 .footer-brand h1 {
     font-size: 90px;
 }
@@ -2037,7 +2043,7 @@ RESPONSIVE — MOBILE
     line-height: 0.85;
 }
 
-    .hero h1:last-child {
+    .hero-brand .lower {
         margin-top: 4px;
         margin-left: 0;
     }
@@ -2081,7 +2087,7 @@ RESPONSIVE — MOBILE
     margin-top: 0;
 }
 
-.heading h1 {
+.heading h2 {
     font-size: clamp(56px, 16vw, 96px);
 }
 
@@ -2137,7 +2143,7 @@ RESPONSIVE — MOBILE
     padding-bottom: 20px;
 }
 
-.product-heading h1 {
+.product-heading h2 {
     font-size: clamp(48px, 15vw, 96px);
     letter-spacing: -4px;
     line-height: 0.78;
@@ -2164,7 +2170,7 @@ RESPONSIVE — MOBILE
     overflow: hidden;
 }
 
-.bottom-title h1 {
+.bottom-title h2 {
     font-size: clamp(36px, 10vw, 60px);
     letter-spacing: -3px;
     line-height: 0.72;
@@ -2176,7 +2182,7 @@ RESPONSIVE — MOBILE
     padding: 32px 20px 36px;
 }
 
-.experience-title h1 {
+.experience-title h2 {
     font-size: clamp(42px, 11vw, 64px);
 }
 
@@ -2209,6 +2215,7 @@ RESPONSIVE — MOBILE
     padding: 119px 20px 111px;
 }
 
+.elevate-content .elevate-title,
 .elevate-content h1 {
     margin-top: 0;
     font-size: clamp(52px, 16vw, 88px);
@@ -2216,6 +2223,7 @@ RESPONSIVE — MOBILE
     line-height: 0.88;
 }
 
+.elevate-content .elevate-subtitle,
 .elevate-content h2 {
     font-size: clamp(24px, 6.5vw, 36px);
     margin-top: 8px;
@@ -2313,7 +2321,7 @@ RESPONSIVE — MOBILE
     text-align: center;
 }
 
-.event-content h1 {
+.event-content h2 {
     font-size: clamp(34px, 9.5vw, 48px);
     letter-spacing: -3px;
     line-height: 0.9;
@@ -2380,7 +2388,7 @@ RESPONSIVE — MOBILE
     padding: 40px 20px;
 }
 
-.contact-heading h1 {
+.contact-heading h2 {
     font-size: clamp(40px, 11vw, 64px);
     letter-spacing: -4px;
 }
@@ -2438,6 +2446,7 @@ RESPONSIVE — MOBILE
     padding: 40px 20px 24px;
 }
 
+.footer-brand__name,
 .footer-brand h1 {
     font-size: clamp(56px, 17vw, 88px);
 }
@@ -2552,7 +2561,7 @@ RESPONSIVE — MOBILE
     right: -34px;
 }
 
-.event-content h1 {
+.event-content h2 {
     font-size: clamp(30px, 9vw, 42px);
 }
 
@@ -2598,7 +2607,7 @@ RESPONSIVE — MOBILE
     margin-top: 20px;
 }
 
-.bottom-title h1 {
+.bottom-title h2 {
     font-size: clamp(32px, 9.5vw, 52px);
 }
 
