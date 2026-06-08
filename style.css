@@ -503,7 +503,7 @@ body {
     font-size: 380px;
     font-weight: 400;
     line-height: 0.85;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.025em;
     color: #000;
     text-transform: uppercase;
     margin: 0;
@@ -1667,7 +1667,7 @@ RESPONSIVE — TABLET
 
 .product-heading h2 {
     font-size: 240px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.025em;
 }
 
 .products-grid {
@@ -1941,7 +1941,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 
 .product-heading h2 {
     font-size: 160px;
-    letter-spacing: 0.035em;
+    letter-spacing: 0.02em;
 }
 
 .product-img {
@@ -2232,7 +2232,7 @@ RESPONSIVE — MOBILE
 
 .product-heading h2 {
     font-size: clamp(64px, 20vw, 120px);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.035em;
     line-height: 0.82;
 }
 
@@ -5031,9 +5031,9 @@ body.is-order-transitioning {
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-main .products-title h1 {
-        font-size: clamp(32px, 10vw, 52px) !important;
-        line-height: 0.92;
-        letter-spacing: -1.5px;
+        font-size: clamp(42px, 12.5vw, 64px) !important;
+        line-height: 0.9;
+        letter-spacing: -0.5px;
         margin: 0;
         padding: 0;
         text-align: center;
