@@ -371,21 +371,23 @@ function playHeroIntro() {
         delay: 0.95
     })
 
-    ;[".shape-left", ".shape-right"].forEach((sel, i) => {
-        const el = document.querySelector(sel)
-        if (!el) return
-        gsap.fromTo(
-            el,
-            { y: isMobile ? 120 : 300, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: isMobile ? 1 : 1.4,
-                ease: "power4.out",
-                delay: 1 + i * 0.1
-            }
-        )
-    })
+    if (!isMobile) {
+        ;[".shape-left", ".shape-right"].forEach((sel, i) => {
+            const el = document.querySelector(sel)
+            if (!el) return
+            gsap.fromTo(
+                el,
+                { y: 300, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.4,
+                    ease: "power4.out",
+                    delay: 1 + i * 0.1
+                }
+            )
+        })
+    }
 }
 
 function initMobileNavScroll() {

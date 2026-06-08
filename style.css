@@ -110,14 +110,13 @@ body {
     text-transform: uppercase;
 }
 
-.hero-brand {
-    display: block;
-}
-
-.hero-brand .lower {
-    display: block;
+.hero h1:last-child {
     margin-top: 0.06em;
     margin-left: -6px;
+}
+
+.hero h1 {
+    display: block;
 }
 
 /* NAV + RIGHT TEXT */
@@ -1705,7 +1704,7 @@ RESPONSIVE — TABLET
     line-height: 0.85;
 }
 
-    .hero-brand .lower {
+    .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
     }
@@ -2047,7 +2046,7 @@ RESPONSIVE — MOBILE
     line-height: 0.85;
 }
 
-    .hero-brand .lower {
+    .hero h1:last-child {
         margin-top: 4px;
         margin-left: 0;
     }
