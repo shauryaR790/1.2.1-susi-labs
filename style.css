@@ -6049,6 +6049,21 @@ CHECKOUT PAGE
     margin-top: 6px;
 }
 
+.checkout-domain-warning {
+    margin: 12px 0 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #000;
+    background: rgba(247, 165, 211, 0.45);
+    color: #3A002B;
+    font-weight: 700;
+}
+
+.checkout-domain-warning a {
+    color: #3A002B;
+    text-decoration: underline;
+}
+
 .checkout-pay-btn {
     display: flex;
     align-items: center;

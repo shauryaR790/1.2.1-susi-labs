@@ -90,11 +90,39 @@ function hidePaymentPending() {
 
 let paymentConfig = null
 
+const WORKING_CHECKOUT_ORIGIN = "https://1-2-1-susi-labs.vercel.app"
+
+function isWrongCheckoutHost() {
+    const host = window.location.hostname.replace(/^www\./, "")
+    return host === "susilabs.in"
+}
+
+function showDomainMisconfigWarning(message) {
+    const el = document.getElementById("checkout-domain-warning")
+    if (!el) return
+    el.hidden = false
+    el.innerHTML = message
+}
+
 async function loadPaymentConfig() {
     if (paymentConfig) return paymentConfig
 
     const res = await fetch("/api/payment-config", { cache: "no-store" })
-    const data = await res.json().catch(() => ({}))
+    const text = await res.text()
+
+    if (/^\s*</.test(text)) {
+        throw new Error(
+            `Checkout APIs are not on this domain. Payments cannot work on susilabs.in until the domain is linked to Vercel project 1-2-1-susi-labs. Use ${WORKING_CHECKOUT_ORIGIN}/checkout.html for now.`
+        )
+    }
+
+    let data = {}
+    try {
+        data = JSON.parse(text)
+    } catch {
+        throw new Error("Payment server returned an invalid response.")
+    }
+
     if (!res.ok || !data.ok) {
         throw new Error(data.error || "Payment gateway not configured on server")
     }
@@ -313,6 +341,24 @@ function openRazorpayCheckout(orderPayload) {
             prefill: orderPayload.customer,
             theme: { color: "#3A002B" },
             retry: { enabled: false },
+            config: {
+                display: {
+                    blocks: {
+                        card_block: {
+                            name: "Pay with Card",
+                            instruments: [{ method: "card" }]
+                        },
+                        upi_block: {
+                            name: "Pay with UPI",
+                            instruments: [{ method: "upi", flows: ["collect", "intent", "qr"] }]
+                        }
+                    },
+                    sequence: ["block.card_block", "block.upi_block"],
+                    preferences: {
+                        show_default_blocks: false
+                    }
+                }
+            },
             handler(response) {
                 finishSuccess(response, false)
             },
@@ -402,8 +448,20 @@ function initCheckoutPage() {
             showError(err.message || "Payment gateway not configured")
         })
 
+    if (isWrongCheckoutHost()) {
+        showDomainMisconfigWarning(
+            `susilabs.in is not connected to the checkout server yet — pay here instead: <a href="${WORKING_CHECKOUT_ORIGIN}/checkout.html">${WORKING_CHECKOUT_ORIGIN}/checkout.html</a>`
+        )
+        const payBtn = document.getElementById("checkout-pay-btn")
+        if (payBtn) payBtn.disabled = true
+    }
+
     async function runCheckout() {
         showError("")
+        if (isWrongCheckoutHost()) {
+            showError(`Checkout does not work on susilabs.in yet. Open ${WORKING_CHECKOUT_ORIGIN}/checkout.html`)
+            return
+        }
         if (!validateForm(form)) return
 
         const customer = getFormCustomer(form)
