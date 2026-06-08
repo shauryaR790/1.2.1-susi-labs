@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /checkout-success.html
+Disallow: /custom-build-success.html
+Disallow: /api/
+
+Sitemap: https://susilabs.in/sitemap.xml

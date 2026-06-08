@@ -175,7 +175,9 @@ function renderProduct(product, root, galleryRows) {
     `.trim()
 
     root.setAttribute("aria-busy", "false")
-    document.title = `${product.name || "Product"} | SUSI LABS`
+
+    const primaryImage = images.length ? images[0] : ""
+    window.SUSI_SEO?.applyProductSeo(product, primaryImage)
 
     bindProductImageFallback(root)
     if (images.length > 1) bindProductGallery(root, images, product.name || "Product")

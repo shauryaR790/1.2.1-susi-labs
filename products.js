@@ -365,6 +365,7 @@ async function initProductsCatalog() {
     try {
         const products = await fetchProducts(client)
         productsCatalog = products
+        window.SUSI_SEO?.applyProductsListSeo(products)
         const rendered = renderProducts(products, grid, "all")
         initAddToCart(grid)
         initProductNavigation(grid)
