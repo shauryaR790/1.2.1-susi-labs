@@ -1457,19 +1457,23 @@ line-height:1.1;
 color:#F7D9E8;
 
 font-family:Arial, Helvetica, sans-serif;
+font-weight:700;
 }
 
 /* LINKS */
 
 .footer-links h3,
 .footer-social h3{
-font-size:28px;
+font-family:'Anton', sans-serif;
+font-size:56px;
+font-weight:400;
+line-height:0.95;
+letter-spacing:-0.03em;
+text-transform:uppercase;
 
 color:#FFFD46;
 
 margin-bottom:24px;
-
-font-family:'Hagrid Trial', sans-serif;
 }
 
 .footer-social{
@@ -1489,6 +1493,7 @@ text-decoration:none;
 color:#F7D9E8;
 
 font-size:24px;
+font-weight:700;
 
 margin-bottom:16px;
 
@@ -1533,7 +1538,7 @@ margin-bottom:28px;
 
 .footer-contact__link{
 font-family:Arial, Helvetica, sans-serif;
-font-size:20px;
+font-size:22px;
 font-weight:700;
 color:#FFFD46;
 text-decoration:none;
@@ -1549,6 +1554,7 @@ color:#FFFFFF;
 .footer-btn{
 width:340px;
 height:76px;
+margin-top:32px;
 
 display:flex;
 justify-content:center;
@@ -1562,16 +1568,15 @@ border:4px solid #5A002E;
 
 border-radius:100px;
 
-font-family:'Hagrid Trial', sans-serif;
-
+font-family:'Anton', sans-serif;
 font-size:22px;
-font-weight:700;
+font-weight:400;
 
 text-decoration:none;
 text-transform:uppercase;
 line-height:1;
 white-space:nowrap;
-letter-spacing:-0.02em;
+letter-spacing:0.02em;
 
 cursor:pointer;
 
