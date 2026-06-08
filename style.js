@@ -769,7 +769,7 @@ fromIfExists(".elevate-content p",{
     }
 })
 
-fromIfExists(".elevate-content button",{
+fromIfExists(".elevate-content button, .elevate-content .elevate-order-btn",{
     scale:0.7,
     opacity:0,
     duration:1.1,
@@ -834,7 +834,7 @@ function initFloatingDecor() {
    CONTACT SECTION
 ========================= */
 
-fromIfExists(".contact-heading h1",{
+fromIfExists(".contact-heading h2",{
     x:-180,
     opacity:0,
     duration:1.3,
@@ -873,27 +873,14 @@ fromIfExists(".contact-text",{
     }
 })
 
-fromIfExists(".social-icons",{
+fromIfExists(".contact-connect",{
     y:80,
     opacity:0,
     duration:1.2,
     delay:0.2,
     ease:"power4.out",
     scrollTrigger:{
-        trigger:".social-icons",
-        start:"top 90%",
-        once: true
-    }
-})
-
-fromIfExists(".email-section",{
-    y:80,
-    opacity:0,
-    duration:1.2,
-    delay:0.25,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".email-section",
+        trigger:".contact-connect",
         start:"top 90%",
         once: true
     }
@@ -940,8 +927,8 @@ fromIfExists(".footer-brand p",{
     }
 })
 
-fromIfExists(".footer-icon",{
-    scale:0,
+fromIfExists(".footer-contact__link",{
+    y:24,
     opacity:0,
     stagger:0.1,
     duration:0.9,
