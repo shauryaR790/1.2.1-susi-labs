@@ -122,28 +122,6 @@ async function loadPaymentConfig() {
     return data
 }
 
-function renderPaymentModeBanner(config) {
-    const banner = document.getElementById("checkout-mode-banner")
-    if (!banner || !config) return
-
-    if (config.mode === "test") {
-        const t = config.testInstructions || {}
-        banner.className = "checkout-mode-banner checkout-mode-banner--test"
-        banner.innerHTML = `<strong>TEST MODE — no real money (${escapeHtml(config.keyPrefix || "rzp_test")})</strong>
-<ul>
-<li><strong>Card:</strong> ${escapeHtml(t.card || "4111 1111 1111 1111")}, expiry ${escapeHtml(t.expiry || "12/30")}, CVV ${escapeHtml(t.cvv || "123")}, OTP ${escapeHtml(t.otp || "123456")} (any 4–10 digits works)</li>
-<li><strong>UPI:</strong> open the UPI tab in Razorpay and <strong>type</strong> <code>${escapeHtml(t.upi || "success@razorpay")}</code> — do <strong>not</strong> scan the QR with PhonePe / GPay (that QR is test-only and will show invalid ID)</li>
-</ul>`
-        banner.hidden = false
-        return
-    }
-
-    banner.className = "checkout-mode-banner checkout-mode-banner--live"
-    banner.innerHTML = `<strong>LIVE MODE — real money (${escapeHtml(config.keyPrefix || "rzp_live")})</strong>
-Real UPI and cards will charge your account.`
-    banner.hidden = false
-}
-
 function setPayLoading(loading, label) {
     const payBtn = document.getElementById("checkout-pay-btn")
     if (!payBtn) return
@@ -470,11 +448,9 @@ function initCheckoutPage() {
     if (summaryPanel) summaryPanel.hidden = false
     renderSummary(items)
 
-    loadPaymentConfig()
-        .then(renderPaymentModeBanner)
-        .catch((err) => {
-            showError(err.message || "Payment gateway not configured")
-        })
+    loadPaymentConfig().catch((err) => {
+        showError(err.message || "Payment gateway not configured")
+    })
 
     if (isWrongCheckoutHost()) {
         showDomainMisconfigWarning(
@@ -503,7 +479,6 @@ function initCheckoutPage() {
 
         try {
             const config = await loadPaymentConfig()
-            renderPaymentModeBanner(config)
 
             const orderPayload = await createOrder(customer, cartItems)
 
