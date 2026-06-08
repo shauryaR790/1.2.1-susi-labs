@@ -4972,34 +4972,23 @@ body.is-order-transitioning {
         justify-content: flex-start;
     }
 
-    /* Order Now page — mobile: logo | ORDER NOW | cart on one row */
+    /* Order Now page — mobile: ORDER NOW spans width, cart on right */
     body.products-page:not(.cart-page):not(.product-page) .products-layout {
         display: grid;
-        grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
-        grid-template-rows: var(--products-mobile-top-h, clamp(68px, 18vw, 80px)) auto auto;
-        column-gap: 6px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: var(--products-mobile-top-h, clamp(72px, 20vw, 88px)) auto auto;
+        column-gap: 10px;
         row-gap: 12px;
         align-items: stretch;
-        --products-mobile-top-h: clamp(68px, 18vw, 80px);
+        --products-mobile-top-h: clamp(72px, 20vw, 88px);
         grid-template-areas:
-            "logo title cart"
+            "title cart"
             "filters filters filters"
             "grid grid grid";
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-home {
-        grid-area: logo;
-        grid-column: logo;
-        order: unset;
-        gap: 2px;
-        align-self: center;
-        justify-self: start;
-        flex-shrink: 0;
-        height: var(--products-mobile-top-h);
-        display: inline-flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+        display: none !important;
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-home__word--a {
@@ -5031,17 +5020,18 @@ body.is-order-transitioning {
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-main .products-title h1 {
-        font-size: clamp(42px, 12.5vw, 64px) !important;
-        line-height: 0.9;
-        letter-spacing: -0.5px;
+        font-size: clamp(52px, 15.5vw, 76px) !important;
+        line-height: 0.88;
+        letter-spacing: -0.3px;
         margin: 0;
         padding: 0;
+        width: 100%;
         text-align: center;
         white-space: nowrap;
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-title p {
-        display: none;
+        display: none !important;
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-main .products-header .cart-nav {
