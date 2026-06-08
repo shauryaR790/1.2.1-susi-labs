@@ -241,6 +241,8 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
         let pollTimer = null
         let rzp = null
         let modalOpen = true
+        let dismissSyncAttempts = 0
+        const DISMISS_CANCEL_ATTEMPTS = 4
         const pollStart = Date.now()
 
         savePendingOrderId(orderPayload.orderId)
@@ -338,6 +340,12 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
             }
 
             if (!modalOpen) {
+                dismissSyncAttempts += 1
+                if (dismissSyncAttempts >= DISMISS_CANCEL_ATTEMPTS) {
+                    clearPendingOrderId()
+                    finishError(new Error("Payment cancelled"))
+                    return false
+                }
                 setPayLoading(true, `confirming payment… ${orderRef}`)
             }
 
@@ -375,6 +383,7 @@ function openRazorpayCheckout(orderPayload, onPaidDetected) {
                 ondismiss() {
                     if (settled) return
                     modalOpen = false
+                    dismissSyncAttempts = 0
                     setPayLoading(true, `confirming payment… ${orderRef}`)
                     startSyncPolling()
                 }
