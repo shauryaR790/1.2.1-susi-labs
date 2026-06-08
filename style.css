@@ -846,7 +846,7 @@ white-space:nowrap;
 
 .elevate-content button:hover,
 .elevate-content .elevate-order-btn:hover{
-transform:scale(1.03);
+transform:scale(1.06) rotate(-2deg);
 }
 
 .container7{
@@ -1069,14 +1069,14 @@ line-height:1;
 text-align:center;
 }
 
-.tag:hover{
-scale:1.05;
-}
-
 .funny{
 left:-55px;
 top:215px;
 transform:rotate(-10deg);
+}
+
+.funny:hover{
+transform:rotate(-10deg) scale(1.06);
 }
 
 .empathetic{
@@ -1085,10 +1085,18 @@ top:-18px;
 transform:rotate(4deg);
 }
 
+.empathetic:hover{
+transform:rotate(4deg) scale(1.06);
+}
+
 .kindest{
 right:55px;
 bottom:-18px;
 transform:rotate(-7deg);
+}
+
+.kindest:hover{
+transform:rotate(-7deg) scale(1.06);
 }
 
 .container9{
@@ -1174,7 +1182,7 @@ white-space:nowrap;
 }
 
 .question-btn:hover{
-transform:rotate(-7deg) scale(1.05);
+transform:rotate(-7deg) scale(1.08);
 }
 
 /* TEXT */
@@ -1359,7 +1367,7 @@ transition:0.3s ease;
 }
 
 .submit-btn:hover{
-transform:scale(1.02);
+transform:scale(1.05) rotate(-1deg);
 }
 
 /* NOTE */
@@ -1428,9 +1436,15 @@ font-size:180px;
 
 line-height:1.08;
 
-/* letter-spacing:-8px; */
+font-weight:700;
+}
 
-color:#FFFD46;
+.footer-brand__susi{
+color:#FF7F00;
+}
+
+.footer-brand__labs{
+color:#000000;
 }
 
 .footer-brand p{
@@ -1456,6 +1470,12 @@ color:#FFFD46;
 margin-bottom:24px;
 
 font-family:'Hagrid Trial', sans-serif;
+}
+
+.footer-social{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
 }
 
 .footer-links{
@@ -1507,21 +1527,23 @@ transform:scale(1.15) rotate(-8deg);
 .footer-contact{
 display:flex;
 flex-direction:column;
-gap:10px;
+gap:12px;
 margin-bottom:28px;
 }
 
 .footer-contact__link{
 font-family:Arial, Helvetica, sans-serif;
 font-size:20px;
+font-weight:700;
 color:#FFFD46;
 text-decoration:none;
 line-height:1.2;
-transition:opacity 0.2s ease;
+transition:transform 0.3s ease, color 0.3s ease;
 }
 
 .footer-contact__link:hover{
-opacity:0.8;
+transform:translateX(8px);
+color:#FFFFFF;
 }
 
 .footer-btn{
@@ -1557,7 +1579,7 @@ transition:0.35s ease;
 }
 
 .footer-btn:hover{
-transform:scale(1.05) rotate(-2deg);
+transform:scale(1.06) rotate(-3deg);
 }
 
 /* BOTTOM */
