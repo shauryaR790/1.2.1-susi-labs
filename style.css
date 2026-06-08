@@ -291,12 +291,12 @@ body {
     font-weight: 700;
     line-height: 0.92;
     letter-spacing: -1px;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .badge-line--top,
 .badge-line--bottom {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 /* BOTTOM TEXT */
