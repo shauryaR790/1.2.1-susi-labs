@@ -914,19 +914,6 @@ fromIfExists(".footer-brand h1",{
     }
 })
 
-fromIfExists(".footer-brand__tagline",{
-    y:60,
-    opacity:0,
-    duration:1.2,
-    delay:0.15,
-    ease:"power4.out",
-    scrollTrigger:{
-        trigger:".footer",
-        start:"top 85%",
-        once: true
-    }
-})
-
 fromIfExists(".footer-contact__link",{
     y:24,
     opacity:0,

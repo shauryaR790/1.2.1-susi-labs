@@ -1441,7 +1441,7 @@ font-family:'Anton', sans-serif;
 
 font-size:180px;
 
-line-height:1.08;
+line-height:0.82;
 
 font-weight:700;
 }
@@ -1452,20 +1452,6 @@ color:#FF7F00;
 
 .footer-brand__labs{
 color:#000000;
-}
-
-.footer-brand__tagline{
-margin-top:28px;
-max-width:520px;
-
-font-family:'Anton', sans-serif;
-font-size:clamp(40px, 4.8vw, 64px);
-font-weight:400;
-line-height:0.95;
-letter-spacing:-0.03em;
-text-transform:lowercase;
-
-color:#FFFFFF;
 }
 
 /* LINKS */
@@ -2569,12 +2555,6 @@ RESPONSIVE — MOBILE
 .footer-brand__name,
 .footer-brand h1 {
     font-size: clamp(108px, 30vw, 150px);
-}
-
-.footer-brand__tagline {
-    font-size: clamp(32px, 8vw, 48px);
-    margin-top: 20px;
-    max-width: 100%;
 }
 
 .footer-links h3,
