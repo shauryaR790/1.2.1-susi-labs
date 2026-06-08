@@ -1875,26 +1875,45 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     width: 100%;
     height: auto;
     padding: 32px 24px 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 14px;
+    row-gap: 18px;
 }
 
-.heading h2 {
-    font-size: 110px;
-}
-
-.badge {
-    width: 140px;
-    height: 140px;
-    border-width: 5px;
-    margin-top: 24px;
+.heading {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
     margin-left: 0;
 }
 
+.heading h2 {
+    font-size: clamp(68px, 17vw, 92px);
+}
+
+.badge {
+    grid-column: 2;
+    grid-row: 1;
+    width: 112px;
+    height: 112px;
+    border-width: 5px;
+    margin-top: 0;
+    margin-left: 0;
+    align-self: center;
+    justify-self: end;
+}
+
 .badge-line {
-    font-size: 25px;
+    font-size: 19px;
 }
 
 .description {
-    margin-top: 20px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
     margin-left: 0;
     width: 100%;
     max-width: none;
@@ -2162,6 +2181,8 @@ RESPONSIVE — MOBILE
 
 .left {
     padding: 28px 20px 0;
+    column-gap: 12px;
+    row-gap: 16px;
 }
 
 .heading {
@@ -2170,24 +2191,24 @@ RESPONSIVE — MOBILE
 }
 
 .heading h2 {
-    font-size: clamp(56px, 16vw, 96px);
+    font-size: clamp(50px, 13.5vw, 72px);
 }
 
 .badge {
-    width: 128px;
-    height: 128px;
-    border-width: 5px;
-    margin-top: 18px;
+    width: 96px;
+    height: 96px;
+    border-width: 4px;
+    margin-top: 0;
     margin-left: 0;
     box-shadow: 3px 3px 0 #000;
 }
 
 .badge-line {
-    font-size: 21px;
+    font-size: 16px;
 }
 
 .description {
-    margin-top: 16px;
+    margin-top: 0;
 }
 
 .description p {
