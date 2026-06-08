@@ -1842,7 +1842,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 }
 
 .hero-aside nav a {
-    font-size: 15px;
+    font-size: 22px;
 }
 
 .hero-aside .info {
@@ -2148,12 +2148,12 @@ RESPONSIVE — MOBILE
     }
 
 .hero-aside nav {
-    gap: 14px 20px;
-    padding: 12px 16px;
+    gap: 18px 24px;
+    padding: 14px 18px;
 }
 
 .hero-aside nav a {
-    font-size: 13px;
+    font-size: 20px;
     letter-spacing: 0;
 }
 
@@ -2606,12 +2606,12 @@ RESPONSIVE — MOBILE
 }
 
 .hero-aside nav {
-    gap: 8px 12px;
-    padding: 12px 10px;
+    gap: 14px 18px;
+    padding: 14px 12px;
 }
 
 .hero-aside nav a {
-    font-size: 11px;
+    font-size: 18px;
 }
 
 .upper {
@@ -5075,10 +5075,10 @@ body.is-order-transitioning {
         justify-self: end;
         flex-shrink: 0;
         margin: 0;
-        width: 48px;
-        height: 48px;
-        border-radius: 13px;
-        border-width: 2px;
+        width: 62px;
+        height: 62px;
+        border-radius: 16px;
+        border-width: 3px;
     }
 
     body.products-page:not(.cart-page):not(.product-page) .products-controls {
@@ -5983,51 +5983,71 @@ html.cart-intro {
 
 @media (max-width: 992px) {
     .hero-aside nav .cart-nav--hero {
-        display: inline;
-        width: auto;
-        height: auto;
-        min-width: 0;
+        display: inline-flex;
+        width: 58px;
+        height: 58px;
+        min-width: 58px;
         padding: 0;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        color: #FF7F00;
-        text-transform: uppercase;
-        align-self: auto;
-        vertical-align: baseline;
+        background: #FF7F00;
+        border: 3px solid #000000;
+        border-radius: 14px;
+        color: #000000;
+        text-transform: none;
+        align-self: center;
+        vertical-align: middle;
         position: static;
     }
 
     .hero-aside nav .cart-nav__label {
-        display: inline;
-    }
-
-    .hero-aside nav .cart-nav__icon {
         display: none;
     }
 
+    .hero-aside nav .cart-nav__icon {
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+
     .hero-aside nav .cart-nav__badge {
-        display: none !important;
+        display: block !important;
+        top: -4px;
+        right: -4px;
+        min-width: 22px;
+        height: 22px;
+        font-size: 12px;
+        line-height: 18px;
     }
 
     .hero-aside nav .cart-nav--hero:hover {
-        transform: none;
-        background: transparent;
+        transform: translateY(-2px);
+        background: #e67200;
         color: #000000;
     }
 }
 
 @media (max-width: 768px) {
     .hero-aside nav .cart-nav--hero {
-        width: auto;
-        height: auto;
-        border: none;
-        border-radius: 0;
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        border: 3px solid #000000;
+        border-radius: 14px;
+    }
+
+    .hero-aside nav .cart-nav__icon {
+        width: 30px;
+        height: 30px;
     }
 
     .cart-nav--products {
-        width: 46px;
-        height: 46px;
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+    }
+
+    .cart-nav--products .cart-nav__icon {
+        width: 32px;
+        height: 32px;
     }
 }
 
