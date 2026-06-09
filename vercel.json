@@ -5,6 +5,7 @@
     { "source": "/index.html", "destination": "/", "statusCode": 308 }
   ],
   "rewrites": [
+    { "source": "/api/payment-config", "destination": "/api/create-order" },
     { "source": "/sitemap.xml", "destination": "/api/sitemap" }
   ],
   "headers": [

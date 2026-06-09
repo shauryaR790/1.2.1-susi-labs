@@ -7385,3 +7385,32 @@ html.susi-custom-cursor,
 html.susi-custom-cursor * {
     cursor: url("images/susi-cursor-arrow.svg") 2 1, auto !important;
 }
+
+/* Footer legal links — homepage only */
+.footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 20px;
+}
+
+.footer-legal a {
+    color: #E8BDD2;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+.footer-legal a:hover {
+    color: #fffd46;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+}

@@ -110,9 +110,7 @@ async function loadPaymentConfig() {
     const text = await res.text()
 
     if (/^\s*</.test(text)) {
-        throw new Error(
-            `Checkout APIs are not on this domain. Payments cannot work on susilabs.in until the domain is linked to Vercel project 1-2-1-susi-labs. Use ${WORKING_CHECKOUT_ORIGIN}/checkout.html for now.`
-        )
+        throw new Error("Payment server is not reachable on this domain. Please refresh and try again.")
     }
 
     let data = {}

@@ -41,6 +41,10 @@ function validateCustomer(c) {
 }
 
 module.exports = async function handler(req, res) {
+    if (req.method === "GET") {
+        return require("./payment-config")(req, res)
+    }
+
     if (req.method !== "POST") {
         return json(res, 405, { error: "Method not allowed" })
     }
