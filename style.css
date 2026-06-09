@@ -3887,7 +3887,7 @@ html.products-intro {
     font-family: 'Anton', sans-serif;
     font-size: 18px;
     letter-spacing: -0.5px;
-    text-transform: lowercase;
+    text-transform: uppercase;
     cursor: pointer;
     transition: transform 0.18s ease, background 0.18s ease;
     box-shadow: 4px 4px 0 #000;
@@ -7283,6 +7283,30 @@ body.checkout-success-page {
 .custom-build-nav__submit:disabled {
     opacity: 0.65;
     cursor: wait;
+}
+
+.custom-build-nav__submit:disabled.custom-build-nav__submit--blocked {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.cb-return-note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(255, 243, 239, 0.78);
+}
+
+.cb-return-note a {
+    color: #fffd46;
+}
+
+.cb-return-note a:hover {
+    color: #ffffff;
+}
+
+.cb-consent {
+    margin-top: 14px;
 }
 
 body.custom-build-success-page .checkout-success__meta strong {

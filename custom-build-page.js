@@ -114,10 +114,29 @@ function validateStep(step) {
             form.phone.focus()
             return false
         }
+
+        const consent = document.getElementById("cb-policy-consent")
+        if (!consent?.checked) {
+            showError("Please accept the Terms & Conditions and Privacy Policy to continue.")
+            consent?.focus()
+            return false
+        }
     }
 
     showError("")
     return true
+}
+
+function updateSubmitButtonState() {
+    const submit = $("#cb-submit")
+    const consent = $("#cb-policy-consent")
+    if (!submit || submit.hidden) return
+    if (submit.textContent === "sending…") return
+
+    const agreed = consent?.checked === true
+    submit.disabled = !agreed
+    submit.classList.toggle("custom-build-nav__submit--blocked", !agreed)
+    submit.textContent = agreed ? "send request" : "accept terms to send"
 }
 
 function updateProgressUI() {
@@ -147,7 +166,10 @@ function updateProgressUI() {
     if (next) next.hidden = currentStep === TOTAL_STEPS
     if (submit) submit.hidden = currentStep !== TOTAL_STEPS
 
-    if (currentStep === TOTAL_STEPS) renderSummary()
+    if (currentStep === TOTAL_STEPS) {
+        renderSummary()
+        updateSubmitButtonState()
+    }
 
     animateStepIn()
 }
@@ -367,7 +389,7 @@ async function submitForm(e) {
         handleSubmitError(err)
         submit.disabled = false
         if (next) next.disabled = false
-        submit.textContent = "send request"
+        updateSubmitButtonState()
     }
 }
 
@@ -384,7 +406,7 @@ function getStepAnimTargets(stepEl) {
     if (!stepEl) return []
     return [
         ...stepEl.querySelectorAll(
-            ".custom-build-step__title, .custom-build-step__hint, .cb-field, .cb-fieldset, .cb-row-2, .cb-pill, .cb-urgency__opt, .cb-upload, .cb-summary, .cb-contact, .custom-build-nav"
+            ".custom-build-step__title, .custom-build-step__hint, .cb-field, .cb-fieldset, .cb-row-2, .cb-pill, .cb-urgency__opt, .cb-upload, .cb-summary, .cb-contact, .cb-return-note, .cb-consent, .custom-build-nav"
         )
     ]
 }
@@ -524,6 +546,11 @@ function initCustomBuildPage() {
     })
 
     form.addEventListener("submit", submitForm)
+
+    $("#cb-policy-consent")?.addEventListener("change", (e) => {
+        if (e.target.checked) showError("")
+        updateSubmitButtonState()
+    })
 
     runCustomBuildIntro()
 }

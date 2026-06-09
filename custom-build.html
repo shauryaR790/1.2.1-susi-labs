@@ -37,7 +37,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=256">
+    <link rel="stylesheet" href="style.css?v=258">
 
     <script>
         try {
@@ -330,6 +330,13 @@
                         </select>
                     </label>
                 </div>
+
+                <p class="cb-return-note">Custom orders cannot be cancelled once production has started. Returns and refunds are handled according to our <a href="terms-and-conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>
+
+                <label class="checkout-consent cb-consent">
+                    <input type="checkbox" id="cb-policy-consent" name="policyConsent">
+                    <span>I agree to the <a href="terms-and-conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+                </label>
             </section>
 
             <p class="custom-build-form__error" id="custom-build-error" hidden role="alert"></p>
@@ -337,7 +344,7 @@
             <div class="custom-build-nav">
                 <button type="button" class="custom-build-nav__prev" id="cb-prev" hidden>previous</button>
                 <button type="button" class="custom-build-nav__next" id="cb-next">next step</button>
-                <button type="submit" class="custom-build-nav__submit" id="cb-submit" hidden>send request</button>
+                <button type="submit" class="custom-build-nav__submit" id="cb-submit" hidden disabled>accept terms to send</button>
             </div>
         </form>
                     </div>
@@ -369,7 +376,7 @@
 
     <script src="page-transition.js?v=2"></script>
     <script src="site-cursor.js?v=2"></script>
-    <script src="custom-build-page.js?v=4"></script>
+    <script src="custom-build-page.js?v=5"></script>
     <script defer src="cookie-consent.js?v=1"></script>
 </body>
 
