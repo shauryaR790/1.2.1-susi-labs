@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in | SUSI LABS</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#5B0030">
+    <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=259">
+</head>
+
+<body class="products-page cart-page auth-page">
+    <main class="products-shell cart-shell auth-shell">
+        <div class="auth-card">
+            <a class="auth-card__home" href="index.html">← SUSI LABS</a>
+
+            <div class="auth-tabs" role="tablist">
+                <button type="button" class="auth-tabs__btn is-active" id="auth-tab-signin" role="tab" aria-selected="true">Sign in</button>
+                <button type="button" class="auth-tabs__btn" id="auth-tab-signup" role="tab" aria-selected="false">Create account</button>
+            </div>
+
+            <form class="auth-form" id="auth-form-signin" novalidate>
+                <h1 class="auth-card__title">Welcome back</h1>
+                <p class="auth-card__sub">Track orders, view status, and manage your SUSI LABS account.</p>
+
+                <label class="checkout-field">
+                    <span>Email</span>
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label class="checkout-field">
+                    <span>Password</span>
+                    <input type="password" name="password" autocomplete="current-password" required minlength="8">
+                </label>
+
+                <p class="auth-form__error" id="auth-error-signin" hidden role="alert"></p>
+                <button type="submit" class="auth-form__submit" id="auth-submit-signin">Sign in</button>
+            </form>
+
+            <form class="auth-form" id="auth-form-signup" hidden novalidate>
+                <h1 class="auth-card__title">Create account</h1>
+                <p class="auth-card__sub">Use the same email as checkout to see past guest orders.</p>
+
+                <label class="checkout-field">
+                    <span>Email</span>
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label class="checkout-field">
+                    <span>Password</span>
+                    <input type="password" name="password" autocomplete="new-password" required minlength="8">
+                </label>
+                <label class="checkout-field">
+                    <span>Confirm password</span>
+                    <input type="password" name="confirmPassword" autocomplete="new-password" required minlength="8">
+                </label>
+
+                <p class="auth-form__error" id="auth-error-signup" hidden role="alert"></p>
+                <p class="auth-form__note" id="auth-note-signup" hidden></p>
+                <button type="submit" class="auth-form__submit" id="auth-submit-signup">Create account</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="site-auth.js?v=1"></script>
+    <script src="auth-page.js?v=1"></script>
+    <script defer src="cookie-consent.js?v=1"></script>
+</body>
+
+</html>

@@ -83,7 +83,7 @@
     </noscript>
     <link rel="preload" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css"></noscript>
-    <link rel="stylesheet" href="style.css?v=256">
+    <link rel="stylesheet" href="style.css?v=259">
     <style>
         .skip-link {
             position: absolute;
@@ -782,6 +782,8 @@
         <nav class="footer-legal" aria-label="Legal">
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+            <a href="orders.html" data-auth-show="signed-in" hidden>My Orders</a>
+            <a href="login.html" data-auth-show="signed-out">Sign In</a>
         </nav>
 
         <span>printed with precision. built to order.</span>
@@ -814,6 +816,9 @@
 
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="supabase-config.js"></script>
+<script defer src="site-auth.js?v=1"></script>
 <script defer src="cart-store.js?v=2"></script>
 <script defer src="page-transition.js?v=2"></script>
 <script defer src="site-cursor.js?v=2"></script>

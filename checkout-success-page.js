@@ -59,9 +59,14 @@ async function initCheckoutSuccessPage() {
         }
 
         const el = document.getElementById("order-ref")
+        const viewOrder = document.getElementById("success-view-order")
         if (el && orderId) {
             const short = orderId.replace(/-/g, "").slice(0, 8).toUpperCase()
             el.textContent = short || orderId.slice(0, 8)
+        }
+        if (viewOrder && orderId) {
+            viewOrder.href = `order.html?id=${encodeURIComponent(orderId)}`
+            viewOrder.hidden = false
         }
 
         if (!orderId) return

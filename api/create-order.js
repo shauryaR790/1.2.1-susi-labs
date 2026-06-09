@@ -1,4 +1,5 @@
 const { getSupabaseAdmin } = require("../lib/supabase-admin")
+const { getUserFromRequest } = require("../lib/auth-user")
 const { parsePriceToPaise } = require("../lib/parse-price")
 const { createRazorpayOrder, getRazorpayAuth } = require("../lib/razorpay")
 const { generateUpiPayment, getDefaultVpa } = require("../lib/upi")
@@ -65,6 +66,7 @@ module.exports = async function handler(req, res) {
         }
 
         const supabase = getSupabaseAdmin()
+        const authUser = await getUserFromRequest(req)
         const ids = [...new Set(cartItems.map((row) => String(row.id)).filter(Boolean))]
 
         const { data: products, error: productsError } = await supabase
@@ -109,13 +111,12 @@ module.exports = async function handler(req, res) {
             return json(res, 400, { error: "Order total too low" })
         }
 
-        const { data: order, error: orderError } = await supabase
-            .from("orders")
-            .insert({
+        const orderInsert = {
                 payment_status: "pending",
                 payment_method: paymentMethod,
                 amount_paise: amountPaise,
                 currency: "INR",
+                fulfillment_status: "awaiting_payment",
                 customer_name: String(customer.name).trim(),
                 customer_phone: String(customer.phone).trim(),
                 customer_email: String(customer.email).trim(),
@@ -125,7 +126,15 @@ module.exports = async function handler(req, res) {
                 state: String(customer.state).trim(),
                 pin_code: String(customer.pin_code).trim(),
                 notes: String(customer.notes || "").trim() || null
-            })
+            }
+
+        if (authUser?.id) {
+            orderInsert.user_id = authUser.id
+        }
+
+        const { data: order, error: orderError } = await supabase
+            .from("orders")
+            .insert(orderInsert)
             .select("*")
             .single()
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order details | SUSI LABS</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#5B0030">
+    <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
+    <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=259">
+</head>
+
+<body class="products-page cart-page account-page order-detail-page">
+    <main class="products-shell cart-shell account-shell">
+        <div class="account-detail">
+            <a class="auth-card__home" href="orders.html">← My orders</a>
+
+            <p class="orders-loading" id="order-loading">Loading order…</p>
+            <p class="orders-empty" id="order-error" hidden role="alert"></p>
+
+            <article class="order-detail" id="order-detail" hidden></article>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="order-status.js?v=1"></script>
+    <script src="site-auth.js?v=1"></script>
+    <script src="order-page.js?v=1"></script>
+    <script defer src="cookie-consent.js?v=1"></script>
+</body>
+
+</html>

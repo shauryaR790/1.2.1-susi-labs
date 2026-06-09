@@ -173,9 +173,15 @@ function validateForm(form) {
 }
 
 async function createOrder(customer, items) {
+    const headers = { "Content-Type": "application/json" }
+    try {
+        const token = await window.SUSI_AUTH?.getAccessToken?.()
+        if (token) headers.Authorization = `Bearer ${token}`
+    } catch {}
+
     const res = await fetch("/api/create-order", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
             customer,
             paymentMethod: "razorpay",

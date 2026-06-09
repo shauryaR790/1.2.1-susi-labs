@@ -63,6 +63,8 @@
 
                     <nav class="cart-sidebar-links" aria-label="Quick links">
                         <a class="cart-sidebar-links__btn" href="products.html">shop</a>
+                        <a class="cart-sidebar-links__btn" href="orders.html" data-auth-show="signed-in" hidden>orders</a>
+                        <a class="cart-sidebar-links__btn" href="login.html" data-auth-show="signed-out">sign in</a>
                         <a class="cart-sidebar-links__btn" href="index.html">home</a>
                     </nav>
                 </div>
@@ -122,6 +124,9 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="site-auth.js?v=1"></script>
     <script src="cart-store.js?v=2"></script>
     <script src="page-transition.js?v=2"></script>
     <script src="site-cursor.js?v=2"></script>
