@@ -6163,6 +6163,39 @@ CHECKOUT PAGE
     line-height: 1.2;
 }
 
+.checkout-pay-btn:disabled.checkout-pay-btn--blocked {
+    cursor: not-allowed;
+    opacity: 0.55;
+    background: rgba(255, 253, 70, 0.45);
+}
+
+.checkout-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(255, 243, 239, 0.92);
+}
+
+.checkout-consent input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #ff7f00;
+    cursor: pointer;
+}
+
+.checkout-consent a {
+    color: #fffd46;
+}
+
+.checkout-consent a:hover {
+    color: #ffffff;
+}
+
 .checkout-pay-actions {
     display: flex;
     flex-direction: column;

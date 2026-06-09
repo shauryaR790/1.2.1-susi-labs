@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=256">
+    <link rel="stylesheet" href="style.css?v=257">
 
     <script>
         try {
@@ -147,8 +147,12 @@
                         <p class="cart-summary__row"><span>Items</span><span data-checkout-summary-count>0 items</span></p>
                         <p class="cart-summary__row cart-summary__row--total"><span>Total</span><span data-checkout-summary-subtotal>—</span></p>
                         <div class="checkout-pay-actions">
-                            <button type="button" class="checkout-pay-btn" id="checkout-pay-btn">
-                                pay with UPI / card
+                            <label class="checkout-consent">
+                                <input type="checkbox" id="checkout-policy-consent" name="policyConsent">
+                                <span>I agree to the <a href="terms-and-conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+                            </label>
+                            <button type="button" class="checkout-pay-btn" id="checkout-pay-btn" disabled>
+                                accept terms to pay
                             </button>
                         </div>
                         <a class="cart-summary__shop" href="cart.html">← back to cart</a>
@@ -182,7 +186,7 @@
     <script src="cart-store.js?v=2"></script>
     <script src="page-transition.js?v=2"></script>
     <script src="site-cursor.js?v=2"></script>
-    <script src="checkout-page.js?v=30"></script>
+    <script src="checkout-page.js?v=31"></script>
     <script defer src="cookie-consent.js?v=1"></script>
 </body>
 

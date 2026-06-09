@@ -80,6 +80,7 @@ function hidePaymentPending() {
 }
 
 let paymentConfig = null
+let payLoading = false
 
 const PENDING_ORDER_KEY = "susi:pendingOrderId"
 
@@ -128,15 +129,31 @@ async function loadPaymentConfig() {
     return data
 }
 
+function updatePayButtonState() {
+    const payBtn = document.getElementById("checkout-pay-btn")
+    const consent = document.getElementById("checkout-policy-consent")
+    if (!payBtn || payLoading) return
+
+    const agreed = consent?.checked === true
+    payBtn.disabled = !agreed
+    payBtn.classList.toggle("checkout-pay-btn--blocked", !agreed)
+    payBtn.textContent = agreed ? "pay with UPI / card" : "accept terms to pay"
+}
+
 function setPayLoading(loading, label) {
     const payBtn = document.getElementById("checkout-pay-btn")
     if (!payBtn) return
-    payBtn.disabled = loading
-    if (!loading) {
-        payBtn.textContent = "pay with UPI / card"
+
+    payLoading = loading
+    payBtn.classList.toggle("checkout-pay-btn--loading", loading)
+
+    if (loading) {
+        payBtn.disabled = true
+        payBtn.textContent = label || "processing…"
         return
     }
-    payBtn.textContent = label || "processing…"
+
+    updatePayButtonState()
 }
 
 function validateForm(form) {
@@ -144,6 +161,14 @@ function validateForm(form) {
         form.reportValidity()
         return false
     }
+
+    const consent = document.getElementById("checkout-policy-consent")
+    if (!consent?.checked) {
+        showError("Please accept the Terms & Conditions and Privacy Policy to continue.")
+        consent?.focus()
+        return false
+    }
+
     return true
 }
 
@@ -524,6 +549,13 @@ function initCheckoutPage() {
     }
 
     if (payBtn) payBtn.addEventListener("click", runCheckout)
+
+    const consent = document.getElementById("checkout-policy-consent")
+    consent?.addEventListener("change", () => {
+        if (consent.checked) showError("")
+        updatePayButtonState()
+    })
+    updatePayButtonState()
 
     runCheckoutIntro()
 }
