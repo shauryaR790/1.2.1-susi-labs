@@ -5944,6 +5944,26 @@ html.cart-intro {
         display: none !important;
     }
 
+    .cart-page.account-page:not(.checkout-page) .cart-layout,
+    .cart-page.orders-page:not(.checkout-page) .cart-layout {
+        --cart-mobile-top-h: clamp(132px, 30vw, 156px);
+    }
+
+    .cart-page.account-page:not(.checkout-page) .cart-sidebar-links,
+    .cart-page.orders-page:not(.checkout-page) .cart-sidebar-links {
+        min-width: 74px;
+        max-width: 92px;
+    }
+
+    .cart-page.account-page:not(.checkout-page) .cart-sidebar-links__btn,
+    .cart-page.orders-page:not(.checkout-page) .cart-sidebar-links__btn {
+        min-height: 26px;
+        padding: 0 6px;
+        font-size: 8px;
+        line-height: 1.1;
+        text-align: center;
+    }
+
   /* Mobile: sidebar quick links are shop + home only */
     .cart-sidebar-links__btn[href*="cart.html"] {
         display: none !important;
