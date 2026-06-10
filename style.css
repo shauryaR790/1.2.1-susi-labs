@@ -7729,8 +7729,8 @@ html.susi-custom-cursor * {
 }
 
 .cart-sidebar-links__btn.is-active {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
 }
 
 .cart-sidebar-links__btn--ghost {
@@ -7749,12 +7749,12 @@ html.susi-custom-cursor * {
 .orders-empty {
     margin: 24px 0;
     font-size: 15px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.85);
     text-align: center;
 }
 
 .orders-empty__link {
-    color: #ef7cc2;
+    color: #fffd46;
     text-decoration: none;
     font-weight: 700;
 }
@@ -7810,16 +7810,17 @@ html.susi-custom-cursor * {
     padding: 20px 22px;
     border: 3px solid #000;
     border-radius: 20px;
-    background: #3a002b;
-    color: #d4a5c8;
+    background: linear-gradient(145deg, rgba(255, 253, 70, 0.14) 0%, rgba(58, 0, 43, 0.55) 100%);
+    color: #fff3ef;
     text-decoration: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: 6px 6px 0 #000;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
 }
 
 .orders-card:hover {
     transform: translateY(-3px);
-    box-shadow: 8px 8px 0 #000;
+    background: linear-gradient(145deg, rgba(255, 253, 70, 0.22) 0%, rgba(58, 0, 43, 0.45) 100%);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
 }
 
 .orders-card__head {
@@ -7828,7 +7829,7 @@ html.susi-custom-cursor * {
     align-items: flex-start;
     gap: 12px;
     padding-bottom: 12px;
-    border-bottom: 2px solid #5b0030;
+    border-bottom: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .orders-card__identity {
@@ -7841,7 +7842,7 @@ html.susi-custom-cursor * {
 .orders-card__ref {
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #ef7cc2;
+    color: #fffd46;
     letter-spacing: 0.5px;
 }
 
@@ -7858,40 +7859,40 @@ html.susi-custom-cursor * {
 }
 
 .orders-card__badge--pending {
-    background: #5b0030;
-    color: #ef7cc2;
+    background: rgba(255, 127, 0, 0.25);
+    color: #fffd46;
 }
 
 .orders-card__badge--active {
-    background: #670038;
-    color: #ef7cc2;
+    background: rgba(255, 253, 70, 0.35);
+    color: #3a002b;
 }
 
 .orders-card__badge--shipping {
-    background: #670038;
-    color: #d4a5c8;
+    background: rgba(255, 127, 0, 0.85);
+    color: #000;
 }
 
 .orders-card__badge--done {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
 }
 
 .orders-card__badge--cancelled {
-    background: #2a0020;
-    color: #9a6b8a;
+    background: rgba(255, 243, 239, 0.2);
+    color: rgba(255, 243, 239, 0.8);
 }
 
 .orders-card__date {
     font-size: 12px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.7);
     white-space: nowrap;
 }
 
 .orders-card__summary-line {
     margin: 0;
     font-size: 13px;
-    color: #d4a5c8;
+    color: rgba(255, 243, 239, 0.82);
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -7924,9 +7925,8 @@ html.susi-custom-cursor * {
     align-items: center;
     padding: 10px 12px;
     border-radius: 14px;
-    background: #2a0020;
-    border: 2px solid #5b0030;
-    color: #d4a5c8;
+    background: rgba(0, 0, 0, 0.22);
+    border: 2px solid rgba(255, 243, 239, 0.08);
 }
 
 .orders-card__thumb {
@@ -7936,7 +7936,7 @@ html.susi-custom-cursor * {
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: #670038;
+    background: rgba(255, 127, 0, 0.2);
 }
 
 .orders-card__thumb--placeholder {
@@ -7945,8 +7945,7 @@ html.susi-custom-cursor * {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 16px;
-    color: #ef7cc2;
-    background: #670038;
+    color: #fffd46;
 }
 
 .orders-card__item-name {
@@ -7954,20 +7953,18 @@ html.susi-custom-cursor * {
     font-size: 15px;
     font-weight: 700;
     line-height: 1.25;
-    color: #ef7cc2;
 }
 
 .orders-card__item-meta {
     margin: 3px 0 0;
     font-size: 12px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.68);
 }
 
 .orders-card__item-line {
-    font-family: "Anton", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #d4a5c8;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fffd46;
     white-space: nowrap;
 }
 
@@ -7975,7 +7972,7 @@ html.susi-custom-cursor * {
 .orders-card__pending {
     margin: 0;
     font-size: 13px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.75);
     font-style: italic;
 }
 
@@ -8004,7 +8001,7 @@ html.susi-custom-cursor * {
     left: calc(50% + 10px);
     width: calc(100% - 20px);
     height: 2px;
-    background: #5b0030;
+    background: rgba(255, 243, 239, 0.15);
     z-index: 0;
 }
 
@@ -8013,31 +8010,31 @@ html.susi-custom-cursor * {
     height: 14px;
     border-radius: 50%;
     border: 2px solid #000;
-    background: #3a002b;
+    background: rgba(255, 243, 239, 0.2);
     position: relative;
     z-index: 1;
 }
 
 .orders-card__step--done .orders-card__step-dot {
-    background: #670038;
+    background: #fffd46;
 }
 
 .orders-card__step--current .orders-card__step-dot {
-    background: #ef7cc2;
-    box-shadow: 0 0 0 3px #5b0030;
+    background: #ff7f00;
+    box-shadow: 0 0 0 3px rgba(255, 127, 0, 0.35);
 }
 
 .orders-card__step-label {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.65);
     line-height: 1.2;
 }
 
 .orders-card__step--done .orders-card__step-label,
 .orders-card__step--current .orders-card__step-label {
-    color: #d4a5c8;
+    color: #fff3ef;
     font-weight: 700;
 }
 
@@ -8047,7 +8044,7 @@ html.susi-custom-cursor * {
     align-items: stretch;
     gap: 14px;
     padding-top: 12px;
-    border-top: 2px solid #5b0030;
+    border-top: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .orders-card__foot-meta {
@@ -8059,19 +8056,19 @@ html.susi-custom-cursor * {
 
 .orders-card__track {
     font-size: 12px;
-    color: #ef7cc2;
+    color: #fffd46;
     font-weight: 600;
 }
 
 .orders-card__track--muted {
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.55);
     font-weight: 400;
 }
 
 .orders-card__total {
     font-family: "Anton", sans-serif;
     font-size: 24px;
-    color: #ef7cc2;
+    color: #fffd46;
     line-height: 1;
     flex-shrink: 0;
 }
@@ -8082,19 +8079,19 @@ html.susi-custom-cursor * {
     text-align: center;
     padding: 11px 16px;
     border-radius: 999px;
-    border: 2px solid #000;
-    background: #670038;
+    border: 2px solid #fffd46;
+    background: rgba(255, 253, 70, 0.1);
     font-size: 12px;
     font-weight: 700;
-    color: #ef7cc2;
+    color: #fffd46;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .orders-card:hover .orders-card__cta {
-    background: #5b0030;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
     transform: translateY(-1px);
 }
 
@@ -8114,7 +8111,7 @@ html.susi-custom-cursor * {
 .orders-card__meta {
     margin: 0;
     font-size: 13px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.78);
 }
 
 .order-detail-page .account-shell {
@@ -8130,15 +8127,15 @@ html.susi-custom-cursor * {
     padding: 28px 32px 36px;
     border-radius: 24px;
     border: 3px solid #000;
-    background: #3a002b;
+    background: linear-gradient(160deg, rgba(58, 0, 43, 0.96) 0%, rgba(42, 0, 32, 0.98) 100%);
     box-shadow: 10px 10px 0 #000;
-    color: #d4a5c8;
+    color: #fff3ef;
 }
 
 .order-detail__hero {
     margin-bottom: 24px;
     padding-bottom: 22px;
-    border-bottom: 2px solid #5b0030;
+    border-bottom: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .order-detail__hero-top {
@@ -8161,7 +8158,7 @@ html.susi-custom-cursor * {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #ef7cc2;
+    color: #ff7f00;
     font-weight: 700;
 }
 
@@ -8178,28 +8175,28 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__badge--pending {
-    background: #5b0030;
-    color: #ef7cc2;
+    background: rgba(255, 127, 0, 0.25);
+    color: #fffd46;
 }
 
 .order-detail__badge--active {
-    background: #670038;
-    color: #ef7cc2;
+    background: rgba(255, 253, 70, 0.35);
+    color: #3a002b;
 }
 
 .order-detail__badge--shipping {
-    background: #670038;
-    color: #d4a5c8;
+    background: rgba(255, 127, 0, 0.85);
+    color: #000;
 }
 
 .order-detail__badge--done {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
 }
 
 .order-detail__badge--cancelled {
-    background: #2a0020;
-    color: #9a6b8a;
+    background: rgba(255, 243, 239, 0.2);
+    color: rgba(255, 243, 239, 0.8);
 }
 
 .order-detail__title {
@@ -8208,13 +8205,13 @@ html.susi-custom-cursor * {
     font-size: clamp(32px, 5vw, 52px);
     line-height: 0.95;
     text-transform: uppercase;
-    color: #ef7cc2;
+    color: #fffd46;
 }
 
 .order-detail__date {
     margin: 0;
     font-size: 12px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.7);
     white-space: nowrap;
 }
 
@@ -8225,7 +8222,7 @@ html.susi-custom-cursor * {
     gap: 8px;
     align-items: center;
     font-size: 14px;
-    color: #d4a5c8;
+    color: rgba(255, 243, 239, 0.82);
 }
 
 .order-detail__stats-dot {
@@ -8243,8 +8240,8 @@ html.susi-custom-cursor * {
     padding: 18px 20px;
     margin-bottom: 16px;
     border-radius: 18px;
-    border: 2px solid #000;
-    background: #2a0020;
+    border: 2px solid rgba(255, 243, 239, 0.1);
+    background: rgba(0, 0, 0, 0.22);
 }
 
 .order-detail__panel:last-child {
@@ -8257,7 +8254,7 @@ html.susi-custom-cursor * {
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: #ef7cc2;
+    color: #ff7f00;
 }
 
 .order-detail__pending,
@@ -8265,17 +8262,16 @@ html.susi-custom-cursor * {
     margin: 0 0 14px;
     padding: 14px 16px;
     border-radius: 12px;
-    background: #670038;
-    border: 2px solid #000;
-    color: #d4a5c8;
+    background: rgba(255, 253, 70, 0.1);
+    border: 2px solid rgba(255, 253, 70, 0.3);
     font-size: 14px;
     line-height: 1.45;
 }
 
 .order-detail__note--muted {
-    background: #2a0020;
-    border-color: #5b0030;
-    color: #9a6b8a;
+    background: rgba(255, 243, 239, 0.05);
+    border-color: rgba(255, 243, 239, 0.12);
+    color: rgba(255, 243, 239, 0.7);
 }
 
 .order-detail__timeline-pending .order-detail__pending {
@@ -8306,11 +8302,11 @@ html.susi-custom-cursor * {
     top: 22px;
     bottom: 0;
     width: 2px;
-    background: #5b0030;
+    background: rgba(255, 243, 239, 0.15);
 }
 
 .order-detail__step--done:not(:last-child)::before {
-    background: #670038;
+    background: #ff7f00;
 }
 
 .order-detail__step-dot {
@@ -8318,21 +8314,21 @@ html.susi-custom-cursor * {
     height: 20px;
     margin-top: 2px;
     border-radius: 50%;
-    border: 3px solid #5b0030;
+    border: 3px solid rgba(255, 243, 239, 0.3);
     background: #3a002b;
     position: relative;
     z-index: 1;
 }
 
 .order-detail__step--done .order-detail__step-dot {
-    border-color: #670038;
-    background: #670038;
+    border-color: #ff7f00;
+    background: #ff7f00;
 }
 
 .order-detail__step--current .order-detail__step-dot {
-    border-color: #ef7cc2;
-    background: #ef7cc2;
-    box-shadow: 0 0 0 4px #5b0030;
+    border-color: #fffd46;
+    background: #fffd46;
+    box-shadow: 0 0 0 4px rgba(255, 253, 70, 0.25);
 }
 
 .order-detail__step-label {
@@ -8345,7 +8341,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.75);
 }
 
 .order-detail__step--upcoming .order-detail__step-label,
@@ -8383,16 +8379,15 @@ html.susi-custom-cursor * {
     align-items: start;
     padding: 10px 12px;
     border-radius: 12px;
-    background: #2a0020;
-    border: 2px solid #5b0030;
-    color: #d4a5c8;
+    background: rgba(255, 243, 239, 0.04);
+    border: 1px solid rgba(255, 243, 239, 0.08);
 }
 
 .order-detail__info-label {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.55);
     font-weight: 700;
 }
 
@@ -8400,7 +8395,6 @@ html.susi-custom-cursor * {
     font-size: 14px;
     line-height: 1.4;
     word-break: break-word;
-    color: #ef7cc2;
 }
 
 .order-detail__pay-badge {
@@ -8414,13 +8408,13 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__pay-badge--paid {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
 }
 
 .order-detail__pay-badge--pending {
-    background: #5b0030;
-    color: #d4a5c8;
+    background: rgba(255, 127, 0, 0.3);
+    color: #fffd46;
 }
 
 .order-detail__track {
@@ -8429,8 +8423,8 @@ html.susi-custom-cursor * {
     padding: 12px 20px;
     border-radius: 999px;
     border: 3px solid #000;
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
     font-weight: 700;
     text-decoration: none;
     text-transform: uppercase;
@@ -8439,7 +8433,7 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__track:hover {
-    background: #5b0030;
+    background: #fff;
     transform: translateY(-2px);
 }
 
@@ -8459,9 +8453,8 @@ html.susi-custom-cursor * {
     align-items: center;
     padding: 12px 14px;
     border-radius: 14px;
-    background: #2a0020;
-    border: 2px solid #5b0030;
-    color: #d4a5c8;
+    background: rgba(0, 0, 0, 0.28);
+    border: 2px solid rgba(255, 243, 239, 0.08);
 }
 
 .order-detail__thumb {
@@ -8471,7 +8464,7 @@ html.susi-custom-cursor * {
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: #670038;
+    background: rgba(255, 127, 0, 0.2);
 }
 
 .order-detail__thumb--placeholder {
@@ -8480,8 +8473,7 @@ html.susi-custom-cursor * {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #ef7cc2;
-    background: #670038;
+    color: #fffd46;
 }
 
 .order-detail__product-name {
@@ -8489,19 +8481,18 @@ html.susi-custom-cursor * {
     font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
-    color: #ef7cc2;
 }
 
 .order-detail__product-meta {
     margin: 4px 0 0;
     font-size: 13px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.68);
 }
 
 .order-detail__product-id {
     margin: 3px 0 0;
     font-size: 11px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.45);
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
@@ -8509,13 +8500,13 @@ html.susi-custom-cursor * {
 .order-detail__product-line {
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #d4a5c8;
+    color: #fffd46;
     white-space: nowrap;
 }
 
 .order-detail__summary-rows {
     padding-top: 14px;
-    border-top: 2px solid #5b0030;
+    border-top: 2px solid rgba(255, 243, 239, 0.12);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -8526,31 +8517,29 @@ html.susi-custom-cursor * {
     justify-content: space-between;
     gap: 12px;
     font-size: 14px;
-    color: #d4a5c8;
+    color: rgba(255, 243, 239, 0.82);
 }
 
 .order-detail__summary-row--total {
     margin-top: 6px;
     padding-top: 12px;
-    border-top: 2px dashed #5b0030;
+    border-top: 2px dashed rgba(255, 253, 70, 0.25);
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #ef7cc2;
+    color: #fffd46;
 }
 
 .order-detail__address-card {
     padding: 16px 18px;
     border-radius: 14px;
-    background: #2a0020;
-    border: 2px solid #5b0030;
-    color: #d4a5c8;
+    background: rgba(255, 253, 70, 0.08);
+    border: 2px solid rgba(255, 253, 70, 0.2);
 }
 
 .order-detail__address-name {
     margin: 0 0 8px;
     font-size: 17px;
     font-weight: 700;
-    color: #ef7cc2;
 }
 
 .order-detail__address-lines,
@@ -8558,7 +8547,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 14px;
     line-height: 1.55;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.85);
 }
 
 .order-detail__address-phone {
@@ -8571,24 +8560,24 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 14px;
     line-height: 1.55;
-    color: #d4a5c8;
+    color: rgba(255, 243, 239, 0.82);
 }
 
 .order-detail__help a {
-    color: #ef7cc2;
+    color: #fffd46;
     font-weight: 700;
 }
 
 .order-detail__empty {
     margin: 0;
     font-size: 14px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.7);
     font-style: italic;
 }
 
 .order-detail__panel--help {
-    background: #2a0020;
-    border-color: #000;
+    background: rgba(255, 127, 0, 0.1);
+    border-color: rgba(255, 127, 0, 0.25);
 }
 
 @media (max-width: 860px) {
@@ -8624,7 +8613,7 @@ html.susi-custom-cursor * {
 .order-detail__section {
     margin-bottom: 22px;
     padding-top: 18px;
-    border-top: 1px solid #5b0030;
+    border-top: 1px solid rgba(255, 243, 239, 0.15);
 }
 
 .order-detail__section h2 {
@@ -8632,7 +8621,7 @@ html.susi-custom-cursor * {
     font-family: "Anton", sans-serif;
     font-size: 20px;
     text-transform: uppercase;
-    color: #ef7cc2;
+    color: #ff7f00;
 }
 
 .order-detail__items {
@@ -8646,7 +8635,7 @@ html.susi-custom-cursor * {
     justify-content: space-between;
     gap: 12px;
     padding: 8px 0;
-    border-bottom: 1px solid #5b0030;
+    border-bottom: 1px solid rgba(255, 243, 239, 0.1);
     font-size: 14px;
 }
 
@@ -8685,11 +8674,11 @@ html.susi-custom-cursor * {
     top: 18px;
     bottom: 0;
     width: 2px;
-    background: #5b0030;
+    background: rgba(255, 243, 239, 0.2);
 }
 
 .order-timeline__step--done:not(:last-child)::before {
-    background: #670038;
+    background: #ff7f00;
 }
 
 .order-timeline__dot {
@@ -8697,19 +8686,19 @@ html.susi-custom-cursor * {
     height: 18px;
     margin-top: 2px;
     border-radius: 50%;
-    border: 3px solid #5b0030;
+    border: 3px solid rgba(255, 243, 239, 0.35);
     background: #3a002b;
 }
 
 .order-timeline__step--done .order-timeline__dot {
-    border-color: #670038;
-    background: #670038;
+    border-color: #ff7f00;
+    background: #ff7f00;
 }
 
 .order-timeline__step--current .order-timeline__dot {
-    border-color: #ef7cc2;
-    background: #ef7cc2;
-    box-shadow: 0 0 0 4px #5b0030;
+    border-color: #fffd46;
+    background: #fffd46;
+    box-shadow: 0 0 0 4px rgba(255, 253, 70, 0.25);
 }
 
 .order-timeline__label {
@@ -8727,7 +8716,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.78);
 }
 
 /* Hero profile icon + auth modal */
@@ -8886,7 +8875,6 @@ body.hero-auth-open {
     max-width: min(1080px, 100%);
     margin: 0 auto;
     width: 100%;
-    color: #d4a5c8;
 }
 
 @media (min-width: 993px) {
@@ -8898,32 +8886,24 @@ body.hero-auth-open {
 .account-dash-stats {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 22px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .account-stat {
     padding: 16px 14px;
     border-radius: 16px;
     border: 3px solid #000;
-    background: #3a002b;
-    box-shadow: 4px 4px 0 #000;
+    background: linear-gradient(145deg, rgba(255, 253, 70, 0.14) 0%, rgba(58, 0, 43, 0.55) 100%);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
     text-align: center;
-}
-
-.account-stat:nth-child(odd) {
-    background: #3a002b;
-}
-
-.account-stat:nth-child(even) {
-    background: #670038;
 }
 
 .account-stat__value {
     display: block;
     font-family: "Anton", sans-serif;
     font-size: clamp(22px, 4vw, 28px);
-    color: #ef7cc2;
+    color: #fffd46;
     line-height: 1;
     margin-bottom: 6px;
 }
@@ -8937,13 +8917,13 @@ body.hero-auth-open {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.68);
     font-weight: 700;
 }
 
 .account-dashboard {
     display: grid;
-    gap: 16px;
+    gap: 18px;
     align-items: stretch;
 }
 
@@ -8960,13 +8940,8 @@ body.hero-auth-open {
     padding: 20px 22px;
     border: 3px solid #000;
     border-radius: 20px;
-    background: #3a002b;
-    box-shadow: 6px 6px 0 #000;
-}
-
-.account-dash-card--cart,
-.account-dash-card--orders {
-    border-color: #000;
+    background: linear-gradient(160deg, rgba(255, 253, 70, 0.1) 0%, rgba(58, 0, 43, 0.72) 100%);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
 }
 
 .account-dash-card__head {
@@ -8976,7 +8951,7 @@ body.hero-auth-open {
     gap: 12px;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 2px solid #5b0030;
+    border-bottom: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .account-dash-card__head h2 {
@@ -8984,8 +8959,7 @@ body.hero-auth-open {
     font-family: "Anton", sans-serif;
     font-size: 24px;
     text-transform: uppercase;
-    color: #ef7cc2;
-    letter-spacing: 0.3px;
+    color: #fffd46;
 }
 
 .account-dash-card__link {
@@ -8993,26 +8967,22 @@ body.hero-auth-open {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    color: #d4a5c8;
+    color: #ff7f00;
     text-decoration: none;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 2px solid #670038;
-    background: #2a0020;
+    border: 2px solid rgba(255, 127, 0, 0.45);
 }
 
 .account-dash-card__link:hover {
-    color: #ef7cc2;
-    border-color: #ef7cc2;
-    transform: translateY(-1px);
+    color: #fffd46;
+    border-color: #fffd46;
 }
 
 .account-dash-card__body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0;
-    color: #d4a5c8;
 }
 
 .account-dash-list {
@@ -9034,9 +9004,8 @@ body.hero-auth-open {
     align-items: center;
     padding: 10px 12px;
     border-radius: 14px;
-    background: #2a0020;
-    border: 2px solid #5b0030;
-    color: #d4a5c8;
+    background: rgba(0, 0, 0, 0.24);
+    border: 2px solid rgba(255, 243, 239, 0.08);
 }
 
 .account-dash-thumb {
@@ -9046,7 +9015,7 @@ body.hero-auth-open {
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: #670038;
+    background: rgba(255, 127, 0, 0.2);
 }
 
 .account-dash-thumb--placeholder {
@@ -9055,8 +9024,7 @@ body.hero-auth-open {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 16px;
-    color: #ef7cc2;
-    background: #670038;
+    color: #fffd46;
 }
 
 .account-dash-item__name {
@@ -9064,27 +9032,25 @@ body.hero-auth-open {
     font-size: 15px;
     font-weight: 700;
     line-height: 1.25;
-    color: #ef7cc2;
 }
 
 .account-dash-item__meta {
     margin: 3px 0 0;
     font-size: 12px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.68);
 }
 
 .account-dash-item__line {
-    font-family: "Anton", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #d4a5c8;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fffd46;
     white-space: nowrap;
 }
 
 .account-dash-summary {
     padding-top: 12px;
     margin-top: auto;
-    border-top: 2px solid #5b0030;
+    border-top: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .account-dash-summary__row {
@@ -9093,9 +9059,17 @@ body.hero-auth-open {
     gap: 12px;
     font-size: 14px;
     font-weight: 700;
-    color: #d4a5c8;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    color: rgba(255, 243, 239, 0.88);
+}
+
+.account-dash-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 243, 239, 0.12);
+    font-size: 14px;
+    color: rgba(255, 243, 239, 0.92);
 }
 
 .account-dash-order {
@@ -9103,18 +9077,18 @@ body.hero-auth-open {
     flex-direction: column;
     gap: 8px;
     padding: 14px 16px;
-    border: 2px solid #5b0030;
+    border: 2px solid rgba(255, 253, 70, 0.22);
     border-radius: 14px;
     text-decoration: none;
-    color: #d4a5c8;
-    background: #2a0020;
+    color: #fff3ef;
+    background: rgba(0, 0, 0, 0.22);
     transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .account-dash-order:hover {
     transform: translateY(-2px);
-    background: #670038;
-    box-shadow: 4px 4px 0 #000;
+    background: rgba(255, 253, 70, 0.12);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .account-dash-order__top {
@@ -9127,7 +9101,7 @@ body.hero-auth-open {
 
 .account-dash-order__ref {
     font-family: "Anton", sans-serif;
-    color: #ef7cc2;
+    color: #fffd46;
     font-size: 17px;
 }
 
@@ -9136,43 +9110,42 @@ body.hero-auth-open {
     padding: 3px 8px;
     border-radius: 999px;
     border: 2px solid #000;
-    font-size: 9px;
-    font-weight: 800;
+    font-size: 10px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.35px;
+    letter-spacing: 0.3px;
 }
 
 .account-dash-order__badge--pending {
-    background: #5b0030;
-    color: #ef7cc2;
+    background: rgba(255, 127, 0, 0.25);
+    color: #fffd46;
 }
 
 .account-dash-order__badge--active {
-    background: #670038;
-    color: #ef7cc2;
+    background: rgba(255, 253, 70, 0.35);
+    color: #3a002b;
 }
 
 .account-dash-order__badge--shipping {
-    background: #670038;
-    color: #d4a5c8;
+    background: rgba(255, 127, 0, 0.85);
+    color: #000;
 }
 
 .account-dash-order__badge--done {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
 }
 
 .account-dash-order__badge--cancelled {
-    background: #1f0018;
-    color: #9a6b8a;
+    background: rgba(255, 243, 239, 0.2);
+    color: rgba(255, 243, 239, 0.8);
 }
 
 .account-dash-order__items {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: #9a6b8a;
-    font-weight: 600;
+    color: rgba(255, 243, 239, 0.78);
 }
 
 .account-dash-order__foot {
@@ -9182,16 +9155,20 @@ body.hero-auth-open {
     gap: 10px;
 }
 
+.account-dash-order__status {
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .account-dash-order__meta {
     font-size: 12px;
-    color: #9a6b8a;
-    font-weight: 700;
+    color: rgba(255, 243, 239, 0.68);
 }
 
 .account-dash-order__total {
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #ef7cc2;
+    color: #fffd46;
 }
 
 .account-dash-order__cta {
@@ -9200,19 +9177,18 @@ body.hero-auth-open {
     text-align: center;
     padding: 8px 12px;
     border-radius: 999px;
-    border: 2px solid #670038;
-    background: #3a002b;
+    border: 2px solid rgba(255, 253, 70, 0.35);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    color: #d4a5c8;
+    color: rgba(255, 243, 239, 0.75);
 }
 
 .account-dash-order:hover .account-dash-order__cta {
-    background: #670038;
+    background: #fffd46;
+    color: #3a002b;
     border-color: #000;
-    color: #ef7cc2;
 }
 
 .account-dash-empty {
@@ -9229,14 +9205,14 @@ body.hero-auth-open {
     margin: 0;
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #ef7cc2;
+    color: #fffd46;
     text-transform: uppercase;
 }
 
 .account-dash-empty__meta {
     margin: 0;
     font-size: 14px;
-    color: #9a6b8a;
+    color: rgba(255, 243, 239, 0.75);
     line-height: 1.45;
 }
 
@@ -9244,7 +9220,7 @@ body.hero-auth-open {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-top: 14px;
+    margin-top: 16px;
 }
 
 .account-dash-btn {
@@ -9254,9 +9230,9 @@ body.hero-auth-open {
     min-height: 44px;
     padding: 0 18px;
     border-radius: 999px;
-    border: 2px solid #670038;
-    background: #2a0020;
-    color: #d4a5c8;
+    border: 2px solid #fffd46;
+    background: rgba(255, 253, 70, 0.1);
+    color: #fffd46;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
@@ -9266,8 +9242,8 @@ body.hero-auth-open {
 }
 
 .account-dash-btn:hover {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
     transform: translateY(-1px);
 }
 
@@ -9277,15 +9253,13 @@ body.hero-auth-open {
 }
 
 .account-dash-btn--checkout {
-    background: #670038;
-    color: #ef7cc2;
+    background: #fffd46;
+    color: #3a002b;
     border-color: #000;
 }
 
-.account-dash-btn--checkout:hover,
-.account-dash-btn--full:hover {
-    background: #5b0030;
-    color: #ef7cc2;
+.account-dash-btn--checkout:hover {
+    background: #fff;
 }
 
 .account-dash-help {
@@ -9294,7 +9268,7 @@ body.hero-auth-open {
     gap: 10px;
     margin-top: 20px;
     padding-top: 18px;
-    border-top: 2px solid #5b0030;
+    border-top: 2px solid rgba(255, 243, 239, 0.12);
 }
 
 .account-dash-help__link {
@@ -9304,21 +9278,20 @@ body.hero-auth-open {
     min-height: 44px;
     padding: 10px 12px;
     border-radius: 14px;
-    border: 2px solid #670038;
-    background: #2a0020;
-    color: #d4a5c8;
+    border: 2px solid rgba(255, 127, 0, 0.45);
+    background: rgba(255, 127, 0, 0.12);
+    color: #fffd46;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.35px;
     text-decoration: none;
     text-align: center;
-    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .account-dash-help__link:hover {
-    background: #670038;
-    color: #ef7cc2;
+    background: rgba(255, 127, 0, 0.28);
     transform: translateY(-1px);
 }
 
@@ -9333,15 +9306,6 @@ body.hero-auth-open {
 
     .account-dash-card {
         min-height: 0;
-    }
-
-    .account-dash-item {
-        grid-template-columns: 56px minmax(0, 1fr) auto;
-    }
-
-    .account-dash-thumb {
-        width: 56px;
-        height: 56px;
     }
 }
 
