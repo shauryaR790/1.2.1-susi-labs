@@ -1,153 +1,207 @@
-/* Hero claw drop — GSAP arcade grab → release SUSI LABS */
+/* Hero claw — places SUSI LABS letter by letter */
 
 ;(function () {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const isMobile = window.matchMedia("(max-width: 992px)").matches
 
-    function getOffsets(container, clawPoint, elements) {
-        const cRect = container.getBoundingClientRect()
-        return elements.map((el) => {
-            const r = el.getBoundingClientRect()
-            return {
-                el,
-                x: clawPoint.x - (r.left + r.width / 2 - cRect.left),
-                y: clawPoint.y - (r.top - cRect.top)
-            }
+    const LETTER_ORDER = [
+        { sel: ".upper .hero-letter:nth-child(1)", char: "S" },
+        { sel: ".upper .hero-letter:nth-child(2)", char: "U" },
+        { sel: ".upper .hero-letter:nth-child(3)", char: "S" },
+        { sel: ".upper .hero-letter:nth-child(4)", char: "I" },
+        { sel: ".lower .hero-letter:nth-child(1)", char: "L" },
+        { sel: ".lower .hero-letter:nth-child(2)", char: "A" },
+        { sel: ".lower .hero-letter:nth-child(3)", char: "B" },
+        { sel: ".lower .hero-letter:nth-child(4)", char: "S" }
+    ]
+
+    function clawOpen(prongs) {
+        return gsap.to(prongs, {
+            rotate: (i) => (i === 0 ? -38 : i === 2 ? 38 : 0),
+            duration: 0.2,
+            ease: "power2.out"
         })
     }
 
-    function getClawPoint(container) {
-        const rect = container.getBoundingClientRect()
-        return {
-            x: rect.width * (isMobile ? 0.5 : 0.34),
-            y: rect.height * (isMobile ? 0.38 : 0.3)
-        }
+    function clawClose(prongs) {
+        return gsap.to(prongs, {
+            rotate: (i) => (i === 0 ? 16 : i === 2 ? -16 : 6),
+            duration: 0.16,
+            ease: "power2.in"
+        })
+    }
+
+    function measureLetterSlots(container) {
+        const cRect = container.getBoundingClientRect()
+        const letters = LETTER_ORDER.map(({ sel }) => document.querySelector(sel)).filter(Boolean)
+
+        letters.forEach((el) => {
+            el.classList.remove("hero-letter--placed")
+            el.style.visibility = "hidden"
+        })
+
+        const slots = letters.map((el) => {
+            const r = el.getBoundingClientRect()
+            return {
+                el,
+                left: r.left - cRect.left,
+                top: r.top - cRect.top,
+                width: r.width,
+                height: r.height
+            }
+        })
+
+        letters.forEach((el) => {
+            el.style.visibility = ""
+        })
+
+        return slots
+    }
+
+    function parkLettersInHopper(slots, hopper) {
+        slots.forEach((slot, i) => {
+            gsap.set(slot.el, {
+                position: "absolute",
+                left: hopper.left,
+                top: hopper.top + i * (isMobile ? 5 : 7),
+                width: slot.width,
+                height: slot.height,
+                x: 0,
+                y: 0,
+                rotate: (Math.random() - 0.5) * 10,
+                opacity: 0,
+                scale: 1,
+                zIndex: 5
+            })
+        })
     }
 
     function playHeroClawDrop(onAside) {
         const scene = document.querySelector(".hero-claw")
         const container = document.querySelector(".container")
+        const hero = document.querySelector(".hero--claw-drop")
         const rig = document.querySelector(".hero-claw__rig")
         const cable = document.querySelector(".hero-claw__cable")
         const prongs = gsap.utils.toArray(".hero-claw__prong")
         const rail = document.querySelector(".hero-claw__rail")
         const motor = document.querySelector(".hero-claw__motor")
-        const spark = document.querySelector(".hero-claw__spark")
-        const upper = document.querySelector(".upper")
-        const lower = document.querySelector(".lower")
+        const hopperEl = document.querySelector(".hero-claw__hopper")
+        const cargo = document.querySelector(".hero-claw__cargo")
 
         if (
             prefersReducedMotion ||
             !window.gsap ||
             !scene ||
             !container ||
+            !hero ||
             !rig ||
             !cable ||
-            !upper ||
-            !lower
+            !cargo
         ) {
             return false
         }
 
+        const slots = measureLetterSlots(container)
+        if (slots.length !== LETTER_ORDER.length) return false
+
+        hero.classList.add("hero--placing")
+
+        const cRect = container.getBoundingClientRect()
+        const hopper = {
+            x: cRect.width * (isMobile ? 0.78 : 0.84),
+            y: cRect.height * (isMobile ? 0.2 : 0.18),
+            left: cRect.width * (isMobile ? 0.78 : 0.84) - slots[0].width / 2,
+            top: cRect.height * (isMobile ? 0.2 : 0.18)
+        }
+
+        const railY = isMobile ? 118 : 88
+        const cableBase = isMobile ? 72 : 96
+
         document.body.classList.add("hero-claw-active")
+        parkLettersInHopper(slots, hopper)
 
-        const clawPoint = getClawPoint(container)
-        const offsets = getOffsets(container, clawPoint, [upper, lower])
-        const cableLen = isMobile ? 148 : 220
-        const dropY = isMobile ? 168 : 248
-
-        offsets.forEach(({ el, x, y }) => {
-            gsap.set(el, {
-                x,
-                y,
-                scale: 0.18,
-                opacity: 0,
-                transformOrigin: "50% 0%"
-            })
-        })
-
-        gsap.set(scene, { opacity: 1, pointerEvents: "none" })
-        gsap.set(rig, { left: clawPoint.x, xPercent: -50, y: -120 })
-        gsap.set(cable, { height: 0, opacity: 1 })
+        gsap.set(scene, { opacity: 1 })
+        gsap.set(rig, { left: hopper.x, xPercent: -50, y: railY })
+        gsap.set(cable, { height: cableBase })
         gsap.set(prongs, { rotate: 0, transformOrigin: "50% 0%" })
-        gsap.set([rail, motor], { opacity: 0, scaleX: 0.6 })
-        gsap.set(spark, { opacity: 0, scale: 0.4 })
+        gsap.set([rail, motor, hopperEl], { opacity: 0 })
+        gsap.set(cargo, { opacity: 0, scale: 1 })
 
         const tl = gsap.timeline({
-            defaults: { ease: "power3.inOut" },
+            defaults: { ease: "power2.inOut" },
             onComplete: () => {
+                slots.forEach((s) => {
+                    s.el.classList.add("hero-letter--placed")
+                    gsap.set(s.el, { clearProps: "all" })
+                })
+                hero.classList.remove("hero--placing")
                 gsap.set(scene, { opacity: 0 })
-                gsap.set([upper, lower], { clearProps: "transform,opacity" })
+                gsap.set(cargo, { opacity: 0, textContent: "" })
                 document.body.classList.remove("hero-claw-active")
                 onAside?.()
             }
         })
 
-        const clawOpen = () =>
-            gsap.to(prongs, {
-                rotate: (i) => (i === 0 ? -34 : i === 2 ? 34 : 0),
-                duration: 0.28,
-                ease: "power2.out"
-            })
+        tl.to(rail, { opacity: 1, duration: 0.35 }, 0)
+            .to(motor, { opacity: 1, duration: 0.3 }, 0.05)
+            .to(hopperEl, { opacity: 1, duration: 0.35 }, 0.08)
+            .fromTo(rig, { y: -80 }, { y: railY, duration: 0.55, ease: "power2.out" }, 0.1)
 
-        const clawClose = () =>
-            gsap.to(prongs, {
-                rotate: (i) => (i === 0 ? 18 : i === 2 ? -18 : 8),
-                duration: 0.22,
-                ease: "power2.in"
-            })
+        slots.forEach((slot, index) => {
+            const placeX = slot.left + slot.width / 2
+            const pickY = hopper.top + index * (isMobile ? 5 : 7) + slot.height * 0.55
+            const placeY = slot.top + slot.height * 0.92
+            const pickCable = cableBase + (pickY - railY)
+            const placeCable = cableBase + (placeY - railY)
+            const t = 0.75 + index * (isMobile ? 0.72 : 0.82)
 
-        tl.to(rail, { opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }, 0)
-            .to(motor, { opacity: 1, scaleX: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.08)
-            .to(rig, { y: clawPoint.y - dropY, duration: 1.05, ease: "power2.inOut" }, 0.12)
-            .to(cable, { height: cableLen, duration: 1.05, ease: "power2.inOut" }, 0.12)
-            .add(clawOpen, 0.95)
-            .to(
-                offsets.map((o) => o.el),
-                {
-                    opacity: 1,
-                    scale: 0.26,
-                    duration: 0.35,
-                    stagger: 0.05,
-                    ease: "power2.out"
-                },
-                1.05
-            )
-            .add(clawClose, 1.38)
-            .to(rig, { left: clawPoint.x + (isMobile ? 0 : 28), duration: 0.55, ease: "sine.inOut" }, 1.55)
-            .to(rig, { left: clawPoint.x - (isMobile ? 0 : 18), duration: 0.45, ease: "sine.inOut" }, 2.1)
-            .to(rig, { left: clawPoint.x, duration: 0.4, ease: "sine.inOut" }, 2.55)
-            .to(rig, { y: clawPoint.y - dropY + 36, duration: 0.55, ease: "power2.in" }, 2.75)
-            .to(cable, { height: cableLen + 36, duration: 0.55, ease: "power2.in" }, 2.75)
-            .add(clawOpen, 3.15)
-            .to(
-                offsets.map((o) => o.el),
-                {
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    opacity: 1,
-                    duration: 1.15,
-                    stagger: 0.07,
-                    ease: "bounce.out"
-                },
-                3.22
-            )
-            .to(
-                spark,
-                {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.2,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        gsap.to(spark, { opacity: 0, scale: 1.4, duration: 0.5, delay: 0.1 })
-                    }
-                },
-                3.22
-            )
-            .to(rig, { y: -140, opacity: 0, duration: 0.85, ease: "power2.in" }, 3.45)
-            .to([rail, motor], { opacity: 0, duration: 0.45, ease: "power2.in" }, 3.65)
+            tl.to(rig, { left: hopper.x, duration: 0.38, ease: "power2.inOut" }, t)
+                .to(cable, { height: pickCable, duration: 0.34, ease: "power2.in" }, t + 0.02)
+                .add(clawOpen(prongs), t + 0.3)
+                .to(slot.el, { opacity: 1, duration: 0.12 }, t + 0.32)
+                .add(clawClose(prongs), t + 0.38)
+                .call(
+                    () => {
+                        cargo.textContent = slot.el.textContent
+                        cargo.className =
+                            "hero-claw__cargo " +
+                            (slot.el.classList.contains("hero-letter--orange")
+                                ? "hero-claw__cargo--orange"
+                                : "hero-claw__cargo--dark")
+                        cargo.style.fontSize = `${Math.max(28, slot.width * 0.92)}px`
+                        gsap.set(cargo, { opacity: 1 })
+                        gsap.set(slot.el, { opacity: 0 })
+                    },
+                    null,
+                    t + 0.42
+                )
+                .to(cable, { height: cableBase, duration: 0.28, ease: "power2.out" }, t + 0.44)
+                .to(rig, { left: placeX, duration: 0.48, ease: "power2.inOut" }, t + 0.5)
+                .to(cable, { height: placeCable, duration: 0.36, ease: "power2.in" }, t + 0.72)
+                .add(clawOpen(prongs), t + 0.92)
+                .call(
+                    () => {
+                        gsap.set(cargo, { opacity: 0, textContent: "" })
+                        gsap.set(slot.el, {
+                            left: slot.left,
+                            top: slot.top,
+                            width: slot.width,
+                            height: slot.height,
+                            opacity: 1,
+                            rotate: 0,
+                            y: -18
+                        })
+                    },
+                    null,
+                    t + 0.96
+                )
+                .to(slot.el, { y: 0, duration: 0.42, ease: "bounce.out" }, t + 0.98)
+                .to(cable, { height: cableBase, duration: 0.26, ease: "power2.out" }, t + 1.02)
+        })
+
+        const endT = 0.75 + slots.length * (isMobile ? 0.72 : 0.82) + 1.1
+        tl.to(rig, { y: -120, opacity: 0, duration: 0.55, ease: "power2.in" }, endT)
+            .to([rail, motor, hopperEl], { opacity: 0, duration: 0.35 }, endT + 0.15)
 
         return true
     }

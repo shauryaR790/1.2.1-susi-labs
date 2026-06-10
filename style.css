@@ -236,27 +236,91 @@ body {
     transform: rotate(18deg);
 }
 
-.hero-claw__spark {
+.hero-claw__hopper {
     position: absolute;
-    top: 58%;
-    left: 34%;
-    width: 120px;
-    height: 120px;
-    margin: -60px 0 0 -60px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 253, 70, 0.55) 0%, rgba(255, 127, 0, 0.2) 42%, transparent 72%);
+    top: 16%;
+    right: 6%;
+    width: clamp(64px, 14vw, 96px);
+    height: clamp(110px, 22vh, 168px);
+    border: 3px solid #000;
+    border-radius: 14px 14px 20px 20px;
+    background: linear-gradient(180deg, rgba(58, 0, 43, 0.15) 0%, rgba(255, 127, 0, 0.2) 100%);
+    box-shadow: 4px 4px 0 #000;
     opacity: 0;
-    pointer-events: none;
 }
 
-body.hero-claw-active .hero--claw-drop {
+.hero-claw__hopper::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    width: 46px;
+    height: 16px;
+    margin-left: -23px;
+    border: 3px solid #000;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background: #fffd46;
+}
+
+.hero-claw__hopper-label {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    font-size: 9px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(58, 0, 43, 0.55);
+}
+
+.hero-claw__cargo {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 50%;
+    z-index: 3;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.hero-claw__cargo--dark {
+    color: #000;
+}
+
+.hero-claw__cargo--orange {
+    color: #ff7f00;
+}
+
+.hero-letter {
+    display: inline-block;
+}
+
+.hero--placing {
+    position: relative;
     z-index: 18;
+}
+
+.hero--placing h1 {
+    position: relative;
+    margin: 0;
+}
+
+.hero-letter--placed {
+    position: static !important;
+    transform: none !important;
 }
 
 body.hero-claw-active .hero--claw-drop h1 {
     position: relative;
-    z-index: 2;
-    will-change: transform, opacity;
 }
 
 @media (max-width: 992px) {
@@ -282,9 +346,11 @@ body.hero-claw-active .hero--claw-drop h1 {
         height: 34px;
     }
 
-    .hero-claw__spark {
-        top: 52%;
-        left: 50%;
+    .hero-claw__hopper {
+        top: calc(var(--hero-ticker-h, 44px) + var(--hero-nav-h, 52px) + 24px);
+        right: 4%;
+        width: 58px;
+        height: 108px;
     }
 }
 
