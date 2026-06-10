@@ -63,10 +63,10 @@ async function refreshHeroProfileBtn() {
 
     try {
         const session = await window.SUSI_AUTH.getSession()
-        btn.classList.toggle("profile-nav--signed-in", Boolean(session?.user))
+        btn.classList.toggle("hero-nav-account--signed-in", Boolean(session?.user))
         btn.setAttribute("aria-label", session?.user ? "Open account dashboard" : "Sign in or create account")
     } catch {
-        btn.classList.remove("profile-nav--signed-in")
+        btn.classList.remove("hero-nav-account--signed-in")
     }
 }
 

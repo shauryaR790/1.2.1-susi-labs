@@ -354,7 +354,7 @@ function playHeroIntro() {
         delay: 0.08
     })
 
-    fromIfExists(".hero-aside nav a, .hero-aside nav .profile-nav--hero, .hero-aside nav .cart-nav--hero", {
+    fromIfExists(".hero-aside nav a, .hero-aside nav .hero-nav-account, .hero-aside nav .cart-nav--hero", {
         y: isMobile ? -20 : -80,
         opacity: 0,
         stagger: 0.12,
