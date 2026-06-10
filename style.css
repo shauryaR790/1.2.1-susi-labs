@@ -8768,6 +8768,33 @@ html.susi-custom-cursor * {
     box-shadow: inset 0 0 0 2px rgba(255, 253, 70, 0.45);
 }
 
+/* Products page profile — overrides base .profile-nav transparent styles */
+.profile-nav.profile-nav--products {
+    color: #000000;
+    background: #FF7F00;
+    border: 3px solid #000000;
+    border-radius: 16px;
+}
+
+.profile-nav.profile-nav--products:hover {
+    transform: translateY(-2px);
+    background: #e67200;
+}
+
+.profile-nav.profile-nav--products .profile-nav__icon {
+    color: #000000;
+}
+
+.profile-nav--signed-in.profile-nav--products {
+    background: #FF7F00;
+    border: 3px solid #000000;
+    box-shadow: inset 0 0 0 2px #fffd46;
+}
+
+.profile-nav--signed-in.profile-nav--products .profile-nav__icon {
+    color: #000000;
+}
+
 .hero-aside nav .profile-nav--hero {
     align-self: center;
 }
