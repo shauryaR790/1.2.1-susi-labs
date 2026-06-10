@@ -8800,7 +8800,6 @@ html.susi-custom-cursor * {
 .profile-nav--signed-in.profile-nav--hero {
     background: #ff7f00;
     border: 3px solid #000;
-    box-shadow: inset 0 0 0 2px #fffd46;
 }
 
 .profile-nav--signed-in.profile-nav--hero .profile-nav__icon {
