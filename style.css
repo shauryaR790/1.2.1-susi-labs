@@ -5944,6 +5944,11 @@ html.cart-intro {
         display: none !important;
     }
 
+    .cart-page.account-page:not(.checkout-page) .cart-sidebar-links__btn:not(.cart-sidebar-links__btn--mob-nav),
+    .cart-page.orders-page:not(.checkout-page) .cart-sidebar-links__btn:not(.cart-sidebar-links__btn--mob-nav) {
+        display: none !important;
+    }
+
     .cart-page.account-page:not(.checkout-page) .cart-layout,
     .cart-page.orders-page:not(.checkout-page) .cart-layout {
         --cart-mobile-top-h: clamp(72px, 18vw, 84px);
