@@ -10,7 +10,7 @@
     <link rel="icon" href="SUSI.jpg.jpeg" type="image/jpeg">
     <link href="https://fonts.cdnfonts.com/css/hagrid-trial" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=261">
+    <link rel="stylesheet" href="style.css?v=268">
 </head>
 
 <body class="products-page cart-page account-page account-dashboard-page">
@@ -53,14 +53,16 @@
             </aside>
 
             <div class="cart-main account-main">
-                <header class="products-header cart-header">
+                <header class="products-header cart-header account-header">
                     <div class="cart-title products-title">
                         <h1>MY ACCOUNT</h1>
                     </div>
-                    <p class="account-email" id="account-email"></p>
                 </header>
 
-                <div class="cart-main__scroll account-dashboard">
+                <div class="cart-main__scroll account-dashboard-wrap">
+                    <div class="account-dash-stats" id="account-dash-stats" hidden aria-label="Account overview"></div>
+
+                    <div class="account-dashboard">
                     <section class="account-dash-card" aria-labelledby="account-cart-title">
                         <div class="account-dash-card__head">
                             <h2 id="account-cart-title">Your cart</h2>
@@ -80,6 +82,14 @@
                             <p class="orders-loading">Loading orders…</p>
                         </div>
                     </section>
+                    </div>
+
+                    <section class="account-dash-help" aria-label="Quick links">
+                        <a class="account-dash-help__link" href="products.html">Browse products</a>
+                        <a class="account-dash-help__link" href="custom-build.html">Custom build</a>
+                        <a class="account-dash-help__link" href="orders.html">All orders</a>
+                        <a class="account-dash-help__link" href="mailto:susilabs.global@gmail.com">Get help</a>
+                    </section>
                 </div>
             </div>
         </div>
@@ -91,7 +101,7 @@
     <script src="order-status.js?v=1"></script>
     <script src="site-auth.js?v=2"></script>
     <script src="cart-store.js?v=2"></script>
-    <script src="account-page.js?v=1"></script>
+    <script src="account-page.js?v=2"></script>
     <script defer src="cookie-consent.js?v=1"></script>
 </body>
 
