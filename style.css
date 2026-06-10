@@ -7729,8 +7729,8 @@ html.susi-custom-cursor * {
 }
 
 .cart-sidebar-links__btn.is-active {
-    background: #fffd46;
-    color: #3a002b;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .cart-sidebar-links__btn--ghost {
@@ -7749,12 +7749,12 @@ html.susi-custom-cursor * {
 .orders-empty {
     margin: 24px 0;
     font-size: 15px;
-    color: rgba(255, 243, 239, 0.85);
+    color: #9a6b8a;
     text-align: center;
 }
 
 .orders-empty__link {
-    color: #fffd46;
+    color: #ef7cc2;
     text-decoration: none;
     font-weight: 700;
 }
@@ -7811,7 +7811,7 @@ html.susi-custom-cursor * {
     border: 3px solid #000;
     border-radius: 20px;
     background: #3a002b;
-    color: #fff3ef;
+    color: #d4a5c8;
     text-decoration: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     box-shadow: 6px 6px 0 #000;
@@ -7828,7 +7828,7 @@ html.susi-custom-cursor * {
     align-items: flex-start;
     gap: 12px;
     padding-bottom: 12px;
-    border-bottom: 2px solid rgba(255, 243, 239, 0.12);
+    border-bottom: 2px solid #5b0030;
 }
 
 .orders-card__identity {
@@ -7841,7 +7841,7 @@ html.susi-custom-cursor * {
 .orders-card__ref {
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #fffd46;
+    color: #ef7cc2;
     letter-spacing: 0.5px;
 }
 
@@ -7858,40 +7858,40 @@ html.susi-custom-cursor * {
 }
 
 .orders-card__badge--pending {
-    background: #ff7f00;
-    color: #000;
+    background: #5b0030;
+    color: #ef7cc2;
 }
 
 .orders-card__badge--active {
-    background: #fffd46;
-    color: #000;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .orders-card__badge--shipping {
-    background: #ff7f00;
-    color: #000;
+    background: #670038;
+    color: #d4a5c8;
 }
 
 .orders-card__badge--done {
-    background: #fffd46;
-    color: #3a002b;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .orders-card__badge--cancelled {
-    background: #e8e0dc;
-    color: #3a002b;
+    background: #2a0020;
+    color: #9a6b8a;
 }
 
 .orders-card__date {
     font-size: 12px;
-    color: rgba(255, 243, 239, 0.7);
+    color: #9a6b8a;
     white-space: nowrap;
 }
 
 .orders-card__summary-line {
     margin: 0;
     font-size: 13px;
-    color: rgba(255, 243, 239, 0.82);
+    color: #d4a5c8;
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -7924,10 +7924,9 @@ html.susi-custom-cursor * {
     align-items: center;
     padding: 10px 12px;
     border-radius: 14px;
-    background: #fff3ef;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-    color: #3a002b;
+    background: #2a0020;
+    border: 2px solid #5b0030;
+    color: #d4a5c8;
 }
 
 .orders-card__thumb {
@@ -7937,7 +7936,7 @@ html.susi-custom-cursor * {
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: rgba(255, 127, 0, 0.2);
+    background: #670038;
 }
 
 .orders-card__thumb--placeholder {
@@ -7946,8 +7945,8 @@ html.susi-custom-cursor * {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 16px;
-    color: #000;
-    background: #fffd46;
+    color: #ef7cc2;
+    background: #670038;
 }
 
 .orders-card__item-name {
@@ -7955,20 +7954,20 @@ html.susi-custom-cursor * {
     font-size: 15px;
     font-weight: 700;
     line-height: 1.25;
-    color: #000;
+    color: #ef7cc2;
 }
 
 .orders-card__item-meta {
     margin: 3px 0 0;
     font-size: 12px;
-    color: rgba(58, 0, 43, 0.68);
+    color: #9a6b8a;
 }
 
 .orders-card__item-line {
     font-family: "Anton", sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #3a002b;
+    color: #d4a5c8;
     white-space: nowrap;
 }
 
@@ -7976,7 +7975,7 @@ html.susi-custom-cursor * {
 .orders-card__pending {
     margin: 0;
     font-size: 13px;
-    color: rgba(255, 243, 239, 0.75);
+    color: #9a6b8a;
     font-style: italic;
 }
 
@@ -8005,7 +8004,7 @@ html.susi-custom-cursor * {
     left: calc(50% + 10px);
     width: calc(100% - 20px);
     height: 2px;
-    background: rgba(255, 243, 239, 0.15);
+    background: #5b0030;
     z-index: 0;
 }
 
@@ -8014,31 +8013,31 @@ html.susi-custom-cursor * {
     height: 14px;
     border-radius: 50%;
     border: 2px solid #000;
-    background: rgba(255, 243, 239, 0.2);
+    background: #3a002b;
     position: relative;
     z-index: 1;
 }
 
 .orders-card__step--done .orders-card__step-dot {
-    background: #fffd46;
+    background: #670038;
 }
 
 .orders-card__step--current .orders-card__step-dot {
-    background: #ff7f00;
-    box-shadow: 0 0 0 3px rgba(255, 127, 0, 0.35);
+    background: #ef7cc2;
+    box-shadow: 0 0 0 3px #5b0030;
 }
 
 .orders-card__step-label {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: rgba(255, 243, 239, 0.65);
+    color: #9a6b8a;
     line-height: 1.2;
 }
 
 .orders-card__step--done .orders-card__step-label,
 .orders-card__step--current .orders-card__step-label {
-    color: #fff3ef;
+    color: #d4a5c8;
     font-weight: 700;
 }
 
@@ -8048,7 +8047,7 @@ html.susi-custom-cursor * {
     align-items: stretch;
     gap: 14px;
     padding-top: 12px;
-    border-top: 2px solid rgba(255, 243, 239, 0.12);
+    border-top: 2px solid #5b0030;
 }
 
 .orders-card__foot-meta {
@@ -8060,19 +8059,19 @@ html.susi-custom-cursor * {
 
 .orders-card__track {
     font-size: 12px;
-    color: #fffd46;
+    color: #ef7cc2;
     font-weight: 600;
 }
 
 .orders-card__track--muted {
-    color: rgba(255, 243, 239, 0.55);
+    color: #9a6b8a;
     font-weight: 400;
 }
 
 .orders-card__total {
     font-family: "Anton", sans-serif;
     font-size: 24px;
-    color: #fffd46;
+    color: #ef7cc2;
     line-height: 1;
     flex-shrink: 0;
 }
@@ -8084,18 +8083,18 @@ html.susi-custom-cursor * {
     padding: 11px 16px;
     border-radius: 999px;
     border: 2px solid #000;
-    background: #fffd46;
+    background: #670038;
     font-size: 12px;
     font-weight: 700;
-    color: #000;
+    color: #ef7cc2;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .orders-card:hover .orders-card__cta {
-    background: #ff7f00;
-    color: #000;
+    background: #5b0030;
+    color: #ef7cc2;
     transform: translateY(-1px);
 }
 
@@ -8115,7 +8114,7 @@ html.susi-custom-cursor * {
 .orders-card__meta {
     margin: 0;
     font-size: 13px;
-    color: rgba(255, 243, 239, 0.78);
+    color: #9a6b8a;
 }
 
 .order-detail-page .account-shell {
@@ -8133,13 +8132,13 @@ html.susi-custom-cursor * {
     border: 3px solid #000;
     background: #3a002b;
     box-shadow: 10px 10px 0 #000;
-    color: #fff3ef;
+    color: #d4a5c8;
 }
 
 .order-detail__hero {
     margin-bottom: 24px;
     padding-bottom: 22px;
-    border-bottom: 2px solid rgba(255, 243, 239, 0.12);
+    border-bottom: 2px solid #5b0030;
 }
 
 .order-detail__hero-top {
@@ -8162,7 +8161,7 @@ html.susi-custom-cursor * {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #ff7f00;
+    color: #ef7cc2;
     font-weight: 700;
 }
 
@@ -8179,28 +8178,28 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__badge--pending {
-    background: #ff7f00;
-    color: #000;
+    background: #5b0030;
+    color: #ef7cc2;
 }
 
 .order-detail__badge--active {
-    background: #fffd46;
-    color: #000;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .order-detail__badge--shipping {
-    background: #ff7f00;
-    color: #000;
+    background: #670038;
+    color: #d4a5c8;
 }
 
 .order-detail__badge--done {
-    background: #fffd46;
-    color: #3a002b;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .order-detail__badge--cancelled {
-    background: #e8e0dc;
-    color: #3a002b;
+    background: #2a0020;
+    color: #9a6b8a;
 }
 
 .order-detail__title {
@@ -8209,13 +8208,13 @@ html.susi-custom-cursor * {
     font-size: clamp(32px, 5vw, 52px);
     line-height: 0.95;
     text-transform: uppercase;
-    color: #fffd46;
+    color: #ef7cc2;
 }
 
 .order-detail__date {
     margin: 0;
     font-size: 12px;
-    color: rgba(255, 243, 239, 0.7);
+    color: #9a6b8a;
     white-space: nowrap;
 }
 
@@ -8226,7 +8225,7 @@ html.susi-custom-cursor * {
     gap: 8px;
     align-items: center;
     font-size: 14px;
-    color: rgba(255, 243, 239, 0.82);
+    color: #d4a5c8;
 }
 
 .order-detail__stats-dot {
@@ -8258,7 +8257,7 @@ html.susi-custom-cursor * {
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: #ff7f00;
+    color: #ef7cc2;
 }
 
 .order-detail__pending,
@@ -8266,17 +8265,17 @@ html.susi-custom-cursor * {
     margin: 0 0 14px;
     padding: 14px 16px;
     border-radius: 12px;
-    background: #fffd46;
+    background: #670038;
     border: 2px solid #000;
-    color: #000;
+    color: #d4a5c8;
     font-size: 14px;
     line-height: 1.45;
 }
 
 .order-detail__note--muted {
-    background: #fff3ef;
-    border-color: #000;
-    color: rgba(58, 0, 43, 0.75);
+    background: #2a0020;
+    border-color: #5b0030;
+    color: #9a6b8a;
 }
 
 .order-detail__timeline-pending .order-detail__pending {
@@ -8307,11 +8306,11 @@ html.susi-custom-cursor * {
     top: 22px;
     bottom: 0;
     width: 2px;
-    background: rgba(255, 243, 239, 0.15);
+    background: #5b0030;
 }
 
 .order-detail__step--done:not(:last-child)::before {
-    background: #ff7f00;
+    background: #670038;
 }
 
 .order-detail__step-dot {
@@ -8319,21 +8318,21 @@ html.susi-custom-cursor * {
     height: 20px;
     margin-top: 2px;
     border-radius: 50%;
-    border: 3px solid rgba(255, 243, 239, 0.3);
+    border: 3px solid #5b0030;
     background: #3a002b;
     position: relative;
     z-index: 1;
 }
 
 .order-detail__step--done .order-detail__step-dot {
-    border-color: #ff7f00;
-    background: #ff7f00;
+    border-color: #670038;
+    background: #670038;
 }
 
 .order-detail__step--current .order-detail__step-dot {
-    border-color: #fffd46;
-    background: #fffd46;
-    box-shadow: 0 0 0 4px rgba(255, 253, 70, 0.25);
+    border-color: #ef7cc2;
+    background: #ef7cc2;
+    box-shadow: 0 0 0 4px #5b0030;
 }
 
 .order-detail__step-label {
@@ -8346,7 +8345,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: rgba(255, 243, 239, 0.75);
+    color: #9a6b8a;
 }
 
 .order-detail__step--upcoming .order-detail__step-label,
@@ -8384,16 +8383,16 @@ html.susi-custom-cursor * {
     align-items: start;
     padding: 10px 12px;
     border-radius: 12px;
-    background: #fff3ef;
-    border: 2px solid #000;
-    color: #3a002b;
+    background: #2a0020;
+    border: 2px solid #5b0030;
+    color: #d4a5c8;
 }
 
 .order-detail__info-label {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: rgba(58, 0, 43, 0.6);
+    color: #9a6b8a;
     font-weight: 700;
 }
 
@@ -8401,7 +8400,7 @@ html.susi-custom-cursor * {
     font-size: 14px;
     line-height: 1.4;
     word-break: break-word;
-    color: #000;
+    color: #ef7cc2;
 }
 
 .order-detail__pay-badge {
@@ -8415,13 +8414,13 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__pay-badge--paid {
-    background: #fffd46;
-    color: #3a002b;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .order-detail__pay-badge--pending {
-    background: #ff7f00;
-    color: #000;
+    background: #5b0030;
+    color: #d4a5c8;
 }
 
 .order-detail__track {
@@ -8430,8 +8429,8 @@ html.susi-custom-cursor * {
     padding: 12px 20px;
     border-radius: 999px;
     border: 3px solid #000;
-    background: #fffd46;
-    color: #3a002b;
+    background: #670038;
+    color: #ef7cc2;
     font-weight: 700;
     text-decoration: none;
     text-transform: uppercase;
@@ -8440,7 +8439,7 @@ html.susi-custom-cursor * {
 }
 
 .order-detail__track:hover {
-    background: #fff;
+    background: #5b0030;
     transform: translateY(-2px);
 }
 
@@ -8460,10 +8459,9 @@ html.susi-custom-cursor * {
     align-items: center;
     padding: 12px 14px;
     border-radius: 14px;
-    background: #fff3ef;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-    color: #3a002b;
+    background: #2a0020;
+    border: 2px solid #5b0030;
+    color: #d4a5c8;
 }
 
 .order-detail__thumb {
@@ -8473,7 +8471,7 @@ html.susi-custom-cursor * {
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: rgba(255, 127, 0, 0.2);
+    background: #670038;
 }
 
 .order-detail__thumb--placeholder {
@@ -8482,8 +8480,8 @@ html.susi-custom-cursor * {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #000;
-    background: #fffd46;
+    color: #ef7cc2;
+    background: #670038;
 }
 
 .order-detail__product-name {
@@ -8491,19 +8489,19 @@ html.susi-custom-cursor * {
     font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
-    color: #000;
+    color: #ef7cc2;
 }
 
 .order-detail__product-meta {
     margin: 4px 0 0;
     font-size: 13px;
-    color: rgba(58, 0, 43, 0.68);
+    color: #9a6b8a;
 }
 
 .order-detail__product-id {
     margin: 3px 0 0;
     font-size: 11px;
-    color: rgba(58, 0, 43, 0.5);
+    color: #9a6b8a;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
@@ -8511,13 +8509,13 @@ html.susi-custom-cursor * {
 .order-detail__product-line {
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #3a002b;
+    color: #d4a5c8;
     white-space: nowrap;
 }
 
 .order-detail__summary-rows {
     padding-top: 14px;
-    border-top: 2px solid rgba(255, 243, 239, 0.12);
+    border-top: 2px solid #5b0030;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -8528,31 +8526,31 @@ html.susi-custom-cursor * {
     justify-content: space-between;
     gap: 12px;
     font-size: 14px;
-    color: rgba(255, 243, 239, 0.82);
+    color: #d4a5c8;
 }
 
 .order-detail__summary-row--total {
     margin-top: 6px;
     padding-top: 12px;
-    border-top: 2px dashed rgba(255, 253, 70, 0.25);
+    border-top: 2px dashed #5b0030;
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #fffd46;
+    color: #ef7cc2;
 }
 
 .order-detail__address-card {
     padding: 16px 18px;
     border-radius: 14px;
-    background: #fff3ef;
-    border: 2px solid #000;
-    color: #3a002b;
+    background: #2a0020;
+    border: 2px solid #5b0030;
+    color: #d4a5c8;
 }
 
 .order-detail__address-name {
     margin: 0 0 8px;
     font-size: 17px;
     font-weight: 700;
-    color: #000;
+    color: #ef7cc2;
 }
 
 .order-detail__address-lines,
@@ -8560,7 +8558,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 14px;
     line-height: 1.55;
-    color: rgba(58, 0, 43, 0.82);
+    color: #9a6b8a;
 }
 
 .order-detail__address-phone {
@@ -8573,18 +8571,18 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 14px;
     line-height: 1.55;
-    color: rgba(255, 243, 239, 0.82);
+    color: #d4a5c8;
 }
 
 .order-detail__help a {
-    color: #fffd46;
+    color: #ef7cc2;
     font-weight: 700;
 }
 
 .order-detail__empty {
     margin: 0;
     font-size: 14px;
-    color: rgba(255, 243, 239, 0.7);
+    color: #9a6b8a;
     font-style: italic;
 }
 
@@ -8626,7 +8624,7 @@ html.susi-custom-cursor * {
 .order-detail__section {
     margin-bottom: 22px;
     padding-top: 18px;
-    border-top: 1px solid rgba(255, 243, 239, 0.15);
+    border-top: 1px solid #5b0030;
 }
 
 .order-detail__section h2 {
@@ -8634,7 +8632,7 @@ html.susi-custom-cursor * {
     font-family: "Anton", sans-serif;
     font-size: 20px;
     text-transform: uppercase;
-    color: #ff7f00;
+    color: #ef7cc2;
 }
 
 .order-detail__items {
@@ -8648,7 +8646,7 @@ html.susi-custom-cursor * {
     justify-content: space-between;
     gap: 12px;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 243, 239, 0.1);
+    border-bottom: 1px solid #5b0030;
     font-size: 14px;
 }
 
@@ -8687,11 +8685,11 @@ html.susi-custom-cursor * {
     top: 18px;
     bottom: 0;
     width: 2px;
-    background: rgba(255, 243, 239, 0.2);
+    background: #5b0030;
 }
 
 .order-timeline__step--done:not(:last-child)::before {
-    background: #ff7f00;
+    background: #670038;
 }
 
 .order-timeline__dot {
@@ -8699,19 +8697,19 @@ html.susi-custom-cursor * {
     height: 18px;
     margin-top: 2px;
     border-radius: 50%;
-    border: 3px solid rgba(255, 243, 239, 0.35);
+    border: 3px solid #5b0030;
     background: #3a002b;
 }
 
 .order-timeline__step--done .order-timeline__dot {
-    border-color: #ff7f00;
-    background: #ff7f00;
+    border-color: #670038;
+    background: #670038;
 }
 
 .order-timeline__step--current .order-timeline__dot {
-    border-color: #fffd46;
-    background: #fffd46;
-    box-shadow: 0 0 0 4px rgba(255, 253, 70, 0.25);
+    border-color: #ef7cc2;
+    background: #ef7cc2;
+    box-shadow: 0 0 0 4px #5b0030;
 }
 
 .order-timeline__label {
@@ -8729,7 +8727,7 @@ html.susi-custom-cursor * {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: rgba(255, 243, 239, 0.78);
+    color: #9a6b8a;
 }
 
 /* Hero profile icon + auth modal */
@@ -8888,7 +8886,7 @@ body.hero-auth-open {
     max-width: min(1080px, 100%);
     margin: 0 auto;
     width: 100%;
-    color: #fff3ef;
+    color: #d4a5c8;
 }
 
 @media (min-width: 993px) {
@@ -8905,41 +8903,42 @@ body.hero-auth-open {
 }
 
 .account-stat {
-    padding: 14px 10px;
-    border-radius: 14px;
+    padding: 16px 14px;
+    border-radius: 16px;
     border: 3px solid #000;
-    box-shadow: 5px 5px 0 #000;
+    background: #3a002b;
+    box-shadow: 4px 4px 0 #000;
     text-align: center;
 }
 
 .account-stat:nth-child(odd) {
-    background: #fffd46;
+    background: #3a002b;
 }
 
 .account-stat:nth-child(even) {
-    background: #ff7f00;
+    background: #670038;
 }
 
 .account-stat__value {
     display: block;
     font-family: "Anton", sans-serif;
-    font-size: clamp(22px, 4vw, 30px);
-    color: #000;
+    font-size: clamp(22px, 4vw, 28px);
+    color: #ef7cc2;
     line-height: 1;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .account-stat__value--text {
-    font-size: clamp(15px, 3vw, 18px);
+    font-size: clamp(16px, 3vw, 20px);
 }
 
 .account-stat__label {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #3a002b;
-    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #9a6b8a;
+    font-weight: 700;
 }
 
 .account-dashboard {
@@ -8958,18 +8957,14 @@ body.hero-auth-open {
     display: flex;
     flex-direction: column;
     min-height: 360px;
-    padding: 0;
-    border: 4px solid #000;
-    border-radius: 18px;
+    padding: 20px 22px;
+    border: 3px solid #000;
+    border-radius: 20px;
     background: #3a002b;
-    box-shadow: 8px 8px 0 #000;
-    overflow: hidden;
+    box-shadow: 6px 6px 0 #000;
 }
 
-.account-dash-card--cart {
-    border-color: #000;
-}
-
+.account-dash-card--cart,
 .account-dash-card--orders {
     border-color: #000;
 }
@@ -8979,43 +8974,36 @@ body.hero-auth-open {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin: 0;
-    padding: 14px 18px;
-    border-bottom: 3px solid #000;
-}
-
-.account-dash-card--cart .account-dash-card__head {
-    background: #fffd46;
-}
-
-.account-dash-card--orders .account-dash-card__head {
-    background: #ff7f00;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #5b0030;
 }
 
 .account-dash-card__head h2 {
     margin: 0;
     font-family: "Anton", sans-serif;
-    font-size: 22px;
+    font-size: 24px;
     text-transform: uppercase;
-    color: #000;
+    color: #ef7cc2;
     letter-spacing: 0.3px;
 }
 
 .account-dash-card__link {
-    font-size: 10px;
-    font-weight: 800;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.45px;
-    color: #3a002b;
+    letter-spacing: 0.4px;
+    color: #d4a5c8;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 999px;
-    border: 2px solid #000;
-    background: rgba(255, 255, 255, 0.45);
+    border: 2px solid #670038;
+    background: #2a0020;
 }
 
 .account-dash-card__link:hover {
-    background: #fff;
+    color: #ef7cc2;
+    border-color: #ef7cc2;
     transform: translateY(-1px);
 }
 
@@ -9023,8 +9011,8 @@ body.hero-auth-open {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 16px 18px 18px;
-    color: #fff3ef;
+    padding: 0;
+    color: #d4a5c8;
 }
 
 .account-dash-list {
@@ -9045,21 +9033,20 @@ body.hero-auth-open {
     gap: 12px;
     align-items: center;
     padding: 10px 12px;
-    border-radius: 12px;
-    background: #fff3ef;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-    color: #3a002b;
+    border-radius: 14px;
+    background: #2a0020;
+    border: 2px solid #5b0030;
+    color: #d4a5c8;
 }
 
 .account-dash-thumb {
     width: 56px;
     height: 56px;
-    border-radius: 10px;
+    border-radius: 12px;
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: #ff7f00;
+    background: #670038;
 }
 
 .account-dash-thumb--placeholder {
@@ -9068,38 +9055,36 @@ body.hero-auth-open {
     justify-content: center;
     font-family: "Anton", sans-serif;
     font-size: 16px;
-    color: #000;
-    background: #fffd46;
+    color: #ef7cc2;
+    background: #670038;
 }
 
 .account-dash-item__name {
     margin: 0;
-    font-size: 14px;
-    font-weight: 800;
+    font-size: 15px;
+    font-weight: 700;
     line-height: 1.25;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 0.2px;
+    color: #ef7cc2;
 }
 
 .account-dash-item__meta {
     margin: 3px 0 0;
     font-size: 12px;
-    color: rgba(58, 0, 43, 0.68);
+    color: #9a6b8a;
 }
 
 .account-dash-item__line {
     font-family: "Anton", sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #3a002b;
+    color: #d4a5c8;
     white-space: nowrap;
 }
 
 .account-dash-summary {
     padding-top: 12px;
     margin-top: auto;
-    border-top: 2px dashed rgba(255, 253, 70, 0.45);
+    border-top: 2px solid #5b0030;
 }
 
 .account-dash-summary__row {
@@ -9107,8 +9092,8 @@ body.hero-auth-open {
     justify-content: space-between;
     gap: 12px;
     font-size: 14px;
-    font-weight: 800;
-    color: #fffd46;
+    font-weight: 700;
+    color: #d4a5c8;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
@@ -9117,19 +9102,19 @@ body.hero-auth-open {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 12px 14px;
-    border: 2px solid #000;
-    border-radius: 12px;
+    padding: 14px 16px;
+    border: 2px solid #5b0030;
+    border-radius: 14px;
     text-decoration: none;
-    color: #3a002b;
-    background: #fff3ef;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    color: #d4a5c8;
+    background: #2a0020;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .account-dash-order:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 #000;
+    transform: translateY(-2px);
+    background: #670038;
+    box-shadow: 4px 4px 0 #000;
 }
 
 .account-dash-order__top {
@@ -9142,7 +9127,7 @@ body.hero-auth-open {
 
 .account-dash-order__ref {
     font-family: "Anton", sans-serif;
-    color: #3a002b;
+    color: #ef7cc2;
     font-size: 17px;
 }
 
@@ -9158,35 +9143,35 @@ body.hero-auth-open {
 }
 
 .account-dash-order__badge--pending {
-    background: #ff7f00;
-    color: #000;
+    background: #5b0030;
+    color: #ef7cc2;
 }
 
 .account-dash-order__badge--active {
-    background: #fffd46;
-    color: #000;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .account-dash-order__badge--shipping {
-    background: #ff7f00;
-    color: #000;
+    background: #670038;
+    color: #d4a5c8;
 }
 
 .account-dash-order__badge--done {
-    background: #fffd46;
-    color: #000;
+    background: #670038;
+    color: #ef7cc2;
 }
 
 .account-dash-order__badge--cancelled {
-    background: #e8e0dc;
-    color: #3a002b;
+    background: #1f0018;
+    color: #9a6b8a;
 }
 
 .account-dash-order__items {
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-    color: rgba(58, 0, 43, 0.82);
+    color: #9a6b8a;
     font-weight: 600;
 }
 
@@ -9199,33 +9184,35 @@ body.hero-auth-open {
 
 .account-dash-order__meta {
     font-size: 12px;
-    color: rgba(58, 0, 43, 0.6);
+    color: #9a6b8a;
     font-weight: 700;
 }
 
 .account-dash-order__total {
     font-family: "Anton", sans-serif;
     font-size: 18px;
-    color: #3a002b;
+    color: #ef7cc2;
 }
 
 .account-dash-order__cta {
     display: block;
     width: 100%;
     text-align: center;
-    padding: 9px 12px;
+    padding: 8px 12px;
     border-radius: 999px;
-    border: 2px solid #000;
-    background: #fffd46;
-    font-size: 10px;
-    font-weight: 800;
+    border: 2px solid #670038;
+    background: #3a002b;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.45px;
-    color: #000;
+    letter-spacing: 0.4px;
+    color: #d4a5c8;
 }
 
 .account-dash-order:hover .account-dash-order__cta {
-    background: #ff7f00;
+    background: #670038;
+    border-color: #000;
+    color: #ef7cc2;
 }
 
 .account-dash-empty {
@@ -9234,24 +9221,22 @@ body.hero-auth-open {
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-    padding: 24px 12px;
+    padding: 20px 0;
     text-align: center;
-    border: 2px dashed rgba(255, 253, 70, 0.4);
-    border-radius: 12px;
 }
 
 .account-dash-empty__title {
     margin: 0;
     font-family: "Anton", sans-serif;
     font-size: 22px;
-    color: #fffd46;
+    color: #ef7cc2;
     text-transform: uppercase;
 }
 
 .account-dash-empty__meta {
     margin: 0;
     font-size: 14px;
-    color: rgba(255, 243, 239, 0.8);
+    color: #9a6b8a;
     line-height: 1.45;
 }
 
@@ -9266,41 +9251,41 @@ body.hero-auth-open {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 42px;
-    padding: 0 14px;
+    min-height: 44px;
+    padding: 0 18px;
     border-radius: 999px;
-    border: 3px solid #000;
-    background: transparent;
-    color: #fffd46;
-    font-size: 11px;
-    font-weight: 800;
+    border: 2px solid #670038;
+    background: #2a0020;
+    color: #d4a5c8;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     text-decoration: none;
-    box-shadow: 3px 3px 0 #000;
-    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .account-dash-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 #000;
+    background: #670038;
+    color: #ef7cc2;
+    transform: translateY(-1px);
 }
 
 .account-dash-btn--full {
     width: 100%;
     margin-top: 8px;
-    background: #fffd46;
-    color: #000;
 }
 
 .account-dash-btn--checkout {
-    background: #ff7f00;
-    color: #000;
+    background: #670038;
+    color: #ef7cc2;
+    border-color: #000;
 }
 
 .account-dash-btn--checkout:hover,
 .account-dash-btn--full:hover {
-    background: #fff;
+    background: #5b0030;
+    color: #ef7cc2;
 }
 
 .account-dash-help {
@@ -9308,6 +9293,8 @@ body.hero-auth-open {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
     margin-top: 20px;
+    padding-top: 18px;
+    border-top: 2px solid #5b0030;
 }
 
 .account-dash-help__link {
@@ -9315,29 +9302,24 @@ body.hero-auth-open {
     align-items: center;
     justify-content: center;
     min-height: 44px;
-    padding: 10px 10px;
-    border-radius: 12px;
-    border: 3px solid #000;
-    background: #fffd46;
-    color: #000;
-    font-size: 10px;
-    font-weight: 800;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 2px solid #670038;
+    background: #2a0020;
+    color: #d4a5c8;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.35px;
     text-decoration: none;
     text-align: center;
-    box-shadow: 4px 4px 0 #000;
-    transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.account-dash-help__link:nth-child(even) {
-    background: #ff7f00;
+    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .account-dash-help__link:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-    background: #fff;
+    background: #670038;
+    color: #ef7cc2;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 860px) {
