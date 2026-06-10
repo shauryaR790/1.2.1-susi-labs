@@ -8115,6 +8115,10 @@ html.susi-custom-cursor * {
     z-index: 0;
 }
 
+.orders-card__step--done:not(:last-child)::after {
+    background: #ff7f00;
+}
+
 .orders-card__step-dot {
     width: 14px;
     height: 14px;
