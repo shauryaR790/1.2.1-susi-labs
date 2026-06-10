@@ -7760,6 +7760,10 @@ html.susi-custom-cursor * {
 .orders-page .orders-header {
     justify-content: center;
     text-align: center;
+    width: 100%;
+    max-width: min(920px, 100%);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .orders-page .cart-title h1 {
@@ -7767,10 +7771,23 @@ html.susi-custom-cursor * {
     text-align: center;
 }
 
+.orders-page .cart-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .orders-page .cart-main__scroll {
-    max-width: 920px;
+    max-width: min(920px, 100%);
     margin: 0 auto;
     width: 100%;
+}
+
+@media (min-width: 993px) {
+    .orders-page .cart-layout {
+        grid-template-columns: clamp(148px, 12vw, 196px) minmax(0, 1fr);
+    }
 }
 
 .orders-list {
