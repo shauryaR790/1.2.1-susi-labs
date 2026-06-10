@@ -326,6 +326,11 @@ async function initOrderPage() {
             return
         }
 
+        document.getElementById("account-sign-out")?.addEventListener("click", async () => {
+            await window.SUSI_AUTH.signOut()
+            window.location.href = "login.html"
+        })
+
         await window.SUSI_AUTH.linkGuestOrders()
 
         const supabase = window.SUSI_AUTH.getClient()
