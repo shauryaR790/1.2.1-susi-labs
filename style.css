@@ -5946,21 +5946,21 @@ html.cart-intro {
 
     .cart-page.account-page:not(.checkout-page) .cart-layout,
     .cart-page.orders-page:not(.checkout-page) .cart-layout {
-        --cart-mobile-top-h: clamp(132px, 30vw, 156px);
+        --cart-mobile-top-h: clamp(72px, 18vw, 84px);
     }
 
     .cart-page.account-page:not(.checkout-page) .cart-sidebar-links,
     .cart-page.orders-page:not(.checkout-page) .cart-sidebar-links {
         min-width: 74px;
-        max-width: 92px;
+        max-width: 88px;
     }
 
     .cart-page.account-page:not(.checkout-page) .cart-sidebar-links__btn,
     .cart-page.orders-page:not(.checkout-page) .cart-sidebar-links__btn {
-        min-height: 26px;
-        padding: 0 6px;
-        font-size: 8px;
-        line-height: 1.1;
+        min-height: 32px;
+        padding: 0 8px;
+        font-size: 10px;
+        line-height: 1.15;
         text-align: center;
     }
 
