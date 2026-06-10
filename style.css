@@ -124,23 +124,33 @@ body {
     display: block;
 }
 
-/* Hero claw drop (GSAP prototype) */
+/* Hero claw drop */
 
 .hero-claw {
     position: absolute;
     inset: 0;
-    z-index: 25;
+    z-index: 30;
     pointer-events: none;
     opacity: 0;
     overflow: visible;
 }
 
+body.hero-claw-active .container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 12;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 243, 239, 0.55) 72%, rgba(255, 243, 239, 0.85) 100%);
+    opacity: 0.9;
+    pointer-events: none;
+}
+
 .hero-claw__track {
     position: absolute;
-    top: clamp(48px, 9vh, 96px);
-    right: 8%;
-    left: 8%;
-    height: 280px;
+    top: clamp(56px, 11vh, 110px);
+    right: 4%;
+    left: 4%;
+    bottom: 12%;
 }
 
 .hero-claw__rail {
@@ -148,139 +158,86 @@ body {
     top: 0;
     right: 0;
     left: 0;
-    height: 10px;
-    border: 3px solid #000;
+    height: 14px;
+    border: 4px solid #000;
     border-radius: 999px;
     background: linear-gradient(180deg, #fffd46 0%, #ff7f00 100%);
-    box-shadow: 0 4px 0 #000;
-    transform-origin: 50% 50%;
+    box-shadow: 0 6px 0 #000;
 }
 
 .hero-claw__rig {
     position: absolute;
-    top: 4px;
+    top: 8px;
     left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    will-change: transform;
+    filter: drop-shadow(6px 8px 0 rgba(0, 0, 0, 0.22));
+    will-change: left, transform, opacity;
 }
 
 .hero-claw__motor {
     position: relative;
-    width: 54px;
-    height: 34px;
-    border: 3px solid #000;
-    border-radius: 10px;
+    width: 72px;
+    height: 44px;
+    border: 4px solid #000;
+    border-radius: 12px;
     background: #fffd46;
-    box-shadow: 4px 4px 0 #000;
-    transform-origin: 50% 50%;
+    z-index: 2;
 }
 
 .hero-claw__motor-light {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 10px;
-    height: 10px;
+    top: 10px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
     border: 2px solid #000;
     border-radius: 50%;
     background: #4ade80;
-    box-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
 }
 
 .hero-claw__cable {
-    width: 5px;
-    height: 0;
-    margin-top: -2px;
+    width: 7px;
+    height: 80px;
+    margin-top: -3px;
     border-radius: 999px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #3a002b 55%, #ff7f00 100%);
-    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.35);
+    background: linear-gradient(180deg, #111 0%, #3a002b 50%, #ff7f00 100%);
     transform-origin: top center;
+    z-index: 1;
 }
 
 .hero-claw__head {
     position: relative;
-    width: 72px;
-    height: 44px;
-    margin-top: -4px;
+    width: 160px;
+    height: 128px;
+    margin-top: -6px;
 }
 
-.hero-claw__prong {
-    position: absolute;
-    bottom: 0;
-    width: 18px;
-    height: 42px;
-    border: 3px solid #000;
-    border-radius: 0 0 12px 12px;
-    background: linear-gradient(180deg, #ff7f00 0%, #fffd46 100%);
-    box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.25);
-    transform-origin: 50% 0%;
+.hero-claw__svg {
+    display: block;
+    width: 160px;
+    height: 128px;
 }
 
-.hero-claw__prong--l {
-    left: 4px;
-    transform: rotate(-18deg);
+.hero-claw__arm {
+    transform-box: fill-box;
+    transform-origin: center top;
 }
 
-.hero-claw__prong--c {
-    left: 50%;
-    width: 14px;
-    height: 36px;
-    margin-left: -7px;
-    border-radius: 0 0 10px 10px;
+.hero-claw__arm--l {
+    transform-origin: 52px 44px;
 }
 
-.hero-claw__prong--r {
-    right: 4px;
-    transform: rotate(18deg);
-}
-
-.hero-claw__hopper {
-    position: absolute;
-    top: 16%;
-    right: 6%;
-    width: clamp(64px, 14vw, 96px);
-    height: clamp(110px, 22vh, 168px);
-    border: 3px solid #000;
-    border-radius: 14px 14px 20px 20px;
-    background: linear-gradient(180deg, rgba(58, 0, 43, 0.15) 0%, rgba(255, 127, 0, 0.2) 100%);
-    box-shadow: 4px 4px 0 #000;
-    opacity: 0;
-}
-
-.hero-claw__hopper::before {
-    content: "";
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    width: 46px;
-    height: 16px;
-    margin-left: -23px;
-    border: 3px solid #000;
-    border-bottom: none;
-    border-radius: 10px 10px 0 0;
-    background: #fffd46;
-}
-
-.hero-claw__hopper-label {
-    position: absolute;
-    bottom: 8px;
-    left: 0;
-    right: 0;
-    font-size: 9px;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: rgba(58, 0, 43, 0.55);
+.hero-claw__arm--r {
+    transform-origin: 108px 44px;
 }
 
 .hero-claw__cargo {
     position: absolute;
-    top: calc(100% + 2px);
     left: 50%;
-    z-index: 3;
+    bottom: 8px;
+    z-index: 4;
     font-family: "Anton", sans-serif;
     font-weight: 400;
     line-height: 0.85;
@@ -289,7 +246,6 @@ body {
     opacity: 0;
     pointer-events: none;
     transform: translateX(-50%);
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
 }
 
 .hero-claw__cargo--dark {
@@ -300,57 +256,52 @@ body {
     color: #ff7f00;
 }
 
+.hero-letter-slot {
+    display: inline-block;
+    position: relative;
+    vertical-align: bottom;
+}
+
 .hero-letter {
     display: inline-block;
 }
 
+.hero-letter--fly {
+    pointer-events: none;
+    z-index: 40;
+}
+
 .hero--placing {
-    position: relative;
-    z-index: 18;
+    z-index: 20;
 }
 
-.hero--placing h1 {
-    position: relative;
-    margin: 0;
+.hero--placing .hero-letter-slot:not(.is-set) .hero-letter {
+    opacity: 0;
 }
 
-.hero-letter--placed {
-    position: static !important;
-    transform: none !important;
-}
-
-body.hero-claw-active .hero--claw-drop h1 {
-    position: relative;
+body.hero-claw-active .hero-aside {
+    z-index: 8;
 }
 
 @media (max-width: 992px) {
     .hero-claw__track {
-        top: calc(var(--hero-ticker-h, 44px) + var(--hero-nav-h, 52px) + 8px);
-        right: 4%;
-        left: 4%;
-        height: 200px;
+        top: calc(var(--hero-ticker-h, 44px) + var(--hero-nav-h, 52px) + 4px);
+        bottom: 18%;
     }
 
-    .hero-claw__motor {
-        width: 46px;
-        height: 30px;
+    .hero-claw__rig {
+        transform: scale(0.78);
+        transform-origin: top center;
     }
 
     .hero-claw__head {
-        width: 58px;
-        height: 38px;
+        width: 130px;
+        height: 104px;
     }
 
-    .hero-claw__prong {
-        width: 15px;
-        height: 34px;
-    }
-
-    .hero-claw__hopper {
-        top: calc(var(--hero-ticker-h, 44px) + var(--hero-nav-h, 52px) + 24px);
-        right: 4%;
-        width: 58px;
-        height: 108px;
+    .hero-claw__svg {
+        width: 130px;
+        height: 104px;
     }
 }
 

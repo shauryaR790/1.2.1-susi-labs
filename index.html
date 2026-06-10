@@ -83,7 +83,7 @@
     </noscript>
     <link rel="preload" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css"></noscript>
-    <link rel="stylesheet" href="style.css?v=295">
+    <link rel="stylesheet" href="style.css?v=296">
     <style>
         .skip-link {
             position: absolute;
@@ -301,9 +301,6 @@
         <!-- CLAW DROP (GSAP prototype — arcade grab → release) -->
 
         <div class="hero-claw" aria-hidden="true">
-            <div class="hero-claw__hopper">
-                <span class="hero-claw__hopper-label">letters</span>
-            </div>
             <div class="hero-claw__track">
                 <div class="hero-claw__rail"></div>
                 <div class="hero-claw__rig">
@@ -312,9 +309,17 @@
                     </div>
                     <div class="hero-claw__cable"></div>
                     <div class="hero-claw__head">
-                        <div class="hero-claw__prong hero-claw__prong--l"></div>
-                        <div class="hero-claw__prong hero-claw__prong--c"></div>
-                        <div class="hero-claw__prong hero-claw__prong--r"></div>
+                        <svg class="hero-claw__svg" viewBox="0 0 160 128" width="160" height="128" aria-hidden="true">
+                            <rect x="52" y="0" width="56" height="28" rx="8" fill="#FFFD46" stroke="#000" stroke-width="4"/>
+                            <line x1="80" y1="28" x2="80" y2="40" stroke="#000" stroke-width="5" stroke-linecap="round"/>
+                            <g class="hero-claw__arm hero-claw__arm--l">
+                                <path d="M48 44 L28 118 L42 122 L58 52 Z" fill="#FF7F00" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+                            </g>
+                            <g class="hero-claw__arm hero-claw__arm--r">
+                                <path d="M112 44 L132 118 L118 122 L102 52 Z" fill="#FF7F00" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+                            </g>
+                            <path d="M68 44 L80 56 L92 44" fill="#FFFD46" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+                        </svg>
                         <span class="hero-claw__cargo"></span>
                     </div>
                 </div>
@@ -325,10 +330,10 @@
 
         <div class="hero hero--claw-drop">
             <h1 class="upper" aria-label="SUSI">
-                <span class="hero-letter hero-letter--dark">S</span><span class="hero-letter hero-letter--dark">U</span><span class="hero-letter hero-letter--dark">S</span><span class="hero-letter hero-letter--dark">I</span>
+                <span class="hero-letter-slot"><span class="hero-letter hero-letter--dark">S</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--dark">U</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--dark">S</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--dark">I</span></span>
             </h1>
             <h1 class="lower" aria-label="LABS">
-                <span class="hero-letter hero-letter--orange">L</span><span class="hero-letter hero-letter--orange">A</span><span class="hero-letter hero-letter--orange">B</span><span class="hero-letter hero-letter--orange">S</span>
+                <span class="hero-letter-slot"><span class="hero-letter hero-letter--orange">L</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--orange">A</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--orange">B</span></span><span class="hero-letter-slot"><span class="hero-letter hero-letter--orange">S</span></span>
             </h1>
         </div>
 
@@ -900,7 +905,7 @@
 <script defer src="site-cursor.js?v=2"></script>
 <script defer src="cookie-consent.js?v=1"></script>
 <script defer src="marquee-fill.js?v=1"></script>
-<script defer src="hero-claw.js?v=2"></script>
+<script defer src="hero-claw.js?v=3"></script>
 <script defer src="style.js?v=135"></script>
 </body>
 
