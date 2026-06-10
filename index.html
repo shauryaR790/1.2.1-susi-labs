@@ -83,7 +83,7 @@
     </noscript>
     <link rel="preload" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css"></noscript>
-    <link rel="stylesheet" href="style.css?v=259">
+    <link rel="stylesheet" href="style.css?v=260">
     <style>
         .skip-link {
             position: absolute;
@@ -276,6 +276,13 @@
             <nav>
                 <a href="custom-build.html">CUSTOM BUILD</a>
                 <a href="products.html">ORDER NOW</a>
+                <button type="button" class="profile-nav profile-nav--hero" id="hero-profile-btn" aria-label="Account" aria-haspopup="dialog" aria-expanded="false">
+                    <span class="profile-nav__label">ACCOUNT</span>
+                    <svg class="profile-nav__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
                 <a class="cart-nav cart-nav--hero" href="cart.html" aria-label="Shopping cart">
                     <span class="cart-nav__label">CART</span>
                     <svg class="cart-nav__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -782,8 +789,8 @@
         <nav class="footer-legal" aria-label="Legal">
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
-            <a href="orders.html" data-auth-show="signed-in" hidden>My Orders</a>
-            <a href="login.html" data-auth-show="signed-out">Sign In</a>
+            <a href="account.html" data-auth-show="signed-in" hidden>My Account</a>
+            <a href="index.html?auth=1" data-auth-show="signed-out">Sign In</a>
         </nav>
 
         <span>printed with precision. built to order.</span>
@@ -791,6 +798,53 @@
     </div>
 
 </footer>
+
+<div class="hero-auth-modal" id="hero-auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="hero-auth-title">
+    <div class="hero-auth-modal__backdrop" data-hero-auth-close></div>
+    <div class="hero-auth-modal__panel auth-card">
+        <button type="button" class="hero-auth-modal__close" data-hero-auth-close aria-label="Close">&times;</button>
+
+        <div class="auth-tabs" role="tablist">
+            <button type="button" class="auth-tabs__btn is-active" id="hero-auth-tab-signin" role="tab" aria-selected="true">Sign in</button>
+            <button type="button" class="auth-tabs__btn" id="hero-auth-tab-signup" role="tab" aria-selected="false">Create account</button>
+        </div>
+
+        <form class="auth-form" id="hero-auth-form-signin" novalidate>
+            <h2 class="auth-card__title" id="hero-auth-title">Welcome back</h2>
+            <p class="auth-card__sub">Sign in to view your orders and cart.</p>
+            <label class="checkout-field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <label class="checkout-field">
+                <span>Password</span>
+                <input type="password" name="password" autocomplete="current-password" required minlength="8">
+            </label>
+            <p class="auth-form__error" id="hero-auth-error-signin" hidden role="alert"></p>
+            <button type="submit" class="auth-form__submit" id="hero-auth-submit-signin">Sign in</button>
+        </form>
+
+        <form class="auth-form" id="hero-auth-form-signup" hidden novalidate>
+            <h2 class="auth-card__title">Create account</h2>
+            <p class="auth-card__sub">Use the same email as checkout to see past orders.</p>
+            <label class="checkout-field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <label class="checkout-field">
+                <span>Password</span>
+                <input type="password" name="password" autocomplete="new-password" required minlength="8">
+            </label>
+            <label class="checkout-field">
+                <span>Confirm password</span>
+                <input type="password" name="confirmPassword" autocomplete="new-password" required minlength="8">
+            </label>
+            <p class="auth-form__error" id="hero-auth-error-signup" hidden role="alert"></p>
+            <p class="auth-form__note" id="hero-auth-note-signup" hidden></p>
+            <button type="submit" class="auth-form__submit" id="hero-auth-submit-signup">Create account</button>
+        </form>
+    </div>
+</div>
 
 <!-- Page transition overlay (products + cart) -->
 <div class="order-transition" id="order-transition" aria-hidden="true">
@@ -818,7 +872,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="supabase-config.js"></script>
-<script defer src="site-auth.js?v=1"></script>
+<script defer src="site-auth.js?v=2"></script>
+<script defer src="hero-profile.js?v=1"></script>
 <script defer src="cart-store.js?v=2"></script>
 <script defer src="page-transition.js?v=2"></script>
 <script defer src="site-cursor.js?v=2"></script>

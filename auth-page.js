@@ -2,8 +2,8 @@
 
 function getRedirectTarget() {
     const params = new URLSearchParams(window.location.search)
-    const target = params.get("redirect") || "orders.html"
-    if (!target || target.includes("://") || target.startsWith("//")) return "orders.html"
+    const target = params.get("redirect") || "account.html"
+    if (!target || target.includes("://") || target.startsWith("//")) return "account.html"
     return target
 }
 
