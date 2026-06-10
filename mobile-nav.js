@@ -156,8 +156,18 @@
         if (!MOBILE_MQ.matches) closeMenu()
     }
 
+    function teardownHomeNav() {
+        document.getElementById("site-mobile-nav")?.remove()
+        document.querySelectorAll(".mobile-nav__toggle").forEach((el) => el.remove())
+        document.body.classList.remove("mobile-nav-open")
+    }
+
     function init() {
-        if (root || isHomePage()) return
+        if (isHomePage()) {
+            teardownHomeNav()
+            return
+        }
+        if (root) return
 
         root = document.createElement("div")
         root.className = "mobile-nav"

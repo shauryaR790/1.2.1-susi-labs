@@ -9696,6 +9696,11 @@ body.mobile-nav-open {
         display: none !important;
     }
 
+    body.home-page .mobile-nav,
+    body.home-page .mobile-nav__toggle {
+        display: none !important;
+    }
+
     body.products-page:not(.cart-page):not(.product-page) .products-header-actions > :not(.mobile-nav__toggle) {
         display: none !important;
     }
