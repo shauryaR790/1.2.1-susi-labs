@@ -8875,6 +8875,24 @@ body.hero-auth-open {
     max-width: min(1080px, 100%);
     margin: 0 auto;
     width: 100%;
+    color: #fff3ef;
+}
+
+.account-dashboard-page .account-dash-card,
+.account-dashboard-page .account-dash-card__body {
+    color: #fff3ef;
+}
+
+.account-dashboard-page .account-dash-item__name,
+.account-dashboard-page .account-dash-summary__row,
+.account-dashboard-page .account-dash-order__items,
+.account-dashboard-page .account-dash-empty__meta {
+    color: #fff3ef;
+}
+
+.account-dashboard-page .account-dash-item__meta,
+.account-dashboard-page .account-dash-order__meta {
+    color: rgba(255, 243, 239, 0.78);
 }
 
 @media (min-width: 993px) {
@@ -9032,6 +9050,7 @@ body.hero-auth-open {
     font-size: 15px;
     font-weight: 700;
     line-height: 1.25;
+    color: #fff3ef;
 }
 
 .account-dash-item__meta {
