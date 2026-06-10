@@ -1,0 +1,223 @@
+﻿{
+  "id": "dpl_9qP1hhs2mdRJ9YrNVHcaUx9wvSuX",
+  "name": "1-2-1-susi-labs",
+  "url": "1-2-1-susi-labs-5mu7h3hik-shauryar790s-projects.vercel.app",
+  "target": "production",
+  "readyState": "READY",
+  "createdAt": 1781020300779,
+  "aliases": [
+    "susilabs.in",
+    "www.susilabs.in",
+    "1-2-1-susi-labs.vercel.app",
+    "1-2-1-susi-labs-shauryar790s-projects.vercel.app",
+    "1-2-1-susi-labs-shauryar790-shauryar790s-projects.vercel.app"
+  ],
+  "builds": [
+    {
+      "id": "bld_e5641er34",
+      "deploymentId": "dpl_9qP1hhs2mdRJ9YrNVHcaUx9wvSuX",
+      "entrypoint": ".",
+      "readyState": "READY",
+      "readyStateAt": 1781020300813,
+      "createdAt": 1781020300813,
+      "createdIn": "sfo1",
+      "use": "@vercel/vc-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": ".",
+        "nodeVersion": "24.x",
+        "projectCreatedAt": 1779699648374,
+        "vercelConfig": {
+          "buildCommand": "npm run build",
+          "outputDirectory": ".",
+          "redirects": [
+            {
+              "source": "/index.html",
+              "destination": "/",
+              "statusCode": 308
+            }
+          ],
+          "rewrites": [
+            {
+              "source": "/sitemap.xml",
+              "destination": "/api/sitemap"
+            }
+          ],
+          "headers": [
+            {
+              "source": "/(.*)",
+              "headers": [
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=63072000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "strict-origin-when-cross-origin"
+                },
+                {
+                  "key": "Permissions-Policy",
+                  "value": "camera=(), microphone=(), geolocation=()"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ]
+            },
+            {
+              "source": "/images/(.*)\\.vtt",
+              "headers": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/vtt; charset=utf-8"
+                }
+              ]
+            }
+          ],
+          "name": "1-2-1-susi-labs",
+          "version": 2
+        }
+      },
+      "middleware": [],
+      "output": [
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/confirm-upi-payment",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/030b9be5772817ca5db28002d1b5173c2286d16338941b15284f75434c88b353",
+          "mode": 49590,
+          "size": 273531,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-978b1d0a8e242579278c5c4d0ea2ee8ce8",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        },
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/create-order",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/095d9c7471233fd9698b9ad262d56f0ff762ddc0cd103e95e0f3126deff310c4",
+          "mode": 49590,
+          "size": 274097,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-b397d8f72f2ee8007226abdaf6b69b615a",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        },
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/custom-build-request",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/11cf7d7938b70f89e5f2e0e788c27a807b1880a1b61edc183e67d724d54c680a",
+          "mode": 49590,
+          "size": 71034,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-fc3b026c145bcd74e336efe60b1764384e",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        },
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/sync-payment",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/ba4b7b28d38310953ba9cf87b861c4ffe05fe36ca9179faac0577f1a7c4f22b8",
+          "mode": 49590,
+          "size": 276296,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-ef72f4e9a81855caf28a13408d6c4a3d2b",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        },
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/upi-qr",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/c92d76b612f2008d5059a7827560ef8fc21186afbdf474da4eaa6c635e077432",
+          "mode": 49590,
+          "size": 67215,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-4bc6c9b2cc9160e0dcfdb9b80be079bce5",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        },
+        {
+          "prerender": null,
+          "type": "lambda",
+          "path": "api/verify-payment",
+          "digest": "prj_4BPi2rzZQza6uEvyxWQxds8aOmRG/5e064441bec6f44d9f308c0d9a492582ab081a1a74867fd10eaf9a7b97102583",
+          "mode": 49590,
+          "size": 275799,
+          "lambda": {
+            "functionName": "team_kGwI2P6R39Yu27EKsIbXECzf-5c9cd9ef5f09cf10c38396d8e245637ce8",
+            "deployedTo": [
+              "iad1"
+            ],
+            "runtime": "nodejs24.x",
+            "memorySize": 2048,
+            "timeout": 300,
+            "layers": [
+              "arn:aws:lambda:AWS_REGION_PLACEHOLDER:977805900156:layer:vercel-rusty-runtime-nodejs-1_44_5-production-f3d48228c9-AWS_ARCH_PLACEHOLDER:1"
+            ]
+          },
+          "edge": null
+        }
+      ],
+      "fingerprint": null
+    }
+  ],
+  "contextName": "shauryar790s-projects"
+}

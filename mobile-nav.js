@@ -1,4 +1,4 @@
-/* Mobile hamburger navigation — slide-down menu on all pages */
+/* Mobile hamburger navigation — slide-down menu (all pages except home) */
 
 ;(function () {
     const MOBILE_MQ = window.matchMedia("(max-width: 992px)")
@@ -7,16 +7,18 @@
         { href: "index.html", label: "home" },
         { href: "products.html", label: "shop" },
         { href: "custom-build.html", label: "custom build" },
-        { href: "cart.html", label: "cart" },
-        { href: "account.html", label: "my account", auth: "signed-in" },
-        { href: "login.html", label: "my account", auth: "signed-out" },
-        { href: "orders.html", label: "my orders", auth: "signed-in" }
+        { href: "cart.html", label: "cart" }
     ]
 
     let root = null
     let toggle = null
     let panel = null
     let backdrop = null
+
+    function isHomePage() {
+        const part = window.location.pathname.split("/").pop()
+        return !part || part === "index.html"
+    }
 
     function currentPage() {
         const part = window.location.pathname.split("/").pop()
@@ -52,11 +54,8 @@
     function buildPanelMarkup() {
         const page = currentPage()
         const links = NAV_LINKS.map((item) => {
-            const authAttr = item.auth
-                ? ` data-auth-show="${item.auth}"${item.auth === "signed-in" ? " hidden" : ""}`
-                : ""
             const active = item.href === page ? " is-active" : ""
-            return `<a class="mobile-nav__link${active}" href="${item.href}"${authAttr}>${item.label}</a>`
+            return `<a class="mobile-nav__link${active}" href="${item.href}">${item.label}</a>`
         }).join("")
 
         return `
@@ -64,7 +63,9 @@
             <div class="mobile-nav__panel" id="site-mobile-nav-panel" hidden>
                 <nav class="mobile-nav__links" aria-label="Site navigation">
                     ${links}
-                    <button type="button" class="mobile-nav__link mobile-nav__link--ghost" data-mobile-nav-signout data-auth-show="signed-in" hidden>sign out</button>
+                    <a class="mobile-nav__link" href="login.html" id="mobile-nav-account">my account</a>
+                    <a class="mobile-nav__link" href="orders.html" id="mobile-nav-orders" hidden>my orders</a>
+                    <button type="button" class="mobile-nav__link mobile-nav__link--ghost" data-mobile-nav-signout hidden>sign out</button>
                 </nav>
             </div>
         `
@@ -121,6 +122,32 @@
         })
     }
 
+    async function refreshAuth() {
+        const accountLink = panel?.querySelector("#mobile-nav-account")
+        const ordersLink = panel?.querySelector("#mobile-nav-orders")
+        const signOutBtn = panel?.querySelector("[data-mobile-nav-signout]")
+
+        let signedIn = false
+        try {
+            const session = await window.SUSI_AUTH?.getSession?.()
+            signedIn = Boolean(session?.user)
+        } catch {}
+
+        if (accountLink) {
+            accountLink.href = signedIn ? "account.html" : "login.html"
+        }
+        if (ordersLink) {
+            ordersLink.hidden = !signedIn
+        }
+        if (signOutBtn) {
+            signOutBtn.hidden = !signedIn
+        }
+
+        if (window.SUSI_AUTH?.refreshNavLinks) {
+            window.SUSI_AUTH.refreshNavLinks().catch(() => {})
+        }
+    }
+
     function onKeydown(e) {
         if (e.key === "Escape" && isOpen()) closeMenu()
     }
@@ -129,14 +156,8 @@
         if (!MOBILE_MQ.matches) closeMenu()
     }
 
-    function refreshAuth() {
-        if (window.SUSI_AUTH?.refreshNavLinks) {
-            window.SUSI_AUTH.refreshNavLinks().catch(() => {})
-        }
-    }
-
     function init() {
-        if (root) return
+        if (root || isHomePage()) return
 
         root = document.createElement("div")
         root.className = "mobile-nav"
@@ -151,7 +172,9 @@
 
         if (window.SUSI_AUTH?.onAuthStateChange) {
             try {
-                window.SUSI_AUTH.onAuthStateChange(() => refreshAuth())
+                window.SUSI_AUTH.onAuthStateChange(() => {
+                    refreshAuth().catch(() => {})
+                })
             } catch {}
         }
 

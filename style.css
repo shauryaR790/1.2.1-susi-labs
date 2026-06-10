@@ -9688,8 +9688,11 @@ body.mobile-nav-open {
     }
 
     .cart-sidebar-links,
-    .product-sidebar-links,
-    .hero-aside nav {
+    .product-sidebar-links {
+        display: none !important;
+    }
+
+    body:not(.home-page) .hero-aside nav {
         display: none !important;
     }
 
@@ -9714,17 +9717,12 @@ body.mobile-nav-open {
         align-self: center;
     }
 
-    body:not(.cart-page):not(.product-page) .products-header-actions .mobile-nav__toggle {
+    body.products-page:not(.cart-page):not(.product-page) .products-header-actions .mobile-nav__toggle {
         width: 52px;
         height: 52px;
-    }
-
-    .container {
-        padding-top: calc(var(--hero-ticker-h, 44px) + 12px);
-    }
-
-    body:not(.cart-page):not(.products-page):not(.product-page) .hero-aside {
-        padding-top: 0;
+        align-self: center;
+        margin: 0;
+        transform: none;
     }
 }
 

@@ -312,6 +312,7 @@ function runProductsIntro() {
                         document.querySelector(".products-title"),
                         document.querySelector(".products-title h1"),
                         document.querySelector(".products-header-actions"),
+                        document.querySelector(".mobile-nav__toggle"),
                         document.querySelector(".cart-nav"),
                         document.querySelector(".products-controls"),
                         document.querySelector(".products-grid-page"),
@@ -334,7 +335,14 @@ function runProductsIntro() {
         if (ticker) tl.from(ticker, { y: -14, opacity: 0, duration: 0.5 }, 0.08)
         if (home) tl.from(home, { y: 18, opacity: 0, duration: 0.65 }, 0.14)
         if (title) tl.from(title.children, { y: 18, opacity: 0, duration: 0.65, stagger: 0.09 }, 0.16)
-        if (headerActions) tl.from(headerActions.children, { y: 12, opacity: 0, duration: 0.55, stagger: 0.05 }, 0.18)
+        if (headerActions) {
+            const actionChildren = [...headerActions.children].filter(
+                (el) => !el.classList.contains("mobile-nav__toggle")
+            )
+            if (actionChildren.length) {
+                tl.from(actionChildren, { y: 12, opacity: 0, duration: 0.55, stagger: 0.05 }, 0.18)
+            }
+        }
         else if (cartNav) tl.from(cartNav, { y: 12, opacity: 0, duration: 0.55 }, 0.18)
         if (controls) tl.from(controls.children, { y: 14, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.24)
         if (cards.length) tl.from(cards, { y: 26, opacity: 0, duration: 0.75, stagger: 0.06 }, 0.3)
