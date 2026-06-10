@@ -7968,6 +7968,11 @@ html.susi-custom-cursor * {
     color: #fffd46;
 }
 
+.orders-card__badge--confirmed {
+    background: #4ade80;
+    color: #000;
+}
+
 .orders-card__badge--active {
     background: rgba(255, 253, 70, 0.35);
     color: #3a002b;
@@ -8282,6 +8287,11 @@ html.susi-custom-cursor * {
 .order-detail__badge--pending {
     background: rgba(255, 127, 0, 0.25);
     color: #fffd46;
+}
+
+.order-detail__badge--confirmed {
+    background: #4ade80;
+    color: #000;
 }
 
 .order-detail__badge--active {
@@ -9278,6 +9288,11 @@ body.hero-auth-open {
 .account-dash-order__badge--pending {
     background: rgba(255, 127, 0, 0.25);
     color: #fffd46;
+}
+
+.account-dash-order__badge--confirmed {
+    background: #4ade80;
+    color: #000;
 }
 
 .account-dash-order__badge--active {

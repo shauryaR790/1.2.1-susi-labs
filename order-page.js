@@ -29,6 +29,9 @@ function getStatusTone(order) {
         return { label, tone: "shipping" }
     }
     if (order.fulfillment_status === "cancelled") return { label, tone: "cancelled" }
+    if (order.fulfillment_status === "confirmed" || order.fulfillment_status === "awaiting_payment") {
+        return { label, tone: "confirmed" }
+    }
     return { label, tone: "active" }
 }
 
