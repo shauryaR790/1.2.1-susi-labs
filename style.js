@@ -336,7 +336,7 @@ function initSiteLoader(onComplete) {
    HERO SECTION
 ========================= */
 
-function playHeroTitleIntro() {
+function playHeroIntro() {
     if (prefersReducedMotion) return
 
     fromIfExists(".upper", {
@@ -353,10 +353,6 @@ function playHeroTitleIntro() {
         ease: "power4.out",
         delay: 0.08
     })
-}
-
-function playHeroAsideIntro() {
-    if (prefersReducedMotion) return
 
     fromIfExists(".hero-aside nav a, .hero-aside nav .hero-nav-account, .hero-aside nav .cart-nav--hero", {
         y: isMobile ? -20 : -80,
@@ -392,11 +388,6 @@ function playHeroAsideIntro() {
             )
         })
     }
-}
-
-function playHeroIntro() {
-    playHeroTitleIntro()
-    playHeroAsideIntro()
 }
 
 function initMobileNavScroll() {
@@ -443,11 +434,7 @@ function initLazyVideo() {
 }
 
 function afterLoaderComplete() {
-    const ranClaw = window.SUSI_HERO_CLAW?.play?.(() => {
-        playHeroAsideIntro()
-    })
-    if (!ranClaw) playHeroIntro()
-
+    playHeroIntro()
     initMobileNavScroll()
     initLazyVideo()
     requestAnimationFrame(() => ScrollTrigger.refresh())
