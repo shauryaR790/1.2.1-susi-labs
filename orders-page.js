@@ -139,17 +139,15 @@ function renderOrderCard(order, productMap) {
             ${renderMiniTimeline(order)}
 
             <div class="orders-card__foot">
-                <div class="orders-card__foot-left">
+                <div class="orders-card__foot-meta">
                     ${
                         trackUrl
                             ? `<span class="orders-card__track">AWB ${escapeHtml(order.tracking_number)}</span>`
                             : `<span class="orders-card__track orders-card__track--muted">Tracking updates when shipped</span>`
                     }
-                </div>
-                <div class="orders-card__foot-right">
                     <span class="orders-card__total">${escapeHtml(total)}</span>
-                    <span class="orders-card__cta">View details →</span>
                 </div>
+                <span class="orders-card__cta">View details →</span>
             </div>
         </a>
     `

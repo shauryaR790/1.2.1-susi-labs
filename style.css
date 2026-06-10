@@ -8040,11 +8040,18 @@ html.susi-custom-cursor * {
 
 .orders-card__foot {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: stretch;
     gap: 14px;
     padding-top: 12px;
     border-top: 2px solid rgba(255, 243, 239, 0.12);
+}
+
+.orders-card__foot-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 14px;
 }
 
 .orders-card__track {
@@ -8058,30 +8065,34 @@ html.susi-custom-cursor * {
     font-weight: 400;
 }
 
-.orders-card__foot-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
-}
-
 .orders-card__total {
     font-family: "Anton", sans-serif;
     font-size: 24px;
     color: #fffd46;
     line-height: 1;
+    flex-shrink: 0;
 }
 
 .orders-card__cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 11px 16px;
+    border-radius: 999px;
+    border: 2px solid #fffd46;
+    background: rgba(255, 253, 70, 0.1);
     font-size: 12px;
     font-weight: 700;
-    color: rgba(255, 243, 239, 0.75);
+    color: #fffd46;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .orders-card:hover .orders-card__cta {
-    color: #fffd46;
+    background: #fffd46;
+    color: #3a002b;
+    transform: translateY(-1px);
 }
 
 .orders-card__top {
