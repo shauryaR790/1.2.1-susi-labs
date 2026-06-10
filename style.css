@@ -8518,6 +8518,9 @@ html.susi-custom-cursor * {
 
 .order-detail__pay-badge {
     display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    justify-self: start;
     padding: 3px 10px;
     border-radius: 999px;
     border: 2px solid #000;
