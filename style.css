@@ -8491,6 +8491,10 @@ html.susi-custom-cursor * {
     gap: 12px;
 }
 
+.order-detail__info-grid + .order-detail__note {
+    margin-top: 14px;
+}
+
 .order-detail__info {
     display: grid;
     grid-template-columns: 120px minmax(0, 1fr);
