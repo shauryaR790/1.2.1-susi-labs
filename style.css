@@ -8892,42 +8892,35 @@ body.hero-auth-open {
 }
 
 .account-stat {
-    padding: 14px 10px;
+    padding: 16px 12px;
     border-radius: 14px;
     border: 3px solid #000;
     box-shadow: 5px 5px 0 #000;
     text-align: center;
-}
-
-.account-stat:nth-child(odd) {
-    background: #fffd46;
-}
-
-.account-stat:nth-child(even) {
     background: #ff7f00;
 }
 
 .account-stat__value {
     display: block;
     font-family: "Anton", sans-serif;
-    font-size: clamp(22px, 4vw, 30px);
-    color: #000;
+    font-size: clamp(26px, 4.5vw, 36px);
+    color: #fff3ef;
     line-height: 1;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .account-stat__value--text {
-    font-size: clamp(15px, 3vw, 18px);
+    font-size: clamp(18px, 3.2vw, 22px);
 }
 
 .account-stat__label {
     display: block;
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    color: #3a002b;
+    color: #fff3ef;
     font-weight: 800;
-    opacity: 0.72;
+    opacity: 0.9;
 }
 
 .account-dashboard {
@@ -8954,56 +8947,41 @@ body.hero-auth-open {
     overflow: hidden;
 }
 
-.account-dash-card--cart {
-    border-color: #000;
-}
-
-.account-dash-card--orders {
-    border-color: #000;
-}
-
 .account-dash-card__head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
     margin: 0;
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-bottom: 3px solid #000;
-}
-
-.account-dash-card--cart .account-dash-card__head {
-    background: #fffd46;
-}
-
-.account-dash-card--orders .account-dash-card__head {
     background: #ff7f00;
 }
 
 .account-dash-card__head h2 {
     margin: 0;
     font-family: "Anton", sans-serif;
-    font-size: 22px;
+    font-size: clamp(24px, 3.5vw, 30px);
     text-transform: uppercase;
-    color: #000;
+    color: #fff3ef;
     letter-spacing: 0.3px;
 }
 
 .account-dash-card__link {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.45px;
-    color: #3a002b;
+    color: #fff3ef;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 7px 12px;
     border-radius: 999px;
     border: 2px solid #000;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .account-dash-card__link:hover {
-    background: #fff;
+    background: #3a002b;
     transform: translateY(-1px);
 }
 
@@ -9011,43 +8989,43 @@ body.hero-auth-open {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 16px 18px 18px;
+    padding: 18px 20px 20px;
     color: #fff3ef;
 }
 
 .account-dash-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     flex: 1;
 }
 
 .account-dash-list--items,
 .account-dash-list--orders {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .account-dash-item {
     display: grid;
-    grid-template-columns: 56px minmax(0, 1fr) auto;
-    gap: 12px;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    gap: 14px;
     align-items: center;
-    padding: 10px 12px;
+    padding: 14px 14px;
     border-radius: 12px;
-    background: #fff3ef;
+    background: #ff7f00;
     border: 2px solid #000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-    color: #3a002b;
+    box-shadow: 3px 3px 0 #000;
+    color: #fff3ef;
 }
 
 .account-dash-thumb {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     border-radius: 10px;
     object-fit: cover;
     border: 2px solid #000;
     display: block;
-    background: #ff7f00;
+    background: #e67200;
 }
 
 .account-dash-thumb--placeholder {
@@ -9055,48 +9033,48 @@ body.hero-auth-open {
     align-items: center;
     justify-content: center;
     font-family: "Anton", sans-serif;
-    font-size: 16px;
-    color: #000;
-    background: #fffd46;
+    font-size: 18px;
+    color: #fff3ef;
+    background: #e67200;
 }
 
 .account-dash-item__name {
     margin: 0;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 800;
     line-height: 1.25;
-    color: #000;
+    color: #fff3ef;
     text-transform: uppercase;
     letter-spacing: 0.2px;
 }
 
 .account-dash-item__meta {
-    margin: 3px 0 0;
-    font-size: 12px;
-    color: rgba(58, 0, 43, 0.68);
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: rgba(255, 243, 239, 0.88);
 }
 
 .account-dash-item__line {
     font-family: "Anton", sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
-    color: #3a002b;
+    color: #fff3ef;
     white-space: nowrap;
 }
 
 .account-dash-summary {
-    padding-top: 12px;
+    padding-top: 14px;
     margin-top: auto;
-    border-top: 2px dashed rgba(255, 253, 70, 0.45);
+    border-top: 2px dashed rgba(255, 243, 239, 0.35);
 }
 
 .account-dash-summary__row {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 800;
-    color: #fffd46;
+    color: #fff3ef;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
@@ -9104,20 +9082,21 @@ body.hero-auth-open {
 .account-dash-order {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 12px 14px;
+    gap: 10px;
+    padding: 14px 16px;
     border: 2px solid #000;
     border-radius: 12px;
     text-decoration: none;
-    color: #3a002b;
-    background: #fff3ef;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+    color: #fff3ef;
+    background: #ff7f00;
+    box-shadow: 3px 3px 0 #000;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .account-dash-order:hover {
     transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0 #000;
+    background: #e67200;
 }
 
 .account-dash-order__top {
@@ -9130,51 +9109,41 @@ body.hero-auth-open {
 
 .account-dash-order__ref {
     font-family: "Anton", sans-serif;
-    color: #3a002b;
-    font-size: 17px;
+    color: #fff3ef;
+    font-size: 20px;
 }
 
 .account-dash-order__badge {
     display: inline-flex;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 999px;
     border: 2px solid #000;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.35px;
+    background: #3a002b;
+    color: #fff3ef;
 }
 
-.account-dash-order__badge--pending {
-    background: #ff7f00;
-    color: #000;
-}
-
-.account-dash-order__badge--active {
-    background: #fffd46;
-    color: #000;
-}
-
-.account-dash-order__badge--shipping {
-    background: #ff7f00;
-    color: #000;
-}
-
+.account-dash-order__badge--pending,
+.account-dash-order__badge--active,
+.account-dash-order__badge--shipping,
 .account-dash-order__badge--done {
-    background: #fffd46;
-    color: #000;
+    background: #3a002b;
+    color: #fff3ef;
 }
 
 .account-dash-order__badge--cancelled {
-    background: #e8e0dc;
-    color: #3a002b;
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 243, 239, 0.8);
 }
 
 .account-dash-order__items {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
-    color: rgba(58, 0, 43, 0.82);
+    font-size: 15px;
+    line-height: 1.45;
+    color: #fff3ef;
     font-weight: 600;
 }
 
@@ -9186,34 +9155,34 @@ body.hero-auth-open {
 }
 
 .account-dash-order__meta {
-    font-size: 12px;
-    color: rgba(58, 0, 43, 0.6);
+    font-size: 14px;
+    color: rgba(255, 243, 239, 0.88);
     font-weight: 700;
 }
 
 .account-dash-order__total {
     font-family: "Anton", sans-serif;
-    font-size: 18px;
-    color: #3a002b;
+    font-size: 22px;
+    color: #fff3ef;
 }
 
 .account-dash-order__cta {
     display: block;
     width: 100%;
     text-align: center;
-    padding: 9px 12px;
+    padding: 11px 14px;
     border-radius: 999px;
     border: 2px solid #000;
-    background: #fffd46;
-    font-size: 10px;
+    background: #e67200;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.45px;
-    color: #000;
+    color: #fff3ef;
 }
 
 .account-dash-order:hover .account-dash-order__cta {
-    background: #ff7f00;
+    background: #3a002b;
 }
 
 .account-dash-empty {
@@ -9221,46 +9190,47 @@ body.hero-auth-open {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
-    padding: 24px 12px;
+    gap: 12px;
+    padding: 28px 14px;
     text-align: center;
-    border: 2px dashed rgba(255, 253, 70, 0.4);
+    border: 2px dashed rgba(255, 243, 239, 0.35);
     border-radius: 12px;
+    background: #ff7f00;
 }
 
 .account-dash-empty__title {
     margin: 0;
     font-family: "Anton", sans-serif;
-    font-size: 22px;
-    color: #fffd46;
+    font-size: 26px;
+    color: #fff3ef;
     text-transform: uppercase;
 }
 
 .account-dash-empty__meta {
     margin: 0;
-    font-size: 14px;
-    color: rgba(255, 243, 239, 0.8);
+    font-size: 16px;
+    color: rgba(255, 243, 239, 0.92);
     line-height: 1.45;
 }
 
 .account-dash-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 14px;
+    gap: 12px;
+    margin-top: 16px;
 }
 
 .account-dash-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 42px;
-    padding: 0 14px;
+    min-height: 48px;
+    padding: 0 16px;
     border-radius: 999px;
     border: 3px solid #000;
-    background: transparent;
-    color: #fffd46;
-    font-size: 11px;
+    background: #ff7f00;
+    color: #fff3ef;
+    font-size: 13px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.4px;
@@ -9272,23 +9242,21 @@ body.hero-auth-open {
 .account-dash-btn:hover {
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px 0 #000;
+    background: #e67200;
 }
 
 .account-dash-btn--full {
     width: 100%;
     margin-top: 8px;
-    background: #fffd46;
-    color: #000;
 }
 
 .account-dash-btn--checkout {
-    background: #ff7f00;
-    color: #000;
+    background: #e67200;
 }
 
 .account-dash-btn--checkout:hover,
 .account-dash-btn--full:hover {
-    background: #fff;
+    background: #3a002b;
 }
 
 .account-dash-help {
@@ -9302,13 +9270,13 @@ body.hero-auth-open {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 10px 10px;
+    min-height: 48px;
+    padding: 10px 12px;
     border-radius: 12px;
     border: 3px solid #000;
-    background: #fffd46;
-    color: #000;
-    font-size: 10px;
+    background: #ff7f00;
+    color: #fff3ef;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.35px;
@@ -9318,14 +9286,10 @@ body.hero-auth-open {
     transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.account-dash-help__link:nth-child(even) {
-    background: #ff7f00;
-}
-
 .account-dash-help__link:hover {
     transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0 #000;
-    background: #fff;
+    background: #e67200;
 }
 
 @media (max-width: 860px) {
@@ -9339,6 +9303,15 @@ body.hero-auth-open {
 
     .account-dash-card {
         min-height: 0;
+    }
+
+    .account-dash-item {
+        grid-template-columns: 56px minmax(0, 1fr) auto;
+    }
+
+    .account-dash-thumb {
+        width: 56px;
+        height: 56px;
     }
 }
 
