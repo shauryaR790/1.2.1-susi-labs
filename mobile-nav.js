@@ -4,10 +4,10 @@
     const MOBILE_MQ = window.matchMedia("(max-width: 992px)")
 
     const NAV_LINKS = [
-        { href: "index.html", label: "home" },
-        { href: "products.html", label: "shop" },
-        { href: "custom-build.html", label: "custom build" },
-        { href: "cart.html", label: "cart" }
+        { href: "index.html", label: "HOME" },
+        { href: "products.html", label: "SHOP" },
+        { href: "custom-build.html", label: "CUSTOM BUILD" },
+        { href: "cart.html", label: "CART" }
     ]
 
     let root = null
@@ -63,9 +63,9 @@
             <div class="mobile-nav__panel" id="site-mobile-nav-panel" hidden>
                 <nav class="mobile-nav__links" aria-label="Site navigation">
                     ${links}
-                    <a class="mobile-nav__link" href="login.html" id="mobile-nav-account">my account</a>
-                    <a class="mobile-nav__link" href="orders.html" id="mobile-nav-orders" hidden>my orders</a>
-                    <button type="button" class="mobile-nav__link mobile-nav__link--ghost" data-mobile-nav-signout hidden>sign out</button>
+                    <a class="mobile-nav__link" href="login.html" id="mobile-nav-account">MY ACCOUNT</a>
+                    <a class="mobile-nav__link" href="orders.html" id="mobile-nav-orders" hidden>MY ORDERS</a>
+                    <button type="button" class="mobile-nav__link mobile-nav__link--ghost" data-mobile-nav-signout hidden>SIGN OUT</button>
                 </nav>
             </div>
         `

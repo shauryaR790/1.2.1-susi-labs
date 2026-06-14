@@ -1920,6 +1920,10 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
     white-space: nowrap;
 }
 
+.print-marquee.print-marquee--hero .print-marquee-track {
+    animation-duration: 42s;
+}
+
 .hero-aside .info {
     width: 100%;
     max-width: none;
@@ -8966,7 +8970,11 @@ html.susi-custom-cursor * {
 }
 
 .hero-aside nav .hero-nav-account--signed-in {
-    color: #000;
+    color: #FF7F00;
+}
+
+.hero-aside nav .hero-nav-account--signed-in:hover {
+    color: #000000;
 }
 
 body.hero-auth-open {
@@ -9649,7 +9657,8 @@ body.hero-auth-open {
     line-height: 1.2;
     text-align: center;
     text-decoration: none;
-    text-transform: lowercase;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
     transition: background 0.15s ease, transform 0.15s ease;
 }
