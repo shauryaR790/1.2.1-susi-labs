@@ -2985,7 +2985,7 @@ margin-bottom: 18px;
 .loader-logo {
 --loader-susi-size: clamp(72px, 18vw, 128px);
 --loader-labs-size: clamp(80px, 20vw, 140px);
-line-height: 0.66;
+line-height: 0.82;
 margin: 0 auto 36px;
 max-width: 100%;
 text-align: center;
@@ -2994,13 +2994,13 @@ text-align: center;
 .loader-logo-stack {
 display: inline-flex;
 flex-direction: column;
-align-items: center;
-line-height: 0.66;
+align-items: flex-start;
+line-height: 0.82;
 }
 
 .loader-word {
-font-family: 'Bitcount Single', 'Anton', sans-serif;
-font-weight: 500;
+font-family: 'Anton', sans-serif;
+font-weight: 400;
 text-transform: uppercase;
 letter-spacing: -0.045em;
 white-space: nowrap;
@@ -3018,12 +3018,12 @@ color: #FF7F00;
 
 #site-loader .loader-word--a {
 margin: 0 !important;
-margin-left: 0 !important;
+margin-left: 9px !important;
 transform: none !important;
 }
 
 #site-loader .loader-word--b {
-margin: -0.08em 0 0 0 !important;
+margin: 0.02em 0 0 -6px !important;
 }
 
 @media (max-width: 600px) {
