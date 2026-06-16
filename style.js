@@ -290,7 +290,10 @@ function initSiteLoader(onComplete) {
         onUpdate() {
             const n = Math.round(progress.val)
             if (percentEl) percentEl.textContent = String(n)
-            if (bar) bar.style.width = `${n}%`
+            if (bar) {
+                bar.style.width = `${n}%`
+                bar.classList.toggle("has-progress", n > 0)
+            }
             if (statusEl) {
                 const idx = Math.min(
                     LOADER_STATUSES.length - 1,

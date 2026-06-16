@@ -3051,31 +3051,41 @@ margin-bottom: 16px;
 }
 
 .loader-bar {
+--dot: 14px;
+--gap: 2px;
+--step: calc(var(--dot) + var(--gap));
+
 width: 0%;
 height: 100%;
 position: relative;
 box-sizing: border-box;
-padding-right: 16px;
-/* dotted fill: repeat dots, reserve space for 1 full end dot */
-background-image: radial-gradient(circle at 8px 50%, #670038 0 7px, transparent 7.5px);
-background-size: 16px 18px;
+padding-right: var(--step); /* reserve space for a full last dot */
+
+/* clean dotted fill (no bg) */
+background-image: radial-gradient(circle at calc(var(--step) / 2) 50%, #670038 0 calc(var(--dot) / 2), transparent calc((var(--dot) / 2) + 0.5px));
+background-size: var(--step) 100%;
 background-repeat: repeat-x;
 background-position: 0 50%;
+
 transform-origin: left center;
 }
 
 .loader-bar::after {
 content: "";
 position: absolute;
-right: 0;
+right: calc(var(--gap) / 2);
 top: 50%;
-width: 14px;
-height: 14px;
+width: var(--dot);
+height: var(--dot);
 transform: translate(0, -50%);
 background: #670038;
 border-radius: 999px;
+opacity: 0;
 }
 
+.loader-bar.has-progress::after {
+opacity: 1;
+}
 .loader-status {
 font-family: Arial, Helvetica, sans-serif;
 font-size: 13px;
