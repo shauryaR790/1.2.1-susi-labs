@@ -3054,11 +3054,13 @@ margin-bottom: 16px;
 width: 0%;
 height: 100%;
 position: relative;
-/* dotted fill + end-cap dot so last one is always complete */
+box-sizing: border-box;
+padding-right: 16px;
+/* dotted fill: repeat dots, reserve space for 1 full end dot */
 background-image: radial-gradient(circle at 8px 50%, #670038 0 7px, transparent 7.5px);
 background-size: 16px 18px;
 background-repeat: repeat-x;
-background-position: left center;
+background-position: 0 50%;
 transform-origin: left center;
 }
 
@@ -9755,6 +9757,7 @@ body.mobile-nav-open {
         transform: none;
     }
 }
+
 
 
 
