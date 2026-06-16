@@ -3043,29 +3043,22 @@ margin-left: 0 !important;
 
 .loader-track {
 width: 100%;
-height: 18px;
-background: rgba(0, 0, 0, 0.1);
+height: 20px;
+background: transparent;
 border-radius: 999px;
 overflow: hidden;
 margin-bottom: 16px;
-border: 2px solid rgba(0, 0, 0, 0.18);
-box-shadow: inset 0 0 0 2px rgba(255, 243, 239, 0.35);
 }
 
 .loader-bar {
 width: 0%;
 height: 100%;
-/* dotted ?beads? progress ? reads well during fill */
-background-image:
-  radial-gradient(circle at 9px 50%, #000 0 5px, transparent 5.5px),
-  radial-gradient(circle at 9px 50%, #fffd46 0 3.4px, transparent 3.9px),
-  linear-gradient(90deg, rgba(255, 127, 0, 0.95), rgba(239, 124, 194, 0.95));
-background-size: 18px 18px, 18px 18px, 100% 100%;
-background-repeat: repeat, repeat, no-repeat;
-background-position: 0 0, 0 0, 0 0;
-border-radius: inherit;
+/* fully dotted fill ? touching circles, no gaps, no background */
+background-image: radial-gradient(circle at 10px 10px, #670038 0 10px, transparent 10.5px);
+background-size: 20px 20px;
+background-repeat: repeat-x;
+background-position: left center;
 transform-origin: left center;
-filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.25));
 }
 
 .loader-status {
