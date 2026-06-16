@@ -115,6 +115,9 @@ document.addEventListener("visibilitychange", () => {
    SITE LOADER
 ========================= */
 
+// "rise" = dots pop up one-by-one | "bgfill" = current fill bar (say "revert" to switch back)
+const LOADER_BAR_MODE = prefersReducedMotion ? "bgfill" : "rise"
+
 const LOADER_STATUSES = [
     "initializing print farm",
     "loading materials",
@@ -253,6 +256,31 @@ function initSiteLoader(onComplete) {
     const bar = loader.querySelector(".loader-bar")
     const percentEl = loader.querySelector(".loader-percent span")
     const statusEl = loader.querySelector(".loader-status")
+    let dotEls = null
+    let totalDots = 0
+
+    if (bar) {
+        bar.classList.remove("loader-bar--bgfill", "loader-bar--rise")
+        bar.classList.add(LOADER_BAR_MODE === "rise" ? "loader-bar--rise" : "loader-bar--bgfill")
+
+        if (LOADER_BAR_MODE === "rise") {
+            const track = bar.parentElement
+            const step = 16 // 14px dot + 2px gap
+            totalDots = Math.max(8, Math.floor(((track?.clientWidth || 320) + 2) / step))
+            bar.style.width = "100%"
+            bar.innerHTML = ""
+            dotEls = []
+
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement("span")
+                dot.className = "loader-dot"
+                dot.style.setProperty("--i", String(i))
+                bar.appendChild(dot)
+                dotEls.push(dot)
+            }
+        }
+    }
+
     const progress = { val: 0 }
     let pageLoaded = document.readyState === "complete"
     let minTimeDone = false
@@ -291,8 +319,17 @@ function initSiteLoader(onComplete) {
             const n = Math.round(progress.val)
             if (percentEl) percentEl.textContent = String(n)
             if (bar) {
-                bar.style.width = `${n}%`
-                bar.classList.toggle("has-progress", n > 0)
+                if (LOADER_BAR_MODE === "rise") {
+                    const count = Math.max(0, Math.min(totalDots, Math.round((n / 100) * totalDots)))
+                    if (dotEls) {
+                        for (let i = 0; i < dotEls.length; i++) {
+                            dotEls[i].classList.toggle("is-on", i < count)
+                        }
+                    }
+                } else {
+                    bar.style.width = `${n}%`
+                    bar.classList.toggle("has-progress", n > 0)
+                }
             }
             if (statusEl) {
                 const idx = Math.min(
