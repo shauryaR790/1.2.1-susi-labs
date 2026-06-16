@@ -3053,14 +3053,25 @@ margin-bottom: 16px;
 .loader-bar {
 width: 0%;
 height: 100%;
-/* fully dotted fill ? touching circles, no gaps, no background */
+position: relative;
+/* dotted fill + end-cap dot so last one is always complete */
 background-image: radial-gradient(circle at 8px 50%, #670038 0 7px, transparent 7.5px);
 background-size: 16px 18px;
 background-repeat: repeat-x;
 background-position: left center;
 transform-origin: left center;
--webkit-mask: linear-gradient(90deg, #000 0, #000 calc(100% - 16px), transparent calc(100% - 16px), transparent 100%);
-mask: linear-gradient(90deg, #000 0, #000 calc(100% - 16px), transparent calc(100% - 16px), transparent 100%);
+}
+
+.loader-bar::after {
+content: "";
+position: absolute;
+right: 0;
+top: 50%;
+width: 14px;
+height: 14px;
+transform: translate(0, -50%);
+background: #670038;
+border-radius: 999px;
 }
 
 .loader-status {
@@ -9744,5 +9755,6 @@ body.mobile-nav-open {
         transform: none;
     }
 }
+
 
 
