@@ -3066,6 +3066,8 @@ background-image: radial-gradient(circle at calc(var(--step) / 2) 50%, #670038 0
 background-size: var(--step) 100%;
 background-repeat: repeat-x;
 background-position: 0 50%;
+background-origin: content-box;
+background-clip: content-box;
 
 transform-origin: left center;
 }
