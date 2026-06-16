@@ -1,4 +1,4 @@
-ï»¿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -1675,7 +1675,7 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 /* =========================
-RESPONSIVE â€” TABLET
+RESPONSIVE — TABLET
 ========================= */
 
 @media (max-width: 1400px) {
@@ -2178,7 +2178,7 @@ body.hero-nav-compact .print-marquee.print-marquee--hero {
 }
 
 /* =========================
-RESPONSIVE â€” MOBILE
+RESPONSIVE — MOBILE
 ========================= */
 
 @media (max-width: 768px) {
@@ -2869,7 +2869,7 @@ to {
 }
 }
 
-/* Hero top ticker â€” overrides MUST sit after .print-marquee (kills 36px padding bug) */
+/* Hero top ticker — overrides MUST sit after .print-marquee (kills 36px padding bug) */
 
 .print-marquee.print-marquee--hero {
     position: absolute;
@@ -3059,8 +3059,8 @@ background-size: 16px 18px;
 background-repeat: repeat-x;
 background-position: left center;
 transform-origin: left center;
--webkit-mask: linear-gradient(90deg, #000 0, #000 calc(100% - 8px), transparent 100%);
-mask: linear-gradient(90deg, #000 0, #000 calc(100% - 8px), transparent 100%);
+-webkit-mask: linear-gradient(90deg, #000 0, #000 calc(100% - 16px), transparent calc(100% - 16px), transparent 100%);
+mask: linear-gradient(90deg, #000 0, #000 calc(100% - 16px), transparent calc(100% - 16px), transparent 100%);
 }
 
 .loader-status {
@@ -3169,7 +3169,7 @@ transform: translateY(-50%);
 animation-delay: 0.85s;
 }
 
-/* Inner ring â€” extra PokÃ©mon in empty space */
+/* Inner ring — extra Pokémon in empty space */
 .loader-squad-inner {
 position: absolute;
 inset: 0;
@@ -3285,7 +3285,7 @@ to {
 }
 
 @media (max-width: 600px) {
-/* mobile â€” two vertical columns, left + right edges */
+/* mobile — two vertical columns, left + right edges */
 .loader-mon {
     width: clamp(34px, 9vw, 46px);
     transform: none;
@@ -4475,7 +4475,7 @@ body.is-order-transitioning {
     }
 }
 
-/* Mobile: "Print Forge" â€” bed lock, orbiting nozzle, glitch stamp (1.2s). */
+/* Mobile: "Print Forge" — bed lock, orbiting nozzle, glitch stamp (1.2s). */
 @media (max-width: 768px) {
     .order-transition {
         overflow: hidden;
@@ -5065,7 +5065,7 @@ body.is-order-transitioning {
         justify-content: flex-start;
     }
 
-    /* Order Now page â€” mobile: logo | ORDER NOW | cart on one row */
+    /* Order Now page — mobile: logo | ORDER NOW | cart on one row */
     body.products-page:not(.cart-page):not(.product-page) .products-layout {
         display: grid;
         grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
@@ -5697,7 +5697,7 @@ html.cart-intro {
     text-decoration: none;
 }
 
-/* Keep-shopping card â€” product-card shape, empty-cart messaging */
+/* Keep-shopping card — product-card shape, empty-cart messaging */
 .cart-shop-more {
     display: flex;
     flex-direction: column;
@@ -7601,7 +7601,7 @@ body.custom-build-success-page .checkout-success__meta strong {
 }
 
 /* =========================
-   CUSTOM DESKTOP CURSOR â€” oversized arrow pointer
+   CUSTOM DESKTOP CURSOR — oversized arrow pointer
 ========================= */
 
 html.susi-custom-cursor,
@@ -7609,7 +7609,7 @@ html.susi-custom-cursor * {
     cursor: url("images/susi-cursor-arrow.svg") 2 1, auto !important;
 }
 
-/* Footer legal links â€” homepage only */
+/* Footer legal links — homepage only */
 .footer-legal {
     display: flex;
     flex-wrap: wrap;
@@ -8947,7 +8947,7 @@ html.susi-custom-cursor * {
     color: #000;
 }
 
-/* Products page profile â€” overrides base .profile-nav transparent styles */
+/* Products page profile — overrides base .profile-nav transparent styles */
 .profile-nav.profile-nav--products {
     color: #000000;
     background: #FF7F00;
@@ -9549,7 +9549,7 @@ body.hero-auth-open {
     }
 }
 
-/* â”€â”€ Mobile hamburger nav (all pages) â”€â”€ */
+/* -- Mobile hamburger nav (all pages) -- */
 
 .mobile-nav__toggle {
     display: none;
@@ -9744,4 +9744,5 @@ body.mobile-nav-open {
         transform: none;
     }
 }
+
 
