@@ -3059,7 +3059,7 @@ width: 0%;
 height: 100%;
 position: relative;
 box-sizing: border-box;
-padding-right: var(--step); /* reserve space for a full last dot */
+padding-right: calc(var(--step) + (var(--dot) / 2)); /* reserve space + keep dots away from rounded edge */
 
 /* clean dotted fill (no bg) */
 background-image: radial-gradient(circle at calc(var(--step) / 2) 50%, #670038 0 calc(var(--dot) / 2), transparent calc((var(--dot) / 2) + 0.5px));
@@ -3075,7 +3075,7 @@ transform-origin: left center;
 .loader-bar::after {
 content: "";
 position: absolute;
-right: calc(var(--gap) / 2);
+right: calc(var(--dot) / 2);
 top: 50%;
 width: var(--dot);
 height: var(--dot);
