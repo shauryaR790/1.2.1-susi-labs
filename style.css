@@ -2999,8 +2999,8 @@ line-height: 0.82;
 }
 
 .loader-word {
-font-family: 'Anton', sans-serif;
-font-weight: 400;
+font-family: 'Handjet', 'Anton', sans-serif;
+font-weight: 700;
 text-transform: uppercase;
 letter-spacing: -0.045em;
 white-space: nowrap;
